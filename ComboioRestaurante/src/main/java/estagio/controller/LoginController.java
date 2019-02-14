@@ -23,7 +23,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyEvent;
@@ -41,7 +40,6 @@ public class LoginController implements Initializable{
     private JFXPasswordField txt_senha;
     @FXML
     private JFXButton btn_login;
-    private Usuario usuario;
     private UsuarioDAO usuarioDAO;
     public static Usuario logado = new Usuario(); 
     private TextFieldFormatterHelper tffh;
@@ -62,11 +60,12 @@ public class LoginController implements Initializable{
     @FXML
     private MenuItem mi_btnLogin;
     
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public void initialize(URL location, ResourceBundle resources) {
        txt_login.setText("");
        txt_senha.setText("");
-       usuario = new Usuario();
+       new Usuario();
        txt_login.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
        txt_senha.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
     }   

@@ -93,6 +93,7 @@ public class Validadores {
 	}
 
 
+	@SuppressWarnings("unused")
 	public String rg(boolean comPontos) {
 		String  nDigResult;
 		String numerosContatenados;

@@ -15,16 +15,10 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
- 
-/**
- *
- * @author Pereira
- */
-import javafx.scene.layout.StackPane;
+import javafx.stage.Stage; 
 import javafx.stage.Modality;
+
 public class SideMenuController {
 
     @FXML
@@ -40,8 +34,7 @@ public class SideMenuController {
     @FXML
     private JFXButton btn_sair;
     
-    
-    
+        
     public void initialize(URL location, ResourceBundle resources) {
       
        

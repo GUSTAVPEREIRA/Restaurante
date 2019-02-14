@@ -19,10 +19,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
@@ -36,7 +34,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -113,7 +110,8 @@ public class CategoriaController implements Initializable {
      * @param url
      * @param rb
      */
-    @Override
+    @SuppressWarnings("static-access")
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
        desativaTela();
        categoria = new Categoria();
@@ -171,7 +169,8 @@ public class CategoriaController implements Initializable {
         if (erro != true) 
         {
             categoriaDAO = new CategoriaDAO();
-            ButtonType btnNao = new ButtonType("Okay");
+            @SuppressWarnings("unused")
+			ButtonType btnNao = new ButtonType("Okay");
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("");            
             if (categoria.getId() == 0) 

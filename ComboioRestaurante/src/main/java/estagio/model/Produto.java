@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
  *
  * @author Pereira
  */
+@SuppressWarnings("serial")
 @Entity
 public class Produto implements Serializable {
     @Id

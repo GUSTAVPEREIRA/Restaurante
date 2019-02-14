@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
  *
  * @author Pereira
  */
+@SuppressWarnings("serial")
 @Entity
 public class Estado implements Serializable {
   

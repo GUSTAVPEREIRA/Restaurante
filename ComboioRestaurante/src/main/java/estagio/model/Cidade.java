@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
  *
  * @author Pereira
  */
+@SuppressWarnings("serial")
 @Entity
 public class Cidade implements Serializable {
     @Id

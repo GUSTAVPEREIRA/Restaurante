@@ -53,7 +53,7 @@
          <contextMenu>
             <ContextMenu fx:id="ctm_nome">
               <items>
-                <MenuItem fx:id="mi_nome" mnemonicParsing="false" text="mi_nome" />
+                <MenuItem fx:id="mi_nome" mnemonicParsing="false" text="Por favor, insira o nome corretamente." />
               </items>
             </ContextMenu>
          </contextMenu>

@@ -36,7 +36,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -66,7 +65,8 @@ public class CidadeController implements Initializable {
     private List<Estado> listaEstado;
     private ObservableList<Estado> obslEstado;
     private EstadoDAO estadoDAO= new EstadoDAO(); 
-    private Estado estado = new Estado();
+    @SuppressWarnings("unused")
+	private Estado estado = new Estado();
     private Cidade cidade = new Cidade();
     private CidadeDAO cidadeDAO = new CidadeDAO();
     private ObservableList<Cidade> obslCidade;    
@@ -130,7 +130,8 @@ public class CidadeController implements Initializable {
      * @param url
      * @param rb
      */
-    @Override
+    @SuppressWarnings({ "static-access", "unchecked", "rawtypes" })
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
        listaEstado = estadoDAO.listar("");
        obslEstado = FXCollections.observableArrayList(listaEstado);

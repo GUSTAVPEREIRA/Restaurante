@@ -81,7 +81,7 @@ public class UsuarioDAO {
         }
     }
 
-    public boolean deletar(Usuario usuario) {
+    public boolean Deletar(Usuario usuario) {
         boolean deletado = false;
 
         if(!em.isOpen())

@@ -15,6 +15,7 @@ import javax.persistence.Id;
  *desativado
  * @author Pereira
  */
+@SuppressWarnings("serial")
 @Entity
 public class Usuario implements Serializable {
     @Id

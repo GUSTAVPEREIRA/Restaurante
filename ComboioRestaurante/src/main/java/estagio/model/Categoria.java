@@ -16,13 +16,14 @@ import javax.persistence.Id;
  *
  * @author Pereira
  */
+@SuppressWarnings("serial")
 @Entity
 public class Categoria implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="cat_id")
     private Long id;
-    @Column(name="cat_nome")
+    @Column(name="cat_nome",length=100,nullable=false)
     private String nome;
 
     public Categoria() {

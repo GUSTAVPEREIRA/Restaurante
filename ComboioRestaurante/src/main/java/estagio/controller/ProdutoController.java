@@ -146,7 +146,8 @@ public class ProdutoController implements Initializable {
      * @param url
      * @param rb
      */
-    @Override
+    @SuppressWarnings({ "static-access", "unchecked", "rawtypes" })
+	@Override
     public void initialize(URL url, ResourceBundle rb) {
        listProduto = new ArrayList();
        produto = new Produto();      

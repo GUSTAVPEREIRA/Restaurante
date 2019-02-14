@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
  *
  * @author Pereira
  */
+@SuppressWarnings("serial")
 @Entity
 public class Fornecedor implements Serializable {
     
