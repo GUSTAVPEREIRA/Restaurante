@@ -1,0 +1,101 @@
+
+*{
+    -fx-filtro:#0cb388;  -fx-secondary-filtro:#00926D;
+    -fx-novo:#56A5E7;    -fx-secondary-novo:#348FDB;
+    -fx-cancelar:#FFA340;-fx-secondary-cancelar:FA880C;
+    -fx-excluir:#EE4C48; -fx-secondary-excluir:#D3000F;
+    -fx-sair:#EE4C48;    -fx-secondary-sair:#D3000F;
+    -fx-menu:#0cb388;    -fx-secondary-menu:#0cb388;
+    -fx-background-radius:5px;
+    -fx-border-radius:5px;
+    -fx-menuC:#2A2E37; -fx-secondary-menuC:#1e1e22;    
+}
+
+.jfx-button.menuCadastro{
+
+    -fx-background-color: #003333;
+     -fx-text-fill: #fbf6f2;
+     -fx-border-color:-fx-secondary-menuC;
+}
+
+.jfx-button.filtrar {
+     -jfx-button-type: RAISED;
+     -fx-border-color:-fx-secondary-filtro;
+     -fx-background-color: -fx-filtro;
+     -fx-text-fill: #fbf6f2;
+     -fx-border-color:-fx-secondary-filtro;
+
+}
+
+.jfx-button.filtrar:hover {
+     -fx-border-color:-fx-secondary-filtro;
+     -fx-background-color:-fx-secondary-filtro;
+     -fx-text-fill: white;
+}
+
+.jfx-button.novo {
+     -jfx-button-type: RAISED;
+     -fx-border-color:-fx-secondary-novo;
+     -fx-background-color:-fx-novo;
+     -fx-text-fill: #fbf6f2;
+}
+
+.jfx-button.novo:hover {
+     -fx-border-color:-fx-secondary-novo;
+     -fx-background-color:-fx-secondary-novo;
+     -fx-text-fill: white;
+}
+
+.jfx-button.cancelar {
+     -jfx-button-type: RAISED;
+     -fx-border-color:-fx-secondary-cancelar;
+     -fx-background-color:-fx-cancelar;
+     -fx-text-fill: #fbf6f2;
+}
+
+.jfx-button.cancelar:hover {
+     -fx-border-color:-fx-secondary-cancelar;
+     -fx-background-color:-fx-secondary-cancelar;
+     -fx-text-fill: white;
+}
+
+.jfx-button.excluir {
+     -jfx-button-type: RAISED;
+     -fx-border-color:-fx-secondary-excluir;
+     -fx-background-color:-fx-excluir;
+     -fx-text-fill: #fbf6f2;
+}
+
+.jfx-button.excluir:hover {
+     -fx-border-color:-fx-secondary-excluir;
+     -fx-background-color:-fx-secondary-excluir;
+     -fx-text-fill: white;
+}
+
+.jfx-button.sair {
+     -jfx-button-type: RAISED;
+     -fx-border-color:-fx-secondary-sair;
+     -fx-background-color:-fx-sair;
+     -fx-text-fill: #fbf6f2;
+}
+
+.jfx-button.sair:hover {
+     -fx-border-color:-fx-secondary-sair;
+     -fx-background-color:-fx-secondary-sair;
+     -fx-text-fill: white;
+}
+
+.jfx-button.menu{
+     -fx-background-radius:0px;
+     -fx-border-radius:0px;
+     -jfx-button-type: RAISED;
+     -fx-border-color:#cccccc;
+     -fx-background-color:-fx-secondary-menu;
+     -fx-text-fill: #fbf6f2;
+}
+.jfx-button.menu:hover {
+     -fx-border-color:-fx-secondary-menu;
+     -fx-background-color:-fx-secondary-menu;
+     -fx-text-fill: white;
+}
+

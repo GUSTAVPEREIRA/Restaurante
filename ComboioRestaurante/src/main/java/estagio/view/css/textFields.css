@@ -1,0 +1,9 @@
+*{
+    -fx-erro:red;
+}
+
+
+
+.jfx-textfield.contextmenu{
+    -fx-background-color:-fx-erro;
+}

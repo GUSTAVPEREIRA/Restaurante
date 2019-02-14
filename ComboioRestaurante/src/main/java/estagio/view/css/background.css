@@ -1,0 +1,23 @@
+
+* {
+    -fx-primary : #1e1e22;
+    -fx-secondary : #FFFF8D;
+    -fx-primarytext : #B2B2B2;
+    -fx-blue: #1976D2;
+    -fx-red: #FF0000;
+    -fx-color-1:#1976D2;
+}
+
+
+.root{
+    -fx-background-color: whitesmoke;
+    
+}
+.jfx-hamburger
+{
+    -fx-background-color : -fx-primary;
+   
+}
+.jfx-hamburger StackPane {
+	-fx-background-color: white;
+}

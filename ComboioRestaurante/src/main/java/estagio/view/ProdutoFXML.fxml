@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_produto" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ProdutoController">
+   <children>
+      <Label fx:id="lbl_codigo" layoutX="57.0" layoutY="90.0" text="Código">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblCodigo" text="Código do produto." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_codigo" disable="true" focusColor="#5fcda3" layoutX="134.0" layoutY="80.0" maxWidth="231.0" minWidth="131.0" prefHeight="34.0" prefWidth="109.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="276.0" layoutY="83.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+         </graphic>
+      </JFXButton>
+      <Label fx:id="lbl_nome" layoutX="57.0" layoutY="150.0" text="Nome">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblNome" text="Nome do produto." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="397.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_Nome">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Por favor, insira o nome corretamente." />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_fornecedor" layoutX="57.0" layoutY="200.0" text="Fornecedor">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblFornecedor" text="Nome do fornecedor." />
+         </tooltip>
+      </Label>
+      <JFXComboBox fx:id="cbb_forId" layoutX="143.0" layoutY="190.0" prefHeight="25.0" prefWidth="253.0" visibleRowCount="20">
+         <contextMenu>
+            <ContextMenu fx:id="ctm_Fornecedor">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Por favor, selecione o fornecedor corretamente." />
+              </items>
+            </ContextMenu>
+         </contextMenu></JFXComboBox>
+      <Label fx:id="lbl_preco" layoutX="57.0" layoutY="250.0" text="Preço">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblPreco" text="Preço do produto." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_preco" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="240.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="147.0" promptText="R$: 20,00" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_Preco">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Por favor, insira o preço corretamente." />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_preco_compra" layoutX="57.0" layoutY="300.0" text="Compra">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblPrecoC" text="Preço de compra do produto." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_preco_compra" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="290.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="147.0" promptText="R$: 13,00" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_PrecoCompra">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Por favor, insira o preço de compra corretamente." />
+              </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_categoria" layoutX="57.0" layoutY="350.0" text="Categoria">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblCategoria" text="Categoria do produto." />
+         </tooltip>
+      </Label>
+      <JFXComboBox fx:id="cbb_categoria" layoutX="141.0" layoutY="340.0" prefHeight="25.0" prefWidth="253.0" visibleRowCount="20">
+         <contextMenu>
+            <ContextMenu fx:id="ctm_Categoria">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Por favor, selecione a categoria corretamente." />
+              </items>
+            </ContextMenu>
+         </contextMenu></JFXComboBox>
+      <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" layoutX="40.0" layoutY="541.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="15" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="140.0" layoutY="541.0" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="240.0" layoutY="541.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="excluir" stylesheets="@css/buttons.css" text="Excluir" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="340.0" layoutY="541.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="440.0" layoutY="541.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+         </graphic>
+      </JFXButton>
+      <Label layoutX="50.0" layoutY="150.0" text="*" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="200.0" text="*" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="250.0" text="*" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="300.0" text="*" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="50.0" layoutY="350.0" text="*" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="442.0" layoutY="14.0" text="*" textFill="RED">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="458.0" layoutY="14.0" text="Campos obrigatórios" />
+      <AnchorPane fx:id="ap_busca" maxHeight="592.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="592.0" prefWidth="918.0" styleClass="AnchorPane" stylesheets="@css/backgroundCadastro.css" visible="false">
+         <children>
+            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+               </graphic>
+            </JFXButton>
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo fornecedor ou pelo nome." unFocusColor="BLACK" />
+            <TableView fx:id="tb_produto" layoutX="14.0" layoutY="64.0" onMouseClicked="#OnMouseClickedProduto" prefHeight="472.0" prefWidth="753.0">
+               <columns>
+                  <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" text="Código" />
+                  <TableColumn fx:id="tc_nome" editable="false" maxWidth="574.0" minWidth="333.0" prefWidth="333.0" resizable="false" text="Nome" />
+                  <TableColumn fx:id="tc_fornecedor" prefWidth="167.0" text="Fornecedor" />
+                  <TableColumn fx:id="tc_preco" prefWidth="88.0" text="Preço" />
+                  <TableColumn fx:id="tc_preco_compra" prefWidth="88.0" text="Compra" />
+               </columns>
+            </TableView>
+            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="676.0" layoutY="544.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
