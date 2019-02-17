@@ -44,7 +44,7 @@
             <Tooltip fx:id="ttp_lblNome" text="Nome do produto." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="397.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="397.0" promptText="Exemplo carnes..." unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -80,7 +80,7 @@
             <Tooltip fx:id="ttp_lblPreco" text="Preço do produto." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_preco" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="240.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="147.0" promptText="R$: 20,00" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_preco" focusColor="#5fcda3" layoutX="134.0" layoutY="240.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="147.0" promptText="Exemplo 13,00" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -100,7 +100,7 @@
             <Tooltip fx:id="ttp_lblPrecoC" text="Preço de compra do produto." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_preco_compra" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="290.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="147.0" promptText="R$: 13,00" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_preco_compra" focusColor="#5fcda3" layoutX="134.0" layoutY="290.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="147.0" promptText="Exemplo 13,00" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>

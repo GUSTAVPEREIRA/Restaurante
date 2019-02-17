@@ -15,7 +15,8 @@
 		<class>estagio.model.Fornecedor</class>
 		<class>estagio.model.Produto</class>
 		<class>estagio.model.Usuario</class>
-
+		<class>estagio.model.TipoVenda</class>
+		<class>estagio.model.Empresa</class>
 		<!-- Aqui são listadas todas as entidades -->
 
 		<properties>

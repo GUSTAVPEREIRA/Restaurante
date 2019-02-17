@@ -7,13 +7,15 @@ package estagio.view.util;
 
 import javafx.scene.control.TextFormatter;
 
+/**
+ * @author Gabriel L. P. Abreu
+ */
 public class TextFieldFormatterHelper {
 
 	/**
 	 * Validates data insertion per character entered according to charSetRegex.
 	 *
 	 * @param charSetRegex
-     * @return 
 	 */
 	public static TextFormatter<Object> getTextFieldFormatter(String charSetRegex) {
 		return new TextFormatter<>((TextFormatter.Change c) -> {
@@ -36,63 +38,63 @@ public class TextFieldFormatterHelper {
 	 * Validates data insertion per character entered according to charSetRegex and
 	 * prevents insertion beyond the max limit.
 	 *
+	 * @param charSetRegex
+	 * @param max
 	 * @return
 	 */
-        public static TextFormatter<Object> getUpperCaseTextFieldFormatter() {
-
-            return new TextFormatter<>((TextFormatter.Change change) -> {
-
-            if (!change.isContentChange()) 
-            {
-                return change;
-            }
-            if (change.isDeleted()) {
-                return change;
-
-            }            
-            if (change.isReplaced() || change.isAdded() ) 
-            {
-                change.setText(change.getText().toUpperCase());
-                return change;
-            }
-
-			return null;
-		});
-
-        }
 	public static TextFormatter<Object> getTextFieldFormatter(String charSetRegex, int max) {
-		return new TextFormatter<>((TextFormatter.Change c) -> {
-			String text = c.getText();
+		return new TextFormatter<>((TextFormatter.Change change) -> {
 
-			if (!c.isContentChange()) {
-				return c;
-			}
-
-			if (c.getAnchor() > max) {
-				return null;
-			}
-
-			if (!c.isDeleted() && (c.getControlText().length() == max)) {
-				c.setRange(c.getRangeStart(), c.getRangeEnd() + 1);
-				return c;
-
-			}
-			if (text.matches(charSetRegex) || text.isEmpty()) {
-				return c;
-			}
-
-			return null;
+			return formatByCharset(change, charSetRegex, max);
 		});
 
 	}
+
+	public static TextFormatter<Object> getTextFieldToUpperFormatter(String charSetRegex, int max) {
+		return new TextFormatter<>((TextFormatter.Change change) -> {
+			
+			change.setText(change.getText().toUpperCase());
+			
+			return formatByCharset(change, charSetRegex, max);
+		});
+
+	}
+	
+    public static TextFormatter<Object> getUpperCaseTextFieldFormatter() {
+
+        return new TextFormatter<>((TextFormatter.Change change) -> {
+
+        if (!change.isContentChange()) 
+        {
+            return change;
+        }
+        if (change.isDeleted()) {
+            return change;
+
+        }            
+        if (change.isReplaced() || change.isAdded() ) 
+        {
+            change.setText(change.getText().toUpperCase());
+            return change;
+        }
+
+		return null;
+	});
+
+    }
 
 	public static TextFormatter<Object> getTextFieldDoubleFormatter(int max, int maxscale) {
 
 		return new TextFormatter<>((TextFormatter.Change change) -> {
 			// DecimalFormatSymbols decimal = new DecimalFormatSymbols(Locale.getDefault());
 			// String sep = String.valueOf(decimal.getDecimalSeparator());
-			String sep = ",";
+			String localSep = ",";
+			String sep = ".";
 
+			if(change.getText().contains(localSep)) {
+				change.setText(change.getText().replace(localSep, sep));
+			}
+			
 			if (change.getControlNewText().length() > max) {
 				return null;
 			}
@@ -137,7 +139,7 @@ public class TextFieldFormatterHelper {
 	 */
 	public static TextFormatter<Object> getTextFieldMaskFormatter(String charSetRegex, String mask) {
 		return new TextFormatter<>((TextFormatter.Change c) -> {
-			
+
 			return formatByCharsetAndMask(c, charSetRegex, mask);
 		});
 
@@ -210,7 +212,39 @@ public class TextFieldFormatterHelper {
 	}
 
 	/**
-	 * Validates TextFormatter,Change instance per character entered according to
+	 * Validates TextFormatter.Change per character entered according to
+	 * charSetRegex and prevents insertion beyond the max limit.
+	 * _
+	 * @param charSetRegex
+	 * @param max
+	 * @return TextFormatter.Change
+	 */
+	private static TextFormatter.Change formatByCharset(TextFormatter.Change change, String charSetRegex, int max) {
+
+		String text = change.getText();
+
+		if (!change.isContentChange()) {
+			return change;
+		}
+
+		if (change.getAnchor() > max) {
+			return null;
+		}
+
+		if (!change.isDeleted() && (change.getControlText().length() == max)) {
+			change.setRange(change.getRangeStart(), change.getRangeEnd() + 1);
+			return change;
+
+		}
+		if (text.matches(charSetRegex) || text.isEmpty()) {
+			return change;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Validates TextFormatter.Change instance per character entered according to
 	 * charSetRegex and mask, the mask is composed by '#' and any other character,
 	 * valid characters entered are placed in place of '#' and other characters in
 	 * the mask are cloned in the correct position, also, mask limits the size.
@@ -220,7 +254,8 @@ public class TextFieldFormatterHelper {
 	 * @param mask
 	 * @return TextFormatter.Change
 	 */
-	private static TextFormatter.Change formatByCharsetAndMask(TextFormatter.Change change, String charSetRegex, String mask) {
+	private static TextFormatter.Change formatByCharsetAndMask(TextFormatter.Change change, String charSetRegex,
+			String mask) {
 
 		String text = change.getText();
 
@@ -232,7 +267,6 @@ public class TextFieldFormatterHelper {
 			return change;
 		}
 
-		
 		if (!change.isDeleted() && change.getRangeEnd() < mask.length() || change.isReplaced()) {
 
 			if (change.getControlText().length() == mask.length() && !change.isReplaced()) {
@@ -277,22 +311,22 @@ public class TextFieldFormatterHelper {
 		}
 
 		if (change.getText().length() == mask.length()) {
-			
+
 			boolean flag = true;
-			
+
 			for (int i = 0; i < mask.length() && flag; i++) {
 				if (mask.charAt(i) == '#') {
-					flag = (""+change.getText().charAt(i)).matches(charSetRegex);
-				}else  {
+					flag = ("" + change.getText().charAt(i)).matches(charSetRegex);
+				} else {
 					flag = change.getText().charAt(i) == mask.charAt(i);
 				}
 			}
-			
-			if(flag) {
+
+			if (flag) {
 				return change;
 			}
 		}
-		
+
 		return null;
 	}
 }

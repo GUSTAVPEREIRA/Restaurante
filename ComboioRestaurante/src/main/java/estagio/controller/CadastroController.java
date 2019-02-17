@@ -15,7 +15,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-
 /**
  *
  * @author Pereira
@@ -23,101 +22,107 @@ import javafx.scene.layout.VBox;
 public class CadastroController {
 //xml jobson ensinando a bugar
 
-    @FXML
-    private AnchorPane ap_cadastros;
-    @FXML
-    private JFXButton Categoria;
-    @FXML
-    private JFXButton Cliente;
-    @FXML
-    private JFXButton Cidade;
-    @FXML
-    private JFXButton Estado;
-    @FXML
-    private JFXButton Empresa;
-    @FXML
-    private JFXButton Produto;
-    @FXML
-    private JFXButton Usuario;
-    @FXML
-    private VBox VB_Menu;
-    @FXML
-    private JFXButton Fornecedor;
-    @FXML
-    private JFXDrawer draw_menu;
-    @FXML
-    private JFXButton Sair;
-    private Node node;
-    @FXML
-    private AnchorPane ap_menu;
-    public void inicialization()
-    {
+	@FXML
+	private AnchorPane ap_cadastros;
+	@FXML
+	private JFXButton Categoria;
+	@FXML
+	private JFXButton Cliente;
+	@FXML
+	private JFXButton Cidade;
+	@FXML
+	private JFXButton Estado;
+	@FXML
+	private JFXButton Empresa;
+	@FXML
+	private JFXButton Produto;
+	@FXML
+	private JFXButton Usuario;
+	@FXML
+	private VBox VB_Menu;
+	@FXML
+	private JFXButton Fornecedor;
+	@FXML
+	private JFXButton TipoVenda;
+	@FXML
+	private JFXDrawer draw_menu;
+	@FXML
+	private JFXButton Sair;
+	private Node node;
+	@FXML
+	private AnchorPane ap_menu;
 
- 
-    }
+	public void inicialization() {
 
-    @FXML
-    private void OnActionCategoria(ActionEvent event) throws IOException {
-        
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/CategoriaFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+	}
 
-    @FXML
-    private void OnActionCliente(ActionEvent event) throws IOException {
-        
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/ClienteFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+	@FXML
+	private void OnActionCategoria(ActionEvent event) throws IOException {
 
-    @FXML
-    private void OnActionCidade(ActionEvent event) throws IOException {
-    
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/CidadeFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CategoriaFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
 
-    @FXML
-    private void OnActionEstado(ActionEvent event) throws IOException {
-        
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/EstadoFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+	@FXML
+	private void OnActionCliente(ActionEvent event) throws IOException {
 
-    @FXML
-    private void OnActionEmpresa(ActionEvent event) throws IOException {
-    
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/EmpresaFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/ClienteFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
 
-    @FXML
-    private void OnActionProduto(ActionEvent event) throws IOException {
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/ProdutoFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+	@FXML
+	private void OnActionCidade(ActionEvent event) throws IOException {
 
-    @FXML
-    private void OnActionUsuario(ActionEvent event) throws IOException {
-        
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/UsuarioFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CidadeFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
 
-    @FXML
-    private void OnActionFornecedor(ActionEvent event) throws IOException {
-        
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/FornecedorFXML.fxml"));
-        ap_cadastros.getChildren().setAll(node);
-    }
+	@FXML
+	private void OnActionEstado(ActionEvent event) throws IOException {
 
-    @FXML
-    private void OnActionSair(ActionEvent event) throws IOException{
-     
-        node = (Node)FXMLLoader.load(getClass().getResource("/estagio/view/MenuFXML.fxml"));
-        ap_menu.getChildren().setAll(node);        
-    }
-    
-    
-    
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/EstadoFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+
+	@FXML
+	private void OnActionEmpresa(ActionEvent event) throws IOException {
+
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/EmpresaFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+
+	@FXML
+	private void OnActionProduto(ActionEvent event) throws IOException {
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/ProdutoFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+
+	@FXML
+	private void OnActionUsuario(ActionEvent event) throws IOException {
+
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/UsuarioFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+
+	@FXML
+	private void OnActionFornecedor(ActionEvent event) throws IOException {
+
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/FornecedorFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+
+	@FXML
+	private void OnActionSair(ActionEvent event) throws IOException {
+
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/MenuFXML.fxml"));
+		ap_menu.getChildren().setAll(node);
+	}
+
+	@FXML
+	void OnActionTipoVenda(ActionEvent event) throws IOException {
+
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/TipoVendaFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+
 }

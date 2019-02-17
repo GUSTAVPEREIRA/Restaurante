@@ -12,15 +12,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="estagio.controller.TipoVendaController">
+<AnchorPane id="AnchorPane" fx:id="ap_tipoVenda" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.TipoVendaController">
    <children>
-      <JFXTextField fx:id="txt_codigo" disable="true" focusColor="#5fcda3" layoutX="144.0" layoutY="100.0" maxWidth="231.0" minWidth="131.0" prefHeight="34.0" prefWidth="109.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_codigo" disable="true" focusColor="#5fcda3" layoutX="134.0" layoutY="80.0" maxWidth="231.0" minWidth="131.0" prefHeight="34.0" prefWidth="109.0" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
       </JFXTextField>
-      <Label fx:id="lbl_codigo" layoutX="67.0" layoutY="105.0" text="Código">
+      <Label fx:id="lbl_codigo" layoutX="57.0" layoutY="90.0" text="Código">
          <font>
             <Font size="14.0" />
          </font>
@@ -28,7 +27,7 @@
             <Tooltip fx:id="ttp_lblCodigo" text="Código do cadastro do tipo de venda." />
          </tooltip>
       </Label>
-      <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="286.0" layoutY="93.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
+      <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="286.0" layoutY="80.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -39,7 +38,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
          </graphic>
       </JFXButton>
-      <Label fx:id="lbl_nome" layoutX="67.0" layoutY="160.0" text="Nome">
+      <Label fx:id="lbl_nome" layoutX="57.0" layoutY="150.0" text="Nome">
          <font>
             <Font size="14.0" />
          </font>
@@ -47,7 +46,7 @@
             <Tooltip fx:id="ttp_Nome" text="Este é o nome do tipo de venda." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="150.0" maxWidth="400.0" minWidth="131.0" onKeyTyped="#Limitetxt_nome" prefHeight="35.0" prefWidth="400.0" promptText="Exemplo: Restaurante..." styleClass="contextmenu" stylesheets="@css/textFields.css" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="140.0" maxWidth="400.0" minWidth="131.0" onKeyTyped="#Limitetxt_nome" prefHeight="35.0" prefWidth="400.0" promptText="Exemplo: Restaurante.." styleClass="contextmenu" stylesheets="@css/textFields.css" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -115,7 +114,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
          </graphic>
       </JFXButton>
-      <Label layoutX="60.0" layoutY="161.0" text="*" textFill="RED">
+      <Label layoutX="50.0" layoutY="151.0" text="*" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>

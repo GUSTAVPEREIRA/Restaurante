@@ -121,7 +121,8 @@ public class UsuarioDAO {
  
     }
     
-    public Usuario login_dup(String busca) {
+    @SuppressWarnings("unchecked")
+	public Usuario login_dup(String busca) {
         String jpql;
         Usuario usuario = null;
         List<Usuario> retorno = new ArrayList<Usuario>();

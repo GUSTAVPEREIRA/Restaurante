@@ -221,11 +221,13 @@ public class FornecedorController implements Initializable {
 		txt_codigo.setText("" + fornecedor.getId());
 		txt_telefone.setText(fornecedor.getTelefone());
 		txt_ie.setText(fornecedor.getIe());
+		cbb_est.getSelectionModel().select(1);
 		cbb_est.getSelectionModel().select(fornecedor.getCidade().getEstado());
 		listaCidade = cidadeDAO.listCidadesPEstado(cbb_est.getSelectionModel().selectedItemProperty().getValue());
 		obslCidade = FXCollections.observableArrayList(listaCidade);
 		cbb_cidade.setDisable(false);
 		cbb_cidade.setItems(obslCidade);
+		cbb_cidade.getSelectionModel().select(1);
 		cbb_cidade.getSelectionModel().select(fornecedor.getCidade());
 	}
 

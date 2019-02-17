@@ -157,9 +157,11 @@ public class ProdutoController implements Initializable {
        listaFornecedor = fornecedorDAO.listar("");
        obslFornecedor = FXCollections.observableArrayList(listaFornecedor);
        cbb_forId.setItems(obslFornecedor);       
+       cbb_forId.getSelectionModel().select(-1);
        listaCategoria = categoriaDAO.listar("");
        obslCategoria = FXCollections.observableArrayList(listaCategoria);
        cbb_categoria.setItems(obslCategoria);      
+       cbb_categoria.getSelectionModel().select(-1);
        tffh = new TextFieldFormatterHelper();
        txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
        txt_preco.setTextFormatter(tffh.getTextFieldDoubleFormatter(15, 2));
@@ -404,28 +406,7 @@ public class ProdutoController implements Initializable {
         categoriaDAO = new CategoriaDAO();
         produtoDAO = new ProdutoDAO();
     }
-    
-    public void setFornecedor()
-    {                
-        Fornecedor auxFornecedor;
-        auxFornecedor = fornecedorDAO.listar(produto.getFornecedor().getId());
-        if (cbb_forId.getSelectionModel().getSelectedItem() != auxFornecedor) {
-            cbb_forId.getSelectionModel().select(null);
-            cbb_forId.getSelectionModel().select(auxFornecedor);
-        }        
-    }
-    
-    public void setCategoria()
-    {        
-        Categoria auxCategoria;
-        auxCategoria = categoriaDAO.listar(produto.getCategoria().getId());
-        if (cbb_categoria.getSelectionModel().getSelectedItem() != auxCategoria)
-        {
-            cbb_categoria.getSelectionModel().select(null);
-            cbb_categoria.getSelectionModel().select(auxCategoria);
-        }        
-    }
-    
+
     public void setProduto(Produto produto)
     {    
         resetaDAO();
@@ -434,8 +415,10 @@ public class ProdutoController implements Initializable {
         txt_codigo.setText(""+produto.getId());
         txt_preco.setText(Double.toString(produto.getPreco()).replace(".", ","));
         txt_preco_compra.setText(Double.toString(produto.getPreco_compra()).replace(".", ","));
-        setFornecedor();
-        setCategoria();
+        cbb_forId.getSelectionModel().select(1); 
+        cbb_forId.getSelectionModel().select(produto.getFornecedor());    
+        cbb_categoria.getSelectionModel().select(1);  
+        cbb_categoria.getSelectionModel().select(produto.getCategoria());    
         limpaBuscas();
         ativaTela();
     }

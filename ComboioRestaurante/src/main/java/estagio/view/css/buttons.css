@@ -1,9 +1,9 @@
 
 *{
-    -fx-filtro:#0cb388;  -fx-secondary-filtro:#00926D;
+    -fx-filtro:#0cb388;  -fx-secondary-filtro:#00A279;
     -fx-novo:#56A5E7;    -fx-secondary-novo:#348FDB;
     -fx-cancelar:#FFA340;-fx-secondary-cancelar:FA880C;
-    -fx-excluir:#EE4C48; -fx-secondary-excluir:#D3000F;
+    -fx-excluir:#EE4C48; -fx-secondary-excluir:#FF211B;
     -fx-sair:#EE4C48;    -fx-secondary-sair:#D3000F;
     -fx-menu:#0cb388;    -fx-secondary-menu:#0cb388;
     -fx-background-radius:5px;
@@ -13,9 +13,12 @@
 
 .jfx-button.menuCadastro{
 
-    -fx-background-color: #003333;
+    -fx-background-color: #297971;
      -fx-text-fill: #fbf6f2;
      -fx-border-color:-fx-secondary-menuC;
+}
+.jfx-button.menuCadastro:hover{
+	     -fx-background-color: #1CA899;
 }
 
 .jfx-button.filtrar {

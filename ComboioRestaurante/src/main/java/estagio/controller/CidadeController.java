@@ -287,10 +287,8 @@ public class CidadeController implements Initializable {
         this.cidade = cidade;
         txt_nome.setText(cidade.getNome());
         txt_codigo.setText(""+cidade.getId());
-        estadoDAO = new EstadoDAO();
-        Estado aux = new Estado();
-        aux = estadoDAO.listar(cidade.getEstado().getId());
-        cbb_estId.getSelectionModel().select(aux);
+        cbb_estId.getSelectionModel().select(1);
+        cbb_estId.getSelectionModel().select(cidade.getEstado());
         limpaBuscas();       
         ativaTela();
     }
