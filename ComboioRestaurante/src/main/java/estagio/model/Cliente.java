@@ -5,138 +5,124 @@
  */
 package estagio.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  *
  * @author Pereira
  */
 public class Cliente {
-    
-    private int cli_id;
-    private String cli_nome;
-    private String cli_estado_civil;
-    private String cli_rg;
-    private String cli_cpf;
-    private String cli_telefone;
-    private String cli_celular;
-    private String cli_cep;
-    private String cli_cnpj;
-    private String clli_ie;
-    private Cidade cidade;
 
-    public Cliente() {
-    }
-    //Cliente do tipo PF
-    public Cliente(int cli_id, String cli_nome, String cli_estado_civil, String cli_rg, String cli_cpf, String cli_telefone, String cli_celular, String cli_cep, Cidade cidade) {
-        this.cli_id = cli_id;
-        this.cli_nome = cli_nome;
-        this.cli_estado_civil = cli_estado_civil;
-        this.cli_rg = cli_rg;
-        this.cli_cpf = cli_cpf;
-        this.cli_telefone = cli_telefone;
-        this.cli_celular = cli_celular;
-        this.cli_cep = cli_cep;
-        this.cidade = cidade;
-    }
-    //Cliente do tipo PJ
-    public Cliente(int cli_id, String cli_nome, String cli_telefone, String cli_celular, String cli_cep, String cli_cnpj, String clli_ie, Cidade cidade) {
-        this.cli_id = cli_id;
-        this.cli_nome = cli_nome;
-        this.cli_telefone = cli_telefone;
-        this.cli_celular = cli_celular;
-        this.cli_cep = cli_cep;
-        this.cli_cnpj = cli_cnpj;
-        this.clli_ie = clli_ie;
-        this.cidade = cidade;
-    }
+	@Id
+	@GeneratedValue()
+	private int id;
 
-    public int getCli_id() {
-        return cli_id;
-    }
+	private String nome;
 
-    public void setCli_id(int cli_id) {
-        this.cli_id = cli_id;
-    }
+	private String estado_civil;
 
-    public String getCli_nome() {
-        return cli_nome;
-    }
+	private String rg;
 
-    public void setCli_nome(String cli_nome) {
-        this.cli_nome = cli_nome;
-    }
+	private String cpf;
 
-    public String getCli_estado_civil() {
-        return cli_estado_civil;
-    }
+	private String telefone;
 
-    public void setCli_estado_civil(String cli_estado_civil) {
-        this.cli_estado_civil = cli_estado_civil;
-    }
+	private String celular;
+	private String cep;
+	private String cnpj;
+	private String ie;
+	private Cidade cidade;
 
-    public String getCli_rg() {
-        return cli_rg;
-    }
+	public Cliente() {
+	}
 
-    public void setCli_rg(String cli_rg) {
-        this.cli_rg = cli_rg;
-    }
+	public int getId() {
+		return id;
+	}
 
-    public String getCli_cpf() {
-        return cli_cpf;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setCli_cpf(String cli_cpf) {
-        this.cli_cpf = cli_cpf;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getCli_telefone() {
-        return cli_telefone;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setCli_telefone(String cli_telefone) {
-        this.cli_telefone = cli_telefone;
-    }
+	public String getEstado_civil() {
+		return estado_civil;
+	}
 
-    public String getCli_celular() {
-        return cli_celular;
-    }
+	public void setEstado_civil(String estado_civil) {
+		this.estado_civil = estado_civil;
+	}
 
-    public void setCli_celular(String cli_celular) {
-        this.cli_celular = cli_celular;
-    }
+	public String getRg() {
+		return rg;
+	}
 
-    public String getCli_cep() {
-        return cli_cep;
-    }
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
 
-    public void setCli_cep(String cli_cep) {
-        this.cli_cep = cli_cep;
-    }
+	public String getCpf() {
+		return cpf;
+	}
 
-    public String getCli_cnpj() {
-        return cli_cnpj;
-    }
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-    public void setCli_cnpj(String cli_cnpj) {
-        this.cli_cnpj = cli_cnpj;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public String getClli_ie() {
-        return clli_ie;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public void setClli_ie(String clli_ie) {
-        this.clli_ie = clli_ie;
-    }
+	public String getCelular() {
+		return celular;
+	}
 
-    public Cidade getCidade() {
-        return cidade;
-    }
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
 
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
-    
-    
-    
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public String getIe() {
+		return ie;
+	}
+
+	public void setIe(String ie) {
+		this.ie = ie;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
 }

@@ -70,5 +70,16 @@ public class Estado implements Serializable {
         return getNome();      
     }
     
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj instanceof Estado) {
+			Estado est = (Estado)obj;
+    		if (est.getNome().equals(this.nome) && est.getId().equals(this.id)) {
+				return true;
+			}
+		}
+    	return false;
+    }
+    
     
 }

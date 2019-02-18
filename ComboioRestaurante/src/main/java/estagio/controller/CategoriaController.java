@@ -121,7 +121,9 @@ public class CategoriaController implements Initializable {
 		txt_nome.setPromptText("Exemplo:Bebidas...");
 		mi_nome.setText("Por favor, insira o nome corretamente.");
 		ctm_nome.getItems().add(mi_nome);
-		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9]+", 100));
+		//	\\u00C0-\\u00FF São os caracteres unicodes latinos que podem ser encontrados 
+		//	http://www.fileformat.info/info/unicode/block/latin_supplement/list.htm
+		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
 		listaCategoria = new ArrayList<>();
 

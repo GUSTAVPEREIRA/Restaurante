@@ -74,6 +74,16 @@ public class Cidade implements Serializable {
         return getNome();
     }
     
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj instanceof Cidade) {
+			Cidade cid = (Cidade)obj;
+			if (cid.getEstado().equals(this.estado) && cid.getNome().equals(this.nome) && cid.getId().equals(this.id)) {
+				return true;
+			}
+		}
+    	return false;
+    }
   
     
 }

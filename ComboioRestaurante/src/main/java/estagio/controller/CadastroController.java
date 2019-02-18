@@ -86,7 +86,6 @@ public class CadastroController {
 
 	@FXML
 	private void OnActionEmpresa(ActionEvent event) throws IOException {
-
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/EmpresaFXML.fxml"));
 		ap_cadastros.getChildren().setAll(node);
 	}
