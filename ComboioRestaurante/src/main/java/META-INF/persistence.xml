@@ -17,6 +17,9 @@
 		<class>estagio.model.Usuario</class>
 		<class>estagio.model.TipoVenda</class>
 		<class>estagio.model.Empresa</class>
+		<class>estagio.model.Cliente</class>
+		<class>estagio.model.ClientePF</class>
+		<class>estagio.model.ClientePJ</class>
 		<!-- Aqui são listadas todas as entidades -->
 
 		<properties>

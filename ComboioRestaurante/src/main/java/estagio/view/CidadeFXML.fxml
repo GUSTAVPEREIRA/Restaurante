@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
@@ -143,7 +144,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="ap_busca" layoutY="-1.0" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" stylesheets="@css/backgroundCadastro.css" visible="false">
+      <AnchorPane fx:id="ap_busca" layoutY="-1.0" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" visible="false">
          <children>
             <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
                <font>
@@ -170,6 +171,10 @@
                </graphic>
             </JFXButton>
          </children>
+         <stylesheets>
+            <URL value="@css/backgroundCadastro.css" />
+            <URL value="@css/tableView.css" />
+         </stylesheets>
       </AnchorPane>
    </children>
 </AnchorPane>

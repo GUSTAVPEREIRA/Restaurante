@@ -5,13 +5,16 @@
  */
 package estagio.dao;
 
-import estagio.model.Usuario;
-import estagio.view.util.JPAUtil;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+
+import estagio.model.Usuario;
+import estagio.view.util.JPAUtil;
 
 /**
  *
@@ -203,7 +206,7 @@ public class UsuarioDAO {
                 jpql = "select m from Usuario m where m.nome like :pBusca "
                         + "OR m.login like :pBusca order by m.nome";  
 
-            Query query = em.createQuery(jpql);
+            TypedQuery<Usuario> query = em.createQuery(jpql,Usuario.class);
             if (busca.equals("") == false) 
             query.setParameter("pBusca", "%"+busca+"%");  
             retorno = query.getResultList();
@@ -235,7 +238,7 @@ public class UsuarioDAO {
         try
         {
             jpql = "select m from Usuario m where m.login = :pLogin and m.senha = :pSenha";  
-            Query query = em.createQuery(jpql);
+            TypedQuery<Usuario> query = em.createQuery(jpql,Usuario.class);
             query.setParameter("pLogin", login);
             query.setParameter("pSenha", senha);
             retorno = query.getResultList();

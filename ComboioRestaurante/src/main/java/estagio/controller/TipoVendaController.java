@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import estagio.dao.TipoVendaDAO;
 import estagio.model.TipoVenda;
+import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -216,12 +217,13 @@ public class TipoVendaController implements Initializable {
 		dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
 		dialogoExe.showAndWait().ifPresent(b -> {
 			if (b == btnSim) {
+				FXNotification fxn;
 				if (txt_codigo.getText().equals("") != true && !txt_codigo.getText().isEmpty()) {
 					tipoVenda.setId(Long.parseLong(txt_codigo.getText()));
 					tipoVendaDAO.Deletar(tipoVenda);
-					Alert alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setContentText("Categoria " + tipoVenda.getNome() + " Excluido");
-					alert.show();
+					fxn = new FXNotification("Novo produto: " + tipoVenda.getNome() + " foi excluido.",
+							FXNotification.NotificationType.INFORMATION);
+					fxn.show();
 				}
 				desativaTela();
 			}
@@ -256,19 +258,18 @@ public class TipoVendaController implements Initializable {
 
 		if (erro != true) {
 			tipoVendaDAO = new TipoVendaDAO();
-			@SuppressWarnings("unused")
-			ButtonType btnNao = new ButtonType("Okay");
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("");
+			FXNotification fxn;
 			if (tipoVenda.getId() == 0) {
 				tipoVenda.setId(null);
 				tipoVendaDAO.inserir(tipoVenda);
-				alert.setContentText("Tipo de venda " + tipoVenda.getNome() + " Inserida");
+				fxn = new FXNotification("Tipo de venda " + tipoVenda.getNome() + " Inserida",
+						FXNotification.NotificationType.INFORMATION);
 			} else {
 				tipoVendaDAO.alterar(tipoVenda);
-				alert.setContentText("Tipo de venda " + tipoVenda.getNome() + " Alterada");
+				fxn = new FXNotification("Tipo de venda " + tipoVenda.getNome() + " Alterada",
+						FXNotification.NotificationType.INFORMATION);
 			}
-			alert.show();
+			fxn.show();
 			desativaTela();
 		}
 

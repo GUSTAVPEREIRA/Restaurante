@@ -5,21 +5,29 @@
  */
 package estagio.controller;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
-import java.io.IOException;
+
+import estagio.ui.notifications.FXNotificationFactory;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
  *
  * @author Pereira
  */
-public class CadastroController {
+public class CadastroController implements Initializable {
 //xml jobson ensinando a bugar
 
 	@FXML
@@ -50,15 +58,26 @@ public class CadastroController {
 	private JFXButton Sair;
 	private Node node;
 	@FXML
-	private AnchorPane ap_menu;
+	private AnchorPane ap_menu;	
+    @FXML
+    private StackPane stack_cadastros;
 
-	public void inicialization() {
-
-	}
+    @Override
+    	public void initialize(URL url, ResourceBundle rb) {
+    		Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					FXNotificationFactory.initialize(stack_cadastros);					
+				}
+			});
+    	}
 
 	@FXML
 	private void OnActionCategoria(ActionEvent event) throws IOException {
 
+//		FXNotification fxn = new FXNotification("Gravado com sucesso");
+//		fxn.show();
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CategoriaFXML.fxml"));
 		ap_cadastros.getChildren().setAll(node);
 	}

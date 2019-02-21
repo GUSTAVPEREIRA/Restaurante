@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+
 import estagio.model.TipoVenda;
 import estagio.view.util.JPAUtil;
 
@@ -57,7 +58,6 @@ public class TipoVendaDAO {
 		}
 	}
 
-	@SuppressWarnings("finally")
 	public boolean Deletar(TipoVenda tipoVenda) {
 		boolean deletado = false;
 
@@ -75,8 +75,9 @@ public class TipoVendaDAO {
 			System.out.println(e.getMessage());
 		} finally {
 			em.close();
-			return deletado;
+
 		}
+		return deletado;
 	}
 
 	public TipoVenda busca(String busca) {
@@ -100,7 +101,6 @@ public class TipoVendaDAO {
 		return tipoVenda;
 	}
 
-	@SuppressWarnings("unchecked")
 	public TipoVenda listar(int busca) {
 		String jpql = "";
 		TipoVenda tipoVenda = null;
@@ -111,7 +111,7 @@ public class TipoVendaDAO {
 			em.getTransaction().begin();
 		try {
 			jpql = "select m from TipoVenda m where m.id = :pId";
-			Query query = em.createQuery(jpql);
+			TypedQuery<TipoVenda> query = em.createQuery(jpql, TipoVenda.class);
 			query.setParameter("pId", busca);
 			retorno = query.getResultList();
 			tipoVenda = retorno.get(0);
@@ -140,7 +140,7 @@ public class TipoVendaDAO {
 			else
 				jpql = "select m from TipoVenda m where m.nome like :pBusca";
 
-			Query query = em.createQuery(jpql);
+			TypedQuery<TipoVenda> query = em.createQuery(jpql, TipoVenda.class);
 			if (busca.compareTo("") != 0)
 				query.setParameter("pBusca", "%" + busca + "%");
 			retorno = query.getResultList();

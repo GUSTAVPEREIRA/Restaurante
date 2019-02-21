@@ -5,22 +5,25 @@
  */
 package estagio.controller;
 
-import estagio.dao.FornecedorDAO;
-import estagio.model.Fornecedor;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+
 import estagio.dao.CidadeDAO;
 import estagio.dao.EstadoDAO;
+import estagio.dao.FornecedorDAO;
 import estagio.model.Cidade;
 import estagio.model.Estado;
+import estagio.model.Fornecedor;
+import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatter;
 import estagio.view.util.TextFieldFormatterHelper;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 import estagio.view.util.Validadores;
-import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -272,6 +275,7 @@ public class FornecedorController implements Initializable {
 	@FXML
 	private void OnActionGravar(ActionEvent event) {
 		Boolean erro = false;
+		fornecedorDAO = new FornecedorDAO();
 		if (txt_nome.getText().equals("") || txt_nome.getText().length() < 3) {
 			erro = true;
 			txt_nome.setStyle(corErro);
@@ -353,18 +357,27 @@ public class FornecedorController implements Initializable {
 			ctm_uf.hide();
 		}
 		if (erro != true) {
+			FXNotification fxn;
+
+			
 			if (fornecedor.getId() == 0) {
 				fornecedor.setId(null);
 				fornecedorDAO.inserir(fornecedor);
+				fxn = new FXNotification("Fornecedor: " + fornecedor.getNome() + " foi inserido",
+						FXNotification.NotificationType.INFORMATION);
 			} else {
 				fornecedorDAO.alterar(fornecedor);
+				fxn = new FXNotification("Fornecedor: " + fornecedor.getNome() + " foi alterado",
+						FXNotification.NotificationType.INFORMATION);
 			}
+			fxn.show();
 			desativaTela();
 		}
 	}
 
 	@FXML
 	private void OnActionExcluir(ActionEvent event) {
+
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
 		ButtonType btnNao = new ButtonType("Não");
@@ -373,12 +386,14 @@ public class FornecedorController implements Initializable {
 		dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
 		dialogoExe.showAndWait().ifPresent(b -> {
 			if (b == btnSim) {
+				fornecedorDAO = new FornecedorDAO();
 				if (txt_codigo.getText().equals("0") != true && !txt_codigo.getText().isEmpty()) {
 					fornecedor.setId(Long.parseLong(txt_codigo.getText()));
 					fornecedorDAO.Deletar(fornecedor);
-					Alert alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setContentText("Categoria " + fornecedor.getNome() + " Excluido");
-					alert.show();
+					FXNotification fxn;
+					fxn = new FXNotification("Fornecedor: " + fornecedor.getNome() + " foi Excluido",
+							FXNotification.NotificationType.INFORMATION);
+					fxn.show();
 				}
 				desativaTela();
 			}

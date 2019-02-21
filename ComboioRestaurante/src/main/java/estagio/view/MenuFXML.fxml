@@ -10,38 +10,53 @@
    <children>
       <VBox fx:id="VB_Menu" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" prefHeight="600.0" prefWidth="109.0">
          <children>
-            <JFXButton fx:id="btn_Cadastro" buttonType="RAISED" onAction="#OnActionCadastro" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Cadastros">
+            <JFXButton fx:id="btn_Cadastro" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionCadastro" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Cadastros">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
-            </JFXButton>
-            <JFXButton fx:id="btn_consultas" buttonType="RAISED" contentDisplay="RIGHT" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Consultas">
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="20" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btn_consultas" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Consultas">
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
                </graphic>
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btn_vendas" buttonType="RAISED" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
+            <JFXButton fx:id="btn_vendas" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SHOPPING_CART" size="18" />
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_financeiro" buttonType="RAISED" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Financeiro">
+            <JFXButton fx:id="btn_financeiro" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="2.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Financeiro">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CALCULATOR" size="16" />
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
+            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="2.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="16" />
+               </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_sair" buttonType="RAISED" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Sair">
+            <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+               </graphic>
             </JFXButton>
          </children>
       </VBox>

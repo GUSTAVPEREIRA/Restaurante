@@ -5,14 +5,16 @@
  */
 package estagio.dao;
 
-import estagio.model.Fornecedor;
-import estagio.view.util.JPAUtil;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+
+import estagio.model.Fornecedor;
+import estagio.view.util.JPAUtil;
 
 /**
  *
@@ -156,7 +158,7 @@ public class FornecedorDAO {
         try
         {
             jpql = "select m from Fornecedor m where m.id = :pId";  
-            Query query = em.createQuery(jpql);
+            TypedQuery<Fornecedor> query = em.createQuery(jpql,Fornecedor.class);
             query.setParameter("pId", busca);  
             retorno = query.getResultList();
             em.getTransaction().commit();
@@ -192,7 +194,7 @@ public class FornecedorDAO {
                 jpql = "select m from Fornecedor m where m.nome like :pBusca "
                         + "OR m.cidade.nome like :pBusca";  
 
-            Query query = em.createQuery(jpql);
+            TypedQuery<Fornecedor> query = em.createQuery(jpql,Fornecedor.class);
             if (busca.compareTo("")!=0) 
                 query.setParameter("pBusca", "%"+busca+"%");  
             retorno = query.getResultList();

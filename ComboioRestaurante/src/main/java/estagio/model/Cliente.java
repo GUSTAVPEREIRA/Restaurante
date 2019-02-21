@@ -5,43 +5,44 @@
  */
 package estagio.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author Pereira
  */
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Cliente {
 
 	@Id
-	@GeneratedValue()
-	private int id;
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cli_id")
+	private Long id;
+	@Column(name = "cli_nome", nullable = false, length = 100)
 	private String nome;
-
-	private String estado_civil;
-
-	private String rg;
-
-	private String cpf;
-
+	@Column(name = "cli_telefone", nullable = true, length = 16)
 	private String telefone;
-
-	private String celular;
+	@Column(name = "cli_cep", nullable = false, length = 10)
 	private String cep;
-	private String cnpj;
-	private String ie;
+	@ManyToOne
 	private Cidade cidade;
 
 	public Cliente() {
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -53,44 +54,12 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public String getEstado_civil() {
-		return estado_civil;
-	}
-
-	public void setEstado_civil(String estado_civil) {
-		this.estado_civil = estado_civil;
-	}
-
-	public String getRg() {
-		return rg;
-	}
-
-	public void setRg(String rg) {
-		this.rg = rg;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
 	public String getTelefone() {
 		return telefone;
 	}
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-
-	public String getCelular() {
-		return celular;
-	}
-
-	public void setCelular(String celular) {
-		this.celular = celular;
 	}
 
 	public String getCep() {
@@ -101,28 +70,28 @@ public class Cliente {
 		this.cep = cep;
 	}
 
-	public String getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(String cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public String getIe() {
-		return ie;
-	}
-
-	public void setIe(String ie) {
-		this.ie = ie;
-	}
-
 	public Cidade getCidade() {
 		return cidade;
 	}
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+	}
+
+	@Override
+	public String toString() {
+		return this.nome;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Cliente) {
+			Cliente cli = (Cliente) obj;
+			if (cli.getNome().equals(this.nome) && cli.getId().equals(this.id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

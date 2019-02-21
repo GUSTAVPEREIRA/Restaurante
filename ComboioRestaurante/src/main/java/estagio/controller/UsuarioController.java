@@ -7,6 +7,8 @@ package estagio.controller;
 
 import estagio.dao.UsuarioDAO;
 import estagio.model.Usuario;
+import estagio.ui.notifications.FXNotification;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
@@ -311,10 +313,15 @@ public class UsuarioController implements Initializable {
 			usuario.setNome(usuario.getNome().toUpperCase());
 			usuario.setSenha(usuario.getSenha().toUpperCase());
 			usuario.setTipo(usuario.getTipo().toUpperCase());
-
+			FXNotification fxn;
 			if (usuario.getId() == 0) {
 				usuario.setId(null);
+				
 				usuarioDAO.inserir(usuario);
+				fxn = new FXNotification("Usuário: " + usuario.getNome() + " foi inserida.",
+						FXNotification.NotificationType.INFORMATION);
+				fxn.show();
+				
 			} else {
 				qt = usuarioDAO.count_tipo("ADMIN");
 				resetaDAO();
@@ -325,19 +332,18 @@ public class UsuarioController implements Initializable {
 				}
 				if (erro == false) {
 					usuarioDAO.alterar(usuario);
+					fxn = new FXNotification("Usuário: " + usuario.getNome() + " foi alterado.",
+							FXNotification.NotificationType.INFORMATION);
+					fxn.show();
 				}
 			}
-		} else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText(erros);
-//            alert.show();
-		}
+			desativaTela();
+		} 
 	}
 
 	@FXML
 	private void OnActionExcluir(ActionEvent event) {
 
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
 		ButtonType btnNao = new ButtonType("Não");
@@ -347,21 +353,27 @@ public class UsuarioController implements Initializable {
 		dialogoExe.showAndWait().ifPresent(b -> {
 			if (b == btnSim) {
 				boolean Error = false;
+				FXNotification fxn;
 				if (txt_codigo.getText().equals("") != true && !txt_codigo.getText().isEmpty()) {
 					qt = usuarioDAO.count_tipo("ADMIN");
 					resetaDAO();
 					if (qt < 2) {
 						if (usuario.getTipo().equals("ADMIN") == true) {
 							Error = true;
-							alert.setContentText("Usuário" + usuario.getNome() + "não pode ser excluido");
+							fxn = new FXNotification("Usuário: " + usuario.getNome() + " não pode ser excluido.",
+									FXNotification.NotificationType.INFORMATION);
+							fxn.show();
 						}
 					}
 					if (Error == false) {
+						
 						usuario.setId(Long.parseLong(txt_codigo.getText()));
 						usuarioDAO.Deletar(usuario);
-						alert.setContentText("Usuário " + usuario.getNome() + " Excluido");
+						fxn = new FXNotification("Usuário: " + usuario.getNome() + " foi excluido.",
+								FXNotification.NotificationType.INFORMATION);
+						fxn.show();
 					}
-					alert.show();
+					
 				}
 				desativaTela();
 			}

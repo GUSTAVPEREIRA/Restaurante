@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import estagio.dao.EstadoDAO;
 import estagio.model.Estado;
+import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -160,8 +161,6 @@ public class EstadoController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		estado = new Estado();
 		resetaDAO();
-		txt_nome.setPromptText("SÃO PAULO");
-		txt_sigla.setPromptText("SP");
 		desativaTela();
 		txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
 		txt_sigla.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
@@ -230,18 +229,20 @@ public class EstadoController implements Initializable {
 		dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
 		dialogoExe.showAndWait().ifPresent(b -> {
 			if (b == btnSim) {
+				FXNotification fxn;
+
 				if (txt_codigo.getText().equals("") != true) {
 					Boolean deletado = estadoDAO.Deletar(estado);
-					Alert alert = new Alert(Alert.AlertType.INFORMATION);
 					if (deletado == true) {
-						alert.setContentText("Estado " + estado.getNome() + " Excluido");
-						alert.show();
+						fxn = new FXNotification("Estado: " + estado.getNome() + " foi excluido.",
+								FXNotification.NotificationType.INFORMATION);
+
 						desativaTela();
 					} else {
-						alert.setContentText("Estado " + estado.getNome()
-								+ " não pode ser excluido, verifique se há cidades com o estado.");
-						alert.show();
+						fxn = new FXNotification("Estado: " + estado.getNome() + " não pode ser excluido.",
+								FXNotification.NotificationType.INFORMATION);
 					}
+					fxn.show();
 				}
 			}
 		});
@@ -285,16 +286,18 @@ public class EstadoController implements Initializable {
 		if (erro != true) {
 			Alert dialogoExe = new Alert(Alert.AlertType.INFORMATION);
 			dialogoExe.setTitle("Gravar");
-
+			FXNotification fxn;
 			if (estado.getId() == 0) {
 				estado.setId(null);
 				estadoDAO.inserir(estado);
-				dialogoExe.setHeaderText("Estado: " + estado.getNome() + " inserida");
+				fxn = new FXNotification("Estado: " + estado.getNome() + " inserida.",
+						FXNotification.NotificationType.INFORMATION);
 			} else {
 				estadoDAO.alterar(estado);
-				dialogoExe.setHeaderText("Estado: " + estado.getNome() + " Alterada");
+				fxn = new FXNotification("Estado: " + estado.getNome() + " alterada.",
+						FXNotification.NotificationType.INFORMATION);
 			}
-			dialogoExe.showAndWait();
+			fxn.show();
 			desativaTela();
 			resetaDAO();
 

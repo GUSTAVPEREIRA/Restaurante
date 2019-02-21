@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estagio.dao;
 
 import java.util.ArrayList;
@@ -13,32 +8,27 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import estagio.model.Cidade;
+import estagio.model.Cliente;
 import estagio.model.Estado;
 import estagio.view.util.JPAUtil;
 
-/**
- *
- * @author Pereira
- */
-public class CidadeDAO {
-
+public class ClienteDAO {
 	@PersistenceContext
 	EntityManager em;
 
-	public CidadeDAO() {
+	public ClienteDAO() {
 		em = new JPAUtil().getEntityManager();
 	}
 
 	@Transactional
-	public void inserir(Cidade cidade) {
+	public void inserir(Cliente cliente) {
 		if (!em.isOpen()) {
 			em = new JPAUtil().getEntityManager();
 		} else
 			em.getTransaction().begin();
 		try {
 
-			em.persist(cidade);
+			em.persist(cliente);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -49,16 +39,19 @@ public class CidadeDAO {
 		}
 	}
 
-	public void alterar(Cidade cidade) {
+	public void alterar(Cliente cliente) {
 		if (!em.isOpen()) {
 			em = new JPAUtil().getEntityManager();
 		} else
 			em.getTransaction().begin();
 		try {
 
-			Cidade aux = em.find(Cidade.class, cidade.getId());
-			aux.setNome(cidade.getNome());
-			aux.setEstado(cidade.getEstado());
+			Cliente aux = em.find(Cliente.class, cliente.getId());
+			aux.setNome(cliente.getNome());
+			aux.setCidade(cliente.getCidade());
+			aux.setTelefone(cliente.getTelefone());
+			aux.setCep(cliente.getCep());
+
 			em.merge(aux);
 			em.getTransaction().commit();
 
@@ -70,7 +63,7 @@ public class CidadeDAO {
 		}
 	}
 
-	public boolean Deletar(Cidade cidade) {
+	public boolean Deletar(Cliente cidade) {
 		boolean deletado = false;
 
 		if (!em.isOpen()) {
@@ -79,7 +72,7 @@ public class CidadeDAO {
 			em.getTransaction().begin();
 		try {
 
-			Cidade aux = em.find(Cidade.class, cidade.getId());
+			Cliente aux = em.find(Cliente.class, cidade.getId());
 			em.remove(aux);
 			deletado = true;
 			em.getTransaction().commit();
@@ -87,13 +80,13 @@ public class CidadeDAO {
 			em.getTransaction().rollback();
 			System.out.println(e.getMessage());
 		} finally {
-			em.close();			
+			em.close();
 		}
 		return deletado;
 	}
 
-	public Cidade busca(String busca) {
-		Cidade cidade = new Cidade();
+	public Cliente busca(String busca) {
+		Cliente cidade = new Cliente();
 
 		if (!em.isOpen()) {
 			em = new JPAUtil().getEntityManager();
@@ -101,7 +94,7 @@ public class CidadeDAO {
 			em.getTransaction().begin();
 		try {
 
-			cidade = em.find(Cidade.class, busca);
+			cidade = em.find(Cliente.class, busca);
 			em.getTransaction().commit();
 
 		} catch (Exception e) {
@@ -113,17 +106,17 @@ public class CidadeDAO {
 		return cidade;
 	}
 
-	public Cidade listar(int busca) {
+	public Cliente listar(int busca) {
 		String jpql = "";
-		Cidade cidade = null;
-		List<Cidade> retorno = new ArrayList<Cidade>();
+		Cliente cidade = null;
+		List<Cliente> retorno = new ArrayList<Cliente>();
 		if (!em.isOpen()) {
 			em = new JPAUtil().getEntityManager();
 		} else
 			em.getTransaction().begin();
 		try {
-			jpql = "select m from Cidade m where m.id = :pId";
-			TypedQuery<Cidade> query = em.createQuery(jpql, Cidade.class);
+			jpql = "select m from Cliente m where m.id = :pId";
+			TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
 			query.setParameter("pId", busca);
 			retorno = query.getResultList();
 			cidade = retorno.get(0);
@@ -138,16 +131,16 @@ public class CidadeDAO {
 		return cidade;
 	}
 
-	public List<Cidade> listCidadesPEstado(Estado busca) {
+	public List<Cliente> listClientesPEstado(Estado busca) {
 		String jpql = "";
-		List<Cidade> retorno = new ArrayList<Cidade>();
+		List<Cliente> retorno = new ArrayList<Cliente>();
 		if (!em.isOpen()) {
 			em = new JPAUtil().getEntityManager();
 		} else
 			em.getTransaction().begin();
 		try {
-			jpql = "select r from Cidade r where r.estado.id=:pEstado order by r.nome";
-			TypedQuery<Cidade> query = em.createQuery(jpql, Cidade.class);
+			jpql = "select r from Cliente r where r.nome.id=:pNome order by r.nome";
+			TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
 			if (busca != null)
 				query.setParameter("pEstado", busca.getId());
 			retorno = query.getResultList();
@@ -162,9 +155,9 @@ public class CidadeDAO {
 		return retorno;
 	}
 
-	public List<Cidade> listar(String busca) {
+	public List<Cliente> listar(String busca) {
 		String jpql = "";
-		List<Cidade> retorno = new ArrayList<Cidade>();
+		List<Cliente> retorno = new ArrayList<Cliente>();
 		if (!em.isOpen()) {
 			em = new JPAUtil().getEntityManager();
 		} else
@@ -172,11 +165,11 @@ public class CidadeDAO {
 		try {
 
 			if (busca.compareTo("") == 0)
-				jpql = "select m from Cidade m";
+				jpql = "select m from Cliente m";
 			else
-				jpql = "select m from Cidade m where m.nome like :pBusca " + "OR m.estado.nome like :pBusca";
+				jpql = "select m from Cliente m where m.nome like :pBusca " + "OR m.estado.nome like :pBusca";
 
-			TypedQuery<Cidade> query = em.createQuery(jpql, Cidade.class);
+			TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
 			if (busca.compareTo("") != 0)
 				query.setParameter("pBusca", "%" + busca + "%");
 			retorno = query.getResultList();

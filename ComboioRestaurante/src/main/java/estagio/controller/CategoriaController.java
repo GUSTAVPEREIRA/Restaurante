@@ -7,6 +7,8 @@ package estagio.controller;
 
 import estagio.dao.CategoriaDAO;
 import estagio.model.Categoria;
+import estagio.ui.notifications.FXNotification;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import estagio.view.util.TextFieldFormatterHelper;
@@ -105,7 +107,7 @@ public class CategoriaController implements Initializable {
 	private List<Categoria> listaCategoria;
 	@FXML
 	private AnchorPane ap_categoria;
-
+	
 	/**
 	 * Initializes the controller class.
 	 * 
@@ -164,27 +166,27 @@ public class CategoriaController implements Initializable {
 		}
 
 		if (erro != true) {
+			FXNotification fxn;
 			categoriaDAO = new CategoriaDAO();
 			@SuppressWarnings("unused")
 			ButtonType btnNao = new ButtonType("Okay");
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			alert.setTitle("");
+
 			if (categoria.getId() == 0) {
 				categoria.setId(null);
-				categoriaDAO.inserir(categoria);
-				alert.setContentText("Categoria " + categoria.getNome() + " Inserida");
+				categoriaDAO.inserir(categoria);				
+				fxn= new FXNotification("Categoria "+categoria.getNome()+" foi inserida com sucesso.",FXNotification.NotificationType.INFORMATION);				
 			} else {
 				categoriaDAO.alterar(categoria);
-				alert.setContentText("Categoria " + categoria.getNome() + " Alterada");
+				fxn = new FXNotification("Categoria "+categoria.getNome()+" foi alterada com sucesso.",FXNotification.NotificationType.INFORMATION);
 			}
-			alert.show();
+			fxn.show();
 			desativaTela();
 		}
 	}
 
 	@FXML
 	private void OnActionExcluir(ActionEvent event) {
-
+		categoriaDAO = new CategoriaDAO();
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
 		ButtonType btnNao = new ButtonType("Não");
@@ -196,9 +198,9 @@ public class CategoriaController implements Initializable {
 				if (txt_codigo.getText().equals("") != true && !txt_codigo.getText().isEmpty()) {
 					categoria.setId(Long.parseLong(txt_codigo.getText()));
 					categoriaDAO.Deletar(categoria);
-					Alert alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setContentText("Categoria " + categoria.getNome() + " Excluido");
-					alert.show();
+					FXNotification fxn;
+					fxn = new FXNotification("Categoria de" + categoria.getNome() + "foi excluida.",FXNotification.NotificationType.INFORMATION);
+					fxn.show();
 				}
 				desativaTela();
 			}

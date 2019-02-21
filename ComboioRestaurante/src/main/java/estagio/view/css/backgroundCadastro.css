@@ -1,7 +1,12 @@
 
 .AnchorPane{
-    -fx-background-color: white;
+    -fx-background-color:white;
 }
+
+.branco{
+    -fx-background-color:white;
+}
+
 
 .fundo{
 	-fx-background-color:#274643;
