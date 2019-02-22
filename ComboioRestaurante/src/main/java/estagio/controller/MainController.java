@@ -5,14 +5,15 @@
  */
 package estagio.controller;
 
+import java.io.IOException;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
-import java.io.IOException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -45,24 +46,18 @@ public class MainController {
 	}
 
 	@FXML
-	private void OnMouseAbreMenu(MouseEvent event) {
+	private void OnActionCadastro(ActionEvent event) throws IOException {
 
+		Node node;
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CadastroFXML.fxml"));
+		ap_menu.getChildren().setAll(node);
 	}
 
 	@FXML
-	private void OnActionCadastro(ActionEvent event) throws IOException {
-//        FXMLLoader cadastro = new FXMLLoader(getClass().getResource("/estagio/view/CadastroFXML.fxml"));
-//        Stage stage = new Stage();
-//        try {
-//            Scene sc = new Scene(cadastro.load());
-//            stage.setScene(sc);   
-//            stage.initModality(Modality.APPLICATION_MODAL);
-//            stage.showAndWait();  
-//        } catch (IOException ex) {
-//            Logger.getLogger(SideMenuController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+	void OnActionSair(ActionEvent event) throws IOException {
+		
 		Node node;
-		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CadastroFXML.fxml"));
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/LoginFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
 	}
 

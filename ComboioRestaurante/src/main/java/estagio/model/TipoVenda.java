@@ -38,4 +38,14 @@ public class TipoVenda implements Serializable{
 		return getNome();
 	}
     
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj instanceof TipoVenda) {
+    		TipoVenda tipoV = (TipoVenda)obj;
+    		if (tipoV.getNome().equals(this.nome) && tipoV.getId().equals(this.id)) {
+				return true;
+			}
+		}
+    	return false;
+    }
 }

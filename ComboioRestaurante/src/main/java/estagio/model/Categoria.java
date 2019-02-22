@@ -6,6 +6,7 @@
 package estagio.model;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,40 +20,50 @@ import javax.persistence.Id;
 @SuppressWarnings("serial")
 @Entity
 public class Categoria implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="cat_id")
-    private Long id;
-    @Column(name="cat_nome",length=100,nullable=false)
-    private String nome;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cat_id")
+	private Long id;
+	@Column(name = "cat_nome", length = 100, nullable = false)
+	private String nome;
 
-    public Categoria() {
-    }
+	public Categoria() {
+	}
 
-    public Categoria(Long id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
-    
-    public Long getId() {
-        return id;
-    }
+	public Categoria(Long id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-    
-        @Override
-    public String toString() {
-        return getNome();      
-    }
-    
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	@Override
+	public String toString() {
+		return getNome();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Categoria) {
+			Categoria cat = (Categoria) obj;
+			if (cat.getNome().equals(this.nome) && cat.getId().equals(this.id)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

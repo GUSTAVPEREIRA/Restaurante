@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_menu" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="600.0" onMouseClicked="#OnMouseAbreMenu" prefHeight="600.0" prefWidth="1000.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.MainController">
+<AnchorPane id="AnchorPane" fx:id="ap_menu" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="1000.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.MainController">
    <children>
       <VBox fx:id="VB_Menu" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" prefHeight="600.0" prefWidth="109.0">
          <children>
@@ -50,7 +50,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="16" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+            <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

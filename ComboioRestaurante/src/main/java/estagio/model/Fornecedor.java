@@ -115,6 +115,15 @@ public class Fornecedor implements Serializable {
     }
     
     
-    
+    @Override
+    public boolean equals(Object obj) {
+    	if (obj instanceof Fornecedor) {
+			Fornecedor forne = (Fornecedor)obj;
+    		if (forne.getNome().equals(this.nome) && forne.getId().equals(this.id)) {
+				return true;
+			}
+		}
+    	return false;
+    }
 
 }

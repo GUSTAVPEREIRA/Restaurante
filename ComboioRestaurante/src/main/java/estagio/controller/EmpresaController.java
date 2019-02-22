@@ -15,8 +15,8 @@ import estagio.dao.EstadoDAO;
 import estagio.model.Cidade;
 import estagio.model.Empresa;
 import estagio.model.Estado;
+import estagio.ui.notifications.FXNotification;
 import estagio.view.util.Regex;
-import estagio.view.util.TextFieldFormatter;
 import estagio.view.util.TextFieldFormatterHelper;
 import estagio.view.util.Validadores;
 import javafx.collections.FXCollections;
@@ -277,12 +277,19 @@ public class EmpresaController implements Initializable {
 			ctm_uf.hide();
 		}
 		if (erro != true) {
+			FXNotification fxn;
 			if (empresa.getId() == 0) {
 				empresa.setId(null);
 				empresaDAO.inserir(empresa);
+				fxn = new FXNotification("Empresa : " + empresa.getNome() + " foi cadastrada.",
+						FXNotification.NotificationType.INFORMATION);
+
 			} else {
 				empresaDAO.alterar(empresa);
+				fxn = new FXNotification("Empresa : " + empresa.getNome() + " foi alterada.",
+						FXNotification.NotificationType.INFORMATION);
 			}
+			fxn.show();
 		}
 	}
 
@@ -309,38 +316,22 @@ public class EmpresaController implements Initializable {
 
 	@FXML
 	void txtCepOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("#####-### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_cep);
-		tff.formatter();
+
 	}
 
 	@FXML
 	void txtCnpjOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("##.###.###/####-## ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_cnpj);
-		tff.formatter();
+
 	}
 
 	@FXML
 	void txtIeOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("#################### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_ie);
-		tff.formatter();
+
 	}
 
 	@FXML
 	void txtTelefoneOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("(##)####-#### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_telefone);
-		tff.formatter();
+
 	}
 
 	public void selecionaFoto() {
@@ -362,6 +353,10 @@ public class EmpresaController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		tffh = new TextFieldFormatterHelper();
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter(regex.getDescricao(), 100));
+		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
+		txt_cep.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "#####-###"));
+		txt_cnpj.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##.###.###/####-##"));
+		txt_ie.setTextFormatter(tffh.getTextFieldFormatter("[0-9]+", 30));
 		resetaDAO();
 		listaEstado = estadoDAO.listar("");
 		obslEstado = FXCollections.observableArrayList(listaEstado);
@@ -370,9 +365,7 @@ public class EmpresaController implements Initializable {
 		empresa = empresaDAO.listar();
 		if (empresa != null) {
 			setEmpresa(empresa);
-		}
-		else
-		{
+		} else {
 			empresa = new Empresa();
 			empresa.setId(Long.parseLong("0"));
 		}

@@ -48,7 +48,7 @@
             <Tooltip fx:id="ttp_lblNome" text="Nome da cidade." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Nome" prefHeight="36.0" prefWidth="397.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="397.0" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -154,7 +154,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo nome ou pelo estado." unFocusColor="BLACK" />
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo nome ou pelo estado." unFocusColor="BLACK" />
             <TableView fx:id="tb_cidade" layoutX="14.0" layoutY="60.0" onMouseClicked="#OnMouseClickedCidade" prefHeight="461.0" prefWidth="736.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" styleClass="tab" text="Código" />

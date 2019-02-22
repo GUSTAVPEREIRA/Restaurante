@@ -146,8 +146,8 @@ public class CidadeController implements Initializable {
 		cidade = new Cidade();
 		estado = new Estado();
 		cidadeDAO = new CidadeDAO();
-		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaCidade = new ArrayList();
 	}
 
@@ -302,12 +302,6 @@ public class CidadeController implements Initializable {
 	}
 
 	@FXML
-	private void Limitetxt_filtro(KeyEvent event) {
-		if (txt_filtro.getText().length() == 100)
-			event.consume();
-	}
-
-	@FXML
 	private void OnMouseClickedCidade(MouseEvent event) {
 		if (tb_cidade.getSelectionModel().getSelectedItem() != null) {
 			this.setCidade(tb_cidade.getSelectionModel().getSelectedItem());
@@ -340,9 +334,4 @@ public class CidadeController implements Initializable {
 		txt_filtro.setText("");
 	}
 
-	@FXML
-	private void Limitetxt_Nome(KeyEvent event) {
-		if (txt_nome.getText().length() == 100)
-			event.consume();
-	}
 }

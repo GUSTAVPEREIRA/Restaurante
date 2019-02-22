@@ -50,7 +50,7 @@
             <Tooltip fx:id="ttp_nome" text="Nome do estado." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Nome" prefHeight="36.0" prefWidth="397.0" promptText="São Paulo" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="397.0" promptText="São Paulo" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -77,7 +77,7 @@
             <Tooltip fx:id="ttp_sigla" text="Está e a sigla do estado(abreviado)." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_sigla" focusColor="#5fcda3" layoutX="134.0" layoutY="190.0" maxWidth="397.0" minWidth="85.0" onKeyTyped="#Limitetxt_Sigla" prefHeight="36.0" prefWidth="85.0" promptText="SP" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_sigla" focusColor="#5fcda3" layoutX="134.0" layoutY="190.0" maxWidth="397.0" minWidth="85.0" prefHeight="36.0" prefWidth="85.0" promptText="SP" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -190,7 +190,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo nome do estado." unFocusColor="BLACK" />
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo nome do estado." unFocusColor="BLACK" />
             <TableView fx:id="tb_estado" layoutX="14.0" layoutY="59.0" onMouseClicked="#OnMouseClickedEstado" prefHeight="472.0" prefWidth="747.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" styleClass="tab" text="Código" />

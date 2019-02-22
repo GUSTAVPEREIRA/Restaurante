@@ -9,8 +9,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+
 import estagio.dao.EstadoDAO;
 import estagio.model.Estado;
 import estagio.ui.notifications.FXNotification;
@@ -162,39 +164,10 @@ public class EstadoController implements Initializable {
 		estado = new Estado();
 		resetaDAO();
 		desativaTela();
-		txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_sigla.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_sigla.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z]+", 2));
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaEstado = new ArrayList<>();
-	}
-
-	@FXML
-	private void Limitetxt_filtro(KeyEvent event) {
-		if (txt_filtro.getText().length() == 100)
-			event.consume();
-	}
-
-	@FXML
-	private void Limitetxt_Nome(KeyEvent event) {
-		if (txt_nome.getText().length() == 100)
-			event.consume();
-
-		txt_nome.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.matches("\\sa-zA-Z-0-9*")) {
-				txt_nome.setText(newValue.replaceAll("[^\\sa-zA-Z-0-9]", ""));
-			}
-		});
-	}
-
-	@FXML
-	private void Limitetxt_Sigla(KeyEvent event) {
-		if (txt_sigla.getText().length() == 2)
-			event.consume();
-		txt_sigla.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.matches("a-zA-Z*")) {
-				txt_sigla.setText(newValue.replaceAll("[^a-zA-Z]", ""));
-			}
-		});
 	}
 
 	public void limpaBuscas() {

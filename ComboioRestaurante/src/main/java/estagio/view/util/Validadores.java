@@ -195,7 +195,7 @@ public class Validadores {
         {
             boolean flag = true;
             TELEFONE = removeCaracteresEspeciais(TELEFONE);
-            if (TELEFONE.length() != 10) {
+            if (TELEFONE.length() < 10) {
                 flag = false;
             }
             return flag;

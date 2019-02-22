@@ -21,7 +21,6 @@ import estagio.model.Cidade;
 import estagio.model.Cliente;
 import estagio.model.Estado;
 import estagio.model.Fornecedor;
-import estagio.view.util.TextFieldFormatter;
 import estagio.view.util.TextFieldFormatterHelper;
 import estagio.view.util.Validadores;
 import javafx.collections.FXCollections;
@@ -348,12 +347,16 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void Limitetxt_Nome(KeyEvent event) {
-
+		if (txt_nome.getText().length() == 100) {
+			event.consume();
+		}
 	}
 
 	@FXML
 	void Limitetxt_filtro(KeyEvent event) {
-
+		if (txt_filtro.getText().length() == 100) {
+			event.consume();
+		}
 	}
 
 	@FXML
@@ -388,12 +391,12 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void OnActionSair(ActionEvent event) {
-
+		ap_cliente.setVisible(false);
 	}
 
 	@FXML
 	void OnActionVoltar(ActionEvent event) {
-
+		ap_busca.setVisible(false);
 	}
 
 	@FXML
@@ -448,49 +451,14 @@ public class ClienteController implements Initializable {
 	}
 
 	@FXML
-	void txtCepOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("#####-### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_cep);
-		tff.formatter();
-	}
+	void Limitetxt_ie(KeyEvent event) {
 
-	@FXML
-	void txtCnpjOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("##.###.###/####-## ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_cnpj);
-		tff.formatter();
-	}
-
-	@FXML
-	void txtDataOnKeyRelease(KeyEvent event) {
-
-	}
-
-	@FXML
-	void txtIeOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("#################### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_ie);
-		tff.formatter();
-	}
-
-	@FXML
-	void txtTelefoneOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("(##)####-#### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_telefone);
-		tff.formatter();
 	}
 
 	/**
 	 * Initializes the controller class.
 	 */
+	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
@@ -499,6 +467,11 @@ public class ClienteController implements Initializable {
 		cbb_est.setItems(obslEstado);
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_nomeFantasia.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_dataNasc.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##/##/####"));
+		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
+		txt_cep.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "#####-###"));
+		txt_cnpj.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##.###.###/####-##"));
+		txt_ie.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]", 30));
 	}
 
 }

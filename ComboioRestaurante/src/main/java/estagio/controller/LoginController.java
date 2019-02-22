@@ -5,17 +5,19 @@
  */
 package estagio.controller;
 
-import estagio.dao.UsuarioDAO;
-import estagio.model.Usuario;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
-import estagio.view.util.TextFieldFormatterHelper;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
+import estagio.dao.UsuarioDAO;
+import estagio.model.Usuario;
+import estagio.view.util.TextFieldFormatterHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +27,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 /**
@@ -66,8 +67,8 @@ public class LoginController implements Initializable{
        txt_login.setText("");
        txt_senha.setText("");
        new Usuario();
-       txt_login.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-       txt_senha.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+       txt_login.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+       txt_senha.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
     }   
     
     @FXML
@@ -140,18 +141,12 @@ public class LoginController implements Initializable{
             ctm_btnLogin.show(btn_login,Side.LEFT,20,0);
         }
     }
-
+    
     @FXML
-    private void Limitetxt_Login(KeyEvent event) {
-        if (txt_login.getText().length() == 26) {
-            event.consume();
-        }
+    void ActionSair(ActionEvent event) {
+    	  Stage stage = (Stage) btn_sair.getScene().getWindow(); 
+    	  stage.close();
     }
 
-    @FXML
-    private void Limitetxt_Senha(KeyEvent event) {
-        if (txt_senha.getText().length() == 26) {
-            event.consume();
-        }         
-    }
+
 }

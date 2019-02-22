@@ -21,7 +21,6 @@ import estagio.model.Cidade;
 import estagio.model.Estado;
 import estagio.model.Fornecedor;
 import estagio.ui.notifications.FXNotification;
-import estagio.view.util.TextFieldFormatter;
 import estagio.view.util.TextFieldFormatterHelper;
 import estagio.view.util.Validadores;
 import javafx.collections.FXCollections;
@@ -205,8 +204,12 @@ public class FornecedorController implements Initializable {
 		obslEstado = FXCollections.observableArrayList(listaEstado);
 		cbb_est.setItems(obslEstado);
 		listaFornecedor = new ArrayList<>();
-		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
+		txt_cep.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "#####-###"));
+		txt_cnpj.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##.###.###/####-##"));
+		txt_ie.setTextFormatter(tffh.getTextFieldFormatter("[0-9]+", 30));
 		desativaTela();
 
 	}
@@ -359,7 +362,6 @@ public class FornecedorController implements Initializable {
 		if (erro != true) {
 			FXNotification fxn;
 
-			
 			if (fornecedor.getId() == 0) {
 				fornecedor.setId(null);
 				fornecedorDAO.inserir(fornecedor);
@@ -422,53 +424,6 @@ public class FornecedorController implements Initializable {
 	}
 
 	@FXML
-	private void txtCnpjOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("##.###.###/####-## ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_cnpj);
-		tff.formatter();
-	}
-
-	@FXML
-	private void txtIeOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("#################### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_ie);
-		tff.formatter();
-	}
-
-	@FXML
-	private void txtCepOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("#####-### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_cep);
-		tff.formatter();
-	}
-
-	@FXML
-	private void txtTelefoneOnKeyRelease(KeyEvent event) {
-		TextFieldFormatter tff = new TextFieldFormatter();
-		tff.setMask("(##)####-#### ");
-		tff.setCaracteresValidos("0123456789");
-		tff.setTf(txt_telefone);
-		tff.formatter();
-	}
-
-	@FXML
-	private void Limitetxt_Nome(KeyEvent event) {
-		if (txt_nome.getText().length() == 100)
-			event.consume();
-		txt_nome.textProperty().addListener((observable, oldValue, newValue) -> {
-			if (!newValue.matches("\\sa-zA-Z-0-9*")) {
-				txt_nome.setText(newValue.replaceAll("[^\\sa-zA-Z-0-9]", ""));
-			}
-		});
-	}
-
-	@FXML
 	private void OnActionFiltro(ActionEvent event) {
 		carregaTela(txt_filtro.getText());
 	}
@@ -498,12 +453,6 @@ public class FornecedorController implements Initializable {
 
 	}
 
-	@FXML
-	private void Limitetxt_filtro(KeyEvent event) {
-		if (txt_filtro.getText().length() == 100) {
-			event.consume();
-		}
-	}
 
 	@FXML
 	private void OnActionVoltar(ActionEvent event) {

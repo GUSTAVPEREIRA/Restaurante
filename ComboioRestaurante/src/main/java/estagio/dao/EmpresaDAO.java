@@ -52,7 +52,9 @@ public class EmpresaDAO {
 			aux.setIe(empresa.getIe());
 			aux.setCidade(empresa.getCidade());
 			aux.setCaminho_imgem(empresa.getCaminho_imgem());
-		
+			aux.setCep(empresa.getCep());
+			aux.setTelefone(empresa.getTelefone());
+
 			em.merge(aux);
 			em.getTransaction().commit();
 
@@ -74,11 +76,11 @@ public class EmpresaDAO {
 			em.getTransaction().begin();
 		try {
 			jpql = "select m from Empresa m";
-			TypedQuery<Empresa> query = em.createQuery(jpql,Empresa.class);
+			TypedQuery<Empresa> query = em.createQuery(jpql, Empresa.class);
 			retorno = query.getResultList();
 			empresa = retorno.get(0);
 			em.getTransaction().commit();
-			
+
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println(e.getMessage());

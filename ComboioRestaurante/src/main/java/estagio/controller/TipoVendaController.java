@@ -166,25 +166,11 @@ public class TipoVendaController implements Initializable {
 		tipoVendaDAO = new TipoVendaDAO();
 		mi_nome.setText("Por favor, insira o nome corretamente.");
 		ctm_nome.getItems().add(mi_nome);
-		txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaTipoVenda = new ArrayList<>();
 		tipoVenda = new TipoVenda();
 
-	}
-
-	@FXML
-	void Limitetxt_filtro(KeyEvent event) {
-		if (txt_filtro.getText().length() == 100) {
-			event.consume();
-		}
-	}
-
-	@FXML
-	void Limitetxt_nome(KeyEvent event) {
-		if (txt_nome.getText().length() == 100) {
-			event.consume();
-		}
 	}
 
 	public void limpaBuscas() {

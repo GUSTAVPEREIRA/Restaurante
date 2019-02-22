@@ -150,7 +150,8 @@ public class ProdutoController implements Initializable {
 	 * @param url
 	 * @param rb
 	 */
-	@SuppressWarnings({ "static-access", "unchecked", "rawtypes" })
+
+	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		listProduto = new ArrayList();
@@ -167,10 +168,11 @@ public class ProdutoController implements Initializable {
 		cbb_categoria.setItems(obslCategoria);
 		cbb_categoria.getSelectionModel().select(-1);
 		tffh = new TextFieldFormatterHelper();
-		txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_preco.setTextFormatter(tffh.getTextFieldDoubleFormatter(15, 2));
 		txt_preco_compra.setTextFormatter(tffh.getTextFieldDoubleFormatter(15, 2));
-		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+
 		desativaTela();
 
 	}
@@ -220,6 +222,7 @@ public class ProdutoController implements Initializable {
 	@FXML
 	private void OnActionGravar(ActionEvent event) {
 		Boolean erro = false;
+		resetaDAO();
 		if (txt_nome.getText().equals("") == true) {
 			erro = true;
 			txt_nome.setStyle(corErro);
@@ -358,20 +361,6 @@ public class ProdutoController implements Initializable {
 	}
 
 	@FXML
-	private void OnActionFiltro(ActionEvent event) {
-		if (txt_filtro.getText() != null) {
-			carregaTela(txt_filtro.getText());
-		}
-	}
-
-	@FXML
-	private void Limitetxt_filtro(KeyEvent event) {
-		if (txt_filtro.getText().length() == 100) {
-			event.consume();
-		}
-	}
-
-	@FXML
 	private void OnMouseClickedProduto(MouseEvent event) {
 		if (tb_produto.getSelectionModel().getSelectedItem() != null) {
 			this.setProduto(tb_produto.getSelectionModel().getSelectedItem());
@@ -410,6 +399,13 @@ public class ProdutoController implements Initializable {
 	private void OnActionVoltar(ActionEvent event) {
 		limpaBuscas();
 
+	}
+
+	@FXML
+	private void OnActionFiltro(ActionEvent event) {
+		if (txt_filtro.getText() != null) {
+			carregaTela(txt_filtro.getText());
+		}
 	}
 
 	@FXML

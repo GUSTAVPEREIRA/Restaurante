@@ -79,7 +79,7 @@
             <Tooltip fx:id="ttp_lblTelefone" text="Telefone fixo ou movél do fornecedor." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_telefone" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="150.0" maxWidth="397.0" minWidth="131.0" onKeyReleased="#txtTelefoneOnKeyRelease" prefHeight="36.0" prefWidth="202.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_telefone" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="150.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="202.0" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -99,7 +99,7 @@
             <Tooltip fx:id="ttp_lblCep" text="Cep onde o fornecedor se encontra." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_cep" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="200.0" maxWidth="397.0" minWidth="131.0" onKeyReleased="#txtCepOnKeyRelease" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_cep" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="200.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -163,7 +163,7 @@
                   <Tooltip fx:id="ttp_lblCpf" text="Cpf do cliente pessoa física." />
                </tooltip>
             </Label>
-            <JFXTextField fx:id="txt_cpf" focusColor="#5fcda3" labelFloat="true" layoutX="100.0" layoutY="5.0" maxWidth="397.0" minWidth="131.0" onKeyReleased="#txtTelefoneOnKeyRelease" prefHeight="36.0" prefWidth="202.0" unFocusColor="BLACK">
+            <JFXTextField fx:id="txt_cpf" focusColor="#5fcda3" labelFloat="true" layoutX="100.0" layoutY="5.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="202.0" unFocusColor="BLACK">
                <font>
                   <Font size="14.0" />
                </font>
@@ -183,7 +183,7 @@
                   <Tooltip fx:id="ttp_lblRg" text="Cep onde o fornecedor se encontra." />
                </tooltip>
             </Label>
-            <JFXTextField fx:id="txt_rg" focusColor="#5fcda3" labelFloat="true" layoutX="100.0" layoutY="55.0" maxWidth="397.0" minWidth="131.0" onKeyReleased="#txtCepOnKeyRelease" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+            <JFXTextField fx:id="txt_rg" focusColor="#5fcda3" labelFloat="true" layoutX="100.0" layoutY="55.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
                <font>
                   <Font size="14.0" />
                </font>
@@ -223,7 +223,7 @@
                   <Tooltip fx:id="ttp_lblDataNasc" text="Estado à qual o fornecedor pertence." />
                </tooltip>
             </Label>
-            <JFXTextField fx:id="txt_dataNasc" focusColor="#5fcda3" labelFloat="true" layoutX="100.0" layoutY="160.0" maxWidth="397.0" minWidth="131.0" onKeyReleased="#txtDataOnKeyRelease" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+            <JFXTextField fx:id="txt_dataNasc" focusColor="#5fcda3" labelFloat="true" layoutX="100.0" layoutY="160.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
                <font>
                   <Font size="14.0" />
                </font>
@@ -287,7 +287,7 @@
                   <Tooltip fx:id="ttp_lblCnpj" text="Telefone fixo ou movél do fornecedor." />
                </tooltip>
             </Label>
-            <JFXTextField fx:id="txt_cnpj" focusColor="#5fcda3" labelFloat="true" layoutX="122.0" layoutY="53.0" maxWidth="397.0" minWidth="131.0" onKeyReleased="#txtCnpjOnKeyRelease" prefHeight="36.0" prefWidth="215.0" unFocusColor="BLACK">
+            <JFXTextField fx:id="txt_cnpj" focusColor="#5fcda3" labelFloat="true" layoutX="122.0" layoutY="53.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="215.0" unFocusColor="BLACK">
                <font>
                   <Font size="14.0" />
                </font>
@@ -317,7 +317,7 @@
                   <Tooltip fx:id="ttp_lblIe" text="Telefone fixo ou movél do fornecedor." />
                </tooltip>
             </Label>
-            <JFXTextField fx:id="txt_ie" focusColor="#5fcda3" labelFloat="true" layoutX="122.0" layoutY="101.0" maxWidth="397.0" minWidth="131.0" onKeyReleased="#txtIeOnKeyRelease" prefHeight="36.0" prefWidth="215.0" unFocusColor="BLACK">
+            <JFXTextField fx:id="txt_ie" focusColor="#5fcda3" labelFloat="true" layoutX="122.0" layoutY="101.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_ie" prefHeight="36.0" prefWidth="215.0" unFocusColor="BLACK">
                <font>
                   <Font size="14.0" />
                </font>

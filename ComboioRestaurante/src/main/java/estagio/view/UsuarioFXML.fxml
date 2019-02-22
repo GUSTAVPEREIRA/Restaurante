@@ -27,7 +27,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Nome" prefHeight="35.0" prefWidth="400.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" layoutX="134.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Nome" prefHeight="35.0" prefWidth="400.0" promptText="Exemplo.. Teste Silva" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -47,7 +47,7 @@
             <Tooltip fx:id="ttp_lblNome" text="Nome do usuário." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="190.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Login" prefHeight="36.0" prefWidth="397.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_login" focusColor="#5fcda3" layoutX="134.0" layoutY="190.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Login" prefHeight="36.0" prefWidth="397.0" promptText="Exemplo.. Teste" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -67,7 +67,7 @@
             <Tooltip fx:id="ttp_lblLogin" text="Login do usuário." />
          </tooltip>
       </Label>
-      <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" layoutX="134.0" layoutY="240.0" maxWidth="397.0" minWidth="397.0" onKeyTyped="#Limitetxt_Senha" prefHeight="31.0" prefWidth="397.0" unFocusColor="BLACK">
+      <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" layoutX="134.0" layoutY="240.0" maxWidth="397.0" minWidth="397.0" onKeyTyped="#Limitetxt_Senha" prefHeight="31.0" prefWidth="397.0" unFocusColor="BLACK">
          <contextMenu>
             <ContextMenu fx:id="ctm_senha">
                <items>

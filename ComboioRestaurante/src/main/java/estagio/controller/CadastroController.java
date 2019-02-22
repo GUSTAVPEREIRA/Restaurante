@@ -31,53 +31,65 @@ public class CadastroController implements Initializable {
 //xml jobson ensinando a bugar
 
 	@FXML
-	private AnchorPane ap_cadastros;
-	@FXML
-	private JFXButton Categoria;
-	@FXML
-	private JFXButton Cliente;
-	@FXML
-	private JFXButton Cidade;
-	@FXML
-	private JFXButton Estado;
-	@FXML
-	private JFXButton Empresa;
-	@FXML
-	private JFXButton Produto;
-	@FXML
-	private JFXButton Usuario;
-	@FXML
-	private VBox VB_Menu;
-	@FXML
-	private JFXButton Fornecedor;
-	@FXML
-	private JFXButton TipoVenda;
+	private AnchorPane ap_menu;
+
 	@FXML
 	private JFXDrawer draw_menu;
+
+	@FXML
+	private VBox VB_Menu;
+
+	@FXML
+	private JFXButton Categoria;
+
+	@FXML
+	private JFXButton Cliente;
+
+	@FXML
+	private JFXButton Cidade;
+
+	@FXML
+	private JFXButton Estado;
+
+	@FXML
+	private JFXButton Empresa;
+
+	@FXML
+	private JFXButton Fornecedor;
+
+	@FXML
+	private JFXButton Produto;
+
+	@FXML
+	private JFXButton TipoVenda;
+
+	@FXML
+	private JFXButton Usuario;
+
 	@FXML
 	private JFXButton Sair;
-	private Node node;
-	@FXML
-	private AnchorPane ap_menu;	
-    @FXML
-    private StackPane stack_cadastros;
 
-    @Override
-    	public void initialize(URL url, ResourceBundle rb) {
-    		Platform.runLater(new Runnable() {
-				
-				@Override
-				public void run() {
-					FXNotificationFactory.initialize(stack_cadastros);					
-				}
-			});
-    	}
+	@FXML
+	private StackPane stack_cadastros;
+
+	@FXML
+	private AnchorPane ap_cadastros;
+	private Node node;
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				FXNotificationFactory.initialize(stack_cadastros);
+			}
+		});
+	}
 
 	@FXML
 	private void OnActionCategoria(ActionEvent event) throws IOException {
 
-//		FXNotification fxn = new FXNotification("Gravado com sucesso");
-//		fxn.show();
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CategoriaFXML.fxml"));
 		ap_cadastros.getChildren().setAll(node);
 	}

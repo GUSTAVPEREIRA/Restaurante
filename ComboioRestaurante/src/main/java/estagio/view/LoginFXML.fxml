@@ -13,7 +13,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="456.0" prefWidth="734.0" styleClass="AnchorPane" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.LoginController">
    <children>
-      <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" layoutX="233.0" layoutY="173.0" maxWidth="295.0" minWidth="295.0" onKeyTyped="#Limitetxt_Login" prefHeight="34.0" prefWidth="295.0" promptText="Login" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" layoutX="233.0" layoutY="173.0" maxWidth="295.0" minWidth="295.0" prefHeight="34.0" prefWidth="295.0" promptText="Login" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -35,7 +35,7 @@
             <Image url="@resources/cadeado.png" />
          </image>
       </ImageView>
-      <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" layoutX="233.0" layoutY="229.0" maxWidth="295.0" minWidth="295.0" onKeyTyped="#Limitetxt_Senha" prefHeight="34.0" prefWidth="295.0" promptText="Senha" unFocusColor="BLACK">
+      <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" layoutX="233.0" layoutY="229.0" maxWidth="295.0" minWidth="295.0" prefHeight="34.0" prefWidth="295.0" promptText="Senha" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -62,7 +62,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="UNLOCK" size="15" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="443.0" layoutY="287.0" onAction="#ActionLogin" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+      <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="443.0" layoutY="287.0" onAction="#ActionSair" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

@@ -173,10 +173,10 @@ public class UsuarioController implements Initializable {
 		cbb_Ativo = FXCollections.observableArrayList("ATIVADO", "DESATIVADO");
 		cbb_tipo.setItems(cbb_Tipos);
 		cbb_ativo.setItems(cbb_Ativo);
-		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_login.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_nome.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
-		txt_senha.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_login.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 25));
+		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_senha.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 25));
 		listaUsuario = new ArrayList<>();
 		desativaTela();
 	}
@@ -472,16 +472,12 @@ public class UsuarioController implements Initializable {
 
 	@FXML
 	private void Limitetxt_Login(KeyEvent event) {
-		if (txt_login.getText().length() == 25) {
-			event.consume();
-		}
+		
 	}
 
 	@FXML
 	private void Limitetxt_Senha(KeyEvent event) {
-		if (txt_senha.getText().length() == 25) {
-			event.consume();
-		}
+		
 	}
 
 }

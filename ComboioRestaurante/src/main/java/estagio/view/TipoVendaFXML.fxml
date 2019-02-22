@@ -47,7 +47,7 @@
             <Tooltip fx:id="ttp_Nome" text="Este é o nome do tipo de venda." />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" layoutX="134.0" layoutY="140.0" maxWidth="400.0" minWidth="131.0" onKeyTyped="#Limitetxt_nome" prefHeight="35.0" prefWidth="400.0" promptText="Exemplo: Restaurante.." styleClass="contextmenu" stylesheets="@css/textFields.css" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" layoutX="134.0" layoutY="140.0" maxWidth="400.0" minWidth="131.0" prefHeight="35.0" prefWidth="400.0" promptText="Exemplo: Restaurante.." styleClass="contextmenu" stylesheets="@css/textFields.css" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -136,7 +136,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo nome do tipo de venda." unFocusColor="BLACK" />
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo nome do tipo de venda." unFocusColor="BLACK" />
             <TableView fx:id="tb_tipoVenda" layoutX="11.0" layoutY="62.0" onMouseClicked="#OnMouseClickedTipoVenda" prefHeight="472.0" prefWidth="751.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" text="Código" />

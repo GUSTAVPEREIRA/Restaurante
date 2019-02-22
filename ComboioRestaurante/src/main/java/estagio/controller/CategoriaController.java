@@ -5,18 +5,19 @@
  */
 package estagio.controller;
 
-import estagio.dao.CategoriaDAO;
-import estagio.model.Categoria;
-import estagio.ui.notifications.FXNotification;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
-import estagio.view.util.TextFieldFormatterHelper;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
+
+import estagio.dao.CategoriaDAO;
+import estagio.model.Categoria;
+import estagio.ui.notifications.FXNotification;
+import estagio.view.util.TextFieldFormatterHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -107,7 +108,7 @@ public class CategoriaController implements Initializable {
 	private List<Categoria> listaCategoria;
 	@FXML
 	private AnchorPane ap_categoria;
-	
+
 	/**
 	 * Initializes the controller class.
 	 * 
@@ -123,10 +124,10 @@ public class CategoriaController implements Initializable {
 		txt_nome.setPromptText("Exemplo:Bebidas...");
 		mi_nome.setText("Por favor, insira o nome corretamente.");
 		ctm_nome.getItems().add(mi_nome);
-		//	\\u00C0-\\u00FF São os caracteres unicodes latinos que podem ser encontrados 
-		//	http://www.fileformat.info/info/unicode/block/latin_supplement/list.htm
+		// \\u00C0-\\u00FF São os caracteres unicodes latinos que podem ser encontrados
+		// http://www.fileformat.info/info/unicode/block/latin_supplement/list.htm
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_filtro.setTextFormatter(tffh.getUpperCaseTextFieldFormatter());
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaCategoria = new ArrayList<>();
 
 	}
@@ -173,11 +174,13 @@ public class CategoriaController implements Initializable {
 
 			if (categoria.getId() == 0) {
 				categoria.setId(null);
-				categoriaDAO.inserir(categoria);				
-				fxn= new FXNotification("Categoria "+categoria.getNome()+" foi inserida com sucesso.",FXNotification.NotificationType.INFORMATION);				
+				categoriaDAO.inserir(categoria);
+				fxn = new FXNotification("Categoria " + categoria.getNome() + " foi inserida com sucesso.",
+						FXNotification.NotificationType.INFORMATION);
 			} else {
 				categoriaDAO.alterar(categoria);
-				fxn = new FXNotification("Categoria "+categoria.getNome()+" foi alterada com sucesso.",FXNotification.NotificationType.INFORMATION);
+				fxn = new FXNotification("Categoria " + categoria.getNome() + " foi alterada com sucesso.",
+						FXNotification.NotificationType.INFORMATION);
 			}
 			fxn.show();
 			desativaTela();
@@ -199,7 +202,8 @@ public class CategoriaController implements Initializable {
 					categoria.setId(Long.parseLong(txt_codigo.getText()));
 					categoriaDAO.Deletar(categoria);
 					FXNotification fxn;
-					fxn = new FXNotification("Categoria de" + categoria.getNome() + "foi excluida.",FXNotification.NotificationType.INFORMATION);
+					fxn = new FXNotification("Categoria de" + categoria.getNome() + "foi excluida.",
+							FXNotification.NotificationType.INFORMATION);
 					fxn.show();
 				}
 				desativaTela();
@@ -241,12 +245,6 @@ public class CategoriaController implements Initializable {
 	}
 
 	@FXML
-	private void Limitetxt_nome(KeyEvent event) {
-		if (txt_nome.getText().length() == 100)
-			event.consume();
-	}
-
-	@FXML
 	private void OnActionFiltro(ActionEvent event) {
 		carregaTela(txt_filtro.getText());
 	}
@@ -271,13 +269,6 @@ public class CategoriaController implements Initializable {
 			tb_categoria.setItems(obslCategoria);
 		}
 
-	}
-
-	@FXML
-	private void Limitetxt_filtro(KeyEvent event) {
-		if (txt_filtro.getText().length() == 100) {
-			event.consume();
-		}
 	}
 
 	@FXML
