@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import estagio.dao.CidadeDAO;
@@ -268,9 +269,6 @@ public class ClienteController implements Initializable {
 	private Tooltip ttp_lblDataNasc;
 
 	@FXML
-	private JFXTextField txt_dataNasc;
-
-	@FXML
 	private ContextMenu ctm_dataNasc;
 
 	@FXML
@@ -329,6 +327,8 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	private JFXCheckBox cb_juridica;
+	@FXML
+	private JFXDatePicker txt_dataNasc;
 
 	private List<Estado> listaEstado;
 	private ObservableList<Estado> obslEstado;
@@ -467,7 +467,6 @@ public class ClienteController implements Initializable {
 		cbb_est.setItems(obslEstado);
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_nomeFantasia.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_dataNasc.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##/##/####"));
 		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
 		txt_cep.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "#####-###"));
 		txt_cnpj.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##.###.###/####-##"));

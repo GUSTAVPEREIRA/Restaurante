@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
@@ -223,18 +224,6 @@
                   <Tooltip fx:id="ttp_lblDataNasc" text="Estado à qual o fornecedor pertence." />
                </tooltip>
             </Label>
-            <JFXTextField fx:id="txt_dataNasc" focusColor="#5fcda3" labelFloat="true" layoutX="100.0" layoutY="160.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
-               <font>
-                  <Font size="14.0" />
-               </font>
-               <contextMenu>
-                  <ContextMenu fx:id="ctm_dataNasc">
-                     <items>
-                        <MenuItem fx:id="mi_dataNasc" mnemonicParsing="false" text="Por favor, insira o cep corretamente." />
-                     </items>
-                  </ContextMenu>
-               </contextMenu>
-            </JFXTextField>
             <Label layoutX="5.0" layoutY="15.0" text="*" textFill="RED">
                <font>
                   <Font size="14.0" />
@@ -255,6 +244,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <JFXDatePicker fx:id="txt_dataNasc" layoutX="108.0" layoutY="165.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="ap_pessoaJuridica" layoutX="242.0" layoutY="309.0" prefHeight="218.0" prefWidth="450.0" visible="false">

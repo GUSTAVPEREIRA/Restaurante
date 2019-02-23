@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lbl_valorAtual" layoutX="300.0" layoutY="50.0" text="Valor total atual">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblValorAtual" text="Valor total atual do caixa." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_valorAtual" disable="true" focusColor="#5fcda3" layoutX="417.0" layoutY="40.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" promptText="Exemplo 13,00" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_valorAtual">
+               <items>
+                  <MenuItem fx:id="mi_valorAtual" mnemonicParsing="false" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_dinheiro" layoutX="300.0" layoutY="100.0" text="Dinheiro">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblDinheiro" text="Valor total em dinheiro do caixa." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_dinheiro" disable="true" focusColor="#5fcda3" layoutX="417.0" layoutY="90.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_dinheiro">
+               <items>
+                  <MenuItem fx:id="mi_dinheiro" mnemonicParsing="false" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_cheque" layoutX="300.0" layoutY="150.0" text="Cheque">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblCheque" text="Valor total em cheque no caixa" />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_cheque" disable="true" focusColor="#5fcda3" layoutX="417.0" layoutY="140.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_cheque">
+               <items>
+                  <MenuItem fx:id="mi_cheque" mnemonicParsing="false" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_cartaoDebito" layoutX="300.0" layoutY="200.0" text="Cartão de debito">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblCartaoDebito" text="Valor total atual em cartão de debito no caixa." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_cartaoDebito" disable="true" focusColor="#5fcda3" layoutX="417.0" layoutY="190.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_cartaoDebito">
+               <items>
+                  <MenuItem fx:id="mi_cartaoDebito" mnemonicParsing="false" />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_cartaoCredito" layoutX="300.0" layoutY="250.0" text="Cartão de credito">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblCartaoCredito" text="Valor atual em cartão de  credito no caixa." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_cartaoCredito" disable="true" focusColor="#5fcda3" layoutX="417.0" layoutY="240.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_cartaoCredito">
+               <items>
+                  <MenuItem fx:id="mi_cartaoCredito" mnemonicParsing="false" text="Por favor, insira o preço corretamente." />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_cartaoCredito1" layoutX="301.0" layoutY="300.0" text="Data da abertura">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblCartaoCredito1" text="Data e hora de abertura do caixa" />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_cartaoCredito1" disable="true" focusColor="#5fcda3" layoutX="417.0" layoutY="290.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_cartaoCredito1">
+               <items>
+                  <MenuItem fx:id="mi_cartaoCredito1" mnemonicParsing="false" text="Por favor, insira o preço corretamente." />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <JFXButton fx:id="btn_abrirCaixa" buttonType="RAISED" contentDisplay="RIGHT" layoutX="378.0" layoutY="466.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="140.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Abrir Caixa" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName=" " size="15" />
+         </graphic>
+         <tooltip>
+            <Tooltip fx:id="ttp_btnAbrirCaixa" text="Busca cidades." />
+         </tooltip>
+      </JFXButton>
+      <JFXButton fx:id="btn_fecharCaixa" buttonType="RAISED" contentDisplay="RIGHT" layoutX="367.0" layoutY="377.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="140.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Fechar Caixa" textFill="WHITE" visible="false">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+         </graphic>
+         <tooltip>
+            <Tooltip fx:id="ttp_btnFecharCaixa" text="Busca cidades." />
+         </tooltip>
+      </JFXButton>
+      <Label fx:id="lbl_valorAtual1" layoutX="301.0" layoutY="385.0" text="Valor de abertura">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblValorAtual1" text="Preço do produto." />
+         </tooltip>
+      </Label>
+      <JFXTextField fx:id="txt_cartaoCredito11" disable="true" focusColor="#5fcda3" layoutX="420.0" layoutY="339.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_cartaoCredito11">
+               <items>
+                  <MenuItem fx:id="mi_cartaoCredito11" mnemonicParsing="false" text="Por favor, insira o preço corretamente." />
+               </items>
+            </ContextMenu>
+         </contextMenu>
+      </JFXTextField>
+      <Label fx:id="lbl_cartaoCredito11" layoutX="300.0" layoutY="347.0" text="Data do fechamento">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <tooltip>
+            <Tooltip fx:id="ttp_lblCartaoCredito11" text="Data e hora de abertura do caixa" />
+         </tooltip>
+      </Label>
+      <JFXDatePicker layoutX="425.0" layoutY="380.0" />
+   </children>
+</AnchorPane>
