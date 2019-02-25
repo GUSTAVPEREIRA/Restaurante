@@ -1,7 +1,7 @@
 package estagio.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -59,6 +59,17 @@ public class ClientePF extends Cliente implements Serializable {
 
 	public ClientePF() {
 		super();
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof ClientePF) {
+			ClientePF cli = (ClientePF) obj;
+			if (cli.getEstadoCivil().equals(this.estadoCivil) && cli.getCpf().equals(this.getCpf())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 

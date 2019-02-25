@@ -6,6 +6,8 @@
 package estagio.controller;
 
 import java.net.URL;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -20,8 +22,10 @@ import estagio.dao.ClienteDAO;
 import estagio.dao.EstadoDAO;
 import estagio.model.Cidade;
 import estagio.model.Cliente;
+import estagio.model.ClientePF;
+import estagio.model.ClientePJ;
 import estagio.model.Estado;
-import estagio.model.Fornecedor;
+import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
 import estagio.view.util.Validadores;
 import javafx.collections.FXCollections;
@@ -29,12 +33,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -194,13 +201,25 @@ public class ClienteController implements Initializable {
 	private TableColumn<Cliente, String> tc_cpf;
 
 	@FXML
-	private TableColumn<Cliente, String> tc_cnp;
+	private TableColumn<Cliente, String> tc_cnpj;
 
 	@FXML
 	private TableColumn<Cliente, String> tc_cidade;
 
 	@FXML
 	private TableColumn<Cliente, String> tc_telefone;
+
+	@FXML
+	private TableColumn<Cliente, String> tc_nome;
+
+	@FXML
+	private Tooltip ttp_lblTipoP;
+
+	@FXML
+	private ContextMenu ctm_tipoP;
+
+	@FXML
+	private MenuItem mi_tipoP;
 
 	@FXML
 	private JFXButton btn_voltar;
@@ -251,7 +270,7 @@ public class ClienteController implements Initializable {
 	private Tooltip ttp_lblEstadoCivil;
 
 	@FXML
-	private JFXComboBox<Cliente> cbb_estadoCivil;
+	private JFXComboBox<String> cbb_estadoCivil;
 
 	@FXML
 	private Tooltip ttp_estadoCivil;
@@ -327,9 +346,19 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	private JFXCheckBox cb_juridica;
+
 	@FXML
 	private JFXDatePicker txt_dataNasc;
 
+	@FXML
+	private JFXCheckBox cb_fisicaBusca;
+
+    @FXML
+    private Label lbl_tipoP;
+    
+	
+	@FXML
+	private JFXCheckBox cb_juridicaBusca;
 	private List<Estado> listaEstado;
 	private ObservableList<Estado> obslEstado;
 	private EstadoDAO estadoDAO = new EstadoDAO();
@@ -341,9 +370,11 @@ public class ClienteController implements Initializable {
 	private ClienteDAO clienteDAO;
 	private String corErro = "-fx-border-color: red;";
 	private String corNormal = "-fx-border-color:white";
-	private ObservableList<Fornecedor> obslFornecedor;
-	private List<Fornecedor> listaFornecedor;
+	private ObservableList<Cliente> obslCliente;
+	private List<Cliente> listaCliente;
 	private TextFieldFormatterHelper tffh;
+	private ObservableList<String> obsl_estadoCivil;
+	private String tipo;
 
 	@FXML
 	void Limitetxt_Nome(KeyEvent event) {
@@ -361,12 +392,12 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void OnActionBuscar(ActionEvent event) {
-
+		ap_busca.setVisible(true);
 	}
 
 	@FXML
 	void OnActionCancelar(ActionEvent event) {
-
+		desativaTela();
 	}
 
 	@FXML
@@ -376,17 +407,188 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void OnActionFiltro(ActionEvent event) {
-
+		carregaTela(txt_filtro.getText());
 	}
 
 	@FXML
 	void OnActionGravar(ActionEvent event) {
+		boolean erro = false;
+
+		if (cb_fisica.isSelected() == false && cb_juridica.isSelected() == false) {
+			ctm_tipoP.show(lbl_tipoP,Side.RIGHT,10,0);
+			lbl_tipoP.setStyle(corErro);
+		}
+		else
+		{
+			ctm_tipoP.hide();
+			lbl_tipoP.setStyle(corNormal);
+		}
+
+		if (cb_fisica.isSelected() == true) {
+			cliente = new ClientePF();
+
+		
+			if (txt_dataNasc.getValue() == null) {
+				ctm_dataNasc.show(txt_dataNasc,Side.RIGHT,10,0);
+				txt_dataNasc.setStyle(corErro);				
+			}
+			else
+			{
+				ctm_dataNasc.hide();
+				txt_dataNasc.setStyle(corNormal);
+				((ClientePF) cliente).setDataNasc(Date.valueOf(txt_dataNasc.getValue()));
+			}
+			if (txt_rg.getText().length() < 4) {
+				ctm_rg.show(txt_rg, Side.RIGHT, 10, 0);
+				txt_rg.setStyle(corErro);
+			} else {
+				ctm_rg.hide();
+				txt_rg.setStyle(corNormal);
+				((ClientePF) cliente).setRg(txt_rg.getText());
+			}
+			if (cbb_estadoCivil.getValue() == null) {
+				erro = true;
+				cbb_estadoCivil.setStyle(corErro);
+				ctm_estadoCivil.show(cbb_estadoCivil, Side.RIGHT, 10, 0);
+			} else {
+				((ClientePF) cliente).setEstadoCivil(cbb_estadoCivil.getSelectionModel().getSelectedItem());
+				cbb_estadoCivil.setStyle(corNormal);
+				ctm_estadoCivil.hide();
+			}
+			if (txt_cpf.getText().equals("")) {
+				erro = true;
+				txt_cpf.setStyle(corErro);
+				ctm_cpf.show(txt_cpf, Side.RIGHT, 10, 0);
+			}
+			else  
+			{
+				if (!val.isCPF(txt_cpf.getText())) {
+					txt_cpf.setStyle(corErro);
+					erro = true;
+					ctm_cpf.show(txt_cpf, Side.RIGHT, 10, 0);
+				} else {
+					((ClientePF) cliente).setCpf(txt_cpf.getText());
+					txt_cpf.setStyle(corNormal);
+					ctm_cpf.hide();
+				}
+
+			}
+			// PESSOA JURIDICA
+		} else if (cb_juridica.isSelected() == true) {
+			cliente = new ClientePJ();
+			if (txt_cnpj.getText().equals("")) {
+				erro = true;
+				txt_cnpj.setStyle(corErro);
+				ctm_cnpj.show(txt_cnpj, Side.RIGHT, 10, 0);
+			} else {
+				if (!val.isCNPJ(txt_cnpj.getText())) {
+					txt_cnpj.setStyle(corErro);
+					erro = true;
+					ctm_cnpj.show(txt_cnpj, Side.RIGHT, 10, 0);
+				} else {
+					((ClientePJ) cliente).setCnpj(txt_cnpj.getText());
+					txt_cnpj.setStyle(corNormal);
+					ctm_cnpj.hide();
+				}
+
+			}
+			if (txt_ie.getText().equals("")) {
+				erro = true;
+				txt_ie.setStyle(corErro);
+				ctm_ie.show(txt_ie, Side.RIGHT, 10, 0);
+
+			} else {
+				((ClientePJ) cliente).setIe(txt_ie.getText());
+				txt_ie.setStyle(corNormal);
+				ctm_ie.hide();
+			}
+
+			if (txt_nomeFantasia.getText().equals("") || txt_nomeFantasia.getText().length() < 3) {
+				erro = true;
+				txt_nomeFantasia.setStyle(corErro);
+				ctm_nome.show(txt_nomeFantasia, Side.RIGHT, 10, 0);
+			} else {
+				((ClientePJ) cliente).setNomeFantasia(txt_nomeFantasia.getText());
+				txt_nomeFantasia.setStyle(corNormal);
+				ctm_nome.hide();
+			}
+
+		}
+		if (txt_codigo.getText().equals("")) {
+			erro = true;
+		} else {
+			cliente.setId(Long.parseLong(txt_codigo.getText()));
+		}
+		if (cbb_cidade.getValue() == null) {
+			erro = true;
+			cbb_cidade.setStyle(corErro);
+			ctm_cidade.show(cbb_cidade, Side.RIGHT, 10, 0);
+		} else {
+			cliente.setCidade(cbb_cidade.getSelectionModel().getSelectedItem());
+			cbb_cidade.setStyle(corNormal);
+			ctm_cidade.hide();
+		}
+
+		if (cbb_est.getValue() == null) {
+			erro = true;
+			cbb_est.setStyle(corErro);
+			ctm_uf.show(cbb_est, Side.RIGHT, 10, 0);
+		} else {
+			cbb_est.setStyle(corNormal);
+			ctm_uf.hide();
+		}
+
+		if (txt_cep.getText().equals("") == true || !val.isCEP(txt_cep.getText())) {
+			erro = true;
+			txt_cep.setStyle(corErro);
+			ctm_cep.show(txt_cep, Side.RIGHT, 10, 0);
+		} else {
+			cliente.setCep(txt_cep.getText());
+			txt_cep.setStyle(corNormal);
+			ctm_cep.hide();
+		}
+
+		if (txt_telefone.getText().equals("") || !val.isTELEFONE(txt_telefone.getText())) {
+			erro = true;
+			txt_telefone.setStyle(corErro);
+			ctm_telefone.show(txt_telefone, Side.RIGHT, 10, 0);
+		} else {
+			cliente.setTelefone(txt_telefone.getText());
+			txt_telefone.setStyle(corNormal);
+			ctm_telefone.hide();
+		}
+		if (txt_nome.getText().equals("") || txt_nome.getText().length() < 3) {
+			erro = true;
+			txt_nome.setStyle(corErro);
+			ctm_nome.show(txt_nome, Side.RIGHT, 10, 0);
+		} else {
+			cliente.setNome(txt_nome.getText());
+			txt_nome.setStyle(corNormal);
+			ctm_nome.hide();
+		}
+
+		if (erro != true) {
+			FXNotification fxn;
+
+			if (cliente.getId() == 0) {
+				cliente.setId(null);
+				new ClienteDAO().save(cliente);
+				fxn = new FXNotification("Cliente: " + cliente.getNome() + " foi inserido",
+						FXNotification.NotificationType.INFORMATION);
+			} else {
+				clienteDAO.merge(cliente);
+				fxn = new FXNotification("Cliente: " + cliente.getNome() + " foi alterado",
+						FXNotification.NotificationType.INFORMATION);
+			}
+			fxn.show();
+			desativaTela();
+		}
 
 	}
 
 	@FXML
 	void OnActionNovo(ActionEvent event) {
-
+		desativaTela();
 	}
 
 	@FXML
@@ -397,16 +599,25 @@ public class ClienteController implements Initializable {
 	@FXML
 	void OnActionVoltar(ActionEvent event) {
 		ap_busca.setVisible(false);
+		limpaBuscas();
 	}
 
 	@FXML
 	void OnKeyPressedEnter(KeyEvent event) {
-
+		txt_filtro.setOnKeyPressed((KeyEvent event1) -> {
+			if (event1.getCode() == KeyCode.ENTER) {
+				carregaTela(txt_filtro.getText());
+			}
+		});
 	}
 
 	@FXML
 	void OnMouseClickedCliente(MouseEvent event) {
 
+		if (tb_pessoa.getSelectionModel().getSelectedItem() != null) {
+			this.setCliente(tb_pessoa.getSelectionModel().getSelectedItem());
+			limpaBuscas();
+		}
 	}
 
 	@FXML
@@ -451,7 +662,137 @@ public class ClienteController implements Initializable {
 	}
 
 	@FXML
+	void onActionPessoaFisicaBusca(ActionEvent event) {
+		if (cb_juridicaBusca.isSelected() == true) {
+			tb_pessoa.getItems().clear();
+			cb_juridicaBusca.setSelected(false);
+			ap_pessoaJuridica.setVisible(false);
+			tc_cnpj.setVisible(false);
+		}
+		if (cb_fisicaBusca.isSelected() == true) {
+			tb_pessoa.getItems().clear();
+			tc_cpf.setVisible(true);
+			ap_pessoaFisica.setVisible(true);
+		} else {
+			tb_pessoa.getItems().clear();
+			tc_cpf.setVisible(false);
+			ap_pessoaFisica.setVisible(false);
+		}
+	}
+
+	@FXML
+	void onActionPessoaJuridicaBusca(ActionEvent event) {
+		if (cb_fisicaBusca.isSelected() == true) {
+			tb_pessoa.getItems().clear();
+			tc_cpf.setVisible(false);
+			cb_fisicaBusca.setSelected(false);
+			ap_pessoaFisica.setVisible(false);
+		}
+		if (cb_juridicaBusca.isSelected() == true) {
+			tb_pessoa.getItems().clear();
+			tc_cnpj.setVisible(true);
+			ap_pessoaJuridica.setVisible(true);
+		} else {
+			tb_pessoa.getItems().clear();
+			cb_juridicaBusca.setSelected(false);
+			ap_pessoaJuridica.setVisible(false);
+		}
+	}
+
+	@FXML
 	void Limitetxt_ie(KeyEvent event) {
+
+	}
+
+	public void desativaTela() {
+		cliente = new Cliente();
+		txt_cpf.setText("");
+		txt_dataNasc.setValue(null);
+		txt_rg.setText("");
+		txt_nomeFantasia.setText("");
+		txt_nome.setText("");
+		txt_cep.setText("");
+		txt_telefone.setText("");
+		txt_cnpj.setText("");
+		txt_ie.setText("");
+		txt_rg.setStyle(corNormal);
+		txt_cpf.setStyle(corNormal);
+		txt_nomeFantasia.setStyle(corNormal);
+		txt_nome.setStyle(corNormal);
+		txt_cep.setStyle(corNormal);
+		txt_telefone.setStyle(corNormal);
+		txt_cnpj.setStyle(corNormal);
+		txt_ie.setStyle(corNormal);
+		cbb_est.setStyle(corNormal);
+		cbb_cidade.setStyle(corNormal);
+		txt_codigo.setText("0");
+		btn_Excluir.setDisable(true);
+		btn_Cancelar.setDisable(true);
+		cbb_estadoCivil.getSelectionModel().select(null);
+		cbb_cidade.getSelectionModel().select(null);
+		cbb_cidade.getItems().clear();
+		cbb_est.getSelectionModel().select(null);
+		cbb_cidade.setDisable(true);
+	}
+
+	public void ativaTela() {
+		btn_Excluir.setDisable(false);
+		btn_Cancelar.setDisable(false);
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+		ativaTela();
+		desativaTela();
+		txt_nome.setText(cliente.getNome());
+		txt_cep.setText(cliente.getCep());
+		if (tipo.equals("FISICA") != true) {
+			cb_fisica.setSelected(false);
+			ap_pessoaFisica.setVisible(false);
+			cb_juridica.setSelected(true);
+			txt_cnpj.setText(((ClientePJ) cliente).getCnpj());
+			txt_ie.setText(((ClientePJ) cliente).getIe());
+			txt_nomeFantasia.setText(((ClientePJ) cliente).getNomeFantasia());
+		} else {
+			cb_juridica.setSelected(false);
+			ap_pessoaJuridica.setVisible(false);
+			cb_fisica.setSelected(true);
+			txt_cpf.setText(((ClientePF) cliente).getCpf());
+			txt_rg.setText(((ClientePF) cliente).getRg());
+			txt_dataNasc.setValue((((ClientePF) cliente).getDataNasc().toLocalDate()));
+			cbb_estadoCivil.getSelectionModel().select(((ClientePF) cliente).getEstadoCivil());
+		}
+		txt_codigo.setText("" + cliente.getId());
+		txt_telefone.setText(cliente.getTelefone());
+		cbb_est.getSelectionModel().select(cliente.getCidade().getEstado());
+		listaCidade = cidadeDAO.listCidadesPEstado(cbb_est.getSelectionModel().selectedItemProperty().getValue());
+		obslCidade = FXCollections.observableArrayList(listaCidade);
+		cbb_cidade.setDisable(false);
+		cbb_cidade.setItems(obslCidade);
+		cbb_cidade.getSelectionModel().select(cliente.getCidade());
+		ativaTela();
+	}
+
+	public void carregaTela(String palavra) {
+		if (cb_juridicaBusca.isSelected() == true)
+			tipo = "JURIDICA";
+		else
+			tipo = "FISICA";
+
+		clienteDAO = new ClienteDAO();
+		listaCliente.clear();
+		tb_pessoa.getItems().clear();
+		tc_codigo.setCellValueFactory(new PropertyValueFactory<>("Id"));
+		tc_nome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+		tc_cidade.setCellValueFactory(new PropertyValueFactory<>("Cidade"));
+		tc_telefone.setCellValueFactory(new PropertyValueFactory<>("Telefone"));
+		tc_cnpj.setCellValueFactory(new PropertyValueFactory<>("Cnpj"));
+		tc_cpf.setCellValueFactory(new PropertyValueFactory<>("Cpf"));
+		listaCliente = clienteDAO.listar(palavra, tipo);
+		if (!listaCliente.isEmpty()) {
+			obslCliente = FXCollections.observableArrayList(listaCliente);
+			tb_pessoa.setItems(obslCliente);
+		}
 
 	}
 
@@ -461,7 +802,10 @@ public class ClienteController implements Initializable {
 	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
+		desativaTela();
+		listaCliente = new ArrayList<>();
+		obsl_estadoCivil = FXCollections.observableArrayList("SOLTEIRO(A)", "CASADO(A)");
+		cbb_estadoCivil.setItems(obsl_estadoCivil);
 		listaEstado = estadoDAO.listar("");
 		obslEstado = FXCollections.observableArrayList(listaEstado);
 		cbb_est.setItems(obslEstado);
@@ -470,7 +814,16 @@ public class ClienteController implements Initializable {
 		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
 		txt_cep.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "#####-###"));
 		txt_cnpj.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##.###.###/####-##"));
-		txt_ie.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]", 30));
+		txt_cpf.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "###.###.###-##"));
+		txt_rg.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]+", 30));
+		txt_ie.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]+", 30));
+	}
+
+	public void limpaBuscas() {
+		listaCliente.clear();
+		tb_pessoa.getItems().clear();
+		ap_busca.setVisible(false);
+		txt_filtro.setText("");
 	}
 
 }

@@ -18,7 +18,7 @@ public class ClientePJ extends Cliente implements Serializable{
 	@Column(name = "clij_ie", nullable = false, length = 40)
 	private String ie;
 	@Column(name = "clij_nome", nullable = false, length = 200)
-	private String nome;
+	private String nomeFantasia;
 
 	public String getCnpj() {
 		return cnpj;
@@ -36,12 +36,12 @@ public class ClientePJ extends Cliente implements Serializable{
 		this.ie = ie;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeFantasia() {
+		return nomeFantasia;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeFantasia(String nome) {
+		this.nomeFantasia = nome;
 	}
 
 	public ClientePJ() {

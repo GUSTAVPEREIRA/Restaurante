@@ -23,7 +23,10 @@
             <Font size="14.0" />
          </font>
          <tooltip>
-            <Tooltip fx:id="ttp_lblCodigo" text="Código do cadastro do fornecedor." />
+            <Tooltip fx:id="ttp_lblCodigo" text="Código do cadastro do cliente.">
+               <font>
+                  <Font size="14.0" />
+               </font></Tooltip>
          </tooltip>
       </Label>
       <JFXTextField fx:id="txt_codigo" disable="true" focusColor="#5fcda3" labelFloat="true" layoutX="146.0" layoutY="40.0" maxWidth="231.0" minWidth="131.0" prefHeight="35.0" prefWidth="110.0" unFocusColor="BLACK">
@@ -57,7 +60,7 @@
             <Font size="14.0" />
          </font>
          <tooltip>
-            <Tooltip fx:id="ttp_lblNome" text="Nome do fornecedor." />
+            <Tooltip fx:id="ttp_lblNome" text="Nome do cliente." />
          </tooltip>
       </Label>
       <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="100.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Nome" prefHeight="35.0" prefWidth="400.0" unFocusColor="BLACK">
@@ -77,7 +80,10 @@
             <Font size="14.0" />
          </font>
          <tooltip>
-            <Tooltip fx:id="ttp_lblTelefone" text="Telefone fixo ou movél do fornecedor." />
+            <Tooltip fx:id="ttp_lblTelefone" text="Telefone fixo ou movél do cliente.">
+               <font>
+                  <Font size="14.0" />
+               </font></Tooltip>
          </tooltip>
       </Label>
       <JFXTextField fx:id="txt_telefone" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="150.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="202.0" unFocusColor="BLACK">
@@ -97,7 +103,10 @@
             <Font size="14.0" />
          </font>
          <tooltip>
-            <Tooltip fx:id="ttp_lblCep" text="Cep onde o fornecedor se encontra." />
+            <Tooltip fx:id="ttp_lblCep" text="Cep onde o cliente se encontra.">
+               <font>
+                  <Font size="14.0" />
+               </font></Tooltip>
          </tooltip>
       </Label>
       <JFXTextField fx:id="txt_cep" focusColor="#5fcda3" labelFloat="true" layoutX="144.0" layoutY="200.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
@@ -137,7 +146,10 @@
             <Font size="14.0" />
          </font>
          <tooltip>
-            <Tooltip fx:id="ttp_lblCidade" text="Cidade à qual o fornecedor pertence." />
+            <Tooltip fx:id="ttp_lblCidade" hideOnEscape="false" text="Cidade à qual o cliente pertence.">
+               <font>
+                  <Font size="14.0" />
+               </font></Tooltip>
          </tooltip>
       </Label>
       <JFXComboBox fx:id="cbb_cidade" disable="true" layoutX="410.0" layoutY="250.0" prefHeight="36.0" prefWidth="276.0">
@@ -191,7 +203,7 @@
                <contextMenu>
                   <ContextMenu fx:id="ctm_rg">
                      <items>
-                        <MenuItem fx:id="mi_rg" mnemonicParsing="false" text="Por favor, insira o cep corretamente." />
+                        <MenuItem fx:id="mi_rg" mnemonicParsing="false" text="Por favor, insira o rg corretamente." />
                      </items>
                   </ContextMenu>
                </contextMenu>
@@ -201,7 +213,10 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip fx:id="ttp_lblEstadoCivil" text="Estado à qual o fornecedor pertence." />
+                  <Tooltip fx:id="ttp_lblEstadoCivil" text="Estado à qual o cliente pertence.">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Tooltip>
                </tooltip>
             </Label>
             <JFXComboBox fx:id="cbb_estadoCivil" layoutX="110.0" layoutY="105.0" onAction="#OnMouseSelectionEstadoCivil" prefHeight="36.0" prefWidth="180.0">
@@ -211,7 +226,7 @@
                <contextMenu>
                   <ContextMenu fx:id="ctm_estadoCivil">
                      <items>
-                        <MenuItem fx:id="mi_estadoCivil" mnemonicParsing="false" text="Por favor, selecione o estado corretamente." />
+                        <MenuItem fx:id="mi_estadoCivil" mnemonicParsing="false" text="Por favor, selecione o estado civil corretamente." />
                      </items>
                   </ContextMenu>
                </contextMenu>
@@ -221,7 +236,10 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip fx:id="ttp_lblDataNasc" text="Estado à qual o fornecedor pertence." />
+                  <Tooltip fx:id="ttp_lblDataNasc" text="Data de nascimento.">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Tooltip>
                </tooltip>
             </Label>
             <Label layoutX="5.0" layoutY="15.0" text="*" textFill="RED">
@@ -244,7 +262,14 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXDatePicker fx:id="txt_dataNasc" layoutX="108.0" layoutY="165.0" />
+            <JFXDatePicker fx:id="txt_dataNasc" layoutX="108.0" layoutY="165.0">
+               <contextMenu>
+                  <ContextMenu fx:id="ctm_dataNasc">
+                    <items>
+                      <MenuItem fx:id="mi_dataNasc" mnemonicParsing="false" text="Por favor, selecione a data corretamente." />
+                    </items>
+                  </ContextMenu>
+               </contextMenu></JFXDatePicker>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="ap_pessoaJuridica" layoutX="242.0" layoutY="309.0" prefHeight="218.0" prefWidth="450.0" visible="false">
@@ -254,7 +279,10 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip fx:id="ttp_lblNomeFantasia" text="Nome do fornecedor." />
+                  <Tooltip fx:id="ttp_lblNomeFantasia" text="Nome fantasia do cliente juridico.">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Tooltip>
                </tooltip>
             </Label>
             <JFXTextField fx:id="txt_nomeFantasia" focusColor="#5fcda3" labelFloat="true" layoutX="117.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_Nome" prefHeight="36.0" prefWidth="333.0" unFocusColor="BLACK">
@@ -274,7 +302,10 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip fx:id="ttp_lblCnpj" text="Telefone fixo ou movél do fornecedor." />
+                  <Tooltip fx:id="ttp_lblCnpj" text="Telefone fixo ou movél do fornecedor.">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Tooltip>
                </tooltip>
             </Label>
             <JFXTextField fx:id="txt_cnpj" focusColor="#5fcda3" labelFloat="true" layoutX="122.0" layoutY="53.0" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="215.0" unFocusColor="BLACK">
@@ -284,7 +315,7 @@
                <contextMenu>
                   <ContextMenu fx:id="ctm_cnpj">
                      <items>
-                        <MenuItem fx:id="mi_cnpj" mnemonicParsing="false" text="Por favor, insira o telefone corretamente." />
+                        <MenuItem fx:id="mi_cnpj" mnemonicParsing="false" text="Por favor, insira o cnpj corretamente." />
                      </items>
                   </ContextMenu>
                </contextMenu>
@@ -304,7 +335,10 @@
                   <Font size="14.0" />
                </font>
                <tooltip>
-                  <Tooltip fx:id="ttp_lblIe" text="Telefone fixo ou movél do fornecedor." />
+                  <Tooltip fx:id="ttp_lblIe" text="Telefone fixo ou movél do fornecedor.">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Tooltip>
                </tooltip>
             </Label>
             <JFXTextField fx:id="txt_ie" focusColor="#5fcda3" labelFloat="true" layoutX="122.0" layoutY="101.0" maxWidth="397.0" minWidth="131.0" onKeyTyped="#Limitetxt_ie" prefHeight="36.0" prefWidth="215.0" unFocusColor="BLACK">
@@ -314,7 +348,7 @@
                <contextMenu>
                   <ContextMenu fx:id="ctm_ie">
                      <items>
-                        <MenuItem fx:id="mi_ie" mnemonicParsing="false" text="Por favor, insira o telefone corretamente." />
+                        <MenuItem fx:id="mi_ie" mnemonicParsing="false" text="Por favor, insira a inscrição estadual corretamente." />
                      </items>
                   </ContextMenu>
                </contextMenu>
@@ -423,13 +457,20 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label fx:id="lbl_UF1" layoutX="67.0" layoutY="350.0" text="Selecione o tipo de pessoa.">
+      <Label fx:id="lbl_tipoP" layoutX="67.0" layoutY="350.0" text="Selecione o tipo de pessoa.">
          <font>
             <Font size="14.0" />
          </font>
          <tooltip>
-            <Tooltip fx:id="ttp_lblCidade11" text="Estado à qual o fornecedor pertence." />
+            <Tooltip fx:id="ttp_lblTipoP" text="Tipo de cliente, sendo pessoa física ou juridica." />
          </tooltip>
+         <contextMenu>
+            <ContextMenu fx:id="ctm_tipoP">
+              <items>
+                <MenuItem fx:id="mi_tipoP" mnemonicParsing="false" text="Por favor, selecione um tipo de pessoa." />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </Label>
       <Label layoutX="60.0" layoutY="350.0" text="*" textFill="RED">
          <font>
@@ -446,13 +487,13 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="762.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="760.0" promptText="Busca pelo nome ou pela cidade." unFocusColor="BLACK" />
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="762.0" minWidth="614.0" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="614.0" promptText="Busca pelo nome ou pela cidade." unFocusColor="BLACK" />
             <TableView fx:id="tb_pessoa" layoutX="14.0" layoutY="63.0" onMouseClicked="#OnMouseClickedCliente" prefHeight="461.0" prefWidth="871.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" styleClass="tab" text="Código" />
                   <TableColumn fx:id="tc_nome" editable="false" maxWidth="586.0" minWidth="265.0" prefWidth="290.0" resizable="false" styleClass="tab" text="Nome" />
-                  <TableColumn fx:id="tc_cpf" editable="false" maxWidth="256.0" minWidth="84.0" prefWidth="95.0" resizable="false" styleClass="tab" text="Cnpj" />
-                  <TableColumn fx:id="tc_cnp" editable="false" maxWidth="256.0" minWidth="84.0" prefWidth="95.0" resizable="false" styleClass="tab" text="Cnpj" />
+                  <TableColumn fx:id="tc_cpf" editable="false" maxWidth="256.0" minWidth="84.0" prefWidth="95.0" resizable="false" styleClass="tab" text="CPF" visible="false" />
+                  <TableColumn fx:id="tc_cnpj" editable="false" maxWidth="256.0" minWidth="84.0" prefWidth="95.0" resizable="false" styleClass="tab" text="Cnpj" visible="false" />
                   <TableColumn fx:id="tc_cidade" editable="false" maxWidth="406.0" minWidth="82.0" prefWidth="181.0" resizable="false" styleClass="tab" text="Cidade" />
                   <TableColumn fx:id="tc_telefone" editable="false" maxWidth="256.0" minWidth="84.0" prefWidth="130.0" resizable="false" styleClass="tab" text="Telefone" />
                </columns>
@@ -465,6 +506,8 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
                </graphic>
             </JFXButton>
+            <JFXCheckBox fx:id="cb_fisicaBusca" layoutX="734.0" layoutY="30.0" onAction="#onActionPessoaFisicaBusca" onKeyPressed="#OnKeyPressedEnter" text="Física" />
+            <JFXCheckBox fx:id="cb_juridicaBusca" layoutX="810.0" layoutY="30.0" onAction="#onActionPessoaJuridicaBusca" onKeyPressed="#OnKeyPressedEnter" text="Juridica" />
          </children>
          <stylesheets>
             <URL value="@css/backgroundCadastro.css" />

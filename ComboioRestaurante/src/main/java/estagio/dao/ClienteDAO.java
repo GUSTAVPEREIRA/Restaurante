@@ -4,183 +4,62 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import estagio.model.Cliente;
-import estagio.model.Estado;
-import estagio.view.util.JPAUtil;
+import estagio.persistence.JPAUtil;
 
-public class ClienteDAO {
-	@PersistenceContext
-	EntityManager em;
+public class ClienteDAO extends GenericDAO<Cliente>{
+// Aqui foram implementados o crud isso é o generic dao desenvolvido pelo jobs
+
 
 	public ClienteDAO() {
-		em = new JPAUtil().getEntityManager();
+		super(Cliente.class);
 	}
 
-	@Transactional
-	public void inserir(Cliente cliente) {
-		if (!em.isOpen()) {
-			em = new JPAUtil().getEntityManager();
-		} else
-			em.getTransaction().begin();
-		try {
-
-			em.persist(cliente);
-			em.getTransaction().commit();
-
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
+	@Override
+	public Long getID(Cliente obj) {
+		return obj.getId();
 	}
+	
+    public List<Cliente> listar(String busca,String tipo) {
+        String jpql;
 
-	public void alterar(Cliente cliente) {
-		if (!em.isOpen()) {
-			em = new JPAUtil().getEntityManager();
-		} else
-			em.getTransaction().begin();
-		try {
+		EntityManager em = JPAUtil.getEntityManager();
 
-			Cliente aux = em.find(Cliente.class, cliente.getId());
-			aux.setNome(cliente.getNome());
-			aux.setCidade(cliente.getCidade());
-			aux.setTelefone(cliente.getTelefone());
-			aux.setCep(cliente.getCep());
+		em.getTransaction().begin();
+        List<Cliente> retorno = new ArrayList<Cliente>();
+        try
+        {
+            	jpql = "select m from Cliente m ";
+            	if (tipo.equals("FISICA")==true) {
+					jpql = jpql+"INNER JOIN ClientePF pf ON pf.id = m.id";
+				}
+            	else
+            		jpql = jpql+"INNER JOIN ClientePJ pj ON pj.id = m.id";
+                        
+            if(busca.equals("")!= true)
+                jpql =jpql+ " where m.nome like :pBusca "
+                        + "OR m.cidade.nome like :pBusca";  
 
-			em.merge(aux);
-			em.getTransaction().commit();
+            TypedQuery<Cliente> query = em.createQuery(jpql,Cliente.class);
+            if (busca.compareTo("")!=0) 
+                query.setParameter("pBusca", "%"+busca+"%");  
+            retorno = query.getResultList();
+            em.getTransaction().commit();
 
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
-	}
+        } 
+        catch(Exception e)
+        {
+            em.getTransaction().rollback();
+            System.out.println(e.getMessage());
+        }
+        finally
+        {
+            em.close();
+        }
+        return retorno;
+    }
 
-	public boolean Deletar(Cliente cidade) {
-		boolean deletado = false;
-
-		if (!em.isOpen()) {
-			em = new JPAUtil().getEntityManager();
-		} else
-			em.getTransaction().begin();
-		try {
-
-			Cliente aux = em.find(Cliente.class, cidade.getId());
-			em.remove(aux);
-			deletado = true;
-			em.getTransaction().commit();
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
-		return deletado;
-	}
-
-	public Cliente busca(String busca) {
-		Cliente cidade = new Cliente();
-
-		if (!em.isOpen()) {
-			em = new JPAUtil().getEntityManager();
-		} else
-			em.getTransaction().begin();
-		try {
-
-			cidade = em.find(Cliente.class, busca);
-			em.getTransaction().commit();
-
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
-		return cidade;
-	}
-
-	public Cliente listar(int busca) {
-		String jpql = "";
-		Cliente cidade = null;
-		List<Cliente> retorno = new ArrayList<Cliente>();
-		if (!em.isOpen()) {
-			em = new JPAUtil().getEntityManager();
-		} else
-			em.getTransaction().begin();
-		try {
-			jpql = "select m from Cliente m where m.id = :pId";
-			TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
-			query.setParameter("pId", busca);
-			retorno = query.getResultList();
-			cidade = retorno.get(0);
-			em.getTransaction().commit();
-
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
-		return cidade;
-	}
-
-	public List<Cliente> listClientesPEstado(Estado busca) {
-		String jpql = "";
-		List<Cliente> retorno = new ArrayList<Cliente>();
-		if (!em.isOpen()) {
-			em = new JPAUtil().getEntityManager();
-		} else
-			em.getTransaction().begin();
-		try {
-			jpql = "select r from Cliente r where r.nome.id=:pNome order by r.nome";
-			TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
-			if (busca != null)
-				query.setParameter("pEstado", busca.getId());
-			retorno = query.getResultList();
-			em.getTransaction().commit();
-
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
-		return retorno;
-	}
-
-	public List<Cliente> listar(String busca) {
-		String jpql = "";
-		List<Cliente> retorno = new ArrayList<Cliente>();
-		if (!em.isOpen()) {
-			em = new JPAUtil().getEntityManager();
-		} else
-			em.getTransaction().begin();
-		try {
-
-			if (busca.compareTo("") == 0)
-				jpql = "select m from Cliente m";
-			else
-				jpql = "select m from Cliente m where m.nome like :pBusca " + "OR m.estado.nome like :pBusca";
-
-			TypedQuery<Cliente> query = em.createQuery(jpql, Cliente.class);
-			if (busca.compareTo("") != 0)
-				query.setParameter("pBusca", "%" + busca + "%");
-			retorno = query.getResultList();
-			em.getTransaction().commit();
-
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
-		return retorno;
-	}
+	
 }
