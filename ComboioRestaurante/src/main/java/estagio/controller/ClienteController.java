@@ -20,6 +20,7 @@ import com.jfoenix.controls.JFXTextField;
 import estagio.dao.CidadeDAO;
 import estagio.dao.ClienteDAO;
 import estagio.dao.EstadoDAO;
+import estagio.dao.FornecedorDAO;
 import estagio.model.Cidade;
 import estagio.model.Cliente;
 import estagio.model.ClientePF;
@@ -34,6 +35,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -353,10 +356,9 @@ public class ClienteController implements Initializable {
 	@FXML
 	private JFXCheckBox cb_fisicaBusca;
 
-    @FXML
-    private Label lbl_tipoP;
-    
-	
+	@FXML
+	private Label lbl_tipoP;
+
 	@FXML
 	private JFXCheckBox cb_juridicaBusca;
 	private List<Estado> listaEstado;
@@ -402,7 +404,26 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void OnActionExcluir(ActionEvent event) {
-
+		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
+		ButtonType btnSim = new ButtonType("Sim");
+		ButtonType btnNao = new ButtonType("Não");
+		dialogoExe.setTitle("");
+		dialogoExe.setHeaderText("Você deseja realmente excluir " + cliente.getNome() + "?");
+		dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
+		dialogoExe.showAndWait().ifPresent(b -> {
+			if (b == btnSim) {
+				clienteDAO = new ClienteDAO();
+				if (txt_codigo.getText().equals("0") != true && !txt_codigo.getText().isEmpty()) {
+					cliente.setId(Long.parseLong(txt_codigo.getText()));
+					clienteDAO.delete(cliente);
+					FXNotification fxn;
+					fxn = new FXNotification("Cliente: " + cliente.getNome() + " foi Excluido",
+							FXNotification.NotificationType.INFORMATION);
+					fxn.show();
+				}
+				desativaTela();
+			}
+		});
 	}
 
 	@FXML
@@ -415,11 +436,9 @@ public class ClienteController implements Initializable {
 		boolean erro = false;
 
 		if (cb_fisica.isSelected() == false && cb_juridica.isSelected() == false) {
-			ctm_tipoP.show(lbl_tipoP,Side.RIGHT,10,0);
+			ctm_tipoP.show(lbl_tipoP, Side.RIGHT, 10, 0);
 			lbl_tipoP.setStyle(corErro);
-		}
-		else
-		{
+		} else {
 			ctm_tipoP.hide();
 			lbl_tipoP.setStyle(corNormal);
 		}
@@ -427,13 +446,10 @@ public class ClienteController implements Initializable {
 		if (cb_fisica.isSelected() == true) {
 			cliente = new ClientePF();
 
-		
 			if (txt_dataNasc.getValue() == null) {
-				ctm_dataNasc.show(txt_dataNasc,Side.RIGHT,10,0);
-				txt_dataNasc.setStyle(corErro);				
-			}
-			else
-			{
+				ctm_dataNasc.show(txt_dataNasc, Side.RIGHT, 10, 0);
+				txt_dataNasc.setStyle(corErro);
+			} else {
 				ctm_dataNasc.hide();
 				txt_dataNasc.setStyle(corNormal);
 				((ClientePF) cliente).setDataNasc(Date.valueOf(txt_dataNasc.getValue()));
@@ -459,9 +475,7 @@ public class ClienteController implements Initializable {
 				erro = true;
 				txt_cpf.setStyle(corErro);
 				ctm_cpf.show(txt_cpf, Side.RIGHT, 10, 0);
-			}
-			else  
-			{
+			} else {
 				if (!val.isCPF(txt_cpf.getText())) {
 					txt_cpf.setStyle(corErro);
 					erro = true;
@@ -741,9 +755,10 @@ public class ClienteController implements Initializable {
 	}
 
 	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 		ativaTela();
 		desativaTela();
+		this.cliente = cliente;
+
 		txt_nome.setText(cliente.getNome());
 		txt_cep.setText(cliente.getCep());
 		if (tipo.equals("FISICA") != true) {
@@ -803,6 +818,7 @@ public class ClienteController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		desativaTela();
+		cliente = new Cliente();
 		listaCliente = new ArrayList<>();
 		obsl_estadoCivil = FXCollections.observableArrayList("SOLTEIRO(A)", "CASADO(A)");
 		cbb_estadoCivil.setItems(obsl_estadoCivil);
