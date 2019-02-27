@@ -7,13 +7,13 @@ import javax.persistence.Entity;
 
 @Entity
 
-public class ClientePJ extends Cliente implements Serializable{
+public class ClientePJ extends Cliente implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Column(name = "clij_cnpj", nullable = false, length = 20)
+	@Column(name = "clij_cnpj", nullable = false, length = 20, unique = true)
 	private String cnpj;
 	@Column(name = "clij_ie", nullable = false, length = 40)
 	private String ie;

@@ -26,7 +26,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btn_vendas" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
+            <JFXButton fx:id="btn_vendas" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" onAction="#onActionVendas" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

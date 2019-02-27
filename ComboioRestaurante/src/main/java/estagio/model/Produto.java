@@ -8,6 +8,7 @@ package estagio.model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -17,18 +18,21 @@ import javax.persistence.ManyToOne;
  *
  * @author Pereira
  */
-@SuppressWarnings("serial")
 @Entity
 public class Produto implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "pro_id")
 	private Long id;
-	@Column(name = "pro_nome",nullable=false,length=100)
+	@Column(name = "pro_nome", nullable = false, length = 100)
 	private String nome;
-	@Column(name = "pro_preco",nullable=false,precision=2)
+	@Column(name = "pro_preco", nullable = false, precision = 2)
 	private double preco;
-	@Column(name = "pro_preco_compra",nullable=false,precision=2)
+	@Column(name = "pro_preco_compra", nullable = false, precision = 2)
 	private double preco_compra;
 	@JoinColumn(nullable = false)
 	@ManyToOne

@@ -60,5 +60,12 @@ public class MainController {
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/LoginFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
 	}
+	
+    @FXML
+    void onActionVendas(ActionEvent event) throws IOException {
+		Node node;
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/VendasFXML.fxml"));
+		ap_menu.getChildren().setAll(node);
+    }
 
 }

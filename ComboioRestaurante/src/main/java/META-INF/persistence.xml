@@ -20,6 +20,7 @@
 		<class>estagio.model.Cliente</class>
 		<class>estagio.model.ClientePF</class>
 		<class>estagio.model.ClientePJ</class>
+		<class>estagio.model.Caixa</class>
 		<!-- Aqui são listadas todas as entidades -->
 
 		<properties>

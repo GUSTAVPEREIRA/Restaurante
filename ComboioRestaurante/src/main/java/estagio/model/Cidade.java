@@ -18,74 +18,76 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-
 /**
  *
  * @author Pereira
  */
-@SuppressWarnings("serial")
+
 @Entity
 public class Cidade implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cid_id")
-    private Long id;
-    @Column(name = "cid_nome")
-    private String nome;
-    @JoinColumn(nullable = false)
-    @ManyToOne(cascade=CascadeType.ALL)
-    private Estado estado;
-    @OneToMany(mappedBy = "cidade")
-    private List<Fornecedor> fornecedor;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cid_id")
+	private Long id;
+	@Column(name = "cid_nome")
+	private String nome;
+	@JoinColumn(nullable = false)
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Estado estado;
+	@OneToMany(mappedBy = "cidade")
+	private List<Fornecedor> fornecedor;
 
-    public Cidade() {
-    }
+	public Cidade() {
+	}
 
-    public Cidade(Long id, String nome, Estado estado) {
-        this.id = id;
-        this.nome = nome;
-        this.estado = estado;
-    }
+	public Cidade(Long id, String nome, Estado estado) {
+		this.id = id;
+		this.nome = nome;
+		this.estado = estado;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Estado getEstado() {
-        return estado;
-    }
+	public Estado getEstado() {
+		return estado;
+	}
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
 
-    @Override
-    public String toString() {
-        return getNome();
-    }
-    
-    @Override
-    public boolean equals(Object obj) {
-    	if (obj instanceof Cidade) {
-			Cidade cid = (Cidade)obj;
+	@Override
+	public String toString() {
+		return getNome();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Cidade) {
+			Cidade cid = (Cidade) obj;
 			if (cid.getEstado().equals(this.estado) && cid.getNome().equals(this.nome) && cid.getId().equals(this.id)) {
 				return true;
 			}
 		}
-    	return false;
-    }
-  
-    
+		return false;
+	}
+
 }

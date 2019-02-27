@@ -20,7 +20,6 @@ import com.jfoenix.controls.JFXTextField;
 import estagio.dao.CidadeDAO;
 import estagio.dao.ClienteDAO;
 import estagio.dao.EstadoDAO;
-import estagio.dao.FornecedorDAO;
 import estagio.model.Cidade;
 import estagio.model.Cliente;
 import estagio.model.ClientePF;

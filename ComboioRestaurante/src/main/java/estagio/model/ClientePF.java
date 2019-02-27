@@ -14,9 +14,8 @@ public class ClientePF extends Cliente implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
-	@Column(name = "clif_cpf", nullable = false, length = 20)
+
+	@Column(name = "clif_cpf", nullable = false, length = 20, unique = true)
 	private String cpf;
 	@Column(name = "clif_rg", nullable = false, length = 20)
 	private String rg;
@@ -60,7 +59,7 @@ public class ClientePF extends Cliente implements Serializable {
 	public ClientePF() {
 		super();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ClientePF) {
@@ -71,6 +70,5 @@ public class ClientePF extends Cliente implements Serializable {
 		}
 		return false;
 	}
-	
 
 }

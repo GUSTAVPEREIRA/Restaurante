@@ -17,9 +17,12 @@ import javax.persistence.Id;
  * 
  * @author Pereira
  */
-@SuppressWarnings("serial")
 @Entity
 public class Usuario implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "usu_id")

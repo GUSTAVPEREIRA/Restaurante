@@ -6,124 +6,128 @@
 package estagio.model;
 
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
 /**
  *
  * @author Pereira
  */
-@SuppressWarnings("serial")
 @Entity
 public class Fornecedor implements Serializable {
-    
-    
-    @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
-    @Column(name = "for_id")
-    private Long id;
-    @Column(name = "for_nome")
-    private String nome;
-    @Column(name = "for_cnpj")
-    private String cnpj;
-    @Column(name = "for_ie")
-    private String ie;
-    @Column(name = "for_telefone")
-    private String telefone;
-    @Column(name = "for_cep")
-    private String cep;
-    @JoinColumn(nullable = false)
-    @ManyToOne
-    private Cidade cidade;
 
-    public Fornecedor() {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+	@Column(name = "for_id")
+	private Long id;
+	@Column(name = "for_nome", length = 100, nullable = false)
+	private String nome;
+	@Column(name = "for_cnpj", length = 20, unique = true, nullable = false)
+	private String cnpj;
+	@Column(name = "for_ie", length = 30, nullable = false)
+	private String ie;
+	@Column(name = "for_telefone", nullable = false, length = 20)
+	private String telefone;
+	@Column(name = "for_cep", nullable = false, length = 10)
+	private String cep;
+	@JoinColumn(nullable = false)
+	@ManyToOne(cascade=CascadeType.ALL)
+	private Cidade cidade;
 
-    }
+	public Fornecedor() {
 
-    public Fornecedor(Long id, String nome, String cnpj, String ie, String telefone, String cep, Cidade cidade) {
-        this.id = id;
-        this.nome = nome;
-        this.cnpj = cnpj;
-        this.ie = ie;
-        this.telefone = telefone;
-        this.cep = cep;
-        this.cidade = cidade;
-    }
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Fornecedor(Long id, String nome, String cnpj, String ie, String telefone, String cep, Cidade cidade) {
+		this.id = id;
+		this.nome = nome;
+		this.cnpj = cnpj;
+		this.ie = ie;
+		this.telefone = telefone;
+		this.cep = cep;
+		this.cidade = cidade;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public String getNome() {
+		return nome;
+	}
 
-    public String getCnpj() {
-        return cnpj;
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
+	public String getCnpj() {
+		return cnpj;
+	}
 
-    public String getIe() {
-        return ie;
-    }
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
 
-    public void setIe(String ie) {
-        this.ie = ie;
-    }
+	public String getIe() {
+		return ie;
+	}
 
-    public String getTelefone() {
-        return telefone;
-    }
+	public void setIe(String ie) {
+		this.ie = ie;
+	}
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
+	public String getTelefone() {
+		return telefone;
+	}
 
-    public String getCep() {
-        return cep;
-    }
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
 
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
+	public String getCep() {
+		return cep;
+	}
 
-    public Cidade getCidade() {
-        return cidade;
-    }
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
 
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
+	public Cidade getCidade() {
+		return cidade;
+	}
 
-    @Override
-    public String toString() {
-        return this.nome;
-    }
-    
-    
-    @Override
-    public boolean equals(Object obj) {
-    	if (obj instanceof Fornecedor) {
-			Fornecedor forne = (Fornecedor)obj;
-    		if (forne.getNome().equals(this.nome) && forne.getId().equals(this.id)) {
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	@Override
+	public String toString() {
+		return this.nome;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Fornecedor) {
+			Fornecedor forne = (Fornecedor) obj;
+			if (forne.getNome().equals(this.nome) && forne.getId().equals(this.id)) {
 				return true;
 			}
 		}
-    	return false;
-    }
+		return false;
+	}
 
 }

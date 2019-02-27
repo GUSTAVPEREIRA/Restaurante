@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDrawer?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="ap_menu" maxHeight="600.0" maxWidth="1044.0" minHeight="600.0" minWidth="1044.0" prefHeight="600.0" prefWidth="1044.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.VendasController">
+   <children>
+      <JFXDrawer fx:id="draw_menu" defaultDrawerSize="400.0" direction="BOTTOM" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" overLayVisible="false" prefHeight="600.0" prefWidth="109.0">
+         <children>
+            <VBox fx:id="VB_Menu" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" prefHeight="600.0" prefWidth="109.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css">
+               <children>
+                  <JFXButton fx:id="Caixa" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionCaixa" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Caixa">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="Vendas" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionVendas" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="Promocao" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionPromocao" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Promoção">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="Sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </JFXDrawer>
+      <StackPane fx:id="stack_vendas" layoutX="110.0">
+         <children>
+            <AnchorPane fx:id="ap_vendas" maxHeight="600.0" maxWidth="936.0" minHeight="600.0" minWidth="924.0" prefHeight="600.0" prefWidth="933.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" />
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

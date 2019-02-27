@@ -16,7 +16,7 @@ public class Empresa {
 	private Long id;
 	@Column(name = "emp_nome", nullable = false, length = 100)
 	private String nome;
-	@Column(name = "emp_cnpj", nullable = false, length = 20)
+	@Column(name = "emp_cnpj", nullable = false, length = 20,unique=true)
 	private String cnpj;
 	@Column(name = "emp_ie", nullable = false, length = 40)
 	private String ie;
@@ -26,6 +26,7 @@ public class Empresa {
 	private String cep;
 	@Column(name = "emp_telefone", nullable = false, length = 20)
 	private String telefone;
+
 	public String getTelefone() {
 		return telefone;
 	}

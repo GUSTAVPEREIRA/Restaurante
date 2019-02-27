@@ -154,7 +154,7 @@ public class ProdutoController implements Initializable {
 	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		listProduto = new ArrayList();
+		listProduto = new ArrayList<Produto>();
 		produto = new Produto();
 		fornecedor = new Fornecedor();
 		categoria = new Categoria();
