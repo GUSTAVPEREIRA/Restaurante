@@ -43,7 +43,7 @@ public class LoginController implements Initializable{
     private JFXButton btn_login;
     private UsuarioDAO usuarioDAO;
     public static Usuario logado = new Usuario(); 
-    private TextFieldFormatterHelper tffh;
+    public final Usuario loginEfetuado = new Usuario();
     private String corErro = "-fx-border-color: red;";
     private String corNormal = "-fx-border-color:white";
     @FXML
@@ -61,14 +61,13 @@ public class LoginController implements Initializable{
     @FXML
     private MenuItem mi_btnLogin;
     
-    @SuppressWarnings("static-access")
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
        txt_login.setText("");
        txt_senha.setText("");
        new Usuario();
-       txt_login.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-       txt_senha.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+       txt_login.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+       txt_senha.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
     }   
     
     @FXML
@@ -116,6 +115,7 @@ public class LoginController implements Initializable{
                stage.close();
                try 
                {
+            	   
                    Thread.sleep(0,1 * 1000);
                    Parent root;    
                    root = FXMLLoader.load(getClass().getResource("/estagio/view/MenuFXML.fxml"));

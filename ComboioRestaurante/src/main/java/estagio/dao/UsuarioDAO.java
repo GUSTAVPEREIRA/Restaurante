@@ -124,7 +124,6 @@ public class UsuarioDAO {
  
     }
     
-    @SuppressWarnings("unchecked")
 	public Usuario login_dup(String busca) {
         String jpql;
         Usuario usuario = null;
@@ -138,7 +137,7 @@ public class UsuarioDAO {
         try
         {
             jpql = "select m from Usuario m where m.login = :pLogin";  
-            Query query = em.createQuery(jpql);
+            TypedQuery<Usuario> query = em.createQuery(jpql,Usuario.class);
             query.setParameter("pLogin", busca);  
             retorno = query.getResultList();            
             usuario = retorno.get(0);

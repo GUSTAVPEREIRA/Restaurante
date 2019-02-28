@@ -37,7 +37,17 @@ public class Caixa {
 	private double debito;
 	@Column(name = "caixa_valorCheque", nullable = false, precision = 2)
 	private double cheque;
+	@Column(name ="caixa_status",nullable = false,length=8)
+	private String status;
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@JoinColumn(nullable = false)
 	@ManyToOne
 	private Usuario usuario;
@@ -140,6 +150,11 @@ public class Caixa {
 
 	public void setCheque(double cheque) {
 		this.cheque = cheque;
+	}
+	
+	public Double somaDinheiro()
+	{
+		return (this.cheque+this.credito+this.abertura+this.dinheiro+this.debito);
 	}
 
 }
