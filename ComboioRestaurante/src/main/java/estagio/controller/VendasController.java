@@ -18,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class VendasController implements Initializable{
+public class VendasController implements Initializable {
 
 	@FXML
 	private AnchorPane ap_menu;
@@ -46,7 +46,7 @@ public class VendasController implements Initializable{
 
 	@FXML
 	private AnchorPane ap_vendas;
-	
+
 	private Node node;
 
 	@Override
@@ -59,8 +59,7 @@ public class VendasController implements Initializable{
 			}
 		});
 	}
-	
-	
+
 	@FXML
 	void OnActionCaixa(ActionEvent event) throws IOException {
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CaixaFXML.fxml"));
@@ -73,8 +72,9 @@ public class VendasController implements Initializable{
 	}
 
 	@FXML
-	void OnActionSair(ActionEvent event) {
-
+	void OnActionSair(ActionEvent event) throws IOException {
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/MenuFXML.fxml"));
+		ap_menu.getChildren().setAll(node);
 	}
 
 	@FXML

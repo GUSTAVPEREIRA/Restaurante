@@ -108,4 +108,9 @@ public class Usuario implements Serializable {
 		}
 		return false;
 	}
+	
+	@Override
+	public String toString() {
+		return this.nome;
+	}
 }

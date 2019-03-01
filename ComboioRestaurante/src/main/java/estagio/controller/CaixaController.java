@@ -3,9 +3,13 @@ package estagio.controller;
 import java.net.URL;
 import java.sql.Date;
 import java.sql.Time;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -16,20 +20,62 @@ import estagio.dao.CaixaDAO;
 import estagio.model.Caixa;
 import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class CaixaController implements Initializable {
 
 	@FXML
-	private AnchorPane ap_caixa;
+	private VBox vb_caixaInicial;
+
+	@FXML
+	private TableView<Caixa> tb_caixas;
+
+	@FXML
+	private TableColumn<Caixa, String> tc_codigo;
+
+	@FXML
+	private TableColumn<Caixa, String> tc_nome;
+
+	@FXML
+	private TableColumn<Caixa, String> tc_status;
+
+	@FXML
+	private TableColumn<Caixa, String> tc_valor;
+
+	@FXML
+	private JFXButton btn_Novo;
+
+	@FXML
+	private Tooltip ttp_btnNovo;
+
+	@FXML
+	private JFXButton btn_Excluir;
+
+	@FXML
+	private Tooltip ttp_btnExcluir;
+
+	@FXML
+	private HBox hb_gerenciamentoCaixa;
+
+	@FXML
+	private VBox ap_caixa;
 
 	@FXML
 	private Label lbl_valorAtual;
@@ -107,6 +153,9 @@ public class CaixaController implements Initializable {
 	private MenuItem mi_cartaoCredito;
 
 	@FXML
+	private PieChart PC_saldoCaixas;
+
+	@FXML
 	private Label lbl_dataAbertura;
 
 	@FXML
@@ -140,31 +189,31 @@ public class CaixaController implements Initializable {
 	private Label lbl_dataFechamento;
 
 	@FXML
-	private Tooltip ttp_lblDataFechamento;
+	private Tooltip ttp_lblDataAbertura1;
 
 	@FXML
 	private JFXDatePicker txt_dataFechamento;
 
 	@FXML
-	private ContextMenu ctm_dataFechamento;
+	private ContextMenu ctm_dataAbertura1;
 
 	@FXML
-	private MenuItem mi_dataFechamento;
+	private MenuItem mi_dataAbertura1;
 
 	@FXML
 	private Label lbl_horaFechamento;
 
 	@FXML
-	private Tooltip ttp_lblHoraFechamento;
+	private Tooltip ttp_lblHoraAbertura1;
 
 	@FXML
 	private JFXTextField txt_horaFechamento;
 
 	@FXML
-	private ContextMenu ctm_horaFechamento;
+	private ContextMenu ctm_horaAbertura1;
 
 	@FXML
-	private MenuItem mi_horaFechamento;
+	private MenuItem mi_horaAbertura1;
 
 	@FXML
 	private Label lbl_valorAbertura;
@@ -193,31 +242,48 @@ public class CaixaController implements Initializable {
 	@FXML
 	private Tooltip ttp_btnFecharCaixa;
 
+	@FXML
+	private JFXButton btn_sairAbrir;
+
+	@FXML
+	private Tooltip ttp_btnSairAbrir;
+
+	@FXML
+	private JFXButton btn_Editar;
+
+	@FXML
+	private JFXButton btn_Cancelar;
+
+	@FXML
+	private Label caption;
+
 	private CaixaDAO caixaDAO;
 	private Caixa caixa;
 	String corErro = "-fx-border-color: red;";
 	String corNormal = "-fx-border-color:white";
 	DateTimeFormatter horaFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 	DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private ObservableList<Caixa> obslCaixa;
+	private List<Caixa> listaCaixa;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		caixaDAO = new CaixaDAO();
 		caixa = new Caixa();
-		verificaCaixaAberto();
+		listaCaixa = new ArrayList<Caixa>();
+		carregaTela();
 		txt_cartaoCredito.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_cartaoDebito.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_cheque.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_dinheiro.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_valorAtual.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_valorAbertura.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
-		verificaCaixaAberto();
 
 	}
 
 	public void verificaCaixaAberto() {
 		caixaDAO = new CaixaDAO();
-		caixa = caixaDAO.caixa_aberto("aberto");
 		if (caixa != null) {
 			txt_cartaoCredito.setText(String.valueOf(caixa.getCredito()));
 			txt_cartaoDebito.setText(String.valueOf(caixa.getDebito()));
@@ -227,10 +293,18 @@ public class CaixaController implements Initializable {
 			txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
 			txt_dataAbertura.setValue(caixa.getDataAbertura().toLocalDate());
 			txt_horaAbertura.setText(caixa.getHoraAbertura().toString());
-			txt_valorAbertura.setDisable(false);
-			btn_abrirCaixa.setVisible(false);
-			btn_fecharCaixa.setVisible(true);
-			txt_valorAbertura.setDisable(false);
+			if (caixa.getStatus().equals("aberto") == true) {
+				txt_valorAbertura.setDisable(true);
+				btn_abrirCaixa.setDisable(true);
+				btn_fecharCaixa.setDisable(false);
+			} else {
+				txt_valorAbertura.setDisable(false);
+				btn_abrirCaixa.setDisable(false);
+				btn_fecharCaixa.setDisable(true);
+			}
+
+		} else {
+			txt_valorAbertura.setDisable(true);
 		}
 	}
 
@@ -250,6 +324,7 @@ public class CaixaController implements Initializable {
 			txt_horaAbertura.setText(LocalDateTime.now().format(horaFormat));
 			txt_valorAbertura.setStyle(corNormal);
 			caixa.setAbertura(Double.parseDouble(txt_valorAbertura.getText()));
+			caixa.setFechamento(Double.parseDouble(txt_valorAbertura.getText()));
 			caixa.setCheque(0.00);
 			caixa.setCredito(0.00);
 			caixa.setDebito(0.00);
@@ -257,8 +332,9 @@ public class CaixaController implements Initializable {
 			caixa.setStatus("aberto");
 			caixa.setDataAbertura(Date.valueOf(txt_dataAbertura.getValue()));
 			caixa.setHoraAbertura(Time.valueOf(txt_horaAbertura.getText()));
-			btn_abrirCaixa.setVisible(false);
-			btn_fecharCaixa.setVisible(true);
+			btn_abrirCaixa.setDisable(true);
+
+			btn_fecharCaixa.setDisable(false);
 			txt_cartaoCredito.setText(String.valueOf(caixa.getCredito()));
 			txt_cartaoDebito.setText(String.valueOf(caixa.getDebito()));
 			txt_cheque.setText(String.valueOf(caixa.getCheque()));
@@ -278,6 +354,72 @@ public class CaixaController implements Initializable {
 		if (erro == false) {
 
 		}
+	}
+
+	public void carregaTela() {
+		listaCaixa.clear();
+		tb_caixas.getItems().clear();
+
+		tc_codigo.setCellValueFactory(new PropertyValueFactory<>("Id"));
+		tc_nome.setCellValueFactory(new PropertyValueFactory<>("Usuario"));
+		tc_valor.setCellValueFactory(new PropertyValueFactory<>("Fechamento"));
+		tc_status.setCellValueFactory(new PropertyValueFactory<>("Status"));
+		tc_valor.setCellValueFactory((data)->{
+			Double temp = data.getValue().getFechamento();
+			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+			return new SimpleStringProperty(nf.format(temp));
+		});
+		listaCaixa = caixaDAO.listaCaixas();
+		double dinheiro = 0;
+		double cheque = 0;
+		double credito = 0;
+		double debito = 0;
+		double aberto = 0;
+		if (!listaCaixa.isEmpty()) {
+			obslCaixa = FXCollections.observableArrayList(listaCaixa);
+			tb_caixas.setItems(obslCaixa);
+			for (int i = 0; i < listaCaixa.size(); i++) {
+				dinheiro = dinheiro + listaCaixa.get(i).getDinheiro();
+				cheque = cheque + listaCaixa.get(i).getCheque();
+				credito = credito + listaCaixa.get(i).getCredito();
+				debito = debito + listaCaixa.get(i).getDebito();
+				aberto = aberto + listaCaixa.get(i).getAbertura();
+			}
+
+			ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+					new PieChart.Data("Dinheiro:  R$" + String.format("%.2f", dinheiro), dinheiro),
+					new PieChart.Data("Cheque  :  R$" + String.format("%.2f", cheque), cheque),
+					new PieChart.Data("Credito  :  R$" + String.format("%.2f", credito), credito),
+					new PieChart.Data("Debito   :  R$" + String.format("%.2f", debito), debito),
+					new PieChart.Data("Abertura:  R$" + String.format("%.2f", aberto), aberto));
+			PC_saldoCaixas.setData(pieChartData);
+			PC_saldoCaixas.setTitle(
+					"Valor total : R$" + String.format("%.2f", (aberto + dinheiro + cheque + credito + debito)));
+		}
+
+	}
+
+	@FXML
+	void onMousePressedPIE(MouseEvent event) {
+
+	}
+
+	public void desativaTela() {
+
+		txt_cartaoCredito.setText("");
+		txt_cartaoDebito.setText("");
+		txt_cheque.setText("");
+		txt_dinheiro.setText("");
+		txt_valorAtual.setText("");
+		txt_valorAbertura.setText("");
+		txt_valorAbertura.setDisable(false);
+		txt_dataAbertura.setValue(null);
+		txt_horaAbertura.setText("");
+		txt_dataFechamento.setValue(null);
+		txt_horaFechamento.setText("");
+		btn_Cancelar.setDisable(true);
+		btn_Excluir.setDisable(true);
+		btn_Editar.setDisable(true);
 	}
 
 	@FXML
@@ -302,9 +444,90 @@ public class CaixaController implements Initializable {
 				FXNotification.NotificationType.INFORMATION);
 		fxn.show();
 		caixaDAO.merge(caixa);
-		btn_fecharCaixa.setVisible(false);
-		btn_abrirCaixa.setVisible(true);
+		btn_fecharCaixa.setDisable(true);
+		btn_abrirCaixa.setDisable(false);
 
 	}
 
+	@FXML
+	void OnActionNovo(ActionEvent event) {
+		hb_gerenciamentoCaixa.setVisible(true);
+		vb_caixaInicial.setDisable(true);
+		txt_valorAbertura.setDisable(false);
+		btn_abrirCaixa.setDisable(false);
+		btn_fecharCaixa.setDisable(true);
+		desativaTela();
+	}
+
+	@FXML
+	void OnActionSairAbrir(ActionEvent event) {
+		hb_gerenciamentoCaixa.setVisible(false);
+		vb_caixaInicial.setDisable(false);
+		carregaTela();
+		btn_Cancelar.setDisable(true);
+		btn_Excluir.setDisable(true);
+		btn_Editar.setDisable(true);
+	}
+
+	@FXML
+	void OnMouseClickedCaixa(MouseEvent event) {
+		if (tb_caixas.getSelectionModel().getSelectedItem() != null) {
+			this.setCaixa(tb_caixas.getSelectionModel().getSelectedItem());
+		}
+	}
+
+	public void setCaixa(Caixa caixa) {
+		this.caixa = caixa;
+		txt_dataAbertura.setValue(caixa.getDataAbertura().toLocalDate());
+		txt_horaAbertura.setText(caixa.getHoraAbertura().toString());
+		if (caixa.getStatus().equals("fechado") == true) {
+			txt_dataFechamento.setValue(caixa.getDataFechamento().toLocalDate());
+			txt_horaFechamento.setText(caixa.getHoraFechamento().toString());
+			txt_valorAbertura.setDisable(false);
+		} else {
+			txt_valorAbertura.setDisable(true);
+		}
+		txt_valorAbertura.setStyle(corNormal);
+		txt_cartaoCredito.setText(String.valueOf(caixa.getCredito()));
+		txt_cartaoDebito.setText(String.valueOf(caixa.getDebito()));
+		txt_cheque.setText(String.valueOf(caixa.getCheque()));
+		txt_dinheiro.setText(String.valueOf(caixa.getDinheiro()));
+		txt_valorAtual.setText((String.valueOf(caixa.somaDinheiro())));
+		txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
+		btn_Editar.setDisable(false);
+		btn_Excluir.setDisable(false);
+		btn_Cancelar.setDisable(false);
+	}
+
+	@FXML
+	void OnActionExcluir(ActionEvent event) {
+		if (caixa.getStatus().equals("aberto") == false) {
+			btn_Cancelar.setDisable(true);
+			btn_Excluir.setDisable(true);
+			btn_Editar.setDisable(true);
+			caixa.setStatus("sangrar");
+			caixaDAO.merge(caixa);
+			carregaTela();
+		} else {
+
+		}
+
+	}
+
+	@FXML
+	void OnActionCancelar(ActionEvent event) {
+		btn_Cancelar.setDisable(true);
+		btn_Excluir.setDisable(true);
+		btn_Editar.setDisable(true);
+	}
+
+	@FXML
+	void OnActionEditar(ActionEvent event) {
+		btn_Editar.setDisable(true);
+		btn_Excluir.setDisable(true);
+		hb_gerenciamentoCaixa.setVisible(true);
+		vb_caixaInicial.setDisable(true);
+		verificaCaixaAberto();
+
+	}
 }

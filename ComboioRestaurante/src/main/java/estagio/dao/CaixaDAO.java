@@ -45,4 +45,25 @@ public class CaixaDAO extends GenericDAO<Caixa> {
 		return usuario;
 	}
 
+	public List<Caixa> listaCaixas() {
+		String jpql;
+		List<Caixa> retorno = new ArrayList<Caixa>();
+		EntityManager em = JPAUtil.getEntityManager();
+
+		em.getTransaction().begin();
+		try {
+
+			jpql = "select m from Caixa m where m.status = 'fechado' OR m.status = 'aberto'";
+			TypedQuery<Caixa> query = em.createQuery(jpql, Caixa.class);
+			retorno = query.getResultList();
+			em.getTransaction().commit();
+
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println(e.getMessage());
+		} finally {
+			em.close();
+		}
+		return retorno;
+	}
 }
