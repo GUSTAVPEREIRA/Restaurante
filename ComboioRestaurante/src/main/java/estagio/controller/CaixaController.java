@@ -312,7 +312,7 @@ public class CaixaController implements Initializable {
 	void OnActionAbrir(ActionEvent event) {
 		boolean erro = false;
 		caixa = new Caixa();
-		if (txt_valorAbertura.getText().equals("") == true) {
+		if (txt_valorAbertura.getText().equals("") == true || Double.parseDouble(txt_valorAbertura.getText()) < 0) {
 			erro = true;
 			ctm_valorAbertura.show(txt_valorAbertura, Side.RIGHT, 10, 0);
 			txt_valorAbertura.setStyle(corErro);
@@ -364,7 +364,7 @@ public class CaixaController implements Initializable {
 		tc_nome.setCellValueFactory(new PropertyValueFactory<>("Usuario"));
 		tc_valor.setCellValueFactory(new PropertyValueFactory<>("Fechamento"));
 		tc_status.setCellValueFactory(new PropertyValueFactory<>("Status"));
-		tc_valor.setCellValueFactory((data)->{
+		tc_valor.setCellValueFactory((data) -> {
 			Double temp = data.getValue().getFechamento();
 			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 			return new SimpleStringProperty(nf.format(temp));
@@ -487,13 +487,15 @@ public class CaixaController implements Initializable {
 		} else {
 			txt_valorAbertura.setDisable(true);
 		}
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
 		txt_valorAbertura.setStyle(corNormal);
-		txt_cartaoCredito.setText(String.valueOf(caixa.getCredito()));
-		txt_cartaoDebito.setText(String.valueOf(caixa.getDebito()));
-		txt_cheque.setText(String.valueOf(caixa.getCheque()));
-		txt_dinheiro.setText(String.valueOf(caixa.getDinheiro()));
-		txt_valorAtual.setText((String.valueOf(caixa.somaDinheiro())));
-		txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
+		txt_cartaoCredito.setText(nf.format(caixa.getCredito()));
+		txt_cartaoDebito.setText(nf.format(caixa.getDebito()));
+		txt_cheque.setText(nf.format(caixa.getCheque()));
+		txt_dinheiro.setText(nf.format(caixa.getDinheiro()));
+		txt_valorAtual.setText(nf.format(caixa.getFechamento()));
+		txt_valorAbertura.setText(nf.format(caixa.getAbertura()));
 		btn_Editar.setDisable(false);
 		btn_Excluir.setDisable(false);
 		btn_Cancelar.setDisable(false);
@@ -508,6 +510,10 @@ public class CaixaController implements Initializable {
 			caixa.setStatus("sangrar");
 			caixaDAO.merge(caixa);
 			carregaTela();
+			FXNotification fxn;
+			fxn = new FXNotification("Caixa sangrado" + String.valueOf(" com o valor total de:" + caixa.somaDinheiro()),
+					FXNotification.NotificationType.INFORMATION);
+			fxn.show();
 		} else {
 
 		}

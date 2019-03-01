@@ -25,17 +25,17 @@ public class Caixa {
 	Date dataFechamento;
 	@Column(name = "caixa_horaFechamento", nullable = true)
 	Time horaFechamento;
-	@Column(name = "caixa_valorAbertura", nullable = false, precision = 2)
+	@Column(name = "caixa_valorAbertura", nullable = false, precision = 2, scale = 2)
 	private double abertura;
-	@Column(name = "caixa_valorFechamento", nullable = true, precision = 2)
+	@Column(name = "caixa_valorFechamento", nullable = true, precision = 2, scale = 2)
 	private double fechamento;
-	@Column(name = "caixa_valorDinheiro", nullable = false, precision = 2)
+	@Column(name = "caixa_valorDinheiro", nullable = false, precision = 2, scale = 2)
 	private double dinheiro;
-	@Column(name = "caixa_valorCredito", nullable = false, precision = 2)
+	@Column(name = "caixa_valorCredito", nullable = false, precision = 2, scale = 2)
 	private double credito;
-	@Column(name = "caixa_valorDebito", nullable = false, precision = 2)
+	@Column(name = "caixa_valorDebito", nullable = false, precision = 2, scale = 2)
 	private double debito;
-	@Column(name = "caixa_valorCheque", nullable = false, precision = 2)
+	@Column(name = "caixa_valorCheque", nullable = false, precision = 2, scale = 2)
 	private double cheque;
 	@Column(name = "caixa_status", nullable = false, length = 8)
 	private String status;
@@ -158,6 +158,17 @@ public class Caixa {
 
 	public Object priceProperty() {
 		return fechamento;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Caixa) {
+			Caixa caixa = (Caixa) obj;
+			if (caixa.getId().equals(this.id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
