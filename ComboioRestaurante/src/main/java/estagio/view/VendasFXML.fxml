@@ -19,12 +19,12 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Vendas" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionVendas" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
+                  <JFXButton fx:id="Vendas" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionVendas" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Venda">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Promocao" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionPromocao" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Promoção">
+                  <JFXButton fx:id="Promocao" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionPromocao" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Promocao">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

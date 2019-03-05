@@ -18,35 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class VendasController implements Initializable {
-
-	@FXML
-    private AnchorPane ap_menu;
-
-    @FXML
-    private JFXDrawer draw_menu;
-
-    @FXML
-    private VBox VB_Menu;
-
-    @FXML
-    private JFXButton Caixa;
-
-    @FXML
-    private JFXButton Vendas;
-
-    @FXML
-    private JFXButton Promocao;
-
-    @FXML
-    private JFXButton Sair;
-
-    @FXML
-    private StackPane stack_vendas;
-
-    @FXML
-    private AnchorPane ap_vendas;
-
+public class FinancasController implements Initializable {
 
 	private Node node;
 
@@ -56,20 +28,45 @@ public class VendasController implements Initializable {
 
 			@Override
 			public void run() {
-				FXNotificationFactory.initialize(stack_vendas);
+				FXNotificationFactory.initialize(stack_financeiro);
 			}
 		});
 	}
 
 	@FXML
-	void OnActionCaixa(ActionEvent event) throws IOException {
-		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CaixaFXML.fxml"));
-		ap_vendas.getChildren().setAll(node);
+	private AnchorPane ap_menu;
+
+	@FXML
+	private JFXDrawer draw_menu;
+
+	@FXML
+	private VBox VB_Menu;
+
+	@FXML
+	private JFXButton Pagar;
+
+	@FXML
+	private JFXButton Receber;
+
+	@FXML
+	private JFXButton Sair;
+
+	@FXML
+	private StackPane stack_financeiro;
+
+	@FXML
+	private AnchorPane ap_financeiro;
+
+	@FXML
+	void OnActionPagar(ActionEvent event) throws IOException {
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/ContasPagarFXML.fxml"));
+		ap_financeiro.getChildren().setAll(node);
 	}
 
 	@FXML
-	void OnActionPromocao(ActionEvent event) {
-
+	void OnActionReceber(ActionEvent event) throws IOException {
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/ContasReceberFXML.fxml"));
+		ap_financeiro.getChildren().setAll(node);
 	}
 
 	@FXML
@@ -78,9 +75,5 @@ public class VendasController implements Initializable {
 		ap_menu.getChildren().setAll(node);
 	}
 
-	@FXML
-	void OnActionVendas(ActionEvent event) {
-
-	}
 
 }

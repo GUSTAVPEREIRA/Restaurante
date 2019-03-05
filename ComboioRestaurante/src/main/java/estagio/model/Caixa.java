@@ -64,6 +64,19 @@ public class Caixa {
 		super();
 	}
 
+	public Caixa(double abertura, double fechamento, double dinheiro, double credito, double debito, double cheque,
+			String status, Usuario usuario) {
+		super();
+		this.abertura = abertura;
+		this.fechamento = fechamento;
+		this.dinheiro = dinheiro;
+		this.credito = credito;
+		this.debito = debito;
+		this.cheque = cheque;
+		this.status = status;
+		this.usuario = usuario;
+	}
+
 	public Long getId() {
 		return id;
 	}

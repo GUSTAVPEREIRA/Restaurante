@@ -18,11 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="branco" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.CaixaController">
+<StackPane fx:id="sp_caixa" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="branco" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.CaixaController">
    <children>
       <VBox fx:id="vb_caixaInicial" alignment="CENTER_LEFT">
          <children>
-            <HBox maxHeight="300.0" maxWidth="1000.0" minWidth="400.0" spacing="50.0">
+            <HBox maxHeight="300.0" maxWidth="1000.0" minWidth="400.0" spacing="10.0">
                <children>
                   <TableView fx:id="tb_caixas" maxWidth="600.0" minWidth="300.0" onMouseClicked="#OnMouseClickedCaixa" prefHeight="300.0" prefWidth="600.0" stylesheets="@css/tableView.css">
                     <columns>
@@ -38,7 +38,7 @@
                   <PieChart fx:id="PC_saldoCaixas" labelsVisible="false" maxHeight="300.0" maxWidth="400.0" onMousePressed="#onMousePressedPIE" prefHeight="300.0" prefWidth="413.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="14.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
                   <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="100.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo" textFill="WHITE">
                      <font>
@@ -82,6 +82,17 @@
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnExcluir1" text="Exclui uma cidade." />
+                     </tooltip>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip fx:id="ttp_btnSair" text="Exclui uma cidade." />
                      </tooltip>
                   </JFXButton>
                </children>

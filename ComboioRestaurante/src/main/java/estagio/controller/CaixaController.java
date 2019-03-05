@@ -37,6 +37,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class CaixaController implements Initializable {
@@ -60,16 +61,37 @@ public class CaixaController implements Initializable {
 	private TableColumn<Caixa, String> tc_valor;
 
 	@FXML
+	private PieChart PC_saldoCaixas;
+
+	@FXML
 	private JFXButton btn_Novo;
 
 	@FXML
 	private Tooltip ttp_btnNovo;
 
 	@FXML
+	private JFXButton btn_Editar;
+
+	@FXML
+	private Tooltip ttp_btnNovo1;
+
+	@FXML
 	private JFXButton btn_Excluir;
 
 	@FXML
 	private Tooltip ttp_btnExcluir;
+
+	@FXML
+	private JFXButton btn_Cancelar;
+
+	@FXML
+	private Tooltip ttp_btnExcluir1;
+
+	@FXML
+	private JFXButton btn_Sair;
+
+	@FXML
+	private Tooltip ttp_btnSair;
 
 	@FXML
 	private HBox hb_gerenciamentoCaixa;
@@ -79,6 +101,9 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private Label lbl_valorAtual;
+
+	@FXML
+	private StackPane sp_caixa;
 
 	@FXML
 	private Tooltip ttp_lblValorAtual;
@@ -151,9 +176,6 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private MenuItem mi_cartaoCredito;
-
-	@FXML
-	private PieChart PC_saldoCaixas;
 
 	@FXML
 	private Label lbl_dataAbertura;
@@ -247,15 +269,6 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private Tooltip ttp_btnSairAbrir;
-
-	@FXML
-	private JFXButton btn_Editar;
-
-	@FXML
-	private JFXButton btn_Cancelar;
-
-	@FXML
-	private Label caption;
 
 	private CaixaDAO caixaDAO;
 	private Caixa caixa;
@@ -518,6 +531,11 @@ public class CaixaController implements Initializable {
 
 		}
 
+	}
+
+	@FXML
+	void OnActionSair(ActionEvent event) {
+		sp_caixa.setVisible(false);
 	}
 
 	@FXML
