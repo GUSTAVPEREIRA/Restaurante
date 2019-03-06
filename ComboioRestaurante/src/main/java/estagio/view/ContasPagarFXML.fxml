@@ -7,6 +7,7 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
@@ -23,7 +24,7 @@
 
 <StackPane fx:id="sp_contasPagar" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ContasPagarController">
    <children>
-      <VBox styleClass="branco" stylesheets="@css/backgroundCadastro.css">
+      <VBox styleClass="branco">
          <children>
             <JFXTabPane prefHeight="583.0" prefWidth="918.0">
                <tabs>
@@ -52,7 +53,10 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                          <tooltip>
-                                                            <Tooltip fx:id="ttp_lblTipoConta" text="Tipo de conta a ser lançada." />
+                                                            <Tooltip fx:id="ttp_lblTipoConta" text="Tipo de conta a ser lançada.">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font></Tooltip>
                                                          </tooltip>
                                                       </Label>
                                                    </children>
@@ -65,12 +69,12 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" maxHeight="900.0" maxWidth="36.0" minHeight="36.0" minWidth="900.0" prefHeight="36.0" prefWidth="900.0" spacing="10.0">
                                                    <children>
-                                                      <JFXCheckBox fx:id="cb_fornecedor" text="Fornecedor">
+                                                      <JFXCheckBox fx:id="cb_fornecedor" onAction="#OnActionFornecedor" text="Fornecedor" unCheckedColor="BLACK">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
                                                       </JFXCheckBox>
-                                                      <JFXCheckBox fx:id="cb_outros" text="Outros">
+                                                      <JFXCheckBox fx:id="cb_outros" onAction="#OnActionOutros" text="Outros" unCheckedColor="BLACK">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -93,6 +97,13 @@
                                                          <padding>
                                                             <Insets left="1.0" />
                                                          </padding>
+                                                         <tooltip>
+                                                            <Tooltip fx:id="ttp_cbbListaFornecedores" text="Lista de fornecedores.">
+                                                               <font>
+                                                                  <Font size="14.0" />
+                                                               </font>
+                                                            </Tooltip>
+                                                         </tooltip>
                                                       </Label>
                                                       <JFXComboBox fx:id="cbb_fornecedores" disable="true" prefHeight="36.0" prefWidth="400.0">
                                                          <padding>
@@ -145,7 +156,10 @@
                                                 <Font size="14.0" />
                                              </font>
                                              <tooltip>
-                                                <Tooltip fx:id="ttp_lblDescricao" text="Tipo de conta a ser lançada." />
+                                                <Tooltip fx:id="ttp_lblDescricao" text="Descrição da conta a ser lançada.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font></Tooltip>
                                              </tooltip>
                                           </Label>
                                           <JFXTextField fx:id="txt_descricao" focusColor="#5fcda3" maxWidth="700.0" minWidth="700.0" prefHeight="36.0" prefWidth="700.0" unFocusColor="BLACK">
@@ -175,20 +189,23 @@
                                                 <Insets />
                                              </opaqueInsets>
                                           </Label>
-                                          <Label fx:id="lbl_TipoCondicao" text="Tipo de conta">
+                                          <Label fx:id="lbl_TipoCondicao" text="Condição">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                              <tooltip>
-                                                <Tooltip fx:id="ttp_lblTipoCondicao" text="Tipo de conta a ser lançada." />
+                                                <Tooltip fx:id="ttp_lblTipoCondicao" text="Condição de pagamento a ser lançada.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font></Tooltip>
                                              </tooltip>
                                           </Label>
-                                          <JFXCheckBox fx:id="cb_avista" text="À VISTA">
+                                          <JFXCheckBox fx:id="cb_avista" onAction="#OnActionAVista" text="À VISTA" unCheckedColor="BLACK">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
                                           </JFXCheckBox>
-                                          <JFXCheckBox fx:id="cb_aprazo" text="A PRAZO">
+                                          <JFXCheckBox fx:id="cb_aprazo" onAction="#OnActionAPrazo" text="A PRAZO" unCheckedColor="BLACK">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -208,8 +225,15 @@
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
+                                             <tooltip>
+                                                <Tooltip fx:id="ttp_cbbParcelas" text="Número de parcelas da conta a ser lançada.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip>
                                           </Label>
-                                          <JFXComboBox fx:id="cbb_parcela" disable="true" prefHeight="36.0" prefWidth="50.0">
+                                          <JFXComboBox fx:id="cbb_parcela" disable="true" prefHeight="36.0" prefWidth="70.0">
                                              <padding>
                                                 <Insets left="5.0" />
                                              </padding>
@@ -236,6 +260,13 @@
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
+                                             <tooltip>
+                                                <Tooltip fx:id="ttp_lblValorTotal" text="Valor total do lançamento.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip>
                                           </Label>
                                           <JFXTextField fx:id="txt_valorTotal" focusColor="#5fcda3" maxWidth="200.0" minWidth="200.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
                                              <font>
@@ -261,7 +292,10 @@
                                                 <Font size="14.0" />
                                              </font>
                                              <tooltip>
-                                                <Tooltip fx:id="ttp_lblDataLancamento" text="Tipo de conta a ser lançada." />
+                                                <Tooltip fx:id="ttp_lblDataLancamento" text="Data do lançamento da conta.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font></Tooltip>
                                              </tooltip>
                                           </Label>
                                           <JFXDatePicker fx:id="dp_dataLancamento" disable="true" prefHeight="36.0" />
@@ -278,10 +312,13 @@
                                                 <Font size="14.0" />
                                              </font>
                                              <tooltip>
-                                                <Tooltip fx:id="ttp_lblDataVencimento" text="Tipo de conta a ser lançada." />
+                                                <Tooltip fx:id="ttp_lblDataVencimento" text="Tipo de conta a ser lançada.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font></Tooltip>
                                              </tooltip>
                                           </Label>
-                                          <JFXDatePicker fx:id="dp_dataVencimento" prefHeight="36.0">
+                                          <JFXDatePicker fx:id="dp_dataVencimento" prefHeight="36.0" prefWidth="150.0">
                                              <padding>
                                                 <Insets right="20.0" />
                                              </padding>
@@ -308,9 +345,8 @@
                                     </HBox>
                                     <HBox prefHeight="200.0" prefWidth="200.0">
                                        <children>
-                                          <TableView fx:id="tb_lancarContas" editable="true" maxWidth="880.0" minWidth="880.0" onMouseClicked="#OnMouseClickedParcela" prefHeight="200.0" prefWidth="880.0" stylesheets="@css/tableView.css">
+                                          <TableView fx:id="tb_lancarContas" editable="true" maxWidth="780.0" minWidth="780.0" onMouseClicked="#OnMouseClickedParcela" prefHeight="200.0" prefWidth="780.0" stylesheets="@css/tableView.css">
                                              <columns>
-                                                <TableColumn fx:id="tc_aParcela" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" text="Número" />
                                                 <TableColumn fx:id="tc_aLancamento" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="Data de lançamento" />
                                                 <TableColumn fx:id="tc_aVencimento" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" text="Data vencimento" />
                                                 <TableColumn fx:id="tc_aValor" maxWidth="280.0" minWidth="280.0" prefWidth="280.0" text="Valor" />
@@ -337,26 +373,15 @@
                                                 <Tooltip fx:id="ttp_btnNovo" text="Cria uma nova tela, removendo os dados da anterior." />
                                              </tooltip>
                                           </JFXButton>
-                                          <JFXButton fx:id="btn_Editar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionEditar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Editar" textFill="WHITE">
+                                          <JFXButton fx:id="btn_GravarCP" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionGravarCP" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                              <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+                                                <FontAwesomeIconView fill="WHITE" glyphName="SAVE" size="15" />
                                              </graphic>
                                              <tooltip>
-                                                <Tooltip fx:id="ttp_btnNovo1" text="Cria uma nova tela, removendo os dados da anterior." />
-                                             </tooltip>
-                                          </JFXButton>
-                                          <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sangrar" textFill="WHITE">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                             <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="MONEY" size="15" />
-                                             </graphic>
-                                             <tooltip>
-                                                <Tooltip fx:id="ttp_btnExcluir" text="Exclui uma cidade." />
+                                                <Tooltip fx:id="ttp_btnGravarCP" text="Cria uma nova tela, removendo os dados da anterior." />
                                              </tooltip>
                                           </JFXButton>
                                           <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#feff00" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
@@ -367,7 +392,7 @@
                                                 <FontAwesomeIconView fill="WHITE" glyphName="REPEAT" size="15" />
                                              </graphic>
                                              <tooltip>
-                                                <Tooltip fx:id="ttp_btnExcluir1" text="Exclui uma cidade." />
+                                                <Tooltip fx:id="ttp_btnCancelar" text="Exclui uma cidade." />
                                              </tooltip>
                                           </JFXButton>
                                        </children>
@@ -423,7 +448,7 @@
                                                 <Tooltip fx:id="ttp_lblCliente1" text="Cep onde o fornecedor se encontra." />
                                              </tooltip>
                                           </Label>
-                                          <JFXDatePicker fx:id="dp_abertura" prefHeight="36.0" />
+                                          <JFXDatePicker fx:id="dp_abertura" prefHeight="36.0" prefWidth="150.0" />
                                           <Label fx:id="lbl_vencimento" text="Vencimento">
                                              <font>
                                                 <Font size="14.0" />
@@ -432,7 +457,7 @@
                                                 <Tooltip fx:id="ttp_lblVencimento" text="Cep onde o fornecedor se encontra." />
                                              </tooltip>
                                           </Label>
-                                          <JFXDatePicker fx:id="dp_vencimento" prefHeight="36.0" />
+                                          <JFXDatePicker fx:id="dp_vencimento" prefHeight="36.0" prefWidth="150.0" />
                                        </children>
                                        <VBox.margin>
                                           <Insets />
@@ -484,14 +509,14 @@
                                                             <Insets left="450.0" />
                                                          </padding>
                                                       </Label>
-                                                      <JFXTextField fx:id="txt_nome" focusColor="#5fcda3" labelFloat="true" maxWidth="397.0" minWidth="131.0" prefHeight="35.0" prefWidth="200.0" unFocusColor="BLACK">
+                                                      <JFXTextField fx:id="txt_total" focusColor="#5fcda3" labelFloat="true" maxWidth="397.0" minWidth="131.0" prefHeight="35.0" prefWidth="200.0" unFocusColor="BLACK">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
                                                          <contextMenu>
-                                                            <ContextMenu fx:id="ctm_nome">
+                                                            <ContextMenu fx:id="ctm_total">
                                                                <items>
-                                                                  <MenuItem fx:id="mi_nome" mnemonicParsing="false" text="Por favor, insira o nome corretamente." />
+                                                                  <MenuItem fx:id="mi_total" mnemonicParsing="false" text="Por favor, insira o nome corretamente." />
                                                                </items>
                                                             </ContextMenu>
                                                          </contextMenu>
@@ -503,11 +528,11 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="10.0">
                                                    <children>
-                                                      <JFXCheckBox fx:id="cb_bTotal" text="Total">
+                                                      <JFXCheckBox fx:id="cb_bTotal" text="Total" unCheckedColor="BLACK">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font></JFXCheckBox>
-                                                      <JFXCheckBox fx:id="cb_bParcial" text="Parcial">
+                                                      <JFXCheckBox fx:id="cb_bParcial" text="Parcial" unCheckedColor="BLACK">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font></JFXCheckBox>
@@ -563,12 +588,12 @@
                                                 <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="btn_Excluir1" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Estornar">
+                                          <JFXButton fx:id="btn_Estornar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Estornar">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                              <tooltip>
-                                                <Tooltip fx:id="ttp_btnExcluir2" text="Exclui um estado.">
+                                                <Tooltip fx:id="ttp_btnEstornar" text="Exclui um estado.">
                                                    <font>
                                                       <Font size="14.0" />
                                                    </font>
@@ -576,6 +601,21 @@
                                              </tooltip>
                                              <graphic>
                                                 <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                                             </graphic>
+                                          </JFXButton>
+                                          <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Remover">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                             <tooltip>
+                                                <Tooltip fx:id="ttp_btnRemover" text="Exclui um estado.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
                                              </graphic>
                                           </JFXButton>
                                           <JFXButton fx:id="btn_Cancelar1" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
@@ -622,6 +662,10 @@
                </tabs>
             </JFXTabPane>
          </children>
+         <stylesheets>
+            <URL value="@css/backgroundCadastro.css" />
+            <URL value="@css/fonts.css" />
+         </stylesheets>
       </VBox>
    </children>
 </StackPane>

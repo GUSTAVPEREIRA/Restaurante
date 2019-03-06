@@ -20,15 +20,30 @@ public class ContasPagar {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cp_id")
 	private Long id;
+
 	@Column(name = "cp_abertura", nullable = false)
 	private Date abertura;
+
 	@Column(name = "cp_vencimento", nullable = false)
 	private Date vencimento;
+
 	@Column(name = "cp_parcelas", nullable = false)
 	private int numParcelas;
 	// Pgto = pagamento
 	@Column(name = "cp_condicaoPgto", nullable = false, length = 20)
 	private String condicaoPgto;
+
+	@Column(name = "cp_descricao", nullable = false, length = 100)
+	private String descricao;
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	@Column(name = "cp_status", nullable = false, length = 20)
 	private String status;
 	@Column(name = "cp_valorTotal", nullable = false, precision = 2)
