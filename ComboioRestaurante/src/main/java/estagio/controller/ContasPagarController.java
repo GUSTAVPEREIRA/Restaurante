@@ -302,6 +302,7 @@ public class ContasPagarController implements Initializable {
 	ContasPagar contasPagar = new ContasPagar();
 	ParcelaPagar parcelaPagar = new ParcelaPagar();
 	DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 	@FXML
 	void OnActionCancelar(ActionEvent event) {
 
@@ -317,11 +318,10 @@ public class ContasPagarController implements Initializable {
 
 	}
 
-	
-	public void desativaTela()
-	{
+	public void desativaTela() {
 		dp_dataLancamento.setValue(LocalDate.now());
 	}
+
 	@FXML
 	void OnActionGerar(ActionEvent event) {
 		boolean erro = false;
@@ -355,9 +355,7 @@ public class ContasPagarController implements Initializable {
 			String condicao;
 			if (cb_aprazo.isSelected() == true) {
 				condicao = "A PRAZO";
-			}
-			else
-			{
+			} else {
 				condicao = "A VISTA";
 			}
 			contasPagar.setCondicaoPgto(condicao);
@@ -367,35 +365,30 @@ public class ContasPagarController implements Initializable {
 		if (cb_fornecedor.isSelected() == false && cb_outros.isSelected() == false) {
 			erro = true;
 			lbl_TipoConta.setStyle(corErro);
-			
-		}
-		else
-		{
+
+		} else {
 			if (cb_fornecedor.isSelected() == true && cbb_fornecedores.getSelectionModel().getSelectedItem() == null) {
 				erro = true;
 				lbl_TipoConta.setStyle(corErro);
 				cbb_fornecedores.setStyle(corErro);
-			}
-			else
-			{
+			} else {
 				lbl_TipoConta.setStyle(corNormal);
-				
+
 				if (cb_fornecedor.isSelected() == true) {
 					cbb_fornecedores.setStyle(corNormal);
 					contasPagar.setFornecedor(cbb_fornecedores.getSelectionModel().getSelectedItem());
 				}
 			}
 		}
-		
+
 		contasPagar.setAbertura(Date.valueOf(dp_dataLancamento.getValue()));
-		if (dp_dataVencimento.getValue() == null || comparaData(contasPagar.getAbertura(),Date.valueOf(dp_dataVencimento.getValue())) == false) {
+		if (dp_dataVencimento.getValue() == null
+				|| comparaData(contasPagar.getAbertura(), Date.valueOf(dp_dataVencimento.getValue())) == false) {
 			erro = true;
 			dp_dataVencimento.setStyle(corErro);
-		}
-		else
-		{
+		} else {
 			dp_dataVencimento.setStyle(corNormal);
-			contasPagar.setVencimento(Date.valueOf(dp_vencimento.getValue())); 
+			contasPagar.setVencimento(Date.valueOf(dp_vencimento.getValue()));
 		}
 		if (erro == true) {
 
