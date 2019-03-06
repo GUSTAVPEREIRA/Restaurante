@@ -162,7 +162,7 @@
                                                    </font></Tooltip>
                                              </tooltip>
                                           </Label>
-                                          <JFXTextField fx:id="txt_descricao" focusColor="#5fcda3" maxWidth="700.0" minWidth="700.0" prefHeight="36.0" prefWidth="700.0" unFocusColor="BLACK">
+                                          <JFXTextField fx:id="txt_descricao" focusColor="#5fcda3" maxWidth="775.0" minWidth="775.0" prefHeight="36.0" prefWidth="775.0" unFocusColor="BLACK">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -233,7 +233,7 @@
                                                 </Tooltip>
                                              </tooltip>
                                           </Label>
-                                          <JFXComboBox fx:id="cbb_parcela" disable="true" prefHeight="36.0" prefWidth="70.0">
+                                          <JFXComboBox fx:id="cbb_parcela" disable="true" prefHeight="36.0" prefWidth="80.0">
                                              <padding>
                                                 <Insets left="5.0" />
                                              </padding>
@@ -245,6 +245,33 @@
                                                 </ContextMenu>
                                              </contextMenu>
                                           </JFXComboBox>
+                                          <Label fx:id="lbl_dias" text="Dias">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <tooltip>
+                                                <Tooltip fx:id="ttp_lblDias" text="Dias entre as parcelas, caso não preenchido por padrão e 30 dias.">
+                                                   <font>
+                                                      <Font size="14.0" />
+                                                   </font>
+                                                </Tooltip>
+                                             </tooltip>
+                                             <padding>
+                                                <Insets left="20.0" />
+                                             </padding>
+                                          </Label>
+                                          <JFXTextField fx:id="txt_dias" focusColor="#5fcda3" maxWidth="50.0" minWidth="50.0" prefHeight="36.0" prefWidth="50.0" unFocusColor="BLACK">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <contextMenu>
+                                                <ContextMenu fx:id="ctm_dias">
+                                                   <items>
+                                                      <MenuItem fx:id="mi_dias" mnemonicParsing="false" text="Digite corretamente os dias entre parcelas" />
+                                                   </items>
+                                                </ContextMenu>
+                                             </contextMenu>
+                                          </JFXTextField>
                                           <Label text="*" textFill="RED">
                                              <padding>
                                                 <Insets left="20.0" />
@@ -268,7 +295,7 @@
                                                 </Tooltip>
                                              </tooltip>
                                           </Label>
-                                          <JFXTextField fx:id="txt_valorTotal" focusColor="#5fcda3" maxWidth="200.0" minWidth="200.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+                                          <JFXTextField fx:id="txt_valorTotal" focusColor="#5fcda3" maxWidth="150.0" minWidth="150.0" prefHeight="36.0" prefWidth="150.0" unFocusColor="BLACK">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

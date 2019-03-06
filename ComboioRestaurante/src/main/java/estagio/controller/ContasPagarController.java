@@ -3,9 +3,11 @@ package estagio.controller;
 import java.net.URL;
 import java.sql.Date;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -67,6 +69,21 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	private MenuItem mi_cbFornecedores;
+
+	@FXML
+	private Label lbl_dias;
+
+	@FXML
+	private Tooltip ttp_lblDias;
+
+	@FXML
+	private JFXTextField txt_dias;
+
+	@FXML
+	private ContextMenu ctm_dias;
+
+	@FXML
+	private MenuItem mi_dias;
 
 	@FXML
 	private Label lbl_descricao;
@@ -297,12 +314,14 @@ public class ContasPagarController implements Initializable {
 	private Tooltip ttp_btnSair;
 
 	private ObservableList<Integer> obsl_parcelas;
+	private ObservableList<ParcelaPagar> obslParcelaPagar;
 	String corErro = "-fx-border-color: red;";
 	String corNormal = "-fx-border-color:white";
 	ContasPagar contasPagar = new ContasPagar();
 	ParcelaPagar parcelaPagar = new ParcelaPagar();
 	DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+	List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+	int dias = 30;
 	@FXML
 	void OnActionCancelar(ActionEvent event) {
 
@@ -359,7 +378,7 @@ public class ContasPagarController implements Initializable {
 				condicao = "A VISTA";
 			}
 			contasPagar.setCondicaoPgto(condicao);
-			contasPagar.setNumParcelas(cbb_parcela.getSelectionModel().getSelectedItem());
+			contasPagar.setNumParcelas(cbb_parcela.getValue());
 		}
 
 		if (cb_fornecedor.isSelected() == false && cb_outros.isSelected() == false) {
@@ -373,7 +392,7 @@ public class ContasPagarController implements Initializable {
 				cbb_fornecedores.setStyle(corErro);
 			} else {
 				lbl_TipoConta.setStyle(corNormal);
-
+				cbb_fornecedores.setStyle(corNormal);
 				if (cb_fornecedor.isSelected() == true) {
 					cbb_fornecedores.setStyle(corNormal);
 					contasPagar.setFornecedor(cbb_fornecedores.getSelectionModel().getSelectedItem());
@@ -388,12 +407,43 @@ public class ContasPagarController implements Initializable {
 			dp_dataVencimento.setStyle(corErro);
 		} else {
 			dp_dataVencimento.setStyle(corNormal);
-			contasPagar.setVencimento(Date.valueOf(dp_vencimento.getValue()));
+			contasPagar.setVencimento(Date.valueOf(dp_dataVencimento.getValue()));
 		}
-		if (erro == true) {
+		if (txt_dias.getText().replace(" ", "").length() > 0) {
+			dias = Integer.parseInt(txt_dias.getText());
+		}
+		else
+			dias = 30;
+		if (erro == false) {
+			parcelasPagar = new ArrayList<ParcelaPagar>();
+			Double auxValor = contasPagar.getValorTotal() / contasPagar.getNumParcelas();
 
+			for (int i = 0; i < contasPagar.getNumParcelas(); i++) {
+				Date auxAbertura = contasPagar.getAbertura();
+				Date auxVencimento = contasPagar.getVencimento();
+				
+				auxAbertura = adicionarDias(auxAbertura, i * dias);
+				auxVencimento = adicionarDias(auxVencimento, i * dias);
+
+				parcelaPagar = new ParcelaPagar();
+				parcelaPagar.setAbertura(auxAbertura);
+				parcelaPagar.setVencimento(auxVencimento);
+				parcelaPagar.setValor(auxValor);
+				parcelaPagar.setPgto(null);
+				parcelaPagar.setTipo("");
+				parcelaPagar.setValorPgto(0.00);
+
+				parcelasPagar.add(parcelaPagar);
+			}
+			carregaTela();
 		}
 
+	}
+
+	public Date adicionarDias(Date data, int soma) {
+		LocalDate localData = data.toLocalDate();
+		localData = localData.plusDays(soma);
+		return Date.valueOf(localData);
 	}
 
 	@FXML
@@ -437,6 +487,7 @@ public class ContasPagarController implements Initializable {
 		txt_descricao.setTextFormatter(
 				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_total.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
+		txt_dias.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[0-9]+", 3));
 
 	}
 
@@ -471,11 +522,24 @@ public class ContasPagarController implements Initializable {
 		tc_aVencimento.setCellValueFactory(new PropertyValueFactory<>("Vencimento"));
 		tc_aLancamento.setCellValueFactory(new PropertyValueFactory<>("Abertura"));
 		tc_aValor.setCellValueFactory(new PropertyValueFactory<>("Valor"));
-		tc_valor.setCellValueFactory((data) -> {
+		tc_aLancamento.setCellValueFactory((data) -> {
+			Date temp = data.getValue().getAbertura();
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			return new SimpleStringProperty(formato.format(temp));
+		});
+		tc_aVencimento.setCellValueFactory((data) -> {
+			Date temp = data.getValue().getVencimento();
+			SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+			return new SimpleStringProperty(formato.format(temp));
+		});
+		tc_aValor.setCellValueFactory((data) -> {
 			Double temp = data.getValue().getValor();
 			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 			return new SimpleStringProperty(nf.format(temp));
 		});
+
+		obslParcelaPagar = FXCollections.observableArrayList(parcelasPagar);
+		tb_lancarContas.setItems(obslParcelaPagar);
 	}
 
 	@FXML
