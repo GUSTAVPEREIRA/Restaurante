@@ -2,7 +2,6 @@ package estagio.model;
 
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +48,7 @@ public class ContasPagar {
 	@Column(name = "cp_valorTotal", nullable = false, precision = 2)
 	private Double valorTotal;
 	@JoinColumn(nullable = true)
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Fornecedor fornecedor;
 
 	public ContasPagar() {
@@ -118,6 +117,11 @@ public class ContasPagar {
 
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+	
+	@Override
+	public String toString() {
+		return this.descricao;
 	}
 
 }

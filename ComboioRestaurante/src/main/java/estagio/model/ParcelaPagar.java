@@ -4,19 +4,26 @@ import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-public class ParcelaPagar extends ContasPagar implements Serializable {
+@Entity
+public class ParcelaPagar implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
+	
+	
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cpp_id")
+	@Id
 	private Long id;
 	@Column(name = "cpp_abertura", nullable = false)
 	private Date abertura;
@@ -30,6 +37,29 @@ public class ParcelaPagar extends ContasPagar implements Serializable {
 	private Double valorPgto;
 	@Column(name = "cpp_tipo", length = 20, nullable = true)
 	private String tipo;
+	@Column(name = "cpp_numeroParcela",nullable = false)
+	private int numeroParcela;
+	
+	public int getNumeroParcela() {
+		return numeroParcela;
+	}
+
+	public void setNumeroParcela(int numeroParcela) {
+		this.numeroParcela = numeroParcela;
+	}
+
+	@JoinColumn(nullable = false)
+	@ManyToOne
+	private ContasPagar contasPagar;
+	
+	
+	public ContasPagar getContasPagar() {
+		return contasPagar;
+	}
+
+	public void setContasPagar(ContasPagar contasPagar) {
+		this.contasPagar = contasPagar;
+	}
 
 	public ParcelaPagar() {
 		super();

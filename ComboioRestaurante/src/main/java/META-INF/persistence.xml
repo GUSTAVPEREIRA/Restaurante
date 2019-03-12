@@ -21,6 +21,10 @@
 		<class>estagio.model.ClientePF</class>
 		<class>estagio.model.ClientePJ</class>
 		<class>estagio.model.Caixa</class>
+		<class>estagio.model.ContasPagar</class>
+		<class>estagio.model.ParcelaPagar</class>
+		
+		
 		<!-- Aqui são listadas todas as entidades -->
 
 		<properties>
@@ -41,7 +45,7 @@
 				value="org.hibernate.dialect.PostgreSQLDialect" />
 
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 
 		</properties>

@@ -11,3 +11,10 @@
     -fx-font-size:14.0;
 }
 
+.jfx-context-menu
+{
+	-fx-font-size:14.0;
+}
+.tooltip {
+    -fx-font-size: 14px;
+}
