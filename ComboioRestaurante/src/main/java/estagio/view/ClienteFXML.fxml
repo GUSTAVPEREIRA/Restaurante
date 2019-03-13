@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_cliente" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="branco" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ClienteController">
+<AnchorPane id="AnchorPane" fx:id="ap_cliente" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="branco" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ClienteController">
    <children>
       <Label fx:id="lbl_codigo" layoutX="67.0" layoutY="50.0" text="Código">
          <font>
@@ -34,7 +34,7 @@
             <Font size="14.0" />
          </font>
       </JFXTextField>
-      <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="286.0" layoutY="43.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
+      <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="286.0" layoutY="43.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -164,8 +164,14 @@
             </ContextMenu>
          </contextMenu>
       </JFXComboBox>
-      <JFXCheckBox fx:id="cb_fisica" layoutX="60.0" layoutY="380.0" onAction="#onActionPessoaFisica" text="Física" />
-      <JFXCheckBox fx:id="cb_juridica" layoutX="161.0" layoutY="380.0" onAction="#onActionPessoaJuridica" text="Juridica" />
+      <JFXCheckBox fx:id="cb_fisica" layoutX="60.0" layoutY="380.0" onAction="#onActionPessoaFisica" text="Física">
+         <font>
+            <Font size="14.0" />
+         </font></JFXCheckBox>
+      <JFXCheckBox fx:id="cb_juridica" layoutX="161.0" layoutY="380.0" onAction="#onActionPessoaJuridica" text="Juridica">
+         <font>
+            <Font size="14.0" />
+         </font></JFXCheckBox>
       <AnchorPane fx:id="ap_pessoaFisica" layoutX="242.0" layoutY="309.0" prefHeight="218.0" prefWidth="450.0" styleClass="branco" visible="false">
          <children>
             <Label fx:id="lbl_cpf" layoutX="13.0" layoutY="15.0" text="CPF">
@@ -360,7 +366,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" layoutX="40.0" layoutY="540.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo">
+      <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" layoutX="30.0" layoutY="540.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="100.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -375,7 +381,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="15" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="140.0" layoutY="540.0" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar">
+      <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="140.0" layoutY="540.0" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -390,7 +396,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="240.0" layoutY="540.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Excluir">
+      <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="250.0" layoutY="540.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Excluir">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -405,7 +411,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="340.0" layoutY="540.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
+      <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="360.0" layoutY="540.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -416,8 +422,11 @@
                </font>
             </Tooltip>
          </tooltip>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="UNDO" />
+         </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="440.0" layoutY="540.0" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
+      <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="470.0" layoutY="540.0" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -479,7 +488,7 @@
       </Label>
       <AnchorPane fx:id="ap_busca" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="869.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" visible="false">
          <children>
-            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
+            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -487,7 +496,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="762.0" minWidth="614.0" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="614.0" promptText="Busca pelo nome ou pela cidade." unFocusColor="BLACK" />
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="124.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" onKeyPressed="#OnKeyPressedEnter" onKeyTyped="#Limitetxt_filtro" prefHeight="31.0" prefWidth="600.0" promptText="Busca pelo nome ou pela cidade." unFocusColor="BLACK" />
             <TableView fx:id="tb_pessoa" layoutX="14.0" layoutY="63.0" onMouseClicked="#OnMouseClickedCliente" prefHeight="461.0" prefWidth="871.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" styleClass="tab" text="Código" />
@@ -498,16 +507,22 @@
                   <TableColumn fx:id="tc_telefone" editable="false" maxWidth="256.0" minWidth="84.0" prefWidth="130.0" resizable="false" styleClass="tab" text="Telefone" />
                </columns>
             </TableView>
-            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="784.0" layoutY="537.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
+            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="784.0" layoutY="537.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
                </graphic>
             </JFXButton>
-            <JFXCheckBox fx:id="cb_fisicaBusca" layoutX="734.0" layoutY="30.0" onAction="#onActionPessoaFisicaBusca" onKeyPressed="#OnKeyPressedEnter" text="Física" />
-            <JFXCheckBox fx:id="cb_juridicaBusca" layoutX="810.0" layoutY="30.0" onAction="#onActionPessoaJuridicaBusca" onKeyPressed="#OnKeyPressedEnter" text="Juridica" />
+            <JFXCheckBox fx:id="cb_fisicaBusca" layoutX="734.0" layoutY="30.0" onAction="#onActionPessoaFisicaBusca" onKeyPressed="#OnKeyPressedEnter" text="Física">
+               <font>
+                  <Font size="14.0" />
+               </font></JFXCheckBox>
+            <JFXCheckBox fx:id="cb_juridicaBusca" layoutX="810.0" layoutY="30.0" onAction="#onActionPessoaJuridicaBusca" onKeyPressed="#OnKeyPressedEnter" text="Juridica">
+               <font>
+                  <Font size="14.0" />
+               </font></JFXCheckBox>
          </children>
          <stylesheets>
             <URL value="@css/backgroundCadastro.css" />
@@ -515,4 +530,8 @@
          </stylesheets>
       </AnchorPane>
    </children>
+   <stylesheets>
+      <URL value="@css/backgroundCadastro.css" />
+      <URL value="@css/fonts.css" />
+   </stylesheets>
 </AnchorPane>

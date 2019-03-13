@@ -21,28 +21,28 @@ public class ContasPagarDAO extends GenericDAO<ContasPagar> {
 	public Long getID(ContasPagar obj) {
 		return obj.getId();
 	}
-
-	private void updateDataVencida() {
-		String jpql;
-
-		int retorno;
-		EntityManager em = JPAUtil.getEntityManager();
-		
-		em.getTransaction().begin();
-		try {
-
-			jpql = "UPDATE ContasPagar c set c.status=:pStatus where :pDataHoje > c.vencimento";
-			TypedQuery<Integer> query = em.createQuery(jpql, Integer.class);
-			retorno = query.getSingleResult();
-			em.getTransaction().commit();
-
-		} catch (Exception e) {
-			em.getTransaction().rollback();
-			System.out.println(e.getMessage());
-		} finally {
-			em.close();
-		}
-	}
+//
+//	private void updateDataVencida() {
+//		String jpql;
+//
+//		int retorno;
+//		EntityManager em = JPAUtil.getEntityManager();
+//		
+//		em.getTransaction().begin();
+//		try {
+//
+//			jpql = "UPDATE ContasPagar c set c.status=:pStatus where :pDataHoje > c.vencimento";
+//			TypedQuery<Integer> query = em.createQuery(jpql, Integer.class);
+//			retorno = query.getSingleResult();
+//			em.getTransaction().commit();
+//
+//		} catch (Exception e) {
+//			em.getTransaction().rollback();
+//			System.out.println(e.getMessage());
+//		} finally {
+//			em.close();
+//		}
+//	}
 
 	public List<ContasPagar> listaContasPagar(Date dataAbertura, Date DataVencimento, String status) {
 		String jpql;

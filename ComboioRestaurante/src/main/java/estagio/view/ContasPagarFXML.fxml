@@ -544,7 +544,7 @@
                                           <TableView fx:id="tb_baixarContas" onMouseClicked="#OnMouseClickedBaixar" prefHeight="461.0" prefWidth="890.0" stylesheets="@css/tableView.css">
                                              <columns>
                                                 <TableColumn fx:id="tc_codigo" editable="false" maxWidth="-Infinity" minWidth="60.0" prefWidth="60.0" resizable="false" styleClass="tab" text="Código" />
-                                                <TableColumn fx:id="tc_descricao" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" styleClass="tab" text="Descricão" />
+                                                <TableColumn fx:id="tc_descricao" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" styleClass="tab" text="Status" />
                                                 <TableColumn fx:id="tc_abertura" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" styleClass="tab" text="Abertura" />
                                                 <TableColumn fx:id="tc_vencimento" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" styleClass="tab" text="Vencimento" />
                                                 <TableColumn fx:id="tc_parcela" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" styleClass="tab" text="Parcela" />
@@ -693,7 +693,7 @@
                                                 <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Remover">
+                                          <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="101.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Remover">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -719,6 +719,9 @@
                                                    </font>
                                                 </Tooltip>
                                              </tooltip>
+                                             <graphic>
+                                                <FontAwesomeIconView fill="WHITE" glyphName="UNDO" />
+                                             </graphic>
                                           </JFXButton>
                                           <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
                                              <font>

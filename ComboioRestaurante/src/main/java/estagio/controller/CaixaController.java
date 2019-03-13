@@ -355,6 +355,7 @@ public class CaixaController implements Initializable {
 			txt_valorAtual.setText((String.valueOf(caixa.somaDinheiro())));
 			txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
 			txt_valorAbertura.setDisable(true);
+			
 			fxn = new FXNotification(
 					"Caixa aberto no dia " + String.valueOf(caixa.getDataAbertura().toLocalDate().format(dataFormat))
 							+ "" + " as " + String.valueOf(caixa.getHoraAbertura()),
@@ -450,10 +451,11 @@ public class CaixaController implements Initializable {
 		caixa.setDataFechamento(Date.valueOf(LocalDate.now()));
 		caixa.setHoraFechamento(Time.valueOf(LocalDateTime.now().format(horaFormat)));
 		caixa.setStatus("fechado");
+		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 		fxn = new FXNotification(
 				"Caixa fechado no dia " + String.valueOf(caixa.getDataFechamento().toLocalDate().format(dataFormat))
 						+ "" + " as "
-						+ String.valueOf(caixa.getHoraFechamento() + "\n Com o valor total de:" + caixa.somaDinheiro()),
+						+ String.valueOf(caixa.getHoraFechamento() + "\n Com o valor total de:" + nf.format(caixa.somaDinheiro())),
 				FXNotification.NotificationType.INFORMATION);
 		fxn.show();
 		caixaDAO.merge(caixa);
@@ -523,14 +525,13 @@ public class CaixaController implements Initializable {
 			caixa.setStatus("sangrar");
 			caixaDAO.merge(caixa);
 			carregaTela();
+			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));	
 			FXNotification fxn;
-			fxn = new FXNotification("Caixa sangrado" + String.valueOf(" com o valor total de:" + caixa.somaDinheiro()),
+			fxn = new FXNotification("Caixa sangrado" + String.valueOf(" com o valor total de:" + nf.format(caixa.somaDinheiro())),
 					FXNotification.NotificationType.INFORMATION);
 			fxn.show();
 		} else {
-
 		}
-
 	}
 
 	@FXML

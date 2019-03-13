@@ -1,5 +1,9 @@
+*{
+	
+}
+
 .jfx-date-picker{
-	-fx-font-size:14.0px
+	-fx-font-size:14.0px;
 }
 
 .combo-box{
@@ -17,4 +21,8 @@
 }
 .tooltip {
     -fx-font-size: 14px;
+}
+.glyph-icon {
+  -fx-font-size: 20px;
+  -fx-font-family: "FontAwesome"; /* or Material Design Icons*/
 }

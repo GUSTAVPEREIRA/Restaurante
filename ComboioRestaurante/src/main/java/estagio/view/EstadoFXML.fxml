@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_estado" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.EstadoController">
+<AnchorPane id="AnchorPane" fx:id="ap_estado" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.EstadoController">
    <children>
       <Label layoutX="57.0" layoutY="90.0" text="Código">
          <font>
@@ -23,12 +23,12 @@
             <Tooltip fx:id="ttp_codigo" text="Código do cadastro do estado" />
          </tooltip>
       </Label>
-      <JFXTextField fx:id="txt_codigo" disable="true" focusColor="#5fcda3" layoutX="134.0" layoutY="80.0" maxWidth="231.0" minWidth="131.0" prefHeight="34.0" prefWidth="109.0" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_codigo" disable="true" focusColor="#5fcda3" layoutX="134.0" layoutY="80.0" maxWidth="231.0" minWidth="131.0" prefHeight="36.0" prefWidth="109.0" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
       </JFXTextField>
-      <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="276.0" layoutY="83.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
+      <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="276.0" layoutY="83.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -96,7 +96,7 @@
             </ContextMenu>
          </contextMenu>
       </JFXTextField>
-      <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" layoutX="30.0" layoutY="541.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="85.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo">
+      <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" layoutX="30.0" layoutY="541.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="100.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -111,7 +111,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="15" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="130.0" layoutY="541.0" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar">
+      <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="140.0" layoutY="541.0" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -125,7 +125,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="230.0" layoutY="541.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Excluir">
+      <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="250.0" layoutY="541.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Excluir">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -139,7 +139,7 @@
             <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="330.0" layoutY="541.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
+      <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="360.0" layoutY="541.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -149,8 +149,11 @@
                   <Font size="14.0" />
                </font></Tooltip>
          </tooltip>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="UNDO" />
+         </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="430.0" layoutY="541.0" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="85.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
+      <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="470.0" layoutY="541.0" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -182,7 +185,7 @@
       </Label>
       <AnchorPane fx:id="ap_busca" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" visible="false">
          <children>
-            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
+            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="14.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -190,7 +193,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="110.0" layoutY="14.0" maxWidth="657.0" minWidth="639.0" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="657.0" promptText="Busca pelo nome do estado." unFocusColor="BLACK" />
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="124.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="637.0" promptText="Busca pelo nome do estado." unFocusColor="BLACK" />
             <TableView fx:id="tb_estado" layoutX="14.0" layoutY="59.0" onMouseClicked="#OnMouseClickedEstado" prefHeight="472.0" prefWidth="747.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" styleClass="tab" text="Código" />
@@ -198,9 +201,9 @@
                   <TableColumn fx:id="tc_sigla" editable="false" maxWidth="233.0" minWidth="127.0" prefWidth="127.0" resizable="false" styleClass="tab" text="Sigla" />
                </columns>
             </TableView>
-            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="676.0" layoutY="544.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="85.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
+            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="660.0" layoutY="544.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
                <font>
-                  <Font size="14.0" />
+                  <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
@@ -213,4 +216,8 @@
          </stylesheets>
       </AnchorPane>
    </children>
+   <stylesheets>
+      <URL value="@css/backgroundCadastro.css" />
+      <URL value="@css/fonts.css" />
+   </stylesheets>
 </AnchorPane>

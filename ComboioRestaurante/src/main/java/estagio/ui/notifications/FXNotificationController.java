@@ -19,13 +19,15 @@ public class FXNotificationController implements Initializable {
 	private HBox rootPane;
 	@FXML
 	private TextArea textAreaNotifications;
-    @FXML
-    private HBox principal;
+
 	private Timeline timeline;
-    private String corCheck = "-fx-border-color:#0cb388";
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		textAreaNotifications.setOnMouseExited((event)->
+		{			
+				FXNotificationFactory.getInstance().closeNotification(rootPane);		
+		});
 	}
 
 	@FXML
@@ -49,23 +51,22 @@ public class FXNotificationController implements Initializable {
 
 	@FXML
 	public void actMouseEntered(MouseEvent event) {
-		
-		if(timeline != null) {
+
+		if (timeline != null) {
 			timeline.pause();
 		}
 	}
 
 	@FXML
 	public void actMouseExited(MouseEvent event) {
-		if(timeline != null) {
+		if (timeline != null) {
 			timeline.jumpTo(timeline.getTotalDuration().subtract(Duration.millis(2000)));
 			timeline.play();
 		}
 	}
 
-	public void alterarCor() {
-		principal.setStyle(corCheck);
-		
+	public void setRootStyleSheet(URL stylesheetURL) {
+		this.rootPane.getStylesheets().add(stylesheetURL.toExternalForm());
 	}
 
 }

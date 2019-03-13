@@ -1,0 +1,21 @@
+/* Default looked-up colors */
+* {
+	-fxdefine-errorcolor: #D40000;
+	-fxdefine-errorcolor_highlighted: #FF0000;
+}
+
+.CloseButton{
+	-fx-background-color: white;
+}
+
+.FXNotificationBody{
+	-fx-background-color: white;
+	-fx-border-color: -fxdefine-errorcolor;
+	-fx-effect: dropshadow(three-pass-box, -fxdefine-errorcolor , 10.0, 0.0 , 0.0 , 0.0 );
+}
+
+.FXNotificationBody:hover{
+	-fx-background-color: white;
+	-fx-border-color: -fxdefine-errorcolor_highlighted;
+	-fx-effect: dropshadow(three-pass-box, -fxdefine-errorcolor_highlighted , 10.0, 0.0 , 0.0 , 0.0 );
+}
