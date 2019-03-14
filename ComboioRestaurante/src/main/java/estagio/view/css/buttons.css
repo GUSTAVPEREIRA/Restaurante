@@ -6,8 +6,8 @@
     -fx-excluir:#EE4C48; -fx-secondary-excluir:#FF211B;
     -fx-sair:#EE4C48;    -fx-secondary-sair:#D3000F;
     -fx-menu:#0cb388;    -fx-secondary-menu:#0cb388;
-    -fx-background-radius:5px;
-    -fx-border-radius:5px;
+    -fx-background-radius:5.0px;
+    -fx-border-radius:5.0px;
     -fx-menuC:#2A2E37; -fx-secondary-menuC:#1e1e22;    
 }
 
@@ -89,14 +89,15 @@
 }
 
 .jfx-button.menu{
-     -fx-background-radius:0px;
-     -fx-border-radius:0px;
+     -fx-background-radius:0.0px;
+     -fx-border-radius:0.0px;
      -jfx-button-type: RAISED;
      -fx-border-color:#cccccc;
      -fx-background-color:-fx-secondary-menu;
      -fx-text-fill: #fbf6f2;
 }
 .jfx-button.menu:hover {
+	
      -fx-border-color:-fx-secondary-menu;
      -fx-background-color:-fx-secondary-menu;
      -fx-text-fill: white;

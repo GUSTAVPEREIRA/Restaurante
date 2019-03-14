@@ -1,28 +1,24 @@
-*{
-	
-}
 
 .jfx-date-picker{
-	-fx-font-size:14.0px;
-}
-
-.combo-box{
+	
 	-fx-font-size:14.0;
 }
 
-.jfx-text-field
-{
+.combo-box {
+	-fx-font-size:14.0;
+}
+
+.jfx-text-field {
     -fx-font-size:14.0;
 }
 
-.jfx-context-menu
-{
+.jfx-context-menu {
 	-fx-font-size:14.0;
 }
 .tooltip {
-    -fx-font-size: 14px;
+    -fx-font-size: 14.0px;
 }
 .glyph-icon {
-  -fx-font-size: 20px;
+  -fx-font-size: 20.0px;
   -fx-font-family: "FontAwesome"; /* or Material Design Icons*/
 }

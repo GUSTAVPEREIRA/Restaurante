@@ -54,13 +54,8 @@ public class ContasPagarDAO extends GenericDAO<ContasPagar> {
 		try {
 
 			jpql = "SELECT m FROM ContasPagar m ";
-			if (status.equals("") == false) {
-				jpql = jpql + "WHERE m.status = :pStatus ";
-
-				if (dataAbertura != null || DataVencimento != null) {
-					jpql = jpql + "AND ";
-				}
-			} else if (dataAbertura != null || DataVencimento != null) {
+			
+			if (dataAbertura != null || DataVencimento != null) {
 				jpql = jpql + "WHERE ";
 			}
 

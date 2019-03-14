@@ -35,11 +35,20 @@ public class ParcelaPagar implements Serializable {
 	private Double valor;
 	@Column(name = "cpp_valorPgto", nullable = false, precision = 2)
 	private Double valorPgto;
-	@Column(name = "cpp_tipo", length = 20, nullable = true)
-	private String tipo;
+	@Column(name = "cpp_status", length = 20, nullable = true)
+	private String status;
 	@Column(name = "cpp_numeroParcela",nullable = false)
 	private int numeroParcela;
 	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public int getNumeroParcela() {
 		return numeroParcela;
 	}
@@ -111,14 +120,6 @@ public class ParcelaPagar implements Serializable {
 
 	public void setValorPgto(Double valorPgto) {
 		this.valorPgto = valorPgto;
-	}
-
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
 	}
 
 	public static long getSerialversionuid() {

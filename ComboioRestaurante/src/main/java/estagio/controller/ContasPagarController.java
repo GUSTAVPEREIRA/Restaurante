@@ -118,8 +118,6 @@ public class ContasPagarController implements Initializable {
 	@FXML
 	private JFXComboBox<String> cbb_status;
 
-	@FXML
-	private JFXComboBox<String> cbb_statusT;
 
 	ContasPagar contasPagar = new ContasPagar();
 
@@ -131,6 +129,9 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	private ContextMenu ctm_cbFornecedores;
+
+	@FXML
+	private ContextMenu ctm_lblBaixarConta;
 
 	@FXML
 	private ContextMenu ctm_cbParcela;
@@ -187,6 +188,9 @@ public class ContasPagarController implements Initializable {
 	private Label lbl_abertura;
 
 	@FXML
+	private Label lbl_BaixarConta;
+
+	@FXML
 	private Label lbl_aberturaT;
 
 	@FXML
@@ -209,10 +213,7 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	private Label lbl_status;
-
-	@FXML
-	private Label lbl_statusT;
-
+	
 	@FXML
 	private Label lbl_TipoCondicao;
 
@@ -238,6 +239,8 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	private MenuItem mi_cbFornecedores;
+	@FXML
+	private MenuItem mi_lblBaixarConta;
 
 	@FXML
 	private MenuItem mi_cbParcela;
@@ -353,6 +356,8 @@ public class ContasPagarController implements Initializable {
 	@FXML
 	private Tooltip ttp_btnSairAbrir;
 	@FXML
+	private Tooltip ttp_lblBaixarConta;
+	@FXML
 	private Tooltip ttp_cbbListaFornecedores;
 	@FXML
 	private Tooltip ttp_cbbParcelas;
@@ -431,14 +436,14 @@ public class ContasPagarController implements Initializable {
 		desativaTela();
 		tb_baixarContas.getItems().clear();
 		tc_codigo.setCellValueFactory(new PropertyValueFactory<>("Id"));
-		tc_descricao.setCellValueFactory(new PropertyValueFactory<>("ContasPagar"));
+		tc_descricao.setCellValueFactory(new PropertyValueFactory<>("Status"));
 		tc_abertura.setCellValueFactory(new PropertyValueFactory<>("Abertura"));
 		tc_vencimento.setCellValueFactory(new PropertyValueFactory<>("Vencimento"));
 		tc_parcela.setCellValueFactory(new PropertyValueFactory<>("NumeroParcela"));
 		tc_ValorPago.setCellValueFactory(new PropertyValueFactory<>("ValorPgto"));
 		tc_valor.setCellValueFactory(new PropertyValueFactory<>("Valor"));
 		tc_abertura.setCellValueFactory((data) -> {
-			Date temp = data.getValue().getVencimento();
+			Date temp = data.getValue().getAbertura();
 			return new SimpleStringProperty(formato.format(temp));
 		});
 		tc_vencimento.setCellValueFactory((data) -> {
@@ -455,7 +460,7 @@ public class ContasPagarController implements Initializable {
 		});
 
 		parcelasPagar = parcelaPagarDAO.listaParcelaPagar(contasPagar);
-		if (!contassPagar.isEmpty()) {
+		if (!parcelasPagar.isEmpty()) {
 			obslParcelaPagar = FXCollections.observableArrayList(parcelasPagar);
 			tb_baixarContas.setItems(obslParcelaPagar);
 		}
@@ -531,11 +536,15 @@ public class ContasPagarController implements Initializable {
 			// TextFields
 			dp_abertura.setValue(null);
 			dp_vencimento.setValue(null);
+			txt_valorParcial.setText("");
+			txt_total.setText("");
 			// Check box
 			cb_bTotal.setSelected(false);
 			cb_bParcial.setSelected(false);
 			// Table view
 			tb_baixarContas.getItems().clear();
+			// Combobox
+			cbb_status.getSelectionModel().select(-1);
 
 		}
 
@@ -560,7 +569,6 @@ public class ContasPagarController implements Initializable {
 		// Baixar contas
 		obsl_status = FXCollections.observableArrayList("ABERTO", "FECHADO", "VENCIDO");
 		cbb_status.setItems(obsl_status);
-		cbb_statusT.setItems(obsl_status);
 		txt_total.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_valorParcial.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 
@@ -624,10 +632,6 @@ public class ContasPagarController implements Initializable {
 			dataVencimento = dp_vencimentoT.getValue().toString();
 			dataVencimentoT = Date.valueOf(dataVencimento);
 		}
-
-		if (cbb_statusT.getValue() != null)
-			statust = cbb_statusT.getValue();
-
 		carregaTelaBuscar(DataAberturaT, dataVencimentoT, statust);
 	}
 
@@ -743,7 +747,7 @@ public class ContasPagarController implements Initializable {
 				parcelaPagar.setVencimento(auxVencimento);
 				parcelaPagar.setValor(auxValor);
 				parcelaPagar.setPgto(null);
-				parcelaPagar.setTipo("");
+				parcelaPagar.setStatus("ABERTO");
 				parcelaPagar.setValorPgto(0.00);
 
 				parcelasPagar.add(parcelaPagar);
@@ -755,9 +759,45 @@ public class ContasPagarController implements Initializable {
 
 	}
 
+	public double valorRestantePagar() {
+		if (parcelaPagar != null)
+			return (parcelaPagar.getValor() - parcelaPagar.getValorPgto());
+		else
+			return 0;
+	}
+
 	@FXML
 	void OnActionGravar(ActionEvent event) {
 
+		String valor = txt_valorParcial.getText().replace("R$ ", "");
+		Double ValorPgto = Double.parseDouble(valor);
+		if (valorRestantePagar() > 0 && ValorPgto <= valorRestantePagar() + 0.01) {
+			txt_valorParcial.setStyle(corNormal);
+			ctm_valorParcial.hide();
+
+			if (cb_bTotal.isSelected() || cb_bParcial.isSelected()) {
+				lbl_BaixarConta.setStyle(corNormal);
+				ctm_lblBaixarConta.hide();
+
+				parcelaPagar.setValorPgto(parcelaPagar.getValorPgto() + ValorPgto);
+
+				parcelaPagar.setPgto(Date.valueOf(LocalDate.now()));
+				if (valorRestantePagar() <= 0) {
+					parcelaPagar.setStatus("FECHADO");
+				}
+				parcelaPagarDAO.merge(parcelaPagar);
+				desativaTela();
+				carregaTelaBaixar(contasPagar);
+
+			} else {
+				ctm_lblBaixarConta.show(lbl_BaixarConta, Side.RIGHT, 10, 0);
+				lbl_BaixarConta.setStyle(corErro);
+
+			}
+		} else {
+			ctm_valorParcial.show(txt_valorParcial, Side.RIGHT, 10, 0);
+			txt_valorParcial.setStyle(corErro);
+		}
 	}
 
 	@FXML
@@ -831,12 +871,28 @@ public class ContasPagarController implements Initializable {
 	void OnMouseClickedSelecionaConta(MouseEvent event) {
 		if (tb_bContas.getSelectionModel().getSelectedItem() != null) {
 			this.setConta(tb_bContas.getSelectionModel().getSelectedItem());
+			hbox_Buscar.setVisible(false);
+			dp_aberturaT.setValue(null);
+			dp_vencimentoT.setValue(null);
+			tb_bContas.getItems().clear();
 		}
 	}
 
 	public void setConta(ContasPagar contasPagar) {
+		Double valortotal = 0.00;
 		this.contasPagar = contasPagar;
+		parcelasPagar = new ArrayList<ParcelaPagar>();
 		carregaTelaBaixar(contasPagar);
+		if (!parcelasPagar.isEmpty()) {
+			for (ParcelaPagar pp : parcelasPagar) {
+				valortotal = valortotal + (pp.getValor() - pp.getValorPgto());
+			}
+			if (valortotal < 0) {
+				valortotal = 0.0;
+			}
+			txt_total.setText(nf.format(valortotal));
+			btn_Remover.setDisable(false);
+		}
 
 	}
 
@@ -852,7 +908,22 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnMouseClickedBaixar(MouseEvent event) {
+		if (tb_baixarContas.getSelectionModel().getSelectedItem() != null) {
+			this.setParcela(tb_baixarContas.getSelectionModel().getSelectedItem());
+		}
+	}
 
+	public void setParcela(ParcelaPagar parcelaPagar) {
+		this.parcelaPagar = new ParcelaPagar();
+		this.parcelaPagar = parcelaPagar;
+		txt_valorParcial.setText(nf.format(parcelaPagar.getValor() - parcelaPagar.getValorPgto()));
+		if ((parcelaPagar.getValor() - parcelaPagar.getValorPgto()) != 0) {
+			btn_Gravar.setDisable(false);
+
+		}
+		if (parcelaPagar.getValorPgto() != 0) {
+			btn_Estornar.setDisable(false);
+		}
 	}
 
 	@FXML

@@ -544,7 +544,7 @@
                                           <TableView fx:id="tb_baixarContas" onMouseClicked="#OnMouseClickedBaixar" prefHeight="461.0" prefWidth="890.0" stylesheets="@css/tableView.css">
                                              <columns>
                                                 <TableColumn fx:id="tc_codigo" editable="false" maxWidth="-Infinity" minWidth="60.0" prefWidth="60.0" resizable="false" styleClass="tab" text="Código" />
-                                                <TableColumn fx:id="tc_descricao" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" styleClass="tab" text="Status" />
+                                                <TableColumn fx:id="tc_descricao" editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" resizable="false" styleClass="tab" text="Data Pagamento" />
                                                 <TableColumn fx:id="tc_abertura" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" styleClass="tab" text="Abertura" />
                                                 <TableColumn fx:id="tc_vencimento" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" styleClass="tab" text="Vencimento" />
                                                 <TableColumn fx:id="tc_parcela" editable="false" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" styleClass="tab" text="Parcela" />
@@ -563,7 +563,7 @@
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="20.0">
                                                    <children>
-                                                      <Label text="Baixar conta">
+                                                      <Label fx:id="lbl_BaixarConta" text="Baixar conta">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -573,6 +573,16 @@
                                                          <padding>
                                                             <Insets left="35.0" />
                                                          </padding>
+                                                         <tooltip>
+                                                            <Tooltip fx:id="ttp_lblBaixarConta" text="Tipo de conta a ser selecionada." />
+                                                         </tooltip>
+                                                         <contextMenu>
+                                                            <ContextMenu fx:id="ctm_lblBaixarConta">
+                                                              <items>
+                                                                <MenuItem fx:id="mi_lblBaixarConta" mnemonicParsing="false" text="Por favor, selecione o tipo de baixa." />
+                                                              </items>
+                                                            </ContextMenu>
+                                                         </contextMenu>
                                                       </Label>
                                                       <Label fx:id="lbl_total" text="Total">
                                                          <font>
@@ -585,7 +595,7 @@
                                                             <Tooltip text="Valor total das parcelas." />
                                                          </tooltip>
                                                       </Label>
-                                                      <JFXTextField fx:id="txt_total" focusColor="#5fcda3" labelFloat="true" maxWidth="397.0" minWidth="131.0" prefHeight="35.0" prefWidth="200.0" unFocusColor="BLACK">
+                                                      <JFXTextField fx:id="txt_total" disable="true" focusColor="#5fcda3" labelFloat="true" maxWidth="397.0" minWidth="131.0" prefHeight="35.0" prefWidth="200.0" unFocusColor="BLACK">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -630,7 +640,7 @@
                                                          <contextMenu>
                                                             <ContextMenu fx:id="ctm_valorParcial">
                                                                <items>
-                                                                  <MenuItem fx:id="mi_valorParcial" mnemonicParsing="false" text="Por favor, insira o nome corretamente." />
+                                                                  <MenuItem fx:id="mi_valorParcial" mnemonicParsing="false" text="Por favor, insira um valor válido." />
                                                                </items>
                                                             </ContextMenu>
                                                          </contextMenu>
@@ -765,7 +775,7 @@
          <children>
             <VBox maxHeight="-Infinity" minHeight="-Infinity" prefHeight="477.0" prefWidth="36.0" spacing="2.0" styleClass="branco" stylesheets="@css/backgroundCadastro.css">
                <children>
-                  <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label fx:id="lbl_aberturaT" text="Abertura">
                            <font>
@@ -785,36 +795,6 @@
                            </tooltip>
                         </Label>
                         <JFXDatePicker fx:id="dp_vencimentoT" prefHeight="36.0" prefWidth="150.0" />
-                        <Label fx:id="lbl_statusT" text="Status">
-                           <padding>
-                              <Insets left="1.0" />
-                           </padding>
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <tooltip>
-                              <Tooltip fx:id="ttp_lblStatusT" text="Status da conta a pagar.">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Tooltip>
-                           </tooltip>
-                        </Label>
-                        <JFXComboBox fx:id="cbb_statusT" onAction="#OnMouseSelectionUf" prefHeight="36.0" prefWidth="156.0">
-                           <tooltip>
-                              <Tooltip fx:id="ttp_statusT" text="Lista de status." />
-                           </tooltip>
-                           <contextMenu>
-                              <ContextMenu fx:id="ctm_statusT">
-                                 <items>
-                                    <MenuItem fx:id="mi_statusT" mnemonicParsing="false" text="Por favor selecione o status corretamente." />
-                                 </items>
-                              </ContextMenu>
-                           </contextMenu>
-                           <HBox.margin>
-                              <Insets right="40.0" />
-                           </HBox.margin>
-                        </JFXComboBox>
                         <JFXButton fx:id="btn_FiltrarT" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionFiltrarT" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -830,6 +810,9 @@
                            </HBox.margin>
                         </JFXButton>
                      </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
