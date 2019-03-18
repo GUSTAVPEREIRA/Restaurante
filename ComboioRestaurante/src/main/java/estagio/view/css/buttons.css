@@ -29,6 +29,14 @@
      -fx-border-color:-fx-secondary-filtro;
 
 }
+.jfx-button.texto {
+     -jfx-button-type: RAISED;
+     -fx-border-color:#274643;
+     -fx-background-color: #274643;
+     -fx-text-fill: #fbf6f2;
+
+}
+
 
 .jfx-button.filtrar:hover {
      -fx-border-color:-fx-secondary-filtro;

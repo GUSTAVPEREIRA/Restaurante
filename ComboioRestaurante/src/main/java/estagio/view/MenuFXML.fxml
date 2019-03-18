@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_menu" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.MainController">
+<AnchorPane id="AnchorPane" fx:id="ap_menu" maxHeight="650.0" maxWidth="1000.0" minHeight="650.0" minWidth="1000.0" prefHeight="650.0" prefWidth="1000.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.MainController">
    <children>
-      <VBox fx:id="VB_Menu" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" prefHeight="600.0" prefWidth="109.0">
+      <VBox fx:id="VB_Menu" maxHeight="650.0" maxWidth="109.0" minHeight="650.0" minWidth="109.0" prefHeight="650.0" prefWidth="109.0">
          <children>
             <JFXButton fx:id="btn_Cadastro" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionCadastro" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Cadastros">
                <font>
@@ -34,7 +34,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SHOPPING_CART" size="18" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_financeiro" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="2.0" onAction="#onActionFinanceiro" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Financeiro">
+            <JFXButton fx:id="btn_financeiro" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="2.0" onAction="#onActionFinanceiro" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Financeiro">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -42,7 +42,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="CALCULATOR" size="16" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="2.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
+            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="2.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -57,6 +57,11 @@
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
                </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btn_texto" alignment="BASELINE_CENTER" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="6.0" maxHeight="455.0" maxWidth="109.0" minHeight="64.0" prefHeight="64.0" prefWidth="109.0" styleClass="texto" stylesheets="@css/buttons.css" textFill="#1b9763">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
             </JFXButton>
          </children>
       </VBox>

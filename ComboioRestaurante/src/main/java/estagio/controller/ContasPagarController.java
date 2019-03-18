@@ -24,6 +24,7 @@ import estagio.model.ContasPagar;
 import estagio.model.Fornecedor;
 import estagio.model.ParcelaPagar;
 import estagio.ui.notifications.FXNotification;
+import estagio.ui.notifications.FXNotification.NotificationType;
 import estagio.view.util.TextFieldFormatterHelper;
 import estagio.view.util.Validadores;
 import javafx.beans.property.SimpleStringProperty;
@@ -521,7 +522,7 @@ public class ContasPagarController implements Initializable {
 	public void desativaTela() {
 		if (tab_lancar.isSelected() == true) {
 			// Lançar contas a pagar
-			//Estilos
+			// Estilos
 			lbl_TipoConta.setStyle(corNormal);
 			lbl_descricao.setStyle(corNormal);
 			lbl_TipoCondicao.setStyle(corNormal);
@@ -594,7 +595,7 @@ public class ContasPagarController implements Initializable {
 		txt_dias.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[0-9]+", 3));
 
 		// Baixar contas
-		obsl_status = FXCollections.observableArrayList("ABERTO", "FECHADO");
+		obsl_status = FXCollections.observableArrayList("ABERTO", "FECHADO","AMBOS");
 		cbb_status.setItems(obsl_status);
 		txt_total.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 
@@ -671,9 +672,7 @@ public class ContasPagarController implements Initializable {
 					}
 				}
 			});
-		}
-		else
-		{
+		} else {
 			FXNotification fxn;
 			fxn = new FXNotification("Dados inválidos", FXNotification.NotificationType.ERROR);
 			fxn.show();
@@ -682,7 +681,33 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnActionExcluir(ActionEvent event) {
-
+		
+		if (contasPagar != null) {
+			
+			try {				
+				dialogoExe.setTitle("Remover");
+				dialogoExe.setHeaderText("Você deseja realmente remover está conta ?");
+				dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
+				dialogoExe.showAndWait().ifPresent(b -> {
+					if (b == btnSim) {
+						FXNotification fxn;
+						parcelaPagarDAO.deletaParcelas(contasPagar);
+						contasPagarDAO.delete(contasPagar);
+						
+						fxn = new FXNotification(
+								"A Conta no valor total de: " + txt_total.getText() + " foi removida",
+								NotificationType.WARNING);
+						fxn.show();
+						desativaTela();
+						
+					}
+				});
+			} catch (Exception e) {
+				FXNotification fxn2;
+				fxn2 = new FXNotification("Conta não pode ser removida", NotificationType.ERROR);
+				fxn2.show();
+			}
+		}
 	}
 
 	@FXML
@@ -826,12 +851,9 @@ public class ContasPagarController implements Initializable {
 			btn_GravarCP.setDisable(false);
 			btn_CancelarCP.setDisable(false);
 			carregaTelaLancar();
-		}
-		else
-		{
+		} else {
 			FXNotification fxn;
-			fxn = new FXNotification("Por favor, corrija os erros.",
-					FXNotification.NotificationType.ERROR);
+			fxn = new FXNotification("Por favor, corrija os erros.", FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
 

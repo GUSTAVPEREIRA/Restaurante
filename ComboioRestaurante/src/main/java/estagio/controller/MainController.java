@@ -5,7 +5,10 @@
  */
 package estagio.controller;
 
+import java.awt.Label;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
@@ -13,6 +16,7 @@ import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,7 +28,7 @@ import javafx.stage.Stage;
  *
  * @author Pereira
  */
-public class MainController {
+public class MainController implements Initializable {
 
 	HamburgerNextArrowBasicTransition task;
 	@FXML
@@ -40,13 +44,13 @@ public class MainController {
 	@FXML
 	private JFXButton btn_sair;
 	@FXML
+	private JFXButton btn_texto;
+	@FXML
 	private VBox VB_Menu;
 	@FXML
 	private AnchorPane ap_menu;
-
-	public void inicialization() {
-
-	}
+	@FXML
+	private Label lbl_login;
 
 	@FXML
 	private void OnActionCadastro(ActionEvent event) throws IOException {
@@ -84,7 +88,14 @@ public class MainController {
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/FinanceiroFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
 	}
-	
-	
-	
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		if (LoginController.logado.getTipo().equals("ADMIN") == true) {
+			btn_financeiro.setDisable(false);
+			btn_relatorio.setDisable(false);
+		}
+		btn_texto.setText("Olá,\n"+LoginController.logado.getNome());
+	}
+
 }

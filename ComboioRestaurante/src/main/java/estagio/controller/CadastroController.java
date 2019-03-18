@@ -78,6 +78,14 @@ public class CadastroController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		if (LoginController.logado.getTipo().equals("ADMIN") == true) {
+			Categoria.setDisable(false);
+			Empresa.setDisable(false);
+			Fornecedor.setDisable(false);
+			Produto.setDisable(false);
+			TipoVenda.setDisable(false);
+			Usuario.setDisable(false);
+		}
 		Platform.runLater(new Runnable() {
 
 			@Override

@@ -10,7 +10,7 @@ import estagio.model.ContasPagar;
 import estagio.model.ParcelaPagar;
 import estagio.persistence.JPAUtil;
 
-public class ParcelaPagarDAO extends GenericDAO<ParcelaPagar>{
+public class ParcelaPagarDAO extends GenericDAO<ParcelaPagar> {
 
 	public ParcelaPagarDAO() {
 		super(ParcelaPagar.class);
@@ -21,10 +21,9 @@ public class ParcelaPagarDAO extends GenericDAO<ParcelaPagar>{
 		return obj.getId();
 	}
 
-	
 	public List<ParcelaPagar> listaParcelaPagar(ContasPagar contasPagar) {
 		String jpql;
-		
+
 		List<ParcelaPagar> retorno = new ArrayList<ParcelaPagar>();
 		EntityManager em = JPAUtil.getEntityManager();
 
@@ -32,11 +31,10 @@ public class ParcelaPagarDAO extends GenericDAO<ParcelaPagar>{
 		try {
 
 			jpql = "SELECT m FROM ParcelaPagar m where m.contasPagar =:pContasPagar ";
-	
-            
+
 			TypedQuery<ParcelaPagar> query = em.createQuery(jpql, ParcelaPagar.class);
 			if (contasPagar != null) {
-				query.setParameter("pContasPagar", contasPagar);  
+				query.setParameter("pContasPagar", contasPagar);
 			}
 			retorno = query.getResultList();
 			em.getTransaction().commit();
@@ -48,5 +46,37 @@ public class ParcelaPagarDAO extends GenericDAO<ParcelaPagar>{
 			em.close();
 		}
 		return retorno;
+	}
+
+	public boolean deletaParcelas(ContasPagar contasPagar)
+	{
+		String jpql;
+		
+		List<ParcelaPagar> retorno = new ArrayList<ParcelaPagar>();
+		EntityManager em = JPAUtil.getEntityManager();
+		Boolean delete = true;
+		em.getTransaction().begin();
+		try {
+
+			jpql = "SELECT m FROM ParcelaPagar m where m.contasPagar =:pContasPagar ";
+
+			TypedQuery<ParcelaPagar> query = em.createQuery(jpql, ParcelaPagar.class);
+			if (contasPagar != null) {
+				query.setParameter("pContasPagar", contasPagar);
+			}
+			retorno = query.getResultList();
+			for (ParcelaPagar parcelaPagar : retorno) {
+				em.remove(parcelaPagar);
+			}
+			em.getTransaction().commit();
+
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println(e.getMessage());
+			delete = false;
+		} finally {
+			em.close();
+		}
+		return delete;
 	}
 }

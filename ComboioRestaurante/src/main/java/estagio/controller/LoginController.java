@@ -123,6 +123,7 @@ public class LoginController implements Initializable{
                    stage = new Stage();            
                    stage.setTitle("Menu");
                    stage.setResizable(false);
+                   stage.setHeight(650);
                    stage.setScene(scene);
                    stage.show();
                } 
