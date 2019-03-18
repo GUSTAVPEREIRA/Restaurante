@@ -91,20 +91,18 @@ public class TextFieldFormatterHelper {
 			String localSep = ",";
 			String sep = ".";
 
-			if(change.getText().contains(localSep)) {
-				change.setText(change.getText().replace(localSep, sep));
-			}
+			//if(change.getText().contains(localSep)) {
+			//	change.setText(change.getText().replace(localSep, sep));
+			//}
 			
 			if (change.getControlNewText().length() > max) {
 				return null;
 			}
 
-			String[] splitaux = change.getControlNewText().split("\\" + sep);
-
-			if (splitaux.length == 2 && splitaux[1].length() > maxscale) {
+			String[] splitaux = change.getControlNewText().split("\\" + localSep);
+			if ((splitaux.length == 2 && splitaux[1].length() > maxscale)) {
 				return null;
 			}
-
 			if (change.isReplaced()) {
 				if (change.getText().matches("[^0-9]")) {
 					change.setText(change.getControlText().substring(change.getRangeStart(), change.getRangeEnd()));
@@ -112,12 +110,12 @@ public class TextFieldFormatterHelper {
 			}
 
 			if (change.isAdded()) {
-				if (change.getControlText().contains(sep)) {
+				if (change.getControlText().contains(localSep)) {
 
 					if (change.getText().matches("[^0-9]")) {
 						change.setText("");
 					}
-				} else if (change.getText().matches("[^0-9" + sep + "]")) {
+				} else if (change.getText().matches("[^0-9" + localSep + sep + "]")) {
 					change.setText("");
 				}
 			}

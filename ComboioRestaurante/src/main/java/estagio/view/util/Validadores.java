@@ -4,11 +4,39 @@
  * and open the template in the editor.
  */
 package estagio.view.util;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Random;
 
 public class Validadores {
 
+	static NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+	
+	
+	public static Double valorMonetario(String valor)
+	{
+		
+		Double valorFormatado;
+		
+		try {
+			valorFormatado = nf.parse(valor).doubleValue();
+		} catch (ParseException e) {
+			valor = valor.replace(".", "");
+			valor = valor.replace("R", "");
+			valor = valor.replace("$", "");
+			valor = valor.replace(" ", "");
+			valorFormatado = Double.parseDouble(valor.replace(",", "."));
+		}
+		
+		
+		
+		return valorFormatado;
+				
+				
+	}
+	
 	private int randomiza(int n) {
         int ranNum = (int) (Math.random() * n);
 		return ranNum;

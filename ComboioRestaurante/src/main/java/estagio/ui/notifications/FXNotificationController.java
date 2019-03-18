@@ -3,6 +3,7 @@ package estagio.ui.notifications;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
@@ -19,7 +20,8 @@ public class FXNotificationController implements Initializable {
 	private HBox rootPane;
 	@FXML
 	private TextArea textAreaNotifications;
-
+    @FXML
+    private FontAwesomeIconView icon;
 	private Timeline timeline;
 
 	@Override
@@ -65,8 +67,9 @@ public class FXNotificationController implements Initializable {
 		}
 	}
 
-	public void setRootStyleSheet(URL stylesheetURL) {
+	public void setRootStyleSheet(URL stylesheetURL,String iconType) {
 		this.rootPane.getStylesheets().add(stylesheetURL.toExternalForm());
+		icon.setGlyphName(iconType);
 	}
 
 }

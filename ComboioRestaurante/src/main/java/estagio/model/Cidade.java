@@ -8,7 +8,6 @@ package estagio.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +35,7 @@ public class Cidade implements Serializable {
 	@Column(name = "cid_nome")
 	private String nome;
 	@JoinColumn(nullable = false)
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Estado estado;
 	@OneToMany(mappedBy = "cidade")
 	private List<Fornecedor> fornecedor;

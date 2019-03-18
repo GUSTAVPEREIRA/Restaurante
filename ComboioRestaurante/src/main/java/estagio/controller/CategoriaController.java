@@ -169,9 +169,6 @@ public class CategoriaController implements Initializable {
 		if (erro != true) {
 			FXNotification fxn;
 			categoriaDAO = new CategoriaDAO();
-			@SuppressWarnings("unused")
-			ButtonType btnNao = new ButtonType("Okay");
-
 			if (categoria.getId() == 0) {
 				categoria.setId(null);
 				categoriaDAO.inserir(categoria);

@@ -25,6 +25,7 @@ import estagio.model.Fornecedor;
 import estagio.model.ParcelaPagar;
 import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
+import estagio.view.util.Validadores;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +33,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -117,7 +120,6 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	private JFXComboBox<String> cbb_status;
-
 
 	ContasPagar contasPagar = new ContasPagar();
 
@@ -213,7 +215,7 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	private Label lbl_status;
-	
+
 	@FXML
 	private Label lbl_TipoCondicao;
 
@@ -402,6 +404,9 @@ public class ContasPagarController implements Initializable {
 	private JFXTextField txt_valorParcial;
 	@FXML
 	private JFXTextField txt_valorTotal;
+	Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
+	ButtonType btnSim = new ButtonType("Sim");
+	ButtonType btnNao = new ButtonType("Não");
 
 	public Date adicionarDias(Date data, int soma) {
 		LocalDate localData = data.toLocalDate();
@@ -460,13 +465,27 @@ public class ContasPagarController implements Initializable {
 		});
 
 		parcelasPagar = parcelaPagarDAO.listaParcelaPagar(contasPagar);
+		Double valortotal = 0.00;
+		btn_Remover.setDisable(false);
+		if (!parcelasPagar.isEmpty()) {
+			for (ParcelaPagar pp : parcelasPagar) {
+				valortotal = valortotal + (pp.getValor() - pp.getValorPgto());
+				if (pp.getPgto() != null) {
+					btn_Remover.setDisable(true);
+				}
+			}
+			if (valortotal < 0) {
+				valortotal = 0.0;
+			}
+			txt_total.setText(nf.format(valortotal));
+		}
 		if (!parcelasPagar.isEmpty()) {
 			obslParcelaPagar = FXCollections.observableArrayList(parcelasPagar);
 			tb_baixarContas.setItems(obslParcelaPagar);
 		}
 	}
 
-	public void carregaTelaBuscar(Date dataAbertura, Date dataVencimento, String Status) {
+	public void carregaTelaBuscar(Date dataAbertura, Date dataVencimento) {
 		tb_bContas.getItems().clear();
 		tc_bCodigo.setCellValueFactory(new PropertyValueFactory<>("Id"));
 		tc_bDescricao.setCellValueFactory(new PropertyValueFactory<>("Descricao"));
@@ -487,7 +506,7 @@ public class ContasPagarController implements Initializable {
 
 			return new SimpleStringProperty(nf.format(temp));
 		});
-		contassPagar = contasPagarDAO.listaContasPagar(dataAbertura, dataVencimento, Status);
+		contassPagar = contasPagarDAO.listaContasPagar(dataAbertura, dataVencimento);
 		if (!contassPagar.isEmpty()) {
 			obslContasPagar = FXCollections.observableArrayList(contassPagar);
 			tb_bContas.setItems(obslContasPagar);
@@ -502,6 +521,13 @@ public class ContasPagarController implements Initializable {
 	public void desativaTela() {
 		if (tab_lancar.isSelected() == true) {
 			// Lançar contas a pagar
+			//Estilos
+			lbl_TipoConta.setStyle(corNormal);
+			lbl_descricao.setStyle(corNormal);
+			lbl_TipoCondicao.setStyle(corNormal);
+			lbl_valorTotal.setStyle(corNormal);
+			lbl_dataVencimento.setStyle(corNormal);
+			lbl_listaFornecedores.setStyle(corNormal);
 			// TextFields
 			dp_dataLancamento.setValue(LocalDate.now());
 			txt_descricao.setText("");
@@ -521,7 +547,7 @@ public class ContasPagarController implements Initializable {
 			cbb_parcela.getSelectionModel().select(0);
 			// Buttons
 			btn_GravarCP.setDisable(true);
-			btn_Cancelar.setDisable(true);
+			btn_CancelarCP.setDisable(true);
 			// Table
 			tb_lancarContas.getItems().clear();
 		} else {
@@ -536,6 +562,7 @@ public class ContasPagarController implements Initializable {
 			// TextFields
 			dp_abertura.setValue(null);
 			dp_vencimento.setValue(null);
+			txt_valorParcial.setDisable(true);
 			txt_valorParcial.setText("");
 			txt_total.setText("");
 			// Check box
@@ -561,16 +588,15 @@ public class ContasPagarController implements Initializable {
 		cbb_parcela.getSelectionModel().select(0);
 		txt_valorTotal.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_valorParcial.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
-		txt_descricao.setTextFormatter(
+		txt_descricao.setTextFormatter(//
 				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_total.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_dias.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[0-9]+", 3));
 
 		// Baixar contas
-		obsl_status = FXCollections.observableArrayList("ABERTO", "FECHADO", "VENCIDO");
+		obsl_status = FXCollections.observableArrayList("ABERTO", "FECHADO");
 		cbb_status.setItems(obsl_status);
 		txt_total.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
-		txt_valorParcial.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 
 	}
 
@@ -600,13 +626,58 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnActionBuscar(ActionEvent event) {
-		carregaTelaBuscar(null, null, "");
+		carregaTelaBuscar(null, null);
 		hbox_Buscar.setVisible(true);
 	}
 
 	@FXML
 	void OnActionCancelar(ActionEvent event) {
+		desativaTela();
+	}
 
+	@FXML
+	void OnActionEstornar(ActionEvent event) {
+		if (parcelaPagar.getPgto() != null || parcelaPagar.getIdRef() != null) {
+
+			dialogoExe.setTitle("Estornar");
+			dialogoExe.setHeaderText("Você deseja realmente estornar ?");
+			dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
+			dialogoExe.showAndWait().ifPresent(b -> {
+				if (b == btnSim) {
+					if (parcelaPagar != null) {
+						ParcelaPagar aux = new ParcelaPagar();
+						if (parcelaPagar.getIdRef() != null) {
+							if (parcelaPagar.getStatus().equals("FECHADO") != true || valorRestantePagar() <= 0.01) {
+								aux = parcelaPagarDAO.findById(parcelaPagar.getIdRef());
+								aux.setValorPgto(0.00);
+								aux.setPgto(null);
+								aux.setStatus("ABERTO");
+								parcelaPagarDAO.delete(parcelaPagar);
+								parcelaPagarDAO.merge(aux);
+							}
+						} else {
+							if (valorRestantePagar() <= 0.01) {
+								parcelaPagar.setPgto(null);
+								parcelaPagar.setStatus("ABERTO");
+								parcelaPagar.setValorPgto(0.00);
+								parcelaPagarDAO.merge(parcelaPagar);
+							}
+						}
+						desativaTela();
+						carregaTelaBaixar(contasPagar);
+						FXNotification fxn;
+						fxn = new FXNotification("Parcela Estornada.", FXNotification.NotificationType.WARNING);
+						fxn.show();
+					}
+				}
+			});
+		}
+		else
+		{
+			FXNotification fxn;
+			fxn = new FXNotification("Dados inválidos", FXNotification.NotificationType.ERROR);
+			fxn.show();
+		}
 	}
 
 	@FXML
@@ -621,7 +692,7 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnActionFiltrarT(ActionEvent event) {
-		String dataAbertura = "", dataVencimento = "", statust = "";
+		String dataAbertura = "", dataVencimento = "";
 		Date dataVencimentoT = null, DataAberturaT = null;
 		if (dp_aberturaT.getValue() != null) {
 			dataAbertura = dp_aberturaT.getValue().toString();
@@ -632,7 +703,7 @@ public class ContasPagarController implements Initializable {
 			dataVencimento = dp_vencimentoT.getValue().toString();
 			dataVencimentoT = Date.valueOf(dataVencimento);
 		}
-		carregaTelaBuscar(DataAberturaT, dataVencimentoT, statust);
+		carregaTelaBuscar(DataAberturaT, dataVencimentoT);
 	}
 
 	@FXML
@@ -669,14 +740,14 @@ public class ContasPagarController implements Initializable {
 		}
 
 		if (txt_valorTotal.getText().replace(" ", "").length() < 1
-				|| Double.parseDouble(txt_valorTotal.getText()) < 0) {
+				|| Validadores.valorMonetario(txt_valorTotal.getText()) < 0) {
 			erro = true;
 			ctm_valorTotal.show(txt_valorTotal, Side.TOP, 10, 0);
 			txt_valorTotal.setStyle(corErro);
 		} else {
 			txt_valorTotal.setStyle(corNormal);
 			ctm_valorTotal.hide();
-			contasPagar.setValorTotal(Double.parseDouble(txt_valorTotal.getText()));
+			contasPagar.setValorTotal(Validadores.valorMonetario(txt_valorTotal.getText()));
 		}
 
 		if (cb_aprazo.isSelected() == false && cb_avista.isSelected() == false) {
@@ -753,8 +824,15 @@ public class ContasPagarController implements Initializable {
 				parcelasPagar.add(parcelaPagar);
 			}
 			btn_GravarCP.setDisable(false);
-			btn_Cancelar.setDisable(false);
+			btn_CancelarCP.setDisable(false);
 			carregaTelaLancar();
+		}
+		else
+		{
+			FXNotification fxn;
+			fxn = new FXNotification("Por favor, corrija os erros.",
+					FXNotification.NotificationType.ERROR);
+			fxn.show();
 		}
 
 	}
@@ -769,9 +847,10 @@ public class ContasPagarController implements Initializable {
 	@FXML
 	void OnActionGravar(ActionEvent event) {
 
-		String valor = txt_valorParcial.getText().replace("R$ ", "");
-		Double ValorPgto = Double.parseDouble(valor);
-		if (valorRestantePagar() > 0 && ValorPgto <= valorRestantePagar() + 0.01) {
+		Double ValorPgto = Validadores.valorMonetario(txt_valorParcial.getText());
+
+		if (parcelaPagar.getStatus().equals("FECHADO") != true && valorRestantePagar() > 0.01
+				&& ValorPgto <= valorRestantePagar() + 0.01) {
 			txt_valorParcial.setStyle(corNormal);
 			ctm_valorParcial.hide();
 
@@ -782,12 +861,25 @@ public class ContasPagarController implements Initializable {
 				parcelaPagar.setValorPgto(parcelaPagar.getValorPgto() + ValorPgto);
 
 				parcelaPagar.setPgto(Date.valueOf(LocalDate.now()));
-				if (valorRestantePagar() <= 0) {
-					parcelaPagar.setStatus("FECHADO");
-				}
+				parcelaPagar.setStatus("FECHADO");
 				parcelaPagarDAO.merge(parcelaPagar);
+				if (valorRestantePagar() > 0.01) {
+					parcelaPagar.setValor(parcelaPagar.getValor() - parcelaPagar.getValorPgto());
+					parcelaPagar.setValorPgto(0.0);
+					parcelaPagar.setStatus("ABERTO");
+					parcelaPagar.setIdRef(parcelaPagar.getId());
+					parcelaPagar.setId(null);
+					parcelaPagarDAO.save(parcelaPagar);
+
+				}
 				desativaTela();
 				carregaTelaBaixar(contasPagar);
+				FXNotification fxn;
+				fxn = new FXNotification(
+						"Parcela paga: " + parcelaPagar.getNumeroParcela() + " no valor de: " + nf.format(ValorPgto)
+								+ " Restando: " + nf.format(valorRestantePagar()),
+						FXNotification.NotificationType.INFORMATION);
+				fxn.show();
 
 			} else {
 				ctm_lblBaixarConta.show(lbl_BaixarConta, Side.RIGHT, 10, 0);
@@ -795,8 +887,15 @@ public class ContasPagarController implements Initializable {
 
 			}
 		} else {
-			ctm_valorParcial.show(txt_valorParcial, Side.RIGHT, 10, 0);
-			txt_valorParcial.setStyle(corErro);
+			if (parcelaPagar.getStatus().equals("FECHADO") == true) {
+				FXNotification fxn;
+				fxn = new FXNotification("Parcela já paga.", FXNotification.NotificationType.ERROR);
+				fxn.show();
+			} else {
+				ctm_valorParcial.show(txt_valorParcial, Side.RIGHT, 10, 0);
+				txt_valorParcial.setStyle(corErro);
+			}
+
 		}
 	}
 
@@ -836,6 +935,7 @@ public class ContasPagarController implements Initializable {
 	void OnActionBTotal(ActionEvent event) {
 		if (cb_bTotal.isSelected() == true) {
 			txt_valorParcial.setDisable(true);
+			txt_valorParcial.setText(nf.format(valorRestantePagar()));
 
 		}
 		if (cb_bParcial.isSelected() == true) {
@@ -879,20 +979,10 @@ public class ContasPagarController implements Initializable {
 	}
 
 	public void setConta(ContasPagar contasPagar) {
-		Double valortotal = 0.00;
+
 		this.contasPagar = contasPagar;
 		parcelasPagar = new ArrayList<ParcelaPagar>();
 		carregaTelaBaixar(contasPagar);
-		if (!parcelasPagar.isEmpty()) {
-			for (ParcelaPagar pp : parcelasPagar) {
-				valortotal = valortotal + (pp.getValor() - pp.getValorPgto());
-			}
-			if (valortotal < 0) {
-				valortotal = 0.0;
-			}
-			txt_total.setText(nf.format(valortotal));
-			btn_Remover.setDisable(false);
-		}
 
 	}
 
@@ -917,13 +1007,20 @@ public class ContasPagarController implements Initializable {
 		this.parcelaPagar = new ParcelaPagar();
 		this.parcelaPagar = parcelaPagar;
 		txt_valorParcial.setText(nf.format(parcelaPagar.getValor() - parcelaPagar.getValorPgto()));
-		if ((parcelaPagar.getValor() - parcelaPagar.getValorPgto()) != 0) {
+		if ((valorRestantePagar()) >= 0.01) {
 			btn_Gravar.setDisable(false);
-
+			btn_Estornar.setDisable(true);
 		}
-		if (parcelaPagar.getValorPgto() != 0) {
+		if (parcelaPagar.getStatus().equals("FECHADO") == true) {
+			btn_Gravar.setDisable(true);
+			if (valorRestantePagar() <= 0.01) {
+				btn_Estornar.setDisable(false);
+			}
+		} else if (parcelaPagar.getValorPgto() == 0.00 && parcelaPagar.getIdRef() != null) {
+			btn_Gravar.setDisable(false);
 			btn_Estornar.setDisable(false);
 		}
+
 	}
 
 	@FXML

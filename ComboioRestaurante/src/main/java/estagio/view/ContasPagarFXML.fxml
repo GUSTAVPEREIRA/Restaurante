@@ -563,7 +563,7 @@
                                              <children>
                                                 <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="20.0">
                                                    <children>
-                                                      <Label fx:id="lbl_BaixarConta" text="Baixar conta">
+                                                      <Label fx:id="lbl_BaixarConta" text="Baixar e estornar conta">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -571,7 +571,7 @@
                                                             <Insets />
                                                          </HBox.margin>
                                                          <padding>
-                                                            <Insets left="35.0" />
+                                                            <Insets left="15.0" />
                                                          </padding>
                                                          <tooltip>
                                                             <Tooltip fx:id="ttp_lblBaixarConta" text="Tipo de conta a ser selecionada." />
@@ -589,7 +589,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                          <padding>
-                                                            <Insets left="450.0" />
+                                                            <Insets left="400.0" />
                                                          </padding>
                                                          <tooltip>
                                                             <Tooltip text="Valor total das parcelas." />
@@ -688,7 +688,7 @@
                                                 <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
                                              </graphic>
                                           </JFXButton>
-                                          <JFXButton fx:id="btn_Estornar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Estornar">
+                                          <JFXButton fx:id="btn_Estornar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionEstornar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Estornar">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>

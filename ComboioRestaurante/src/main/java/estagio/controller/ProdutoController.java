@@ -6,8 +6,10 @@
 package estagio.controller;
 
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -22,6 +24,8 @@ import estagio.model.Fornecedor;
 import estagio.model.Produto;
 import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
+import estagio.view.util.Validadores;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,6 +51,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class ProdutoController implements Initializable {
 
+	NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 	@FXML
 	private JFXTextField txt_codigo;
 	@FXML
@@ -241,8 +246,7 @@ public class ProdutoController implements Initializable {
 			ctm_Preco.show(txt_preco, Side.RIGHT, 10, 0);
 
 		} else {
-			txt_preco.setText(txt_preco.getText().replace(",", "."));
-			produto.setPreco(Double.parseDouble(txt_preco.getText()));
+			produto.setPreco(Validadores.valorMonetario(txt_preco.getText()));
 			txt_preco.setStyle(corNormal);
 			ctm_Preco.hide();
 
@@ -252,8 +256,8 @@ public class ProdutoController implements Initializable {
 			txt_preco_compra.setStyle(corErro);
 			ctm_PrecoCompra.show(txt_preco_compra, Side.RIGHT, 10, 0);
 		} else {
-			txt_preco_compra.setText(txt_preco_compra.getText().replace(",", "."));
-			produto.setPreco_compra(Double.parseDouble(txt_preco_compra.getText()));
+
+			produto.setPreco_compra(Validadores.valorMonetario(txt_preco_compra.getText()));
 			txt_preco_compra.setStyle(corNormal);
 			ctm_PrecoCompra.hide();
 		}
@@ -353,7 +357,16 @@ public class ProdutoController implements Initializable {
 		tc_fornecedor.setCellValueFactory(new PropertyValueFactory<>("Fornecedor"));
 		tc_preco.setCellValueFactory(new PropertyValueFactory<>("Preco"));
 		tc_preco_compra.setCellValueFactory(new PropertyValueFactory<>("Preco_compra"));
+		tc_preco.setCellValueFactory((data) -> {
+			Double temp = data.getValue().getPreco();
+			return new SimpleStringProperty(nf.format(temp));
+		});
+		tc_preco_compra.setCellValueFactory((data) -> {
+			Double temp = data.getValue().getPreco_compra();
+			return new SimpleStringProperty(nf.format(temp));
+		});
 		listProduto = produtoDAO.listar(palavra.toUpperCase());
+		
 		if (!listProduto.isEmpty()) {
 			obslProduto = FXCollections.observableArrayList(listProduto);
 			tb_produto.setItems(obslProduto);

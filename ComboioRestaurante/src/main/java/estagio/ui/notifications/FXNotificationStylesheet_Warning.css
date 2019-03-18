@@ -1,21 +1,27 @@
 /* Default looked-up colors */
 * {
-	-fxdefine-warningcolor: #F0C321;
-	-fxdefine-warningcolor_highlighted: #FFCF23;
+    -fx-text-fill: white;
+    -fx-background-color: #FFCF23;
 }
 
-.CloseButton{
-	-fx-background-color: white;
+.text-area .content{
+  -fx-background-color: #FFCF23;
+  -fx-border-color: white;
 }
 
 .FXNotificationBody{
-	-fx-background-color: white;
-	-fx-border-color: -fxdefine-warningcolor;
-	-fx-effect: dropshadow(three-pass-box, -fxdefine-warningcolor , 10.0, 0.0 , 0.0 , 0.0 );
+	-fx-background: #FFCF23;
+	-fx-effect: dropshadow(three-pass-box, #FFCF23 , 0.0, 0.0 , 0.0 , 0.0 );
+}
+.text-area:centered .text {
+    -fx-text-alignment: center ;
+}
+
+.text-area{
+	 -fx-background: #FFCF23;
 }
 
 .FXNotificationBody:hover{
-	-fx-background-color: white;
-	-fx-border-color: -fxdefine-warningcolor_highlighted;
-	-fx-effect: dropshadow(three-pass-box, -fxdefine-warningcolor_highlighted , 10.0, 0.0 , 0.0 , 0.0 );
+	-fx-background: #FFCF23;
+	-fx-effect: dropshadow(three-pass-box, #FFCF23 , 10.0, 0.0 , 0.0 , 0.0 );
 }

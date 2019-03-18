@@ -129,7 +129,7 @@
             <Tooltip fx:id="ttp_lblCidade1" text="Estado à qual o fornecedor pertence." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_est" layoutX="153.0" layoutY="250.0" onAction="#OnMouseSelectionUf" prefHeight="36.0" prefWidth="156.0">
+      <JFXComboBox fx:id="cbb_est" editable="true" layoutX="153.0" layoutY="250.0" onAction="#OnMouseSelectionUf" prefHeight="36.0" prefWidth="156.0">
          <tooltip>
             <Tooltip fx:id="ttp_estado" text="Lista de estados." />
          </tooltip>
@@ -152,7 +152,7 @@
                </font></Tooltip>
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_cidade" disable="true" layoutX="410.0" layoutY="250.0" prefHeight="36.0" prefWidth="276.0">
+      <JFXComboBox fx:id="cbb_cidade" disable="true" editable="true" layoutX="410.0" layoutY="250.0" prefHeight="36.0" prefWidth="276.0">
          <tooltip>
             <Tooltip fx:id="ttp_cidade" text="Lista de cidades" />
          </tooltip>
@@ -533,5 +533,6 @@
    <stylesheets>
       <URL value="@css/backgroundCadastro.css" />
       <URL value="@css/fonts.css" />
+      <URL value="@css/ComboBox.css" />
    </stylesheets>
 </AnchorPane>

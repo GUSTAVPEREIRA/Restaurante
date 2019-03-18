@@ -1,21 +1,17 @@
 /* Default looked-up colors */
 * {
-	-fxdefine-informationcolor: #0cb388;
-	-fxdefine-informationcolor_highlighted: #44D4C7;
     -fx-text-fill: white;
+    -fx-background-color: #0cb388;
 }
 
-.CloseButton{
-	 -fx-background: white;
-}
 .text-area .content{
   -fx-background-color: #0cb388;
+  -fx-border-color: white;
 }
 
 .FXNotificationBody{
 	-fx-background: #0cb388;
-	-fx-border-color: -fxdefine-informationcolor;
-	-fx-effect: dropshadow(three-pass-box, -fxdefine-informationcolor , 10.0, 0.0 , 0.0 , 0.0 );
+	-fx-effect: dropshadow(three-pass-box, #0cb388 , 0.0, 0.0 , 0.0 , 0.0 );
 }
 .text-area:centered .text {
     -fx-text-alignment: center ;
@@ -23,11 +19,9 @@
 
 .text-area{
 	 -fx-background: #0cb388;
-	 
 }
 
 .FXNotificationBody:hover{
 	-fx-background: #0cb388;
-	-fx-border-color: -fxdefine-informationcolor_highlighted;
-	-fx-effect: dropshadow(three-pass-box, -fxdefine-informationcolor_highlighted , 10.0, 0.0 , 0.0 , 0.0 );
+	-fx-effect: dropshadow(three-pass-box, #44D4C7 , 10.0, 0.0 , 0.0 , 0.0 );
 }

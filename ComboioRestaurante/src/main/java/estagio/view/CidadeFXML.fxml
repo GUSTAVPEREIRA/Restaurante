@@ -68,7 +68,7 @@
             <Tooltip fx:id="ttp_lblEstado" text="Estado à qual a cidade pertence." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_estId" layoutX="142.0" layoutY="190.0" prefHeight="25.0" prefWidth="276.0">
+      <JFXComboBox fx:id="cbb_estId" editable="true" layoutX="142.0" layoutY="190.0" prefHeight="25.0" prefWidth="276.0">
          <contextMenu>
             <ContextMenu fx:id="ctm_estado">
               <items>

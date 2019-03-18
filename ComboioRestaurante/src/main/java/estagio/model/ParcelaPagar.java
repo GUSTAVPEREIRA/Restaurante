@@ -31,15 +31,16 @@ public class ParcelaPagar implements Serializable {
 	private Date vencimento;
 	@Column(name = "cpp_pgto", nullable = true)
 	private Date pgto;
-	@Column(name = "cpp_valor", nullable = false, precision = 2)
+	@Column(name = "cpp_valor", nullable = false,scale=2)
 	private Double valor;
-	@Column(name = "cpp_valorPgto", nullable = false, precision = 2)
+	@Column(name = "cpp_valorPgto", nullable = false, scale=2)
 	private Double valorPgto;
 	@Column(name = "cpp_status", length = 20, nullable = true)
 	private String status;
 	@Column(name = "cpp_numeroParcela",nullable = false)
 	private int numeroParcela;
-	
+	@Column(name = "cpp_hashReferencia",nullable=true)
+	private Long idRef;
 	
 	public String getStatus() {
 		return status;
@@ -96,6 +97,14 @@ public class ParcelaPagar implements Serializable {
 
 	public void setVencimento(Date vencimento) {
 		this.vencimento = vencimento;
+	}
+
+	public Long getIdRef() {
+		return idRef;
+	}
+
+	public void setIdRef(Long idRef) {
+		this.idRef = idRef;
 	}
 
 	public Date getPgto() {

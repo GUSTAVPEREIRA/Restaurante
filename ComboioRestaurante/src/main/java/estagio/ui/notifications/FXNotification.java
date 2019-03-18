@@ -82,15 +82,19 @@ public class FXNotification {
 					"buildNotification() must be used to instantiate notificationController");
 
 		URL url = null;
-
+		String icon = "";
 		switch (notificationType) {
 		case INFORMATION:
+			
 			url = this.getClass().getResource(INFORMATION_STYLESHEET);
+			icon = "CHECK";
 			break;
 		case WARNING:
 			url = this.getClass().getResource(WARNING_STYLESHEET);
+			icon = "EXCLAMATION";
 			break;
 		case ERROR:
+			icon = "CLOSE";
 			url = this.getClass().getResource(ERROR_STYLESHEET);
 			break;
 
@@ -98,7 +102,7 @@ public class FXNotification {
 			break;
 		}
 
-		notificationController.setRootStyleSheet(url);
+		notificationController.setRootStyleSheet(url,icon);
 	}
 
 	private void buildTimeline(Duration duration) {

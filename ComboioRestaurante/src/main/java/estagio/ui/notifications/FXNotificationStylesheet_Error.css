@@ -1,21 +1,27 @@
 /* Default looked-up colors */
 * {
-	-fxdefine-errorcolor: #D40000;
-	-fxdefine-errorcolor_highlighted: #FF0000;
+    -fx-text-fill: white;
+    -fx-background-color: #D3000F;
 }
 
-.CloseButton{
-	-fx-background-color: white;
+.text-area .content{
+  -fx-background-color: #D3000F;
+  -fx-border-color: white;
 }
 
 .FXNotificationBody{
-	-fx-background-color: white;
-	-fx-border-color: -fxdefine-errorcolor;
-	-fx-effect: dropshadow(three-pass-box, -fxdefine-errorcolor , 10.0, 0.0 , 0.0 , 0.0 );
+	-fx-background: #D3000F;
+	-fx-effect: dropshadow(three-pass-box, #D3000F , 0.0, 0.0 , 0.0 , 0.0 );
+}
+.text-area:centered .text {
+    -fx-text-alignment: center ;
+}
+
+.text-area{
+	 -fx-background: #D3000F;
 }
 
 .FXNotificationBody:hover{
-	-fx-background-color: white;
-	-fx-border-color: -fxdefine-errorcolor_highlighted;
-	-fx-effect: dropshadow(three-pass-box, -fxdefine-errorcolor_highlighted , 10.0, 0.0 , 0.0 , 0.0 );
+	-fx-background: #D3000F;
+	-fx-effect: dropshadow(three-pass-box, #D3000F , 10.0, 0.0 , 0.0 , 0.0 );
 }

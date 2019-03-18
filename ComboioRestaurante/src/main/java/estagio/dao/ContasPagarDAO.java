@@ -44,7 +44,7 @@ public class ContasPagarDAO extends GenericDAO<ContasPagar> {
 //		}
 //	}
 
-	public List<ContasPagar> listaContasPagar(Date dataAbertura, Date DataVencimento, String status) {
+	public List<ContasPagar> listaContasPagar(Date dataAbertura, Date DataVencimento) {
 		String jpql;
 
 		List<ContasPagar> retorno = new ArrayList<ContasPagar>();
@@ -71,9 +71,6 @@ public class ContasPagarDAO extends GenericDAO<ContasPagar> {
 			}
 
 			TypedQuery<ContasPagar> query = em.createQuery(jpql, ContasPagar.class);
-			if (status.equals("") == false)
-				query.setParameter("pStatus", status);
-
 			if (dataAbertura != null)
 				query.setParameter("pAbertura", dataAbertura);
 			if (DataVencimento != null)

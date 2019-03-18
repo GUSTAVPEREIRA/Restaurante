@@ -279,6 +279,7 @@ public class FornecedorController implements Initializable {
 	private void OnActionGravar(ActionEvent event) {
 		Boolean erro = false;
 		fornecedorDAO = new FornecedorDAO();
+		fornecedor = new Fornecedor();
 		if (txt_nome.getText().equals("") || txt_nome.getText().length() < 3) {
 			erro = true;
 			txt_nome.setStyle(corErro);

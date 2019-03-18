@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
@@ -41,12 +42,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -357,7 +360,8 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	private Label lbl_tipoP;
-
+	JFXAutoCompletePopup<Estado> autoCompletePopupEst = new JFXAutoCompletePopup<Estado>();
+	JFXAutoCompletePopup<Cidade> autoCompletePopupCid = new JFXAutoCompletePopup<Cidade>();
 	@FXML
 	private JFXCheckBox cb_juridicaBusca;
 	private List<Estado> listaEstado;
@@ -640,11 +644,13 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void OnMouseSelectionUf(ActionEvent event) {
+	
 		if (cbb_est.getSelectionModel().getSelectedIndex() != -1) {
-			listaCidade = cidadeDAO.listCidadesPEstado(cbb_est.getSelectionModel().selectedItemProperty().getValue());
+			listaCidade = cidadeDAO.listCidadesPEstado(cbb_est.getSelectionModel().getSelectedItem());
 			obslCidade = FXCollections.observableArrayList(listaCidade);
 			cbb_cidade.setItems(obslCidade);
 			cbb_cidade.setDisable(false);
+			InitComboBoxCid();
 		}
 	}
 
@@ -746,11 +752,15 @@ public class ClienteController implements Initializable {
 		cbb_cidade.getItems().clear();
 		cbb_est.getSelectionModel().select(null);
 		cbb_cidade.setDisable(true);
+		autoCompletePopupCid.hide();
+		autoCompletePopupEst.hide();
 	}
 
 	public void ativaTela() {
 		btn_Excluir.setDisable(false);
 		btn_Cancelar.setDisable(false);
+		autoCompletePopupCid.hide();
+		autoCompletePopupEst.hide();
 	}
 
 	public void setCliente(Cliente cliente) {
@@ -816,7 +826,8 @@ public class ClienteController implements Initializable {
 	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		desativaTela();
+		
+		//desativaTela();
 		cliente = new Cliente();
 		listaCliente = new ArrayList<>();
 		obsl_estadoCivil = FXCollections.observableArrayList("SOLTEIRO(A)", "CASADO(A)");
@@ -824,6 +835,8 @@ public class ClienteController implements Initializable {
 		listaEstado = estadoDAO.listar("");
 		obslEstado = FXCollections.observableArrayList(listaEstado);
 		cbb_est.setItems(obslEstado);
+		InitComboBoxEst();
+		InitComboBoxCid();
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_nomeFantasia.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
@@ -832,8 +845,109 @@ public class ClienteController implements Initializable {
 		txt_cpf.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "###.###.###-##"));
 		txt_rg.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]+", 30));
 		txt_ie.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]+", 30));
+		autoCompletePopupCid.hide();
+		autoCompletePopupEst.hide();
+		desativaTela();
 	}
 
+	
+	
+	private void InitComboBoxEst() {
+		autoCompletePopupEst.getSuggestions().addAll(cbb_est.getItems());
+		
+		autoCompletePopupEst.setSelectionHandler(eventt -> {
+			cbb_est.setValue(eventt.getObject());
+			cbb_est.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupEst.setStyle("-fx-control-inner-background:WHITE;"
+                + "-fx-accent: #00A279;"
+                + ""
+                + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_est.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupEst.filter(item -> item.getNome().contains(editor.getText().toUpperCase()));
+			autoCompletePopupEst.setHideOnEscape(false);
+			autoCompletePopupEst.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_est.showingProperty().get() || cbb_est.isShowing()) {
+				autoCompletePopupEst.hide();
+			} else {
+				autoCompletePopupEst.show(editor);
+			}
+		});		
+		cbb_est.setConverter(new StringConverter<Estado>() {
+
+			@Override
+			public String toString(Estado provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public Estado fromString(String string) {
+				try {
+					int index = cbb_est.getSelectionModel().getSelectedIndex();
+					return cbb_est.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
+			}
+		});
+	}
+	
+	private void InitComboBoxCid() {
+		autoCompletePopupCid.getSuggestions().clear();
+		autoCompletePopupCid.getSuggestions().addAll(cbb_cidade.getItems());
+		
+		autoCompletePopupCid.setSelectionHandler(eventt -> {
+			cbb_cidade.setValue(eventt.getObject());
+			cbb_cidade.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupCid.setStyle("-fx-control-inner-background:WHITE;"
+                + "-fx-accent: #00A279;"
+                + ""
+                + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_cidade.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupCid.filter(item -> item.getNome().contains(editor.getText().toUpperCase()));
+			autoCompletePopupCid.setHideOnEscape(false);
+			autoCompletePopupCid.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupCid.getFilteredSuggestions().isEmpty() || cbb_cidade.showingProperty().get() || cbb_cidade.isShowing()) {
+				autoCompletePopupCid.hide();
+			} else {
+				autoCompletePopupCid.show(editor);
+			}
+		});		
+		cbb_cidade.setConverter(new StringConverter<Cidade>() {
+
+			@Override
+			public String toString(Cidade provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public Cidade fromString(String string) {
+				try {
+					int index = cbb_cidade.getSelectionModel().getSelectedIndex();
+					return cbb_cidade.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
+			}
+		});
+	}
 	public void limpaBuscas() {
 		listaCliente.clear();
 		tb_pessoa.getItems().clear();

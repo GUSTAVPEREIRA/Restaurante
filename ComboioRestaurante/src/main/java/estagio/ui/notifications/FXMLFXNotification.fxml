@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="rootPane" maxHeight="90.0" maxWidth="700.0" onMouseEntered="#actMouseEntered" onMouseExited="#actMouseExited" prefHeight="79.0" prefWidth="881.0" stylesheets="@FXNotificationStylesheet_Information.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.ui.notifications.FXNotificationController">
+<HBox fx:id="rootPane" maxHeight="80.0" maxWidth="880.0" minHeight="80.0" minWidth="880.0" onMouseEntered="#actMouseEntered" onMouseExited="#actMouseExited" prefHeight="80.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.ui.notifications.FXNotificationController">
    <children>
-      <HBox maxHeight="90.0" minHeight="50.0" minWidth="900.0" prefHeight="50.0" style="-fx-background-color: #0cb388;" HBox.hgrow="ALWAYS">
+      <HBox alignment="TOP_CENTER" maxHeight="80.0" maxWidth="880.0" minHeight="80.0" minWidth="880.0" prefHeight="80.0" prefWidth="880.0" HBox.hgrow="ALWAYS">
          <children>
-            <VBox style="-fx-background-color: #0cb388;">
+            <VBox maxHeight="80.0" maxWidth="800.0" minHeight="80.0" minWidth="800.0" prefHeight="80.0" prefWidth="800.0" styleClass="FXNotificationBody">
                <children>
-                  <TextArea fx:id="textAreaNotifications" editable="false" prefHeight="50.0" prefWidth="950.0" wrapText="true" VBox.vgrow="ALWAYS">
+                  <TextArea fx:id="textAreaNotifications" editable="false" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="800.0" prefHeight="80.0" prefWidth="800.0" wrapText="true" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></TextArea>
                </children>
             </VBox>
-            <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="80" HBox.hgrow="ALWAYS" />
-            <VBox style="-fx-background-color: #0cb388;" />
+            <FontAwesomeIconView fx:id="icon" fill="WHITE" glyphName="" size="80" textAlignment="CENTER" wrappingWidth="80.0" HBox.hgrow="ALWAYS" />
+            <VBox />
          </children>
          <HBox.margin>
             <Insets />
