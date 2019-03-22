@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
@@ -52,7 +53,7 @@
                         <Tooltip fx:id="ttp_btnNovo" text="Cria uma nova tela, removendo os dados da anterior." />
                      </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Editar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionEditar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Editar" textFill="WHITE">
+                  <JFXButton fx:id="btn_Editar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionEditar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Ver" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -61,17 +62,6 @@
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnNovo1" text="Cria uma nova tela, removendo os dados da anterior." />
-                     </tooltip>
-                  </JFXButton>
-                  <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sangrar" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="MONEY" size="15" />
-                     </graphic>
-                     <tooltip>
-                        <Tooltip fx:id="ttp_btnExcluir" text="Exclui uma cidade." />
                      </tooltip>
                   </JFXButton>
                   <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#feff00" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
@@ -339,7 +329,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName=" " size="15" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="15" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="ttp_btnAbrirCaixa" text="Busca cidades." />
@@ -390,6 +380,77 @@
          </children>
          <effect>
             <DropShadow color="#0cb388" height="8.0" radius="3.5" spread="1.0" width="8.0" />
+         </effect>
+      </HBox>
+      <HBox fx:id="hbox_login" alignment="CENTER" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="250.0" prefWidth="280.0" styleClass="branco" visible="false">
+         <children>
+            <VBox prefHeight="250.0" prefWidth="280.0" spacing="30.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="36.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Confirme o login.">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children></HBox>
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="36.0" prefWidth="500.0" spacing="10.0">
+                     <children>
+                        <Label text="Login">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" prefWidth="200.0" promptText="Login" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="500.0" spacing="10.0">
+                     <children>
+                        <Label text="Senha">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" prefWidth="200.0" promptText="Senha" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <JFXButton fx:id="btn_Confirmar" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionConfirmar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Confirmar" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+                           </graphic>
+                           <tooltip>
+                              <Tooltip fx:id="ttp_btnConfirmar" text="Cria uma nova tela, removendo os dados da anterior." />
+                           </tooltip>
+                        </JFXButton>
+                        <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                           </graphic>
+                           <tooltip>
+                              <Tooltip fx:id="ttp_btnVoltar" text="Exclui uma cidade." />
+                           </tooltip>
+                        </JFXButton>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <effect>
+            <DropShadow color="#5fcda3" height="8.0" radius="3.5" spread="1.0" width="8.0" />
          </effect>
       </HBox>
    </children>

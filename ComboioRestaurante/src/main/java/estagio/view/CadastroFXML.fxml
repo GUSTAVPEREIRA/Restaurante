@@ -68,6 +68,11 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
                      </graphic>
                   </JFXButton>
+                  <JFXButton fx:id="btn_texto" alignment="BASELINE_CENTER" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="6.0" maxHeight="455.0" maxWidth="109.0" minHeight="64.0" prefHeight="64.0" prefWidth="109.0" styleClass="texto" stylesheets="@css/buttons.css" textFill="#1b9763">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
                </children>
             </VBox>
          </children></JFXDrawer>

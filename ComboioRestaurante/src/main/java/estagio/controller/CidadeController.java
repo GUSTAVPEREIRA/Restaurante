@@ -132,6 +132,7 @@ public class CidadeController implements Initializable {
 	@FXML
 	private AnchorPane ap_cidade;
 	JFXAutoCompletePopup<Estado> autoCompletePopupEst = new JFXAutoCompletePopup<Estado>();
+
 	/**
 	 * Initializes the controller class.
 	 * 
@@ -236,17 +237,16 @@ public class CidadeController implements Initializable {
 			desativaTela();
 		}
 	}
+
 	private void InitComboBoxEst() {
 		autoCompletePopupEst.getSuggestions().addAll(cbb_estId.getItems());
-		
+
 		autoCompletePopupEst.setSelectionHandler(eventt -> {
 			cbb_estId.setValue(eventt.getObject());
 			cbb_estId.getSelectionModel().select(eventt.getObject());
 		});
-		autoCompletePopupEst.setStyle("-fx-control-inner-background:WHITE;"
-                + "-fx-accent: #00A279;"
-                + ""
-                + "-fx-font:14px 'Arial'");
+		autoCompletePopupEst.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
 		TextField editor = cbb_estId.getEditor();
 		editor.textProperty().addListener(observable -> {
 			// The filter method uses the Predicate to /filter the Suggestions defined above
@@ -256,12 +256,15 @@ public class CidadeController implements Initializable {
 			autoCompletePopupEst.setAutoFix(false);
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
-			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_estId.showingProperty().get() || cbb_estId.isShowing()) {
+			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_estId.showingProperty().get()
+					|| cbb_estId.getEditor().isFocused() == false) {
 				autoCompletePopupEst.hide();
 			} else {
+				cbb_estId.hide();
 				autoCompletePopupEst.show(editor);
+
 			}
-		});		
+		});
 		cbb_estId.setConverter(new StringConverter<Estado>() {
 
 			@Override
@@ -283,6 +286,7 @@ public class CidadeController implements Initializable {
 			}
 		});
 	}
+
 	@FXML
 	private void OnActionExcluir(ActionEvent event) {
 		cidadeDAO = new CidadeDAO();

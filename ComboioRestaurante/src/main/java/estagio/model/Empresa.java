@@ -16,7 +16,7 @@ public class Empresa {
 	private Long id;
 	@Column(name = "emp_nome", nullable = false, length = 100)
 	private String nome;
-	@Column(name = "emp_cnpj", nullable = false, length = 20,unique=true)
+	@Column(name = "emp_cnpj", nullable = false, length = 20, unique = true)
 	private String cnpj;
 	@Column(name = "emp_ie", nullable = false, length = 40)
 	private String ie;

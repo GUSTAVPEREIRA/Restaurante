@@ -53,7 +53,7 @@ public class CaixaDAO extends GenericDAO<Caixa> {
 		em.getTransaction().begin();
 		try {
 
-			jpql = "select m from Caixa m where m.status = 'fechado' OR m.status = 'aberto'";
+			jpql = "select m from Caixa m where m.status = 'ABERTO'";
 			TypedQuery<Caixa> query = em.createQuery(jpql, Caixa.class);
 			retorno = query.getResultList();
 			em.getTransaction().commit();

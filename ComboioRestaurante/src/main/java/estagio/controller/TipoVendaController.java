@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+
 import estagio.dao.TipoVendaDAO;
 import estagio.model.TipoVenda;
 import estagio.ui.notifications.FXNotification;
@@ -91,8 +93,6 @@ public class TipoVendaController implements Initializable {
 	@FXML
 	private TableColumn<TipoVenda, String> tc_nome;
 
-	private TextFieldFormatterHelper tffh = new TextFieldFormatterHelper();
-
 	private TipoVenda tipoVenda;
 
 	private TipoVendaDAO tipoVendaDAO;
@@ -158,16 +158,13 @@ public class TipoVendaController implements Initializable {
 	 * @param url
 	 * @param rbad
 	 */
-	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		desativaTela();
 		tipoVenda = new TipoVenda();
 		tipoVendaDAO = new TipoVendaDAO();
-		mi_nome.setText("Por favor, insira o nome corretamente.");
-		ctm_nome.getItems().add(mi_nome);
-		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_filtro.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaTipoVenda = new ArrayList<>();
 		tipoVenda = new TipoVenda();
 

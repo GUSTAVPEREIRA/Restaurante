@@ -127,7 +127,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" glyphStyle="ALT" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" layoutX="30.0" layoutY="531.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="100.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo">

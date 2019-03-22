@@ -24,6 +24,7 @@ public class FinancasController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		btn_texto.setText("Olá,\n"+LoginController.logado.getNome());
 		Platform.runLater(new Runnable() {
 
 			@Override
@@ -56,7 +57,8 @@ public class FinancasController implements Initializable {
 
 	@FXML
 	private AnchorPane ap_financeiro;
-
+	@FXML
+	private JFXButton btn_texto;
 	@FXML
 	void OnActionPagar(ActionEvent event) throws IOException {
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/ContasPagarFXML.fxml"));

@@ -14,11 +14,15 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import estagio.dao.CaixaDAO;
+import estagio.dao.UsuarioDAO;
 import estagio.model.Caixa;
+import estagio.model.Usuario;
 import estagio.ui.notifications.FXNotification;
+import estagio.ui.notifications.FXNotification.NotificationType;
 import estagio.view.util.TextFieldFormatterHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -74,12 +78,6 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private Tooltip ttp_btnNovo1;
-
-	@FXML
-	private JFXButton btn_Excluir;
-
-	@FXML
-	private Tooltip ttp_btnExcluir;
 
 	@FXML
 	private JFXButton btn_Cancelar;
@@ -269,7 +267,29 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private Tooltip ttp_btnSairAbrir;
+	@FXML
+	private JFXTextField txt_login;
 
+	@FXML
+	private JFXPasswordField txt_senha;
+
+	@FXML
+	private JFXButton btn_Confirmar;
+
+	@FXML
+	private Tooltip ttp_btnConfirmar;
+
+	@FXML
+	private JFXButton btn_Voltar;
+
+	@FXML
+	private Tooltip ttp_btnVoltar;
+
+	@FXML
+	private HBox hbox_login;
+
+	Usuario abertoAutorizado;
+	Usuario fechadoAutorizado;
 	private CaixaDAO caixaDAO;
 	private Caixa caixa;
 	String corErro = "-fx-border-color: red;";
@@ -278,10 +298,44 @@ public class CaixaController implements Initializable {
 	DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private ObservableList<Caixa> obslCaixa;
 	private List<Caixa> listaCaixa;
+	private Usuario usuarioAutorizou;
+
+	@FXML
+	void OnActionConfirmar(ActionEvent event) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		usuarioAutorizou = usuarioDAO.login(txt_login.getText(), txt_senha.getText());
+		if (usuarioAutorizou != null && usuarioAutorizou.getTipo().equals("ADMIN") == true) {
+			hbox_login.setVisible(false);
+			hb_gerenciamentoCaixa.setVisible(true);
+			FXNotification fxn = new FXNotification("Login efetuado", NotificationType.INFORMATION);
+			fxn.show();
+		} else {
+			FXNotification fxn = new FXNotification("Login inválido", NotificationType.ERROR);
+			fxn.show();
+		}
+
+		txt_senha.setText("");
+		txt_login.setText("");
+	}
+
+	@FXML
+	void OnActionVoltar(ActionEvent event) {
+		hbox_login.setVisible(false);
+		ativaTela();
+		txt_senha.setText("");
+		txt_login.setText("");
+		btn_Cancelar.setDisable(true);
+		btn_Editar.setDisable(true);
+		btn_Sair.setDisable(false);
+		btn_Novo.setDisable(false);
+		carregaTela();
+
+	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		abertoAutorizado = new Usuario();
+		fechadoAutorizado = new Usuario();
 		caixaDAO = new CaixaDAO();
 		caixa = new Caixa();
 		listaCaixa = new ArrayList<Caixa>();
@@ -292,6 +346,10 @@ public class CaixaController implements Initializable {
 		txt_dinheiro.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_valorAtual.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_valorAbertura.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
+		txt_login.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_senha.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 
 	}
 
@@ -306,7 +364,7 @@ public class CaixaController implements Initializable {
 			txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
 			txt_dataAbertura.setValue(caixa.getDataAbertura().toLocalDate());
 			txt_horaAbertura.setText(caixa.getHoraAbertura().toString());
-			if (caixa.getStatus().equals("aberto") == true) {
+			if (caixa.getStatus().equals("ABERTO") == true) {
 				txt_valorAbertura.setDisable(true);
 				btn_abrirCaixa.setDisable(true);
 				btn_fecharCaixa.setDisable(false);
@@ -342,9 +400,11 @@ public class CaixaController implements Initializable {
 			caixa.setCredito(0.00);
 			caixa.setDebito(0.00);
 			caixa.setDinheiro(0.00);
-			caixa.setStatus("aberto");
+			caixa.setStatus("ABERTO");
 			caixa.setDataAbertura(Date.valueOf(txt_dataAbertura.getValue()));
 			caixa.setHoraAbertura(Time.valueOf(txt_horaAbertura.getText()));
+			caixa.setUsuario(LoginController.logado);
+			caixa.setAberturaAutorizado(usuarioAutorizou);
 			btn_abrirCaixa.setDisable(true);
 
 			btn_fecharCaixa.setDisable(false);
@@ -355,7 +415,7 @@ public class CaixaController implements Initializable {
 			txt_valorAtual.setText((String.valueOf(caixa.somaDinheiro())));
 			txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
 			txt_valorAbertura.setDisable(true);
-			
+
 			fxn = new FXNotification(
 					"Caixa aberto no dia " + String.valueOf(caixa.getDataAbertura().toLocalDate().format(dataFormat))
 							+ "" + " as " + String.valueOf(caixa.getHoraAbertura()),
@@ -418,6 +478,14 @@ public class CaixaController implements Initializable {
 
 	}
 
+	public void ativaTela() {
+		carregaTela();
+		btn_Editar.setDisable(false);
+		btn_Novo.setDisable(false);
+		btn_Sair.setDisable(false);
+		vb_caixaInicial.setDisable(false);
+	}
+
 	public void desativaTela() {
 
 		txt_cartaoCredito.setText("");
@@ -432,7 +500,6 @@ public class CaixaController implements Initializable {
 		txt_dataFechamento.setValue(null);
 		txt_horaFechamento.setText("");
 		btn_Cancelar.setDisable(true);
-		btn_Excluir.setDisable(true);
 		btn_Editar.setDisable(true);
 	}
 
@@ -450,12 +517,13 @@ public class CaixaController implements Initializable {
 		FXNotification fxn;
 		caixa.setDataFechamento(Date.valueOf(LocalDate.now()));
 		caixa.setHoraFechamento(Time.valueOf(LocalDateTime.now().format(horaFormat)));
-		caixa.setStatus("fechado");
+		caixa.setStatus("FECHADO");
+		caixa.setFechamentoAutorizado(usuarioAutorizou);
 		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-		fxn = new FXNotification(
-				"Caixa fechado no dia " + String.valueOf(caixa.getDataFechamento().toLocalDate().format(dataFormat))
-						+ "" + " as "
-						+ String.valueOf(caixa.getHoraFechamento() + "\n Com o valor total de:" + nf.format(caixa.somaDinheiro())),
+		fxn = new FXNotification("Caixa fechado no dia "
+				+ String.valueOf(caixa.getDataFechamento().toLocalDate().format(dataFormat)) + "" + " as "
+				+ String.valueOf(
+						caixa.getHoraFechamento() + "\n Com o valor total de:" + nf.format(caixa.somaDinheiro())),
 				FXNotification.NotificationType.INFORMATION);
 		fxn.show();
 		caixaDAO.merge(caixa);
@@ -466,7 +534,8 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	void OnActionNovo(ActionEvent event) {
-		hb_gerenciamentoCaixa.setVisible(true);
+		// hb_gerenciamentoCaixa.setVisible(true);
+		hbox_login.setVisible(true);
 		vb_caixaInicial.setDisable(true);
 		txt_valorAbertura.setDisable(false);
 		btn_abrirCaixa.setDisable(false);
@@ -480,7 +549,6 @@ public class CaixaController implements Initializable {
 		vb_caixaInicial.setDisable(false);
 		carregaTela();
 		btn_Cancelar.setDisable(true);
-		btn_Excluir.setDisable(true);
 		btn_Editar.setDisable(true);
 	}
 
@@ -512,26 +580,7 @@ public class CaixaController implements Initializable {
 		txt_valorAtual.setText(nf.format(caixa.getFechamento()));
 		txt_valorAbertura.setText(nf.format(caixa.getAbertura()));
 		btn_Editar.setDisable(false);
-		btn_Excluir.setDisable(false);
 		btn_Cancelar.setDisable(false);
-	}
-
-	@FXML
-	void OnActionExcluir(ActionEvent event) {
-		if (caixa.getStatus().equals("aberto") == false) {
-			btn_Cancelar.setDisable(true);
-			btn_Excluir.setDisable(true);
-			btn_Editar.setDisable(true);
-			caixa.setStatus("sangrar");
-			caixaDAO.merge(caixa);
-			carregaTela();
-			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));	
-			FXNotification fxn;
-			fxn = new FXNotification("Caixa sangrado" + String.valueOf(" com o valor total de:" + nf.format(caixa.somaDinheiro())),
-					FXNotification.NotificationType.INFORMATION);
-			fxn.show();
-		} else {
-		}
 	}
 
 	@FXML
@@ -542,16 +591,13 @@ public class CaixaController implements Initializable {
 	@FXML
 	void OnActionCancelar(ActionEvent event) {
 		btn_Cancelar.setDisable(true);
-		btn_Excluir.setDisable(true);
 		btn_Editar.setDisable(true);
 	}
 
 	@FXML
 	void OnActionEditar(ActionEvent event) {
 		btn_Editar.setDisable(true);
-		btn_Excluir.setDisable(true);
-		hb_gerenciamentoCaixa.setVisible(true);
-		vb_caixaInicial.setDisable(true);
+		hbox_login.setVisible(true);
 		verificaCaixaAberto();
 
 	}

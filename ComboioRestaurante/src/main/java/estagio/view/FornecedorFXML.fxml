@@ -256,7 +256,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" glyphStyle="ALT" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
          </graphic>
       </JFXButton>
       <Label layoutX="50.0" layoutY="150.0" text="*" textFill="RED">

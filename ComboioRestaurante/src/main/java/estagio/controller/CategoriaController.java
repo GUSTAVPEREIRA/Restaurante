@@ -81,7 +81,6 @@ public class CategoriaController implements Initializable {
 	private Tooltip ttp_btnSair;
 	String corErro = "-fx-border-color: red;";
 	String corNormal = "-fx-border-color:white";
-	TextFieldFormatterHelper tffh;
 	@FXML
 	private Label lbl_codigo;
 	@FXML
@@ -115,19 +114,15 @@ public class CategoriaController implements Initializable {
 	 * @param url
 	 * @param rb
 	 */
-	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		desativaTela();
 		categoria = new Categoria();
 		categoriaDAO = new CategoriaDAO();
-		txt_nome.setPromptText("Exemplo:Bebidas...");
-		mi_nome.setText("Por favor, insira o nome corretamente.");
-		ctm_nome.getItems().add(mi_nome);
 		// \\u00C0-\\u00FF São os caracteres unicodes latinos que podem ser encontrados
 		// http://www.fileformat.info/info/unicode/block/latin_supplement/list.htm
-		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_filtro.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaCategoria = new ArrayList<>();
 
 	}

@@ -644,7 +644,7 @@ public class ClienteController implements Initializable {
 
 	@FXML
 	void OnMouseSelectionUf(ActionEvent event) {
-	
+
 		if (cbb_est.getSelectionModel().getSelectedIndex() != -1) {
 			listaCidade = cidadeDAO.listCidadesPEstado(cbb_est.getSelectionModel().getSelectedItem());
 			obslCidade = FXCollections.observableArrayList(listaCidade);
@@ -826,8 +826,8 @@ public class ClienteController implements Initializable {
 	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		
-		//desativaTela();
+
+		// desativaTela();
 		cliente = new Cliente();
 		listaCliente = new ArrayList<>();
 		obsl_estadoCivil = FXCollections.observableArrayList("SOLTEIRO(A)", "CASADO(A)");
@@ -850,19 +850,15 @@ public class ClienteController implements Initializable {
 		desativaTela();
 	}
 
-	
-	
 	private void InitComboBoxEst() {
 		autoCompletePopupEst.getSuggestions().addAll(cbb_est.getItems());
-		
+
 		autoCompletePopupEst.setSelectionHandler(eventt -> {
 			cbb_est.setValue(eventt.getObject());
 			cbb_est.getSelectionModel().select(eventt.getObject());
 		});
-		autoCompletePopupEst.setStyle("-fx-control-inner-background:WHITE;"
-                + "-fx-accent: #00A279;"
-                + ""
-                + "-fx-font:14px 'Arial'");
+		autoCompletePopupEst.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
 		TextField editor = cbb_est.getEditor();
 		editor.textProperty().addListener(observable -> {
 			// The filter method uses the Predicate to /filter the Suggestions defined above
@@ -872,12 +868,13 @@ public class ClienteController implements Initializable {
 			autoCompletePopupEst.setAutoFix(false);
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
-			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_est.showingProperty().get() || cbb_est.isShowing()) {
+			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_est.showingProperty().get()
+					|| cbb_est.getEditor().isFocused()==false) {
 				autoCompletePopupEst.hide();
 			} else {
 				autoCompletePopupEst.show(editor);
 			}
-		});		
+		});
 		cbb_est.setConverter(new StringConverter<Estado>() {
 
 			@Override
@@ -899,19 +896,17 @@ public class ClienteController implements Initializable {
 			}
 		});
 	}
-	
+
 	private void InitComboBoxCid() {
 		autoCompletePopupCid.getSuggestions().clear();
 		autoCompletePopupCid.getSuggestions().addAll(cbb_cidade.getItems());
-		
+
 		autoCompletePopupCid.setSelectionHandler(eventt -> {
 			cbb_cidade.setValue(eventt.getObject());
 			cbb_cidade.getSelectionModel().select(eventt.getObject());
 		});
-		autoCompletePopupCid.setStyle("-fx-control-inner-background:WHITE;"
-                + "-fx-accent: #00A279;"
-                + ""
-                + "-fx-font:14px 'Arial'");
+		autoCompletePopupCid.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
 		TextField editor = cbb_cidade.getEditor();
 		editor.textProperty().addListener(observable -> {
 			// The filter method uses the Predicate to /filter the Suggestions defined above
@@ -921,12 +916,13 @@ public class ClienteController implements Initializable {
 			autoCompletePopupCid.setAutoFix(false);
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
-			if (autoCompletePopupCid.getFilteredSuggestions().isEmpty() || cbb_cidade.showingProperty().get() || cbb_cidade.isShowing()) {
+			if (autoCompletePopupCid.getFilteredSuggestions().isEmpty() || cbb_cidade.showingProperty().get()
+					|| cbb_cidade.getEditor().isFocused()==false) {
 				autoCompletePopupCid.hide();
 			} else {
 				autoCompletePopupCid.show(editor);
 			}
-		});		
+		});
 		cbb_cidade.setConverter(new StringConverter<Cidade>() {
 
 			@Override
@@ -948,6 +944,7 @@ public class ClienteController implements Initializable {
 			}
 		});
 	}
+
 	public void limpaBuscas() {
 		listaCliente.clear();
 		tb_pessoa.getItems().clear();

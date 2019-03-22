@@ -41,6 +41,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -439,7 +440,7 @@ public class ContasPagarController implements Initializable {
 	}
 
 	public void carregaTelaBaixar(ContasPagar contasPagar) {
-		desativaTela();
+		// desativaTela();
 		tb_baixarContas.getItems().clear();
 		tc_codigo.setCellValueFactory(new PropertyValueFactory<>("Id"));
 		tc_descricao.setCellValueFactory(new PropertyValueFactory<>("Status"));
@@ -452,7 +453,27 @@ public class ContasPagarController implements Initializable {
 			Date temp = data.getValue().getAbertura();
 			return new SimpleStringProperty(formato.format(temp));
 		});
+
+		tb_baixarContas.setRowFactory((row) -> {
+
+			return new TableRow<ParcelaPagar>() {
+				@Override
+				public void updateItem(ParcelaPagar item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item == null) {
+						setStyle("-fx-background-color: none;");
+					} else if (item.getStatus().equals("FECHADO") == true && item.getPgto() != null) {
+						setStyle("-fx-background-color: #00A279;");
+					} else if (!item.getVencimento().after(Date.valueOf(LocalDate.now()))) {
+						setStyle("-fx-background-color: #FF211B;");
+					} else {
+						setStyle("-fx-background-color: none;");
+					}
+				}
+			};
+		});
 		tc_vencimento.setCellValueFactory((data) -> {
+
 			Date temp = data.getValue().getVencimento();
 			return new SimpleStringProperty(formato.format(temp));
 		});
@@ -465,7 +486,19 @@ public class ContasPagarController implements Initializable {
 			return new SimpleStringProperty(nf.format(temp));
 		});
 
-		parcelasPagar = parcelaPagarDAO.listaParcelaPagar(contasPagar);
+		String dataAbertura = "", dataVencimento = "";
+		Date DataVencimentoT = null, DataAberturaT = null;
+		if (dp_abertura.getValue() != null) {
+			dataAbertura = dp_abertura.getValue().toString();
+			DataAberturaT = Date.valueOf(dataAbertura);
+		}
+
+		if (dp_vencimento.getValue() != null) {
+			dataVencimento = dp_vencimento.getValue().toString();
+			DataVencimentoT = Date.valueOf(dataVencimento);
+		}
+		parcelasPagar = parcelaPagarDAO.listaParcelaPagar(contasPagar, DataAberturaT, DataVencimentoT,
+				cbb_status.getSelectionModel().getSelectedItem());
 		Double valortotal = 0.00;
 		btn_Remover.setDisable(false);
 		if (!parcelasPagar.isEmpty()) {
@@ -595,7 +628,7 @@ public class ContasPagarController implements Initializable {
 		txt_dias.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[0-9]+", 3));
 
 		// Baixar contas
-		obsl_status = FXCollections.observableArrayList("ABERTO", "FECHADO","AMBOS");
+		obsl_status = FXCollections.observableArrayList("ABERTO", "FECHADO", "AMBOS");
 		cbb_status.setItems(obsl_status);
 		txt_total.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 
@@ -681,10 +714,10 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnActionExcluir(ActionEvent event) {
-		
+
 		if (contasPagar != null) {
-			
-			try {				
+
+			try {
 				dialogoExe.setTitle("Remover");
 				dialogoExe.setHeaderText("Você deseja realmente remover está conta ?");
 				dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
@@ -693,13 +726,12 @@ public class ContasPagarController implements Initializable {
 						FXNotification fxn;
 						parcelaPagarDAO.deletaParcelas(contasPagar);
 						contasPagarDAO.delete(contasPagar);
-						
-						fxn = new FXNotification(
-								"A Conta no valor total de: " + txt_total.getText() + " foi removida",
+
+						fxn = new FXNotification("A Conta no valor total de: " + txt_total.getText() + " foi removida",
 								NotificationType.WARNING);
 						fxn.show();
 						desativaTela();
-						
+
 					}
 				});
 			} catch (Exception e) {
@@ -712,6 +744,9 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnActionFiltrar(ActionEvent event) {
+		if (!tb_baixarContas.getItems().isEmpty()) {
+			carregaTelaBaixar(contasPagar);
+		}
 
 	}
 
@@ -1004,6 +1039,7 @@ public class ContasPagarController implements Initializable {
 
 		this.contasPagar = contasPagar;
 		parcelasPagar = new ArrayList<ParcelaPagar>();
+		desativaTela();
 		carregaTelaBaixar(contasPagar);
 
 	}

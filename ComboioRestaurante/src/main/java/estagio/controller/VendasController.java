@@ -46,12 +46,14 @@ public class VendasController implements Initializable {
 
     @FXML
     private AnchorPane ap_vendas;
-
+	@FXML
+	private JFXButton btn_texto;
 
 	private Node node;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		btn_texto.setText("Olá,\n"+LoginController.logado.getNome());
 		Platform.runLater(new Runnable() {
 
 			@Override

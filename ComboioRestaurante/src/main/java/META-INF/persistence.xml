@@ -23,6 +23,7 @@
 		<class>estagio.model.Caixa</class>
 		<class>estagio.model.ContasPagar</class>
 		<class>estagio.model.ParcelaPagar</class>
+		<class>estagio.model.Estoque</class>
 		
 		
 		<!-- Aqui são listadas todas as entidades -->

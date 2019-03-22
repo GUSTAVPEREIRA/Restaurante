@@ -40,25 +40,17 @@ public class Caixa {
 	@Column(name = "caixa_status", nullable = false, length = 8)
 	private String status;
 
-	public String getStatus() {
-		return status;
-	}
+	@JoinColumn(nullable = false)
+	@ManyToOne
+	private Usuario aberturaAutorizado;
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	@JoinColumn(nullable = true)
+	@ManyToOne
+	private Usuario fechamentoAutorizado;
 
 	@JoinColumn(nullable = false)
 	@ManyToOne
 	private Usuario usuario;
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
 	public Caixa() {
 		super();
@@ -77,102 +69,6 @@ public class Caixa {
 		this.usuario = usuario;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getDataAbertura() {
-		return dataAbertura;
-	}
-
-	public void setDataAbertura(Date dataAbertura) {
-		this.dataAbertura = dataAbertura;
-	}
-
-	public Time getHoraAbertura() {
-		return horaAbertura;
-	}
-
-	public void setHoraAbertura(Time horaAbertura) {
-		this.horaAbertura = horaAbertura;
-	}
-
-	public Date getDataFechamento() {
-		return dataFechamento;
-	}
-
-	public void setDataFechamento(Date dataFechamento) {
-		this.dataFechamento = dataFechamento;
-	}
-
-	public Time getHoraFechamento() {
-		return horaFechamento;
-	}
-
-	public void setHoraFechamento(Time horaFechamento) {
-		this.horaFechamento = horaFechamento;
-	}
-
-	public double getAbertura() {
-		return abertura;
-	}
-
-	public void setAbertura(double abertura) {
-		this.abertura = abertura;
-	}
-
-	public double getFechamento() {
-		return fechamento;
-	}
-
-	public void setFechamento(double fechamento) {
-		this.fechamento = fechamento;
-	}
-
-	public double getDinheiro() {
-		return dinheiro;
-	}
-
-	public void setDinheiro(double dinheiro) {
-		this.dinheiro = dinheiro;
-	}
-
-	public double getCredito() {
-		return credito;
-	}
-
-	public void setCredito(double credito) {
-		this.credito = credito;
-	}
-
-	public double getDebito() {
-		return debito;
-	}
-
-	public void setDebito(double debito) {
-		this.debito = debito;
-	}
-
-	public double getCheque() {
-		return cheque;
-	}
-
-	public void setCheque(double cheque) {
-		this.cheque = cheque;
-	}
-
-	public Double somaDinheiro() {
-		return (this.cheque + this.credito + this.abertura + this.dinheiro + this.debito);
-	}
-
-	public Object priceProperty() {
-		return fechamento;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Caixa) {
@@ -182,6 +78,134 @@ public class Caixa {
 			}
 		}
 		return false;
+	}
+
+	public double getAbertura() {
+		return abertura;
+	}
+
+	public Usuario getAberturaAutorizado() {
+		return aberturaAutorizado;
+	}
+
+	public double getCheque() {
+		return cheque;
+	}
+
+	public double getCredito() {
+		return credito;
+	}
+
+	public Date getDataAbertura() {
+		return dataAbertura;
+	}
+
+	public Date getDataFechamento() {
+		return dataFechamento;
+	}
+
+	public double getDebito() {
+		return debito;
+	}
+
+	public double getDinheiro() {
+		return dinheiro;
+	}
+
+	public double getFechamento() {
+		return fechamento;
+	}
+
+	public Usuario getFechamentoAutorizado() {
+		return fechamentoAutorizado;
+	}
+
+	public Time getHoraAbertura() {
+		return horaAbertura;
+	}
+
+	public Time getHoraFechamento() {
+		return horaFechamento;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public Object priceProperty() {
+		return fechamento;
+	}
+
+	public void setAbertura(double abertura) {
+		this.abertura = abertura;
+	}
+
+	public void setAberturaAutorizado(Usuario aberturaAutorizado) {
+		this.aberturaAutorizado = aberturaAutorizado;
+	}
+
+	public void setCheque(double cheque) {
+		this.cheque = cheque;
+	}
+
+	public void setCredito(double credito) {
+		this.credito = credito;
+	}
+
+	public void setDataAbertura(Date dataAbertura) {
+		this.dataAbertura = dataAbertura;
+	}
+
+	public void setDataFechamento(Date dataFechamento) {
+		this.dataFechamento = dataFechamento;
+	}
+
+	public void setDebito(double debito) {
+		this.debito = debito;
+	}
+
+	public void setDinheiro(double dinheiro) {
+		this.dinheiro = dinheiro;
+	}
+
+	public void setFechamento(double fechamento) {
+		this.fechamento = fechamento;
+	}
+
+	public void setFechamentoAutorizado(Usuario fechamentoAutorizado) {
+		this.fechamentoAutorizado = fechamentoAutorizado;
+	}
+
+	public void setHoraAbertura(Time horaAbertura) {
+		this.horaAbertura = horaAbertura;
+	}
+
+	public void setHoraFechamento(Time horaFechamento) {
+		this.horaFechamento = horaFechamento;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Double somaDinheiro() {
+		return (this.cheque + this.credito + this.abertura + this.dinheiro + this.debito);
 	}
 
 }

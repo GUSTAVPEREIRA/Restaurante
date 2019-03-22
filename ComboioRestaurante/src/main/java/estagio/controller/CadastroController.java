@@ -68,7 +68,8 @@ public class CadastroController implements Initializable {
 
 	@FXML
 	private JFXButton Sair;
-
+	@FXML
+	private JFXButton btn_texto;
 	@FXML
 	private StackPane stack_cadastros;
 
@@ -78,6 +79,8 @@ public class CadastroController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		btn_texto.setText("Olá,\n"+LoginController.logado.getNome());
+		
 		if (LoginController.logado.getTipo().equals("ADMIN") == true) {
 			Categoria.setDisable(false);
 			Empresa.setDisable(false);

@@ -17,9 +17,11 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import estagio.dao.CategoriaDAO;
+import estagio.dao.EstoqueDAO;
 import estagio.dao.FornecedorDAO;
 import estagio.dao.ProdutoDAO;
 import estagio.model.Categoria;
+import estagio.model.Estoque;
 import estagio.model.Fornecedor;
 import estagio.model.Produto;
 import estagio.ui.notifications.FXNotification;
@@ -296,6 +298,11 @@ public class ProdutoController implements Initializable {
 				// estiver nula quando for do tipo long
 				produto.setId(null);
 				produtoDAO.inserir(produto);
+				Estoque estoque = new Estoque();
+				estoque.setProduto(produto);
+				estoque.setQuantidade(0);
+				EstoqueDAO estoqueDAO = new EstoqueDAO();
+				estoqueDAO.save(estoque);
 				fxn = new FXNotification("Novo produto: " + produto.getNome() + " inserido.",
 						FXNotification.NotificationType.INFORMATION);
 			} else {
