@@ -25,6 +25,11 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
+                  <JFXButton fx:id="Comprar" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionComprar" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Comprar">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
                   <JFXButton fx:id="Sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                      <font>
                         <Font name="System Bold" size="14.0" />

@@ -1,9 +1,8 @@
 .table-view {
-    -fx-table-color: #5fcda3;
-    -fx-table-rippler-color: #5fcda3;
+
 }
 :focused {
-    -fx-background-color: -fx-table-color, -fx-box-border, -fx-control-inner-background;
+    -fx-background-color: #5fcda3, -fx-box-border, -fx-control-inner-background;
     -fx-background-insets: -1.4, 0, 1;
     -fx-background-radius: 1.4, 0, 0;
     /*....*/
@@ -11,13 +10,13 @@
 }
 
 .table-view:focused .table-row-cell:selected{
-    -fx-background-color: -fx-table-color;
-    -fx-table-cell-border-color: -fx-table-color;
+    -fx-background-color: #00A279;
+    -fx-table-cell-border-color: #00A279;
     -fx-text-fill: BLACK;
 }
 
 .table-view:focused .table-row-cell:selected .table-cell {
-    -fx-text-fill: BLACK;
+    -fx-text-fill: #5fcda3;
 }
 
 .table-view .column-header,
@@ -56,11 +55,11 @@
 }
 
 .table-view .column-overlay {
-    -fx-background-color: -fx-table-color;
+    -fx-background-color: #5fcda3;
 }
 
 .table-view .column-resize-line, .table-view .column-drag-header {
-    -fx-background-color: -fx-table-rippler-color;
+    -fx-background-color: #5fcda3;
 }
 
 
@@ -94,7 +93,7 @@
 }
 
 .table-view .menu-item:focused {
-    -fx-background-color: -fx-table-color;
+    -fx-background-color: #5fcda3;
 
 }
 

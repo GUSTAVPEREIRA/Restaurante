@@ -297,7 +297,7 @@ public class ProdutoController implements Initializable {
 				// O hibernate interpreta que será uma nova inserção somente se a variável
 				// estiver nula quando for do tipo long
 				produto.setId(null);
-				produtoDAO.inserir(produto);
+				produtoDAO.save(produto);
 				Estoque estoque = new Estoque();
 				estoque.setProduto(produto);
 				estoque.setQuantidade(0);
@@ -305,6 +305,7 @@ public class ProdutoController implements Initializable {
 				estoqueDAO.save(estoque);
 				fxn = new FXNotification("Novo produto: " + produto.getNome() + " inserido.",
 						FXNotification.NotificationType.INFORMATION);
+		
 			} else {
 				produtoDAO.alterar(produto);
 				fxn = new FXNotification("Novo produto: " + produto.getNome() + " inserido.",
@@ -328,9 +329,15 @@ public class ProdutoController implements Initializable {
 			if (b == btnSim) {
 				if (txt_codigo.getText().equals("0") != true && !txt_codigo.getText().isEmpty()) {
 					produto.setId(Long.parseLong(txt_codigo.getText()));
-					Boolean deletado = produtoDAO.Deletar(produto);
+					Estoque estoque = new Estoque();
+					
+					estoque.setId(produto.getId());
+					estoque.setProduto(produto);
+					EstoqueDAO estoqueDAO = new EstoqueDAO();
+					estoqueDAO.delete(estoque);
+					Produto deletado = produtoDAO.findById(produto.getId());
 					FXNotification fxn;
-					if (deletado == true) {
+					if (deletado == null) {
 						fxn = new FXNotification("Produto " + produto.getNome() + " Excluido",
 								FXNotification.NotificationType.INFORMATION);
 						desativaTela();

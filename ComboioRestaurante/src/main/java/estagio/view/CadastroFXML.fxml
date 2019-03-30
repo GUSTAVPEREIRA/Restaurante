@@ -40,7 +40,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Fornecedor" buttonType="RAISED" disable="true" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionFornecedor" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Fornecedor">
+                  <JFXButton fx:id="Fornecedor" buttonType="RAISED" disable="true" ellipsisString="" graphicTextGap="0.0" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionFornecedor" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Fornecedor">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -50,9 +50,9 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="TipoVenda" buttonType="RAISED" disable="true" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionTipoVenda" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Tipo Venda">
+                  <JFXButton fx:id="TipoVenda" buttonType="RAISED" disable="true" ellipsisString="" graphicTextGap="0.0" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionTipoVenda" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Tipo Venda">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="13.0" />
                      </font>
                   </JFXButton>
                   <JFXButton fx:id="Usuario" buttonType="RAISED" disable="true" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionUsuario" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Usuário">

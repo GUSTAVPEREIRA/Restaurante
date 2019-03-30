@@ -1083,6 +1083,6 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnMouseSelectionUf(ActionEvent event) {
-
+		
 	}
 }

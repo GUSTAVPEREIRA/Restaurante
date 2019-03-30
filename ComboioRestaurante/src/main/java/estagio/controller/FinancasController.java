@@ -51,6 +51,9 @@ public class FinancasController implements Initializable {
 
 	@FXML
 	private JFXButton Sair;
+	
+	@FXML
+	private JFXButton Comprar;
 
 	@FXML
 	private StackPane stack_financeiro;
@@ -76,6 +79,13 @@ public class FinancasController implements Initializable {
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/MenuFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
 	}
+	
+	@FXML
+	void OnActionComprar(ActionEvent event) throws IOException {
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CompraFXML.fxml"));
+		ap_financeiro.getChildren().setAll(node);
+	}
+ 
 
 
 }

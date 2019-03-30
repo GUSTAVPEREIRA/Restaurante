@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package estagio.controller;
 
 import java.io.IOException;
@@ -27,7 +23,7 @@ import javafx.scene.layout.VBox;
  *
  * @author Pereira
  */
-public class CadastroController implements Initializable {
+public class CadastroController  implements Initializable {
 //xml jobson ensinando a bugar
 
 	@FXML

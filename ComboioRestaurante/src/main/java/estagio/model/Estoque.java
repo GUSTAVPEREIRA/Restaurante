@@ -2,6 +2,7 @@ package estagio.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class Estoque implements Serializable {
 	@Column(name = "est_quant", nullable = false)
 	private int quantidade;
 	@JoinColumn(nullable = false)
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
 	private Produto produto;
 
 	public static long getSerialversionuid() {

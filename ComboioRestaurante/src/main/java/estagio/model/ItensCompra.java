@@ -2,6 +2,7 @@ package estagio.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,10 +27,11 @@ public class ItensCompra implements Serializable {
 	@Column(name = "ic_id")
 	private Long id;
 	@Column(name = "ic_quant",nullable=false)
-	private String quantidade;
+	private int quantidade;
 	@Column(name = "ic_valor",nullable=false)
-	private String valor;
-	@ManyToOne
+	private Double valor;
+	// Assim que se faz um relacionamento bidirecional de classe de associaço
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private Produto produto;
 	@ManyToOne
 	private Compra compra;
@@ -42,19 +44,19 @@ public class ItensCompra implements Serializable {
 		this.id = id;
 	}
 
-	public String getQuantidade() {
+	public int getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(String quantidade) {
+	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
 
-	public String getValor() {
+	public Double getValor() {
 		return valor;
 	}
 
-	public void setValor(String valor) {
+	public void setValor(Double valor) {
 		this.valor = valor;
 	}
 
@@ -69,9 +71,24 @@ public class ItensCompra implements Serializable {
 	public Compra getCompra() {
 		return compra;
 	}
-
+	
 	public void setCompra(Compra compra) {
-		this.compra = compra;
-	}
+	    //prevent endless loop
+	    if (sameAsFormer(compra))
+	      return ;
+	    //set new compra
+	    Compra oldCompra = this.compra;
+	    this.compra = compra;
+	    //remove from the old compra
+	    if (oldCompra!=null)
+	      oldCompra.removeItemCompra(this);
+	    //set myself into new compra
+	    if (compra!=null)
+	      compra.addItemCompra(this);
+	  }
+
+	  private boolean sameAsFormer(Compra newCompra) {
+	    return compra==null? newCompra == null : compra.equals(newCompra);
+	  }
 
 }

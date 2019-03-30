@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -28,6 +29,7 @@ import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,6 +37,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.StringConverter;
 import javafx.stage.Stage;
 
 public class EmpresaController implements Initializable {
@@ -174,6 +177,9 @@ public class EmpresaController implements Initializable {
 	@FXML
 	private Tooltip ttp_btnBuscar;
 
+	
+	JFXAutoCompletePopup<Estado> autoCompletePopupEst = new JFXAutoCompletePopup<Estado>();
+	JFXAutoCompletePopup<Cidade> autoCompletePopupCid = new JFXAutoCompletePopup<Cidade>();
 	private List<Estado> listaEstado;
 	private ObservableList<Estado> obslEstado;
 	private EstadoDAO estadoDAO = new EstadoDAO();
@@ -311,6 +317,7 @@ public class EmpresaController implements Initializable {
 			obslCidade = FXCollections.observableArrayList(listaCidade);
 			cbb_cidade.setItems(obslCidade);
 			cbb_cidade.setDisable(false);
+			InitComboBoxCid();
 		}
 	}
 
@@ -351,6 +358,10 @@ public class EmpresaController implements Initializable {
 	@SuppressWarnings("static-access")
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+
+		
+		
+		
 		tffh = new TextFieldFormatterHelper();
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter(regex.getDescricao(), 100));
 		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
@@ -363,6 +374,10 @@ public class EmpresaController implements Initializable {
 		cbb_est.setItems(obslEstado);
 		empresa = new Empresa();
 		empresa = empresaDAO.listar();
+		InitComboBoxEst();
+		InitComboBoxCid();
+		autoCompletePopupEst.hide();
+		autoCompletePopupCid.hide();
 		if (empresa != null) {
 			setEmpresa(empresa);
 		} else {
@@ -371,6 +386,102 @@ public class EmpresaController implements Initializable {
 		}
 	}
 
+	private void InitComboBoxCid() {
+		autoCompletePopupCid.getSuggestions().clear();
+		autoCompletePopupCid.getSuggestions().addAll(cbb_cidade.getItems());
+
+		autoCompletePopupCid.setSelectionHandler(eventt -> {
+			cbb_cidade.setValue(eventt.getObject());
+			cbb_cidade.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupCid.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_cidade.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupCid.filter(item -> item.getNome().contains(editor.getText().toUpperCase()));
+			autoCompletePopupCid.setHideOnEscape(false);
+			autoCompletePopupCid.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupCid.getFilteredSuggestions().isEmpty() || cbb_cidade.showingProperty().get()
+					|| cbb_cidade.getEditor().isFocused()==false) {
+				autoCompletePopupCid.hide();
+			} else {
+				autoCompletePopupCid.show(editor);
+			}
+		});
+		cbb_cidade.setConverter(new StringConverter<Cidade>() {
+
+			@Override
+			public String toString(Cidade provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public Cidade fromString(String string) {
+				try {
+					int index = cbb_cidade.getSelectionModel().getSelectedIndex();
+					return cbb_cidade.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
+			}
+		});
+	}
+	
+	private void InitComboBoxEst() {
+		autoCompletePopupEst.getSuggestions().addAll(cbb_est.getItems());
+
+		autoCompletePopupEst.setSelectionHandler(eventt -> {
+			cbb_est.setValue(eventt.getObject());
+			cbb_est.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupEst.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_est.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupEst.filter(item -> item.getNome().contains(editor.getText().toUpperCase()));
+			autoCompletePopupEst.setHideOnEscape(false);
+			autoCompletePopupEst.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_est.showingProperty().get()
+					|| cbb_est.getEditor().isFocused()==false) {
+				autoCompletePopupEst.hide();
+			} else {
+				autoCompletePopupEst.show(editor);
+			}
+		});
+		cbb_est.setConverter(new StringConverter<Estado>() {
+
+			@Override
+			public String toString(Estado provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public Estado fromString(String string) {
+				try {
+					int index = cbb_est.getSelectionModel().getSelectedIndex();
+					return cbb_est.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
+			}
+		});
+	}
+	
+	
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 		img_empresa.setImage(new Image("file:///" + empresa.getCaminho_imgem()));
