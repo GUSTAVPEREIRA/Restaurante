@@ -207,7 +207,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="140.0" layoutY="541.0" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
@@ -222,7 +222,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="625.0" layoutY="279.0" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
@@ -237,7 +237,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
          </graphic>
       </JFXButton>
    </children>

@@ -81,7 +81,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" />
          </graphic>
          <tooltip>
             <Tooltip fx:id="ttp_btnNovo" text="Cria uma nova tela, removendo os dados da anterior." />
@@ -92,7 +92,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
          </graphic>
          <tooltip>
             <Tooltip fx:id="ttp_btnGravar" text="Insere novas cidades ou altera anteriores." />
@@ -103,7 +103,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" />
          </graphic>
          <tooltip>
             <Tooltip fx:id="ttp_btnExcluir" text="Exclui uma cidade." />
@@ -116,16 +116,13 @@
          <tooltip>
             <Tooltip fx:id="ttp_btnCancelar" text="Cancela as operações excluir e alterar." />
          </tooltip>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="UNDO" />
-         </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="470.0" layoutY="541.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
          </graphic>
          <tooltip>
             <Tooltip fx:id="ttp_btnSair" text="Sai da tela de cadastros." />

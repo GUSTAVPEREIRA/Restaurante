@@ -378,7 +378,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="140.0" layoutY="540.0" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar">
@@ -393,7 +393,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="250.0" layoutY="540.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Excluir">
@@ -408,7 +408,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="360.0" layoutY="540.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
@@ -422,9 +422,6 @@
                </font>
             </Tooltip>
          </tooltip>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="UNDO" />
-         </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="470.0" layoutY="540.0" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
          <font>
@@ -438,7 +435,7 @@
             </Tooltip>
          </tooltip>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
          </graphic>
       </JFXButton>
       <Label layoutX="60.0" layoutY="110.0" text="*" textFill="RED">

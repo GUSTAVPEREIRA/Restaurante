@@ -137,7 +137,7 @@
             <Tooltip fx:id="ttp_lblCidade1" text="Estado à qual o fornecedor pertence." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_est" layoutX="143.0" layoutY="390.0" onAction="#OnMouseSelectionUf" prefHeight="36.0" prefWidth="156.0">
+      <JFXComboBox fx:id="cbb_est" editable="true" focusColor="#5fcda3" layoutX="143.0" layoutY="390.0" onAction="#OnMouseSelectionUf" prefHeight="36.0" prefWidth="156.0" unFocusColor="BLACK">
          <tooltip>
             <Tooltip fx:id="ttp_estado" text="Lista de estados." />
          </tooltip>
@@ -157,7 +157,7 @@
             <Tooltip fx:id="ttp_lblCidade" text="Cidade à qual o fornecedor pertence." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_cidade" disable="true" layoutX="400.0" layoutY="390.0" prefHeight="36.0" prefWidth="276.0">
+      <JFXComboBox fx:id="cbb_cidade" disable="true" editable="true" focusColor="#5fcda3" layoutX="400.0" layoutY="390.0" prefHeight="36.0" prefWidth="276.0" unFocusColor="BLACK">
          <tooltip>
             <Tooltip fx:id="ttp_cidade" text="Lista de cidades" />
          </tooltip>

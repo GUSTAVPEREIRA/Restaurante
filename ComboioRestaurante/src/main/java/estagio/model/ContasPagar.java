@@ -34,11 +34,16 @@ public class ContasPagar {
 
 	@Column(name = "cp_descricao", nullable = false, length = 100)
 	private String descricao;
+	
+	@ManyToOne(optional = true)
+	private Compra compra;
 
 	public String getDescricao() {
 		return descricao;
 	}
-
+	
+	
+	
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}

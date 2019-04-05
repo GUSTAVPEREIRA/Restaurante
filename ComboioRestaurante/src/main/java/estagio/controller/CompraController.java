@@ -1,8 +1,10 @@
 package estagio.controller;
 
 import java.net.URL;
+import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,36 +19,39 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
 import estagio.dao.CategoriaDAO;
-import estagio.dao.EstoqueDAO;
+import estagio.dao.CompraDAO;
+import estagio.dao.ContasPagarDAO;
 import estagio.dao.FornecedorDAO;
+import estagio.dao.ItensCompraDAO;
+import estagio.dao.ParcelaPagarDAO;
 import estagio.dao.ProdutoDAO;
 import estagio.model.Categoria;
-import estagio.model.Cidade;
-import estagio.model.Estado;
-import estagio.model.Estoque;
+import estagio.model.Compra;
+import estagio.model.ContasPagar;
 import estagio.model.Fornecedor;
 import estagio.model.ItensCompra;
+import estagio.model.ParcelaPagar;
 import estagio.model.Produto;
+import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
+import estagio.view.util.Validadores;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -176,6 +181,8 @@ public class CompraController implements Initializable {
 
 	@FXML
 	private JFXButton btn_Adicionar;
+	@FXML
+	private JFXButton btn_Novo;
 
 	@FXML
 	private Tooltip ttp_btnAdicionar;
@@ -235,7 +242,7 @@ public class CompraController implements Initializable {
 	private Label lbl_adicionar;
 
 	@FXML
-	private Spinner<Integer> txt_adicionarQuantidade;
+	private JFXTextField txt_adicionarQuantidade;
 
 	@FXML
 	private Label lbl_valorUnitario;
@@ -267,17 +274,19 @@ public class CompraController implements Initializable {
 	ProdutoDAO produtoDAO;
 	Fornecedor fornecedor;
 	FornecedorDAO fornecedorDAO;
-	Estoque estoque;
-	EstoqueDAO estoqueDAO;
 	List<Categoria> listCategoria = new ArrayList<Categoria>();
 	List<Produto> listProduto = new ArrayList<Produto>();
 	List<Fornecedor> listFornecedor = new ArrayList<Fornecedor>();
 	JFXAutoCompletePopup<Categoria> autoCompletePopupCategoria = new JFXAutoCompletePopup<Categoria>();
 	JFXAutoCompletePopup<Produto> autoCompletePopupProduto = new JFXAutoCompletePopup<Produto>();
-
+	Compra compra;
+	CompraDAO compraDAO;
+	ItensCompra itensCompra = new ItensCompra();
 	private ObservableList<Integer> obsl_parcelas;
 	private ObservableList<Categoria> obslCategoria;
 	private ObservableList<Produto> obslProduto;
+	private ObservableList<ItensCompra> obslItensCompra;
+	double valorTotal;
 
 	// private ObservableList<Fornecedor> obslFornecedor;
 	@FXML
@@ -306,22 +315,224 @@ public class CompraController implements Initializable {
 
 	@FXML
 	void OnActionAdicionar(ActionEvent event) {
+		itensCompra = new ItensCompra();
+		Boolean erro = false;
+		if (!txt_adicionarQuantidade.getText().equals("")) {
+			int quant = Integer.parseInt(txt_adicionarQuantidade.getText());
+			if (quant >= 1 && quant <= 999) {
+				itensCompra.setQuantidade(quant);
+			} else {
+				erro = false;
+
+			}
+		} else {
+			erro = true;
+		}
+		itensCompra.setProduto(produto);
+		itensCompra.setValor(produto.getPreco_compra());
+		if (erro != true) {
+
+			for (int i = 0; i < compra.getListaItensCompra().size() && erro != true; i++) {
+
+				if (compra.getListaItensCompra().get(i).getProduto().getNome().equals(produto.getNome())) {
+					compra.getListaItensCompra().remove(i);
+					erro = true;
+				}
+			}
+
+			compra.addItemCompra(itensCompra);
+			valorTotal = 0.00;
+			for (int i = 0; i < compra.getListaItensCompra().size(); i++) {
+				valorTotal = valorTotal + (compra.getListaItensCompra().get(i).getQuantidade()
+						* compra.getListaItensCompra().get(i).getProduto().getPreco_compra());
+			}
+			txt_valorTotal.setText(nf.format(valorTotal));
+			carregaTela(compra);
+			btn_Gravar.setDisable(false);
+			btn_Cancelar.setDisable(false);
+			btn_Alterar.setDisable(true);
+			btn_Remover.setDisable(true);
+
+		}
+
+	}
+
+	public void carregaTela(Compra compra) {
+
+		tb_produtos.getItems().clear();
+		tc_codigo.setCellValueFactory(new PropertyValueFactory<>("Produto.id"));
+		tc_produto.setCellValueFactory(new PropertyValueFactory<>("Produto"));
+		tc_quantidade.setCellValueFactory(new PropertyValueFactory<>("Quantidade"));
+		tc_valorDeCompra.setCellValueFactory(new PropertyValueFactory<>("Produto"));
+
+		tc_valorDeCompra.setCellValueFactory((data) -> {
+			Double temp = data.getValue().getProduto().getPreco_compra();
+			temp = temp * data.getValue().getQuantidade();
+			txt_valorTotal.setText(nf.format(valorTotal));
+
+			return new SimpleStringProperty(nf.format(temp));
+		});
+
+		tc_codigo.setCellValueFactory((data) -> {
+			String id = data.getValue().getProduto().getId().toString();
+			return new SimpleStringProperty(id);
+		});
+
+		if (!compra.getListaItensCompra().isEmpty()) {
+			obslItensCompra = FXCollections.observableArrayList(compra.getListaItensCompra());
+			tb_produtos.setItems(obslItensCompra);
+		}
 
 	}
 
 	@FXML
 	void OnActionAlterar(ActionEvent event) {
 
+		if (tb_produtos.getSelectionModel().getSelectedItem() != null) {
+			vb_compra.setDisable(true);
+			this.setItensCompra(tb_produtos.getSelectionModel().getSelectedItem());
+			vb_telaProduto.setVisible(true);
+			cbb_categoria.getSelectionModel().select(itensCompra.getProduto().getCategoria());
+			listProduto = produtoDAO.listarPorCategoria(cbb_categoria.getSelectionModel().getSelectedItem().getNome());
+			obslProduto = FXCollections.observableArrayList(listProduto);
+			cbb_Produto.setItems(obslProduto);
+			cbb_Produto.getSelectionModel().select(itensCompra.getProduto());
+			txt_quantAtual.setText(String.valueOf(itensCompra.getProduto().getEstoque()));
+			txt_adicionarQuantidade.setText(String.valueOf(itensCompra.getQuantidade()));
+			txt_valorUnitario.setText(nf.format(itensCompra.getProduto().getPreco_compra()));
+		}
 	}
 
 	@FXML
 	void OnActionCancelar(ActionEvent event) {
+		tb_produtos.getItems().clear();
+		valorTotal = 0;
+		txt_valorTotal.setText(nf.format(valorTotal));
+		listProduto = new ArrayList<Produto>();
+		compra = new Compra();
+		desativaTela();
 
 	}
 
 	@FXML
 	void OnActionGravar(ActionEvent event) {
+		ContasPagar contasPagar = new ContasPagar();
+		boolean erro = false;
+		if (txt_descricao.getText().replace(" ", "").length() < 3) {
+			erro = true;
+			ctm_descricao.show(txt_descricao, Side.TOP, 10, 0);
+			txt_descricao.setStyle(corErro);
+		} else {
+			txt_descricao.setStyle(corNormal);
+			ctm_descricao.hide();
+			contasPagar.setDescricao(txt_descricao.getText());
+		}
 
+		if (txt_valorTotal.getText().replace(" ", "").length() < 1
+				|| Validadores.valorMonetario(txt_valorTotal.getText()) < 0) {
+			erro = true;
+			// ctm_valorTotal.show(txt_valorTotal, Side.TOP, 10, 0);
+			txt_valorTotal.setStyle(corErro);
+		} else {
+			txt_valorTotal.setStyle(corNormal);
+			// ctm_valorTotal.hide();
+			contasPagar.setValorTotal(Validadores.valorMonetario(txt_valorTotal.getText()));
+		}
+
+		if (cb_aprazo.isSelected() == false && cb_avista.isSelected() == false) {
+			erro = true;
+			lbl_TipoCondicao.setStyle(corErro);
+			// falta colocar um context menu lá no javafx
+		} else {
+			lbl_TipoCondicao.setStyle(corNormal);
+			String condicao;
+			if (cb_aprazo.isSelected() == true) {
+				condicao = "A PRAZO";
+			} else {
+				condicao = "A VISTA";
+			}
+			contasPagar.setCondicaoPgto(condicao);
+			contasPagar.setNumParcelas(cbb_parcela.getValue());
+		}
+
+		contasPagar.setAbertura(Date.valueOf(dp_abertura.getValue()));
+		if (dp_vencimento.getValue() == null
+				|| comparaData(contasPagar.getAbertura(), Date.valueOf(dp_vencimento.getValue())) == false) {
+			erro = true;
+			dp_vencimento.setStyle(corErro);
+		} else {
+			dp_vencimento.setStyle(corNormal);
+			contasPagar.setVencimento(Date.valueOf(dp_vencimento.getValue()));
+		}
+		int dias;
+		if (txt_dias.getText().replace(" ", "").length() > 0) {
+			dias = Integer.parseInt(txt_dias.getText());
+		} else
+			dias = 30;
+
+		contasPagar.setStatus("ABERTO");
+		if (erro == false) {
+			List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+			Double auxValor = contasPagar.getValorTotal() / contasPagar.getNumParcelas();
+
+			for (int i = 0; i < contasPagar.getNumParcelas(); i++) {
+				Date auxAbertura = contasPagar.getAbertura();
+				Date auxVencimento = contasPagar.getVencimento();
+
+				auxAbertura = adicionarDias(auxAbertura, i * dias);
+				auxVencimento = adicionarDias(auxVencimento, i * dias);
+
+				ParcelaPagar parcelaPagar = new ParcelaPagar();
+				parcelaPagar.setNumeroParcela(i + 1);
+				parcelaPagar.setContasPagar(contasPagar);
+				parcelaPagar.setAbertura(auxAbertura);
+				parcelaPagar.setVencimento(auxVencimento);
+				parcelaPagar.setValor(auxValor);
+				parcelaPagar.setPgto(null);
+				parcelaPagar.setStatus("ABERTO");
+				parcelaPagar.setValorPgto(0.00);
+
+				parcelasPagar.add(parcelaPagar);
+			}
+			
+			compra.setData(contasPagar.getAbertura());
+			compra.setValorTotal(valorTotal);
+			compraDAO.save(compra);
+			
+			ItensCompraDAO itensCompraDAO = new ItensCompraDAO();
+			for (ItensCompra ic: compra.getListaItensCompra()) {
+				ic.setCompra(compra);
+				produto = produtoDAO.findById(ic.getProduto().getId());
+				produto.setEstoque(produto.getEstoque() + ic.getQuantidade());
+				produtoDAO.save(produto);
+				itensCompraDAO.save(ic);
+			}
+			ContasPagarDAO contasPagarDAO = new ContasPagarDAO();
+			contasPagarDAO.save(contasPagar);
+			ParcelaPagarDAO parcelaPagarDAO = new ParcelaPagarDAO();
+			for (ParcelaPagar pp : parcelasPagar) {
+				parcelaPagarDAO.save(pp);
+			}
+			compra = new Compra();
+			carregaTela(compra);
+			desativaTela();
+			FXNotification fxn;
+			fxn = new FXNotification("Compra realizada no valor total de: "+nf.format(valorTotal), FXNotification.NotificationType.INFORMATION);
+			fxn.show();
+			
+		} else {
+			FXNotification fxn;
+			fxn = new FXNotification("Por favor, corrija os erros.", FXNotification.NotificationType.ERROR);
+			fxn.show();
+		}
+	}
+	public Date adicionarDias(Date data, int soma) {
+		LocalDate localData = data.toLocalDate();
+		localData = localData.plusDays(soma);
+		return Date.valueOf(localData);
+	}
+	public boolean comparaData(Date lancamento, Date vencimento) {
+		return vencimento.after(lancamento);
 	}
 
 	@FXML
@@ -332,12 +543,31 @@ public class CompraController implements Initializable {
 
 	@FXML
 	void OnActionRemover(ActionEvent event) {
+		Boolean erro = false;
+		for (int i = 0; i < compra.getListaItensCompra().size() && erro != true; i++) {
 
+			if (compra.getListaItensCompra().get(i).getProduto().getNome().equals(itensCompra.getProduto().getNome())) {
+				compra.getListaItensCompra().remove(i);
+				erro = true;
+			}
+		}
+		valorTotal = 0.00;
+		for (int i = 0; i < compra.getListaItensCompra().size(); i++) {
+			valorTotal = valorTotal + (compra.getListaItensCompra().get(i).getQuantidade()
+					* compra.getListaItensCompra().get(i).getProduto().getPreco_compra());
+		}
+		txt_valorTotal.setText(nf.format(valorTotal));
+		btn_Alterar.setDisable(true);
+		btn_Remover.setDisable(true);
+		if (compra.getListaItensCompra().size() == 0) {
+			btn_Cancelar.setDisable(true);
+		}
+		carregaTela(compra);
 	}
 
 	@FXML
 	void OnActionSair(ActionEvent event) {
-
+		sp_compra.setVisible(false);
 	}
 
 	public void desativaTelaProduto() {
@@ -346,7 +576,7 @@ public class CompraController implements Initializable {
 		vb_telaProduto.setVisible(false);
 		vb_compra.setDisable(false);
 		txt_quantAtual.setText("");
-		txt_adicionarQuantidade = new Spinner<Integer>(1, 999, 1);
+		txt_adicionarQuantidade.setText("");
 	}
 
 	@FXML
@@ -358,20 +588,32 @@ public class CompraController implements Initializable {
 
 	@FXML
 	void OnMouseClickedProduto(MouseEvent event) {
+		if (tb_produtos.getSelectionModel().getSelectedItem() != null) {
+			this.setItensCompra(tb_produtos.getSelectionModel().getSelectedItem());
 
+		}
+	}
+
+	public void setItensCompra(ItensCompra itensCompra) {
+		this.itensCompra = itensCompra;
+		btn_Remover.setDisable(false);
+		btn_Alterar.setDisable(false);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
-		
-		
+
+		dp_abertura.setValue(LocalDate.now());
+		valorTotal = 0.00;
+		txt_valorTotal.setText(nf.format(valorTotal));
+		compra = new Compra();
+		compraDAO = new CompraDAO();
 		produtoDAO = new ProdutoDAO();
 		categoriaDAO = new CategoriaDAO();
 		// Combo box Parcelas
 		obsl_parcelas = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		cbb_parcela.setItems(obsl_parcelas);
-		cbb_parcela.getSelectionModel().select(-1);
+		cbb_parcela.getSelectionModel().select(0);
 		// Combo box categoria;
 		listCategoria = categoriaDAO.listar("");
 		obslCategoria = FXCollections.observableArrayList(listCategoria);
@@ -380,41 +622,17 @@ public class CompraController implements Initializable {
 		listProduto = produtoDAO.listar("");
 		obslProduto = FXCollections.observableArrayList(listProduto);
 		cbb_Produto.setItems(obslProduto);
-		
+
 		InitComboBoxCategoria();
 		InitComboBoxProduto();
-		
+
 		txt_descricao.setTextFormatter(
 				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_dias.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[0-9]+", 15));
 		txt_quantAtual.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[0-9]+", 15));
 		txt_valorTotal.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
 		txt_valorUnitario.setTextFormatter(TextFieldFormatterHelper.getTextFieldDoubleFormatter(15, 2));
-		SpinnerValueFactory<Integer> gradeValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 999, 1,
-				1);
-		txt_adicionarQuantidade.setValueFactory(gradeValueFactory);
-		EventHandler<KeyEvent> enterKeyEventHandler;
-
-		enterKeyEventHandler = new EventHandler<KeyEvent>() {
-
-			@Override
-			public void handle(KeyEvent event) {
-
-				// handle users "enter key event"
-				if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB) {
-
-					try {
-						// yes, using exception for control is a bad solution ;-)
-						Integer.parseInt(txt_adicionarQuantidade.getEditor().textProperty().get());
-					} catch (NumberFormatException e) {
-						// show message to user: "only numbers allowed"
-						// reset editor to INITAL_VALUE
-						txt_adicionarQuantidade.getEditor().textProperty().set("1");
-					}
-				}
-			}
-		};
-		txt_adicionarQuantidade.getEditor().addEventHandler(KeyEvent.KEY_PRESSED, enterKeyEventHandler);
+		txt_adicionarQuantidade.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[0-9]+", 4));
 
 	}
 
@@ -449,8 +667,14 @@ public class CompraController implements Initializable {
 		txt_valorUnitario.setText("");
 		txt_quantAtual.setText("");
 		// Data picker
+		dp_abertura.setValue(LocalDate.now());
 		dp_dataLancamento.setValue(null);
 		dp_vencimento.setValue(null);
+		// Buttons
+		btn_Alterar.setDisable(true);
+		btn_Remover.setDisable(true);
+		btn_Cancelar.setDisable(true);
+		btn_Gravar.setDisable(true);
 
 	}
 
@@ -474,11 +698,9 @@ public class CompraController implements Initializable {
 	@FXML
 	void OnMouseselectionProduto(ActionEvent event) {
 
-		estoqueDAO = new EstoqueDAO();
 		if (cbb_Produto.getSelectionModel().getSelectedIndex() != -1) {
 			produto = cbb_Produto.getSelectionModel().getSelectedItem();
-			estoque = estoqueDAO.findById(produto.getId());
-			txt_quantAtual.setText(String.valueOf(estoque.getQuantidade()));
+			txt_quantAtual.setText(String.valueOf(produto.getEstoque()));
 			txt_valorUnitario.setText(nf.format(produto.getPreco_compra()));
 			btn_adicionar.setDisable(false);
 			// InitComboBoxCid();
@@ -504,7 +726,7 @@ public class CompraController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupCategoria.getFilteredSuggestions().isEmpty() || cbb_categoria.showingProperty().get()
-					|| cbb_categoria.getEditor().isFocused()==false) {
+					|| cbb_categoria.getEditor().isFocused() == false) {
 				autoCompletePopupCategoria.hide();
 			} else {
 				autoCompletePopupCategoria.show(editor);
@@ -531,7 +753,7 @@ public class CompraController implements Initializable {
 			}
 		});
 	}
-	
+
 	private void InitComboBoxProduto() {
 		autoCompletePopupProduto.getSuggestions().clear();
 		autoCompletePopupProduto.getSuggestions().addAll(cbb_Produto.getItems());
@@ -552,7 +774,7 @@ public class CompraController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupProduto.getFilteredSuggestions().isEmpty() || cbb_Produto.showingProperty().get()
-					|| cbb_Produto.getEditor().isFocused()==false) {
+					|| cbb_Produto.getEditor().isFocused() == false) {
 				autoCompletePopupProduto.hide();
 			} else {
 				autoCompletePopupProduto.show(editor);
@@ -579,8 +801,7 @@ public class CompraController implements Initializable {
 			}
 		});
 	}
-	
-	
+
 	public void ativaTela() {
 
 	}

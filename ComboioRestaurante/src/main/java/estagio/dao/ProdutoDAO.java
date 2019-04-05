@@ -191,7 +191,7 @@ public class ProdutoDAO extends GenericDAO<Produto>{
 			if (busca.compareTo("") == 0)
 				jpql = "select m from Produto m order by m.nome";
 			else
-				jpql = "select m from Produto m where m.categoria.nome = :pBusca ";
+				jpql = "select m from Produto m where m.categoria.nome = :pBusca";
 
 			TypedQuery<Produto> query = em.createQuery(jpql,Produto.class);
 			if (busca.compareTo("") != 0)

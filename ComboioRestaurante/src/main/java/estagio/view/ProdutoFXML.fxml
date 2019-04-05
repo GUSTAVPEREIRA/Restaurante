@@ -65,7 +65,7 @@
             <Tooltip fx:id="ttp_lblFornecedor" text="Nome do fornecedor." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_forId" layoutX="143.0" layoutY="190.0" prefHeight="25.0" prefWidth="253.0" visibleRowCount="20">
+      <JFXComboBox fx:id="cbb_forId" editable="true" focusColor="#5fcda3" layoutX="143.0" layoutY="190.0" prefHeight="25.0" prefWidth="253.0" unFocusColor="BLACK" visibleRowCount="20">
          <contextMenu>
             <ContextMenu fx:id="ctm_Fornecedor">
               <items>
@@ -121,7 +121,7 @@
             <Tooltip fx:id="ttp_lblCategoria" text="Categoria do produto." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_categoria" layoutX="141.0" layoutY="340.0" prefHeight="25.0" prefWidth="253.0" visibleRowCount="20">
+      <JFXComboBox fx:id="cbb_categoria" editable="true" focusColor="#5fcda3" layoutX="141.0" layoutY="340.0" prefHeight="25.0" prefWidth="253.0" unFocusColor="BLACK" visibleRowCount="20">
          <contextMenu>
             <ContextMenu fx:id="ctm_Categoria">
               <items>

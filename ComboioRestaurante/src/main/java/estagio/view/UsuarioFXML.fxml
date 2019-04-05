@@ -83,7 +83,7 @@
             <Tooltip fx:id="ttp_lblSenha" text="Senha do usuário." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_ativo" layoutX="143.0" layoutY="290.0" prefHeight="25.0" prefWidth="276.0" visibleRowCount="20">
+      <JFXComboBox fx:id="cbb_ativo" editable="true" focusColor="#5fcda3" layoutX="143.0" layoutY="290.0" prefHeight="25.0" prefWidth="276.0" unFocusColor="BLACK" visibleRowCount="20">
          <contextMenu>
             <ContextMenu fx:id="ctm_ativo">
                <items>
@@ -99,7 +99,7 @@
             <Tooltip fx:id="ttp_lblAtivo" text="Usuário ativo para login." />
          </tooltip>
       </Label>
-      <JFXComboBox fx:id="cbb_tipo" layoutX="143.0" layoutY="340.0" prefHeight="25.0" prefWidth="276.0" visibleRowCount="20">
+      <JFXComboBox fx:id="cbb_tipo" editable="true" focusColor="#5fcda3" layoutX="143.0" layoutY="340.0" prefHeight="25.0" prefWidth="276.0" unFocusColor="BLACK" visibleRowCount="20">
          <contextMenu>
             <ContextMenu fx:id="ctm_tipo">
                <items>

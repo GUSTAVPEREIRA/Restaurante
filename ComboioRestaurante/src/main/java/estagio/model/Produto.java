@@ -40,6 +40,20 @@ public class Produto implements Serializable {
 	@JoinColumn(nullable = false)
 	@ManyToOne
 	private Categoria categoria;
+	@Column(name = "pro_estoque", nullable = false)
+	private int estoque;
+
+	public int getEstoque() {
+		return estoque;
+	}
+
+	public void setEstoque(int estoque) {
+		this.estoque = estoque;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public Long getId() {
 		return id;
@@ -105,6 +119,17 @@ public class Produto implements Serializable {
 	@Override
 	public String toString() {
 		return nome;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Produto) {
+			Produto prod = (Produto) obj;
+			if (prod.getNome().equals(this.nome) && prod.getId().equals(this.id)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

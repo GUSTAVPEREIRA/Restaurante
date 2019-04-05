@@ -5,19 +5,21 @@
  */
 package estagio.controller;
 
-import estagio.dao.UsuarioDAO;
-import estagio.model.Usuario;
-import estagio.ui.notifications.FXNotification;
-
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
-import estagio.view.util.TextFieldFormatterHelper;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXAutoCompletePopup;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
+import estagio.dao.UsuarioDAO;
+import estagio.model.Usuario;
+import estagio.ui.notifications.FXNotification;
+import estagio.view.util.TextFieldFormatterHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,12 +33,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -143,6 +147,8 @@ public class UsuarioController implements Initializable {
 	private TableColumn<Usuario, String> tc_ativo;
 	@FXML
 	private JFXButton btn_voltar;
+	JFXAutoCompletePopup<String> autoCompletePopupTip = new JFXAutoCompletePopup<String>();
+	JFXAutoCompletePopup<String> autoCompletePopupAti = new JFXAutoCompletePopup<String>();
 	private ObservableList<String> cbb_Tipos;
 	private ObservableList<String> cbb_Ativo;
 	private UsuarioDAO usuarioDAO;
@@ -178,6 +184,8 @@ public class UsuarioController implements Initializable {
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_senha.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 25));
 		listaUsuario = new ArrayList<>();
+		InitComboBoxAtiv();
+		InitComboBoxTip();
 		desativaTela();
 	}
 
@@ -468,6 +476,100 @@ public class UsuarioController implements Initializable {
 	public void ativaTela() {
 		btn_Excluir.setDisable(false);
 		btn_Cancelar.setDisable(false);
+	}
+	private void InitComboBoxTip() {
+		autoCompletePopupTip.getSuggestions().clear();
+		autoCompletePopupTip.getSuggestions().addAll(cbb_tipo.getItems());
+
+		autoCompletePopupTip.setSelectionHandler(eventt -> {
+			cbb_tipo.setValue(eventt.getObject());
+			cbb_tipo.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupTip.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_tipo.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupTip.filter(item -> item.contains(editor.getText().toUpperCase()));
+			autoCompletePopupTip.setHideOnEscape(false);
+			autoCompletePopupTip.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupTip.getFilteredSuggestions().isEmpty() || cbb_tipo.showingProperty().get()
+					|| cbb_tipo.getEditor().isFocused()==false) {
+				autoCompletePopupTip.hide();
+			} else {
+				autoCompletePopupTip.show(editor);
+			}
+		});
+		cbb_tipo.setConverter(new StringConverter<String>() {
+
+			@Override
+			public String toString(String provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public String fromString(String string) {
+				try {
+					int index = cbb_tipo.getSelectionModel().getSelectedIndex();
+					return cbb_tipo.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
+			}
+		});
+	}
+	
+	private void InitComboBoxAtiv() {
+		autoCompletePopupAti.getSuggestions().addAll(cbb_ativo.getItems());
+
+		autoCompletePopupAti.setSelectionHandler(eventt -> {
+			cbb_ativo.setValue(eventt.getObject());
+			cbb_ativo.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupAti.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_ativo.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupAti.filter(item -> item.contains(editor.getText().toUpperCase()));
+			autoCompletePopupAti.setHideOnEscape(false);
+			autoCompletePopupAti.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupAti.getFilteredSuggestions().isEmpty() || cbb_ativo.showingProperty().get()
+					|| cbb_ativo.getEditor().isFocused()==false) {
+				autoCompletePopupAti.hide();
+			} else {
+				autoCompletePopupAti.show(editor);
+			}
+		});
+		cbb_ativo.setConverter(new StringConverter<String>() {
+
+			@Override
+			public String toString(String provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public String fromString(String string) {
+				try {
+					int index = cbb_ativo.getSelectionModel().getSelectedIndex();
+					return cbb_ativo.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
+			}
+		});
 	}
 
 	@FXML

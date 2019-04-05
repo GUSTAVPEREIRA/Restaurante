@@ -15,22 +15,27 @@
          <children>
             <VBox fx:id="VB_Menu" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" prefHeight="600.0" prefWidth="109.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css">
                <children>
-                  <JFXButton fx:id="Pagar" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionPagar" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Pagar">
+                  <JFXButton fx:id="Pagar" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionPagar" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Pagar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Receber" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionReceber" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Receber">
+                  <JFXButton fx:id="Receber" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionReceber" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Receber">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Comprar" buttonType="RAISED" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionComprar" prefHeight="34.0" prefWidth="109.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Comprar">
+                  <JFXButton fx:id="Comprar" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionComprar" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Comprar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" maxHeight="34.0" maxWidth="109.0" minHeight="34.0" minWidth="109.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+                  <JFXButton fx:id="Estoque" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionEstoque" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Estoque">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="Sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="115.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -38,7 +43,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btn_texto" alignment="BASELINE_CENTER" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="6.0" maxHeight="455.0" maxWidth="109.0" minHeight="64.0" prefHeight="64.0" prefWidth="109.0" styleClass="texto" stylesheets="@css/buttons.css" textFill="#1b9763">
+                  <JFXButton fx:id="btn_texto" alignment="BASELINE_CENTER" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="6.0" maxHeight="455.0" maxWidth="115.0" minHeight="64.0" prefHeight="64.0" prefWidth="115.0" styleClass="texto" stylesheets="@css/buttons.css" textFill="#1b9763">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

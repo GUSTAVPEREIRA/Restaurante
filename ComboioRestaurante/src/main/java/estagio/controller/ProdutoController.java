@@ -12,16 +12,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXAutoCompletePopup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import estagio.dao.CategoriaDAO;
-import estagio.dao.EstoqueDAO;
 import estagio.dao.FornecedorDAO;
 import estagio.dao.ProdutoDAO;
 import estagio.model.Categoria;
-import estagio.model.Estoque;
 import estagio.model.Fornecedor;
 import estagio.model.Produto;
 import estagio.ui.notifications.FXNotification;
@@ -39,12 +38,14 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -148,6 +149,8 @@ public class ProdutoController implements Initializable {
 	private ObservableList<Produto> obslProduto;
 	private List<Produto> listProduto;
 	private TextFieldFormatterHelper tffh;
+	JFXAutoCompletePopup<Categoria> autoCompletePopupCat = new JFXAutoCompletePopup<Categoria>();
+	JFXAutoCompletePopup<Fornecedor> autoCompletePopupFor = new JFXAutoCompletePopup<Fornecedor>();
 	@FXML
 	private AnchorPane ap_produto;
 
@@ -166,6 +169,7 @@ public class ProdutoController implements Initializable {
 		fornecedor = new Fornecedor();
 		categoria = new Categoria();
 		resetaDAO();
+		
 		listaFornecedor = fornecedorDAO.listar("");
 		obslFornecedor = FXCollections.observableArrayList(listaFornecedor);
 		cbb_forId.setItems(obslFornecedor);
@@ -174,6 +178,8 @@ public class ProdutoController implements Initializable {
 		obslCategoria = FXCollections.observableArrayList(listaCategoria);
 		cbb_categoria.setItems(obslCategoria);
 		cbb_categoria.getSelectionModel().select(-1);
+		InitComboBoxCat();
+		InitComboBoxFor();
 		tffh = new TextFieldFormatterHelper();
 		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
@@ -297,12 +303,8 @@ public class ProdutoController implements Initializable {
 				// O hibernate interpreta que será uma nova inserção somente se a variável
 				// estiver nula quando for do tipo long
 				produto.setId(null);
+				produto.setEstoque(0);
 				produtoDAO.save(produto);
-				Estoque estoque = new Estoque();
-				estoque.setProduto(produto);
-				estoque.setQuantidade(0);
-				EstoqueDAO estoqueDAO = new EstoqueDAO();
-				estoqueDAO.save(estoque);
 				fxn = new FXNotification("Novo produto: " + produto.getNome() + " inserido.",
 						FXNotification.NotificationType.INFORMATION);
 		
@@ -328,13 +330,7 @@ public class ProdutoController implements Initializable {
 		dialogoExe.showAndWait().ifPresent(b -> {
 			if (b == btnSim) {
 				if (txt_codigo.getText().equals("0") != true && !txt_codigo.getText().isEmpty()) {
-					produto.setId(Long.parseLong(txt_codigo.getText()));
-					Estoque estoque = new Estoque();
-					
-					estoque.setId(produto.getId());
-					estoque.setProduto(produto);
-					EstoqueDAO estoqueDAO = new EstoqueDAO();
-					estoqueDAO.delete(estoque);
+					produto.setId(Long.parseLong(txt_codigo.getText()));										
 					Produto deletado = produtoDAO.findById(produto.getId());
 					FXNotification fxn;
 					if (deletado == null) {
@@ -440,6 +436,101 @@ public class ProdutoController implements Initializable {
 		txt_filtro.setOnKeyPressed((KeyEvent event1) -> {
 			if (event1.getCode() == KeyCode.ENTER) {
 				carregaTela(txt_filtro.getText());
+			}
+		});
+	}
+	
+	private void InitComboBoxCat() {
+		autoCompletePopupCat.getSuggestions().clear();
+		autoCompletePopupCat.getSuggestions().addAll(cbb_categoria.getItems());
+
+		autoCompletePopupCat.setSelectionHandler(eventt -> {
+			cbb_categoria.setValue(eventt.getObject());
+			cbb_categoria.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupCat.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_categoria.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupCat.filter(item -> item.getNome().contains(editor.getText().toUpperCase()));
+			autoCompletePopupCat.setHideOnEscape(false);
+			autoCompletePopupCat.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupCat.getFilteredSuggestions().isEmpty() || cbb_categoria.showingProperty().get()
+					|| cbb_categoria.getEditor().isFocused()==false) {
+				autoCompletePopupCat.hide();
+			} else {
+				autoCompletePopupCat.show(editor);
+			}
+		});
+		cbb_categoria.setConverter(new StringConverter<Categoria>() {
+
+			@Override
+			public String toString(Categoria provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public Categoria fromString(String string) {
+				try {
+					int index = cbb_categoria.getSelectionModel().getSelectedIndex();
+					return cbb_categoria.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
+			}
+		});
+	}
+	
+	private void InitComboBoxFor() {
+		autoCompletePopupFor.getSuggestions().addAll(cbb_forId.getItems());
+
+		autoCompletePopupFor.setSelectionHandler(eventt -> {
+			cbb_forId.setValue(eventt.getObject());
+			cbb_forId.getSelectionModel().select(eventt.getObject());
+		});
+		autoCompletePopupFor.setStyle(
+				"-fx-control-inner-background:WHITE;" + "-fx-accent: #00A279;" + "" + "-fx-font:14px 'Arial'");
+		TextField editor = cbb_forId.getEditor();
+		editor.textProperty().addListener(observable -> {
+			// The filter method uses the Predicate to /filter the Suggestions defined above
+			// I choose to use the contains method while ignoring cases
+			autoCompletePopupFor.filter(item -> item.getNome().contains(editor.getText().toUpperCase()));
+			autoCompletePopupFor.setHideOnEscape(false);
+			autoCompletePopupFor.setAutoFix(false);
+			// Hide the autocomplete popup if the filtered suggestions is empty or when the
+			// box's original popup is open
+			if (autoCompletePopupFor.getFilteredSuggestions().isEmpty() || cbb_forId.showingProperty().get()
+					|| cbb_forId.getEditor().isFocused()==false) {
+				autoCompletePopupFor.hide();
+			} else {
+				autoCompletePopupFor.show(editor);
+			}
+		});
+		cbb_forId.setConverter(new StringConverter<Fornecedor>() {
+
+			@Override
+			public String toString(Fornecedor provinceState) {
+				if (provinceState == null)
+					return "";
+				return provinceState.toString();
+			}
+
+			@Override
+			public Fornecedor fromString(String string) {
+				try {
+					int index = cbb_forId.getSelectionModel().getSelectedIndex();
+					return cbb_forId.getItems().get(index);
+				} catch (Exception e) {
+					return null;
+				}
+
 			}
 		});
 	}

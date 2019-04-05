@@ -37,8 +37,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.util.StringConverter;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 public class EmpresaController implements Initializable {
 
@@ -177,7 +177,7 @@ public class EmpresaController implements Initializable {
 	@FXML
 	private Tooltip ttp_btnBuscar;
 
-	
+
 	JFXAutoCompletePopup<Estado> autoCompletePopupEst = new JFXAutoCompletePopup<Estado>();
 	JFXAutoCompletePopup<Cidade> autoCompletePopupCid = new JFXAutoCompletePopup<Cidade>();
 	private List<Estado> listaEstado;

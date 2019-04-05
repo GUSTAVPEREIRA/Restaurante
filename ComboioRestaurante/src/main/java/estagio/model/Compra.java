@@ -2,6 +2,7 @@ package estagio.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -36,6 +37,11 @@ public class Compra implements Serializable {
 	@OneToMany(mappedBy = "compra")
 	private List<ItensCompra> listaItensCompra;
 
+	public Compra() {
+		listaItensCompra = new ArrayList<ItensCompra>();
+		id = null;
+	}
+	
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
@@ -88,7 +94,7 @@ public class Compra implements Serializable {
 		// add new account
 		listaItensCompra.add(account);
 		// set myself into the twitter account
-		account.setCompra(this);
+		//account.setCompra(this);
 	}
 
 	/**
