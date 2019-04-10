@@ -18,6 +18,7 @@ import estagio.dao.ProdutoDAO;
 import estagio.model.Categoria;
 import estagio.model.MovimentoEstoque;
 import estagio.model.Produto;
+import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -25,6 +26,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
@@ -167,28 +170,44 @@ public class AtualizarEstoqueController implements Initializable {
 	NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 	String corNormal = "-fx-border-color:white";
 	String corErro = "-fx-border-color: red;";
+	Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
+	ButtonType btnSim = new ButtonType("Sim");
+	ButtonType btnNao = new ButtonType("Não");
 
-	
-	public void adiciona(String tipo)
-	{
+	public void adiciona(String tipo) {
 		movimentoEstoque = new MovimentoEstoque();
 		Boolean erro = false;
 		if (!txt_adicionarQuantidade.getText().equals("")) {
 			int quant = Integer.parseInt(txt_adicionarQuantidade.getText());
 			if (quant >= 1 && quant <= 999) {
 				movimentoEstoque.setQuantidade(quant);
+				txt_adicionarQuantidade.setStyle(corNormal);
 			} else {
-				erro = false;
-
+				erro = true;
+				txt_adicionarQuantidade.setStyle(corErro);
 			}
-		} 
-		if (txt_motivo.getText().equals("")) 
-		{
+		} else {
 			erro = true;
+			txt_adicionarQuantidade.setStyle(corErro);
 		}
-		else
-			movimentoEstoque.setMotivo(txt_motivo.getText());;
+
+		String motivo = txt_motivo.getText().replace(" ", "");
+		if (motivo.equals("")) {
+			erro = true;
+			txt_motivo.setStyle(corErro);
+		} else {
+			movimentoEstoque.setMotivo(txt_motivo.getText());
+			txt_motivo.setStyle(corNormal);
+		}
+
 		movimentoEstoque.setProduto(produto);
+		if (tipo.equals("Saída") && produto.getEstoque() < movimentoEstoque.getQuantidade()) {
+			erro = true;
+			txt_adicionarQuantidade.setStyle(corErro);
+		} else {
+			movimentoEstoque.setTipo(tipo);
+			txt_adicionarQuantidade.setStyle(corNormal);
+		}
 		if (erro != true) {
 
 			for (int i = 0; i < listaMovimento.size() && erro != true; i++) {
@@ -206,13 +225,20 @@ public class AtualizarEstoqueController implements Initializable {
 			btn_Cancelar.setDisable(false);
 			btn_Alterar.setDisable(true);
 			btn_Remover.setDisable(true);
-
+			desativaTelaProduto();
+			FXNotification fxn;
+			fxn = new FXNotification("Movimento de estoque realizado.", FXNotification.NotificationType.INFORMATION);
+			fxn.show();
+		} else {
+			FXNotification fxn;
+			fxn = new FXNotification("Informe corretamente os dados para atualizar o estoque.",
+					FXNotification.NotificationType.WARNING);
+			fxn.show();
 		}
 	}
-	
+
 	@FXML
 	void OnActionAdicionar(ActionEvent event) {
-		
 		adiciona("Entrada");
 
 	}
@@ -362,6 +388,7 @@ public class AtualizarEstoqueController implements Initializable {
 			txt_quantAtual.setText(String.valueOf(movimentoEstoque.getProduto().getEstoque()));
 			txt_adicionarQuantidade.setText(String.valueOf(movimentoEstoque.getQuantidade()));
 			txt_valorUnitario.setText(nf.format(movimentoEstoque.getProduto().getPreco_compra()));
+			txt_motivo.setText(movimentoEstoque.getMotivo());
 		}
 	}
 
@@ -370,6 +397,7 @@ public class AtualizarEstoqueController implements Initializable {
 		tb_produtos.getItems().clear();
 
 		listProduto = new ArrayList<Produto>();
+		listaMovimento = new ArrayList<MovimentoEstoque>();
 		movimentoEstoque = new MovimentoEstoque();
 		desativaTela();
 	}
@@ -393,6 +421,30 @@ public class AtualizarEstoqueController implements Initializable {
 
 	@FXML
 	void OnActionGravar(ActionEvent event) {
+		dialogoExe.setTitle("Atualizar o estoque");
+		dialogoExe.setHeaderText("Você deseja realmente atualizar ?");
+		dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
+		dialogoExe.showAndWait().ifPresent(b -> {
+			if (b == btnSim) {
+				for (MovimentoEstoque lme : listaMovimento) {
+					movimentoEstoqueDAO.save(lme);
+					if (lme.getTipo().equals("Entrada") == true) {
+						lme.getProduto().setEstoque(lme.getProduto().getEstoque() + lme.getQuantidade());
+					} else
+						lme.getProduto().setEstoque(lme.getProduto().getEstoque() - lme.getQuantidade());
+					produtoDAO.merge(lme.getProduto());
+				
+
+				}
+				desativaTela();
+				desativaTelaProduto();
+				listaMovimento = new ArrayList<MovimentoEstoque>();
+				carregaTela();
+				FXNotification fxn;
+				fxn = new FXNotification("Estoque Atualizado.", FXNotification.NotificationType.INFORMATION);
+				fxn.show();
+			}
+		});
 
 	}
 
@@ -404,8 +456,21 @@ public class AtualizarEstoqueController implements Initializable {
 
 	@FXML
 	void OnActionRemover(ActionEvent event) {
-		movimentoEstoque.setTipo("Saida");
-		adiciona("Saída");
+		Boolean erro = false;
+		for (int i = 0; i < listaMovimento.size() && erro != true; i++) {
+
+			if (listaMovimento.get(i).getProduto().getNome().equals(movimentoEstoque.getProduto().getNome())) {
+				listaMovimento.remove(i);
+				erro = true;
+			}
+		}
+
+		btn_Alterar.setDisable(true);
+		btn_Remover.setDisable(true);
+		if (listaMovimento.size() == 0) {
+			btn_Cancelar.setDisable(true);
+		}
+		carregaTela();
 	}
 
 	@FXML
@@ -425,12 +490,13 @@ public class AtualizarEstoqueController implements Initializable {
 	}
 
 	public void desativaTelaProduto() {
-		cbb_categoria.getSelectionModel().select(0);
+		cbb_categoria.getSelectionModel().select(null);
 		cbb_Produto.getSelectionModel().clearSelection();
 		vb_telaProduto.setVisible(false);
 		vb_compra.setDisable(false);
 		txt_quantAtual.setText("");
 		txt_adicionarQuantidade.setText("");
+		txt_motivo.setText("");
 	}
 
 	@FXML

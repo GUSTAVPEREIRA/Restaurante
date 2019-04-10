@@ -22,9 +22,13 @@
 		<class>estagio.model.ClientePJ</class>
 		<class>estagio.model.Caixa</class>
 		<class>estagio.model.ContasPagar</class>
+		<class>estagio.model.ContasReceber</class>
 		<class>estagio.model.ParcelaPagar</class>
+		<class>estagio.model.ParcelaReceber</class>
 		<class>estagio.model.Compra</class>
+		<class>estagio.model.Venda</class>
 		<class>estagio.model.ItensCompra</class>
+		<class>estagio.model.ItensVenda</class>
 		<class>estagio.model.MovimentoEstoque</class>
 		<!-- Aqui são listadas todas as entidades -->
 
