@@ -262,9 +262,9 @@ public class CompraController implements Initializable {
 	NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 	DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	String corErro = "-fx-border-color: red;";
+	String corNormal = "-fx-border-color:white";
 	SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 	SimpleDateFormat formatoBanco = new SimpleDateFormat("yyyy-MM-dd");
-	String corNormal = "-fx-border-color:white";
 	Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 	ButtonType btnSim = new ButtonType("Sim");
 	ButtonType btnNao = new ButtonType("Não");
@@ -494,13 +494,13 @@ public class CompraController implements Initializable {
 
 				parcelasPagar.add(parcelaPagar);
 			}
-			
+
 			compra.setData(contasPagar.getAbertura());
 			compra.setValorTotal(valorTotal);
 			compraDAO.save(compra);
-			
+
 			ItensCompraDAO itensCompraDAO = new ItensCompraDAO();
-			for (ItensCompra ic: compra.getListaItensCompra()) {
+			for (ItensCompra ic : compra.getListaItensCompra()) {
 				ic.setCompra(compra);
 				produto = produtoDAO.findById(ic.getProduto().getId());
 				produto.setEstoque(produto.getEstoque() + ic.getQuantidade());
@@ -517,20 +517,23 @@ public class CompraController implements Initializable {
 			carregaTela(compra);
 			desativaTela();
 			FXNotification fxn;
-			fxn = new FXNotification("Compra realizada no valor total de: "+nf.format(valorTotal), FXNotification.NotificationType.INFORMATION);
+			fxn = new FXNotification("Compra realizada no valor total de: " + nf.format(valorTotal),
+					FXNotification.NotificationType.INFORMATION);
 			fxn.show();
-			
+
 		} else {
 			FXNotification fxn;
 			fxn = new FXNotification("Por favor, corrija os erros.", FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
 	}
+
 	public Date adicionarDias(Date data, int soma) {
 		LocalDate localData = data.toLocalDate();
 		localData = localData.plusDays(soma);
 		return Date.valueOf(localData);
 	}
+
 	public boolean comparaData(Date lancamento, Date vencimento) {
 		return vencimento.after(lancamento);
 	}

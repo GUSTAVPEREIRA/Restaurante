@@ -81,8 +81,9 @@ public class VendasController implements Initializable {
 	}
 
 	@FXML
-	void OnActionVendas(ActionEvent event) {
-
+	void OnActionVendas(ActionEvent event) throws IOException {
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/VendaFXML.fxml"));
+		ap_vendas.getChildren().setAll(node);
 	}
 
 }

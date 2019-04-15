@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import estagio.model.Caixa;
+import estagio.model.Usuario;
 import estagio.persistence.JPAUtil;
 
 public class CaixaDAO extends GenericDAO<Caixa> {
@@ -43,6 +44,30 @@ public class CaixaDAO extends GenericDAO<Caixa> {
 			em.close();
 		}
 		return usuario;
+	}
+
+	public Caixa listaCaixasVenda(Usuario usuario) {
+		String jpql;
+		List<Caixa> retorno = new ArrayList<Caixa>();
+		EntityManager em = JPAUtil.getEntityManager();
+		Caixa caixa = new Caixa();
+		em.getTransaction().begin();
+		try {
+
+			jpql = "select m from Caixa m where m.status = 'ABERTO' and m.usuario = :pUsuario";
+			TypedQuery<Caixa> query = em.createQuery(jpql, Caixa.class);
+			query.setParameter("pUsuario", usuario);
+			retorno = query.getResultList();
+			caixa = retorno.get(0);
+			em.getTransaction().commit();
+			
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println(e.getMessage());
+		} finally {
+			em.close();
+		}
+		return caixa;
 	}
 
 	public List<Caixa> listaCaixas() {
