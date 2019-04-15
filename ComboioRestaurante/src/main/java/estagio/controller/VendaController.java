@@ -541,7 +541,7 @@ public class VendaController implements Initializable {
 			tb_produtos.setItems(obslItensVenda);
 		}
 
-	}
+	} 
 	
 	
 	@FXML
