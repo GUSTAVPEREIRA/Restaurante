@@ -540,7 +540,7 @@ public class VendaController implements Initializable {
 			obslItensVenda = FXCollections.observableArrayList(venda.getListaItensVenda());
 			tb_produtos.setItems(obslItensVenda);
 		}
-
+//Comentário para teste
 	} 
 	
 	
