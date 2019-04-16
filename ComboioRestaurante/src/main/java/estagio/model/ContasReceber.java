@@ -31,9 +31,41 @@ public class ContasReceber {
 	// Pgto = pagamento
 	@Column(name = "cr_condicaoPgto", nullable = false, length = 20)
 	private String condicaoPgto;
+	public String getTipo() {
+		return tipo;
+	}
 
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	@Column(name = "cr_tipoPgto", nullable = false, length = 20)
+	private String tipo;
 	@Column(name = "cr_descricao", nullable = false, length = 100)
 	private String descricao;
+	
+	@Column(name = "cp_status", nullable = false, length = 20)
+	private String status;
+	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	@Column(name = "cp_valorTotal", nullable = false, precision = 2)
+	private Double valorTotal;
 	
 	@ManyToOne(optional = true)
 	private Venda venda;
@@ -93,6 +125,5 @@ public class ContasReceber {
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
-	
-	
+
 }

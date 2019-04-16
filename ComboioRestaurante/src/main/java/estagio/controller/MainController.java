@@ -36,8 +36,6 @@ public class MainController implements Initializable {
 	@FXML
 	private JFXButton btn_vendas;
 	@FXML
-	private JFXButton btn_consultas;
-	@FXML
 	private JFXButton btn_financeiro;
 	@FXML
 	private JFXButton btn_relatorio;

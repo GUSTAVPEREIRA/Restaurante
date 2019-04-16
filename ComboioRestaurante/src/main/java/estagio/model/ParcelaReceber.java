@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ParcelaReceber implements Serializable {
@@ -30,12 +32,34 @@ public class ParcelaReceber implements Serializable {
 	private Double valorPgto;
 	@Column(name = "cpr_status", length = 20, nullable = true)
 	private String status;
-	@Column(name = "cpr_tipoPagamento", length = 20, nullable = true)
+	@Column(name = "cpr_tipoCondicao", length = 20, nullable = true)
 	private String condicao;
+	@Column(name = "cpr_tipoPagamento", length = 20, nullable = true)
+	private String tipoPagamento;
 	@Column(name = "cpr_numeroParcela", nullable = false)
 	private int numeroParcela;
 	@Column(name = "cpr_hashReferencia", nullable = true)
 	private Long idRef;
+
+	public String getTipoPagamento() {
+		return tipoPagamento;
+	}
+
+	public void setTipoPagamento(String tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
+	}
+
+	public ContasReceber getContasReceber() {
+		return contasReceber;
+	}
+
+	public void setContasReceber(ContasReceber contasReceber) {
+		this.contasReceber = contasReceber;
+	}
+
+	@JoinColumn(nullable = false)
+	@ManyToOne
+	private ContasReceber contasReceber;
 
 	public Long getId() {
 		return id;

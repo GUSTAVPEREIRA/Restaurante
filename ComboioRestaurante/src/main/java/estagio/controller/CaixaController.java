@@ -439,7 +439,8 @@ public class CaixaController implements Initializable {
 		tc_valor.setCellValueFactory(new PropertyValueFactory<>("Fechamento"));
 		tc_status.setCellValueFactory(new PropertyValueFactory<>("Status"));
 		tc_valor.setCellValueFactory((data) -> {
-			Double temp = data.getValue().getFechamento();
+			Double temp = data.getValue().getAbertura() + data.getValue().getCheque() + data.getValue().getCredito()
+					+ data.getValue().getDebito() + data.getValue().getDinheiro();
 			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 			return new SimpleStringProperty(nf.format(temp));
 		});

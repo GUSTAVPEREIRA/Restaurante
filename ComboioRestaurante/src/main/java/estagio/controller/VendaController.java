@@ -30,19 +30,24 @@ import com.jfoenix.controls.JFXTextField;
 import estagio.dao.CaixaDAO;
 import estagio.dao.CategoriaDAO;
 import estagio.dao.ClienteDAO;
+import estagio.dao.ContasReceberDAO;
 import estagio.dao.ItensVendaDAO;
+import estagio.dao.ParcelaReceberDAO;
 import estagio.dao.ProdutoDAO;
 import estagio.dao.TipoVendaDAO;
 import estagio.dao.VendaDAO;
 import estagio.model.Caixa;
 import estagio.model.Categoria;
 import estagio.model.Cliente;
+import estagio.model.ContasReceber;
 import estagio.model.ItensVenda;
+import estagio.model.ParcelaReceber;
 import estagio.model.Produto;
 import estagio.model.TipoVenda;
 import estagio.model.Venda;
 import estagio.ui.notifications.FXNotification;
 import estagio.view.util.TextFieldFormatterHelper;
+import estagio.view.util.Validadores;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -268,6 +273,7 @@ public class VendaController implements Initializable {
 	TipoVenda tipoVenda;
 	Cliente cliente;
 	VendaDAO vendaDAO;
+	Caixa caixa;
 	CategoriaDAO categoriaDAO;
 	ProdutoDAO produtoDAO;
 	TipoVendaDAO tipoVendaDAO;
@@ -288,6 +294,9 @@ public class VendaController implements Initializable {
 	Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 	ButtonType btnSim = new ButtonType("Sim");
 	ButtonType btnNao = new ButtonType("Não");
+	ButtonType btnSalvar = new ButtonType("Salvar");
+	ButtonType btnFechar = new ButtonType("Fechar Venda");
+	ButtonType btnCancelar = new ButtonType("Cancelar");
 	JFXAutoCompletePopup<Categoria> autoCompletePopupCategoria = new JFXAutoCompletePopup<Categoria>();
 	JFXAutoCompletePopup<Produto> autoCompletePopupProduto = new JFXAutoCompletePopup<Produto>();
 	JFXAutoCompletePopup<Cliente> autoCompletePopupCliente = new JFXAutoCompletePopup<Cliente>();
@@ -298,6 +307,7 @@ public class VendaController implements Initializable {
 	private ObservableList<ItensVenda> obslItensVenda;
 	private ObservableList<TipoVenda> obslTipoVenda;
 	Double valorTotal;
+
 	public void iniciaDAO() {
 
 		categoriaDAO = new CategoriaDAO();
@@ -316,6 +326,7 @@ public class VendaController implements Initializable {
 		cliente = new Cliente();
 		itensVenda = new ItensVenda();
 		venda = new Venda();
+		caixa = new Caixa();
 	}
 
 	@FXML
@@ -361,7 +372,7 @@ public class VendaController implements Initializable {
 		itensVenda.setValor(produto.getPreco_compra());
 		if (erro != true) {
 
-			for (int i = 0;i < venda.getListaItensVenda().size() && erro != true; i++) {
+			for (int i = 0; i < venda.getListaItensVenda().size() && erro != true; i++) {
 
 				if (venda.getListaItensVenda().get(i).getProduto().getNome().equals(produto.getNome())) {
 					venda.getListaItensVenda().remove(i);
@@ -385,26 +396,198 @@ public class VendaController implements Initializable {
 	@FXML
 	void OnActionCheque(ActionEvent event) {
 
+		if (cb_bCheque.isSelected() == true) {
+			cb_bCredito.setSelected(false);
+			cb_bDebito.setSelected(false);
+			cb_bDinheiro.setSelected(false);
+		}
 	}
 
 	@FXML
 	void OnActionCredito(ActionEvent event) {
-
+		if (cb_bCredito.isSelected() == true) {
+			cb_bCheque.setSelected(false);
+			cb_bDebito.setSelected(false);
+			cb_bDinheiro.setSelected(false);
+		}
 	}
 
 	@FXML
 	void OnActionDebito(ActionEvent event) {
-
+		if (cb_bDebito.isSelected() == true) {
+			cb_bCredito.setSelected(false);
+			cb_bCheque.setSelected(false);
+			cb_bDinheiro.setSelected(false);
+		}
 	}
 
 	@FXML
 	void OnActionDinheiro(ActionEvent event) {
+		if (cb_bDinheiro.isSelected() == true) {
+			cb_bCredito.setSelected(false);
+			cb_bDebito.setSelected(false);
+			cb_bCheque.setSelected(false);
+		}
+	}
 
+	public void SalvaItens() {
+		ContasReceber contasReceber = new ContasReceber();
+		boolean erro = false;
+
+		contasReceber.setDescricao("Venda efetuada");
+
+		if (txt_total.getText().replace(" ", "").length() < 1 || Validadores.valorMonetario(txt_total.getText()) < 0) {
+			erro = true;
+			// ctm_valorTotal.show(txt_valorTotal, Side.TOP, 10, 0);
+			txt_total.setStyle(corErro);
+		} else {
+			txt_total.setStyle(corNormal);
+			// ctm_valorTotal.hide();
+			contasReceber.setValorTotal(Validadores.valorMonetario(txt_total.getText()));
+		}
+
+		if (cb_aprazo.isSelected() == false && cb_avista.isSelected() == false) {
+			erro = true;
+			lbl_TipoCondicao.setStyle(corErro);
+			// falta colocar um context menu lá no javafx
+		} else {
+			lbl_TipoCondicao.setStyle(corNormal);
+			String tipo;
+			if (cb_aprazo.isSelected() == true) {
+				tipo = "A PRAZO";
+			} else {
+				tipo = "A VISTA";
+			}
+			contasReceber.setTipo(tipo);
+			contasReceber.setNumParcelas(cbb_parcela.getValue());
+		}
+
+		if (cb_bCheque.isSelected() == false && cb_bCredito.isSelected() == false && cb_bDebito.isSelected() == false
+				&& cb_bDinheiro.isSelected() == false) {
+			erro = true;
+			lbl_BaixarConta1.setStyle(corErro);
+			// falta colocar um context menu lá no javafx
+		} else {
+			lbl_TipoCondicao.setStyle(corNormal);
+			String condicao;
+			caixa = venda.getCaixa();
+			if (cb_bCheque.isSelected() == true) {
+				condicao = "CHEQUE";
+				caixa.setCheque(valorTotal);
+			} else if (cb_bCredito.isSelected() == true) {
+				condicao = "CREDITO";
+				caixa.setCredito(valorTotal);
+			} else if (cb_bDebito.isSelected() == true) {
+				condicao = "DEBITO";
+				caixa.setDebito(valorTotal);
+			} else {
+				condicao = "DINHEIRO";
+				caixa.setDinheiro(valorTotal);
+			}
+			CaixaDAO caixaDAO = new CaixaDAO();
+			caixaDAO.merge(caixa);
+
+			contasReceber.setCondicaoPgto(condicao);
+			contasReceber.setNumParcelas(cbb_parcela.getValue());
+
+		}
+
+		contasReceber.setAbertura(Date.valueOf(LocalDate.now()));
+		int dias = 30;
+		contasReceber.setVencimento(adicionarDias(contasReceber.getAbertura(), dias));
+		if (contasReceber.getCondicaoPgto().equals("DINHEIRO") && contasReceber.getTipo().equals("A PRAZO")
+				|| contasReceber.getCondicaoPgto().equals("CHEQUE") && contasReceber.getTipo().equals("A PRAZO"))
+			contasReceber.setStatus("ABERTO");
+		else if (contasReceber.getNumParcelas() == 1) {
+			contasReceber.setStatus("FECHADO");
+		} else
+			contasReceber.setStatus("FECHADO");
+
+		if (erro == false) {
+			List<ParcelaReceber> parcelasReceber = new ArrayList<ParcelaReceber>();
+			Double auxValor = contasReceber.getValorTotal() / contasReceber.getNumParcelas();
+			Double aux = 0.00;
+			Date pagamento = null;
+			// Caso não for em dinheiro parcelado
+			if (contasReceber.getStatus().equals("FECHADO")) {
+				aux = auxValor;
+				pagamento = Date.valueOf(LocalDate.now());
+			}
+
+			for (int i = 0; i < contasReceber.getNumParcelas(); i++) {
+				Date auxAbertura = contasReceber.getAbertura();
+				Date auxVencimento = contasReceber.getVencimento();
+
+				auxAbertura = adicionarDias(auxAbertura, i * dias);
+				auxVencimento = adicionarDias(auxVencimento, i * dias);
+
+				ParcelaReceber parcelaReceber = new ParcelaReceber();
+				parcelaReceber.setNumeroParcela(i + 1);
+				parcelaReceber.setContasReceber(contasReceber);
+				parcelaReceber.setAbertura(auxAbertura);
+				parcelaReceber.setVencimento(auxVencimento);
+				parcelaReceber.setValor(auxValor);
+				parcelaReceber.setPgto(pagamento);
+				parcelaReceber.setStatus(contasReceber.getStatus());
+				parcelaReceber.setValorPgto(aux);
+				parcelasReceber.add(parcelaReceber);
+			}
+
+			venda.setData(contasReceber.getAbertura());
+			venda.setValorTotal(valorTotal);
+			venda.setStatus("FECHADO");
+
+			vendaDAO.save(venda);
+
+			ItensVendaDAO itensVendaDAO = new ItensVendaDAO();
+			for (ItensVenda ic : venda.getListaItensVenda()) {
+				ic.setVenda(venda);
+				produto = produtoDAO.findById(ic.getProduto().getId());
+				produto.setEstoque(produto.getEstoque() - ic.getQuantidade());
+				produtoDAO.save(produto);
+				itensVendaDAO.save(ic);
+			}
+			contasReceber.setVenda(venda);
+			ContasReceberDAO contasReceberDAO = new ContasReceberDAO();
+			contasReceberDAO.save(contasReceber);
+			ParcelaReceberDAO parcelaPagarDAO = new ParcelaReceberDAO();
+			for (ParcelaReceber pp : parcelasReceber) {
+				parcelaPagarDAO.save(pp);
+			}
+			venda = new Venda();
+			carregaTela(venda);
+			desativaTela();
+			desativaTelaVenda();
+			vb_mapaVenda.setVisible(false);
+			CarregaVenda();
+			FXNotification fxn;
+			fxn = new FXNotification("Venda realizada no valor total de: " + nf.format(valorTotal),
+					FXNotification.NotificationType.INFORMATION);
+			fxn.show();
+
+		} else {
+			FXNotification fxn;
+			fxn = new FXNotification("Por favor, corrija os erros.", FXNotification.NotificationType.ERROR);
+			fxn.show();
+		}
 	}
 
 	@FXML
 	void OnActionFecharVenda(ActionEvent event) {
+		dialogoExe.setTitle("Venda");
+		dialogoExe.getButtonTypes().setAll(btnFechar, btnCancelar);
+		dialogoExe.showAndWait().ifPresent(b -> {
+			if (b == btnFechar) {
+				SalvaItens();
 
+			}
+		});
+	}
+
+	public Date adicionarDias(Date data, int soma) {
+		LocalDate localData = data.toLocalDate();
+		localData = localData.plusDays(soma);
+		return Date.valueOf(localData);
 	}
 
 	@FXML
@@ -418,7 +601,7 @@ public class VendaController implements Initializable {
 			venda.setId(null);
 			venda.setValorTotal(0.00);
 			venda.setComanda(Integer.parseInt(txt_comanda.getText()));
-			Caixa caixa = new Caixa();
+			caixa = new Caixa();
 			CaixaDAO caixaDAO = new CaixaDAO();
 			caixa = caixaDAO.listaCaixasVenda(LoginController.logado);
 			venda.setCaixa(caixa);
@@ -448,9 +631,8 @@ public class VendaController implements Initializable {
 			AdicionarVenda(vv);
 		}
 	}
-	
-	public void verVenda(String comanda)
-	{
+
+	public void verVenda(String comanda) {
 		vb_mapaVenda.setVisible(true);
 		venda = vendaDAO.FindToComanda(Integer.parseInt(comanda));
 		venda.setListaItensVenda(new ArrayList<ItensVenda>());
@@ -462,11 +644,11 @@ public class VendaController implements Initializable {
 		Image image = new Image(imageFile.toURI().toString());
 		JFXButton buttonVenda = new JFXButton(String.valueOf(adicionarVenda.getComanda()), new ImageView(image));
 		buttonVenda.setOnAction(new EventHandler<ActionEvent>() {
-	            @Override
-	            public void handle(ActionEvent event) {
-	                verVenda(buttonVenda.getText());
-	            }
-	        });
+			@Override
+			public void handle(ActionEvent event) {
+				verVenda(buttonVenda.getText());
+			}
+		});
 		buttonVenda.setContentDisplay(ContentDisplay.TOP);
 		buttonVenda.setPrefWidth(98);
 		buttonVenda.setPrefHeight(51);
@@ -505,14 +687,14 @@ public class VendaController implements Initializable {
 		vb_mapaVenda.setVisible(false);
 		desativaTelaVenda();
 	}
-	
+
 	public void desativaTelaVenda() {
 		cbb_categoria.setSelectionModel(null);
 		cbb_Produto.setDisable(true);
 		txt_quantAtual.setText("");
 		txt_adicionarQuantidade.setText("");
 		txt_valorUnitario.setText("");
-		
+
 	}
 
 	public void carregaTela(Venda venda) {
@@ -540,10 +722,8 @@ public class VendaController implements Initializable {
 			obslItensVenda = FXCollections.observableArrayList(venda.getListaItensVenda());
 			tb_produtos.setItems(obslItensVenda);
 		}
-//Comentário para teste
-	} 
-	
-	
+	}
+
 	@FXML
 	void OnMouseClickedProduto(MouseEvent event) {
 		if (tb_produtos.getSelectionModel().getSelectedItem() != null) {
@@ -556,7 +736,7 @@ public class VendaController implements Initializable {
 		this.itensVenda = itensVenda;
 		btn_Remover.setDisable(false);
 	}
-	
+
 	@FXML
 	void OnMouseselectionCategoria(ActionEvent event) {
 		produtoDAO = new ProdutoDAO();

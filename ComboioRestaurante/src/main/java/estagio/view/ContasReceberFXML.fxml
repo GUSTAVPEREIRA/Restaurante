@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
@@ -20,10 +21,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="sp_contasPagar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ContasReceberController">
    <children>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="branco">
          <children>
             <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="548.0" prefWidth="920.0" spacing="30.0">
                <children>
@@ -222,7 +222,7 @@
                                           </ContextMenu>
                                        </contextMenu>
                                     </JFXTextField>
-                                    <JFXCheckBox fx:id="cb_bCredito" onAction="#OnActionBTotal" text="Credito" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bCredito" onAction="#OnActionCredito" text="Credito" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -230,17 +230,17 @@
                                           <Insets left="40.0" />
                                        </HBox.margin>
                                     </JFXCheckBox>
-                                    <JFXCheckBox fx:id="cb_bDebito" onAction="#OnActionBParcial" text="Debito" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bDebito" onAction="#OnActionDebito" text="Debito" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXCheckBox>
-                                    <JFXCheckBox fx:id="cb_bDinheiro" onAction="#OnActionBTotal" text="Dinheiro" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bDinheiro" onAction="#OnActionDinheiro" text="Dinheiro" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXCheckBox>
-                                    <JFXCheckBox fx:id="cb_bCheque" onAction="#OnActionBParcial" text="Cheque" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bCheque" onAction="#OnActionCheque" text="Cheque" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -359,6 +359,12 @@
                </padding>
             </VBox>
          </children>
+         <stylesheets>
+            <URL value="@css/backgroundCadastro.css" />
+            <URL value="@css/fonts.css" />
+            <URL value="@css/textFields.css" />
+            <URL value="@css/tooltip.css" />
+         </stylesheets>
       </AnchorPane>
       <HBox fx:id="hbox_Buscar" alignment="CENTER" maxHeight="533.0" prefHeight="100.0" prefWidth="200.0" stylesheets="@css/fonts.css" visible="false">
          <children>

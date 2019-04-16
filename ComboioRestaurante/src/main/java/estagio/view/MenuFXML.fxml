@@ -18,14 +18,6 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_consultas" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="6.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Consultas">
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
-               </graphic>
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </JFXButton>
             <JFXButton fx:id="btn_vendas" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="6.0" onAction="#onActionVendas" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
                <font>
                   <Font name="System Bold" size="14.0" />
