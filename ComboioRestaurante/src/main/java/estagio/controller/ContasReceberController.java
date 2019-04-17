@@ -16,10 +16,13 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 
+import estagio.dao.CaixaDAO;
 import estagio.dao.ContasReceberDAO;
 import estagio.dao.ParcelaReceberDAO;
+import estagio.model.Caixa;
 import estagio.model.ContasReceber;
 import estagio.model.ParcelaReceber;
+import estagio.model.Usuario;
 import estagio.ui.notifications.FXNotification;
 import estagio.ui.notifications.FXNotification.NotificationType;
 import estagio.view.util.TextFieldFormatterHelper;
@@ -293,8 +296,7 @@ public class ContasReceberController implements Initializable {
 	Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 	ButtonType btnSim = new ButtonType("Sim");
 	ButtonType btnNao = new ButtonType("Não");
-	
-	
+
 	@FXML
 	void OnActionBParcial(ActionEvent event) {
 		if (cb_bParcial.isSelected() == true) {
@@ -405,9 +407,29 @@ public class ContasReceberController implements Initializable {
 				if (b == btnSim) {
 					if (parcelaReceber != null) {
 						ParcelaReceber aux = new ParcelaReceber();
+						CaixaDAO caixaDAO = new CaixaDAO();
+						Usuario usuario = LoginController.logado;
+						Caixa caixa = caixaDAO.listaCaixasVenda(usuario);
+						if (parcelaReceber.getCondicao().equals("CREDITO")) {
+							caixa.setCredito(caixa.getCredito()-parcelaReceber.getValorPgto());
+						}
+						else if(parcelaReceber.getCondicao().equals("DEBITO"))
+						{
+							caixa.setDebito(caixa.getDebito()-parcelaReceber.getValorPgto());
+						}
+						else if(parcelaReceber.getCondicao().equals("DINHEIRO"))
+						{
+							caixa.setDinheiro(caixa.getDinheiro()-parcelaReceber.getValorPgto());
+						}
+						else
+						{
+							caixa.setCheque(caixa.getCheque()-parcelaReceber.getValorPgto());
+						}
+						caixaDAO.merge(caixa);
 						if (parcelaReceber.getIdRef() != null) {
 							if (parcelaReceber.getStatus().equals("FECHADO") != true || valorRestantePagar() <= 0.01) {
 								aux = parcelaReceberDAO.findById(parcelaReceber.getIdRef());
+							
 								aux.setValorPgto(0.00);
 								aux.setPgto(null);
 								aux.setStatus("ABERTO");
@@ -503,28 +525,58 @@ public class ContasReceberController implements Initializable {
 				lbl_BaixarConta.setStyle(corNormal);
 				ctm_lblBaixarConta.hide();
 
-				parcelaReceber.setValorPgto(parcelaReceber.getValorPgto() + ValorPgto);
+				if (cb_bCredito.isSelected() || cb_bCheque.isSelected() || cb_bDebito.isSelected()
+						|| cb_bDinheiro.isSelected()) {
+					Usuario usuario = LoginController.logado;
+					CaixaDAO caixaDAO = new CaixaDAO();
+					Caixa caixa = caixaDAO.listaCaixasVenda(usuario);
+					lbl_BaixarConta1.setStyle(corNormal);
 
-				parcelaReceber.setPgto(Date.valueOf(LocalDate.now()));
-				parcelaReceber.setStatus("FECHADO");
-				parcelaReceberDAO.merge(parcelaReceber);
-				if (valorRestantePagar() > 0.01) {
-					parcelaReceber.setValor(parcelaReceber.getValor() - parcelaReceber.getValorPgto());
-					parcelaReceber.setValorPgto(0.0);
-					parcelaReceber.setStatus("ABERTO");
-					parcelaReceber.setIdRef(parcelaReceber.getId());
-					parcelaReceber.setId(null);
-					parcelaReceberDAO.save(parcelaReceber);
+					if (cb_bCredito.isSelected()) {
+						cb_bCredito.setSelected(false);
+						parcelaReceber.setCondicao("CREDITO");
+						caixa.setCredito(caixa.getCredito()+ValorPgto);
+					} else if (cb_bDebito.isSelected()) {
+						cb_bDebito.setSelected(false);
+						caixa.setDebito(caixa.getDebito()+ValorPgto);
+						parcelaReceber.setCondicao("DEBITO");
+					} else if (cb_bDinheiro.isSelected()) {
+						cb_bDinheiro.setSelected(false);
+						parcelaReceber.setCondicao("DINHEIRO");
+						caixa.setDinheiro(caixa.getDinheiro()+ValorPgto);
+					} else {
+						cb_bCheque.setSelected(false);
+						parcelaReceber.setCondicao("CHEQUE");
+						caixa.setCheque(caixa.getCheque()+ValorPgto);
+					}
+					caixaDAO.merge(caixa);
+					parcelaReceber.setValorPgto(parcelaReceber.getValorPgto() + ValorPgto);
+					parcelaReceber.setPgto(Date.valueOf(LocalDate.now()));
+					parcelaReceber.setStatus("FECHADO");
+					parcelaReceberDAO.merge(parcelaReceber);
+					if (valorRestantePagar() > 0.01) {
+						parcelaReceber.setValor(parcelaReceber.getValor() - parcelaReceber.getValorPgto());
+						parcelaReceber.setValorPgto(0.0);
+						parcelaReceber.setStatus("ABERTO");
+						parcelaReceber.setIdRef(parcelaReceber.getId());
+						parcelaReceber.setId(null);
+						parcelaReceberDAO.save(parcelaReceber);
 
+					}
+					desativaTela();
+					carregaTelaBaixar(contasReceber);
+					FXNotification fxn;
+					fxn = new FXNotification(
+							"Parcela paga: " + parcelaReceber.getNumeroParcela() + " no valor de: "
+									+ nf.format(ValorPgto) + " Restando: " + nf.format(valorRestantePagar()),
+							FXNotification.NotificationType.INFORMATION);
+					fxn.show();
+				} else {
+					lbl_BaixarConta1.setStyle(corErro);
+					FXNotification fxn;
+					fxn = new FXNotification("Informe os dados corretamente.", FXNotification.NotificationType.ERROR);
+					fxn.show();
 				}
-				desativaTela();
-				carregaTelaBaixar(contasReceber);
-				FXNotification fxn;
-				fxn = new FXNotification(
-						"Parcela paga: " + parcelaReceber.getNumeroParcela() + " no valor de: " + nf.format(ValorPgto)
-								+ " Restando: " + nf.format(valorRestantePagar()),
-						FXNotification.NotificationType.INFORMATION);
-				fxn.show();
 
 			} else {
 				ctm_lblBaixarConta.show(lbl_BaixarConta, Side.RIGHT, 10, 0);

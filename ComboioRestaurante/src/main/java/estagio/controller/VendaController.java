@@ -461,7 +461,7 @@ public class VendaController implements Initializable {
 			contasReceber.setTipo(tipo);
 			contasReceber.setNumParcelas(cbb_parcela.getValue());
 		}
-
+		caixa = venda.getCaixa();
 		if (cb_bCheque.isSelected() == false && cb_bCredito.isSelected() == false && cb_bDebito.isSelected() == false
 				&& cb_bDinheiro.isSelected() == false) {
 			erro = true;
@@ -470,28 +470,26 @@ public class VendaController implements Initializable {
 		} else {
 			lbl_TipoCondicao.setStyle(corNormal);
 			String condicao;
-			caixa = venda.getCaixa();
+
 			if (cb_bCheque.isSelected() == true) {
 				condicao = "CHEQUE";
-				caixa.setCheque(valorTotal);
+				caixa.setCheque(caixa.getCheque()+valorTotal);
 			} else if (cb_bCredito.isSelected() == true) {
 				condicao = "CREDITO";
-				caixa.setCredito(valorTotal);
+				caixa.setCredito(caixa.getCredito()+valorTotal);
 			} else if (cb_bDebito.isSelected() == true) {
 				condicao = "DEBITO";
-				caixa.setDebito(valorTotal);
+				caixa.setDebito(caixa.getDebito()+valorTotal);
 			} else {
 				condicao = "DINHEIRO";
-				caixa.setDinheiro(valorTotal);
+				caixa.setDinheiro(caixa.getDinheiro()+valorTotal);
 			}
-			CaixaDAO caixaDAO = new CaixaDAO();
-			caixaDAO.merge(caixa);
 
 			contasReceber.setCondicaoPgto(condicao);
 			contasReceber.setNumParcelas(cbb_parcela.getValue());
 
 		}
-
+		CaixaDAO caixaDAO = new CaixaDAO();
 		contasReceber.setAbertura(Date.valueOf(LocalDate.now()));
 		int dias = 30;
 		contasReceber.setVencimento(adicionarDias(contasReceber.getAbertura(), dias));
@@ -500,8 +498,9 @@ public class VendaController implements Initializable {
 			contasReceber.setStatus("ABERTO");
 		else if (contasReceber.getNumParcelas() == 1) {
 			contasReceber.setStatus("FECHADO");
-		} else
+		} else {
 			contasReceber.setStatus("FECHADO");
+		}
 
 		if (erro == false) {
 			List<ParcelaReceber> parcelasReceber = new ArrayList<ParcelaReceber>();
@@ -512,6 +511,7 @@ public class VendaController implements Initializable {
 			if (contasReceber.getStatus().equals("FECHADO")) {
 				aux = auxValor;
 				pagamento = Date.valueOf(LocalDate.now());
+				caixaDAO.merge(caixa);
 			}
 
 			for (int i = 0; i < contasReceber.getNumParcelas(); i++) {
@@ -523,6 +523,7 @@ public class VendaController implements Initializable {
 
 				ParcelaReceber parcelaReceber = new ParcelaReceber();
 				parcelaReceber.setNumeroParcela(i + 1);
+				parcelaReceber.setCondicao(contasReceber.getCondicaoPgto());
 				parcelaReceber.setContasReceber(contasReceber);
 				parcelaReceber.setAbertura(auxAbertura);
 				parcelaReceber.setVencimento(auxVencimento);
