@@ -38,6 +38,7 @@ public class Venda implements Serializable {
 	private int comanda;
 	@Column(name = "vend_status", nullable = false)
 	private String status;
+
 	public String getStatus() {
 		return status;
 	}
@@ -59,7 +60,6 @@ public class Venda implements Serializable {
 	@OneToMany(mappedBy = "venda")
 	private List<ItensVenda> listaItensVenda;
 
-	
 	public Venda() {
 		listaItensVenda = new ArrayList<ItensVenda>();
 		id = null;

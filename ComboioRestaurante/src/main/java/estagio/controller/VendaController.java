@@ -285,6 +285,7 @@ public class VendaController implements Initializable {
 	List<TipoVenda> listTipoVenda = new ArrayList<TipoVenda>();
 	List<Venda> listVenda = new ArrayList<Venda>();
 	List<JFXButton> listbutton = new ArrayList<JFXButton>();
+	List<Cliente> listaCliente;
 	NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 	DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	String corErro = "-fx-border-color: red;";
@@ -306,6 +307,7 @@ public class VendaController implements Initializable {
 	private ObservableList<Produto> obslProduto;
 	private ObservableList<ItensVenda> obslItensVenda;
 	private ObservableList<TipoVenda> obslTipoVenda;
+	private ObservableList<Cliente> obslCliente;
 	Double valorTotal;
 
 	public void iniciaDAO() {
@@ -473,16 +475,16 @@ public class VendaController implements Initializable {
 
 			if (cb_bCheque.isSelected() == true) {
 				condicao = "CHEQUE";
-				caixa.setCheque(caixa.getCheque()+valorTotal);
+				caixa.setCheque(caixa.getCheque() + valorTotal);
 			} else if (cb_bCredito.isSelected() == true) {
 				condicao = "CREDITO";
-				caixa.setCredito(caixa.getCredito()+valorTotal);
+				caixa.setCredito(caixa.getCredito() + valorTotal);
 			} else if (cb_bDebito.isSelected() == true) {
 				condicao = "DEBITO";
-				caixa.setDebito(caixa.getDebito()+valorTotal);
+				caixa.setDebito(caixa.getDebito() + valorTotal);
 			} else {
 				condicao = "DINHEIRO";
-				caixa.setDinheiro(caixa.getDinheiro()+valorTotal);
+				caixa.setDinheiro(caixa.getDinheiro() + valorTotal);
 			}
 
 			contasReceber.setCondicaoPgto(condicao);
@@ -503,6 +505,11 @@ public class VendaController implements Initializable {
 		}
 
 		if (erro == false) {
+			
+			if (cliente != null) {
+				venda.setCliente(cliente);
+			}
+			
 			List<ParcelaReceber> parcelasReceber = new ArrayList<ParcelaReceber>();
 			Double auxValor = contasReceber.getValorTotal() / contasReceber.getNumParcelas();
 			Double aux = 0.00;
@@ -513,7 +520,7 @@ public class VendaController implements Initializable {
 				pagamento = Date.valueOf(LocalDate.now());
 				caixaDAO.merge(caixa);
 			}
-
+		
 			for (int i = 0; i < contasReceber.getNumParcelas(); i++) {
 				Date auxAbertura = contasReceber.getAbertura();
 				Date auxVencimento = contasReceber.getVencimento();
@@ -565,7 +572,7 @@ public class VendaController implements Initializable {
 			fxn = new FXNotification("Venda realizada no valor total de: " + nf.format(valorTotal),
 					FXNotification.NotificationType.INFORMATION);
 			fxn.show();
-
+			inicializaComboBox();
 		} else {
 			FXNotification fxn;
 			fxn = new FXNotification("Por favor, corrija os erros.", FXNotification.NotificationType.ERROR);
@@ -637,6 +644,12 @@ public class VendaController implements Initializable {
 		vb_mapaVenda.setVisible(true);
 		venda = vendaDAO.FindToComanda(Integer.parseInt(comanda));
 		venda.setListaItensVenda(new ArrayList<ItensVenda>());
+		cliente = null;
+		listaCliente = new ArrayList<Cliente>();
+		listaCliente = clienteDAO.listar();
+		listaCliente.add(null);
+		obslCliente = FXCollections.observableArrayList(listaCliente);
+		cbb_cliente.setItems(obslCliente);
 	}
 
 	public void AdicionarVenda(Venda adicionarVenda) {
@@ -690,12 +703,20 @@ public class VendaController implements Initializable {
 	}
 
 	public void desativaTelaVenda() {
-		cbb_categoria.setSelectionModel(null);
+		cbb_categoria.getSelectionModel().select(-1);
+		cbb_cliente.getSelectionModel().select(-1);
+		cbb_Produto.getSelectionModel().select(-1);
 		cbb_Produto.setDisable(true);
 		txt_quantAtual.setText("");
 		txt_adicionarQuantidade.setText("");
 		txt_valorUnitario.setText("");
-
+		txt_total.setText("");
+		cb_avista.setSelected(false);
+		cb_aprazo.setSelected(false);
+		cb_bCredito.setSelected(false);
+		cb_bDebito.setSelected(false);
+		cb_bDinheiro.setSelected(false);
+		cb_bCheque.setSelected(false);
 	}
 
 	public void carregaTela(Venda venda) {
@@ -756,7 +777,13 @@ public class VendaController implements Initializable {
 
 	@FXML
 	void OnMouseselectionCliente(ActionEvent event) {
-
+		if (cbb_cliente.getSelectionModel().getSelectedIndex() != -1) {
+			try {
+				cliente = cbb_cliente.getSelectionModel().getSelectedItem();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
 	}
 
 	@FXML
@@ -789,11 +816,12 @@ public class VendaController implements Initializable {
 		listCategoria = categoriaDAO.listar("");
 		obslCategoria = FXCollections.observableArrayList(listCategoria);
 		cbb_categoria.setItems(obslCategoria);
+		cbb_categoria.getSelectionModel().select(-1);
 		// Combo box produto
 		listProduto = produtoDAO.listar("");
 		obslProduto = FXCollections.observableArrayList(listProduto);
 		cbb_Produto.setItems(obslProduto);
-
+		cbb_Produto.getSelectionModel().select(-1);
 		// Combo box TipoVenda
 		listTipoVenda = tipoVendaDAO.listar("");
 		obslTipoVenda = FXCollections.observableArrayList(listTipoVenda);
@@ -818,7 +846,6 @@ public class VendaController implements Initializable {
 		CarregaVenda();
 		regex();
 	}
-
 	private void InitComboBoxCategoria() {
 		autoCompletePopupCategoria.getSuggestions().addAll(cbb_categoria.getItems());
 

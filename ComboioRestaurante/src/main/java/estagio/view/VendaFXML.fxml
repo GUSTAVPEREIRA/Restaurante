@@ -382,7 +382,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="cbb_cliente" editable="true" focusColor="#5fcda3" onAction="#OnMouseselectionCliente" prefHeight="43.0" prefWidth="522.0" unFocusColor="BLACK" />
+                  <JFXComboBox fx:id="cbb_cliente" focusColor="#5fcda3" onAction="#OnMouseselectionCliente" prefHeight="43.0" prefWidth="522.0" unFocusColor="BLACK" />
                </children>
                <opaqueInsets>
                   <Insets />
