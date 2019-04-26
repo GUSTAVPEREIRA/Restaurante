@@ -30,6 +30,7 @@
 		<class>estagio.model.ItensCompra</class>
 		<class>estagio.model.ItensVenda</class>
 		<class>estagio.model.MovimentoEstoque</class>
+		<class>estagio.model.Promocao</class>
 		<!-- Aqui são listadas todas as entidades -->
 
 		<properties>

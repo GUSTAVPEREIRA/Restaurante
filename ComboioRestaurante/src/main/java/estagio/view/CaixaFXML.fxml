@@ -42,45 +42,45 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="100.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo" textFill="WHITE">
+                  <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="120.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnNovo" text="Cria uma nova tela, removendo os dados da anterior." />
                      </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Editar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionEditar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Ver" textFill="WHITE">
+                  <JFXButton fx:id="btn_Editar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionEditar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Ver" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnNovo1" text="Cria uma nova tela, removendo os dados da anterior." />
                      </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="100.0" ripplerFill="#feff00" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
+                  <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#feff00" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="REPEAT" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="REPEAT" size="18" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnExcluir1" text="Exclui uma cidade." />
                      </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
+                  <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnSair" text="Exclui uma cidade." />
@@ -313,7 +313,7 @@
                            <contextMenu>
                               <ContextMenu fx:id="ctm_valorAbertura">
                                  <items>
-                                    <MenuItem fx:id="mi_valorAbertura" mnemonicParsing="false" text="Por favor, insira o preço corretamente." />
+                                    <MenuItem fx:id="mi_valorAbertura" mnemonicParsing="false" text="Insira o valor de abertura corretamente." />
                                  </items>
                               </ContextMenu>
                            </contextMenu>

@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import estagio.model.ContasReceber;
-import estagio.model.ContasReceber;
-import estagio.model.ParcelaReceber;
 import estagio.model.ParcelaReceber;
 import estagio.persistence.JPAUtil;
 
@@ -18,7 +16,7 @@ public class ParcelaReceberDAO extends GenericDAO<ParcelaReceber> {
 		super(ParcelaReceber.class);
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	@Override
 	public Long getID(ParcelaReceber obj) {
 		return obj.getId();

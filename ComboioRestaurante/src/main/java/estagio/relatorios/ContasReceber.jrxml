@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0-2ed8dfabb690ff337a5797129f2cd92902b0c87b  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContasReceber" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81fcd7fc-6289-4ddb-93aa-8ee629d2314b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Restaurante"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT p.cpr_id,p.cpr_abertura, p.cpr_vencimento,p.cpr_tipocondicao, p.cpr_numeroparcela,
+p.cpr_pgto, p.cpr_status, p.cpr_valor, p.cpr_valorpgto,r.cp_valortotal, 
+cpr_vencimento, contasreceber_cr_id,u.usu_nome
+	FROM parcelareceber AS p 
+	JOIN contasreceber AS r ON p.contasreceber_cr_id = r.cr_id
+	JOIN venda AS v ON v.vend_id = r.venda_vend_id
+	JOIN caixa AS c ON c.caixa_id = v.caixa_caixa_id 
+	JOIN usuario AS u ON u.usu_id = c.usuario_usu_id
+	GROUP BY p.cpr_id,r.cr_id,u.usu_nome]]>
+	</queryString>
+	<field name="cpr_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_abertura" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_abertura"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_vencimento" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_vencimento"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_tipocondicao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_tipocondicao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_numeroparcela" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_numeroparcela"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_pgto" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_pgto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_valor" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_valor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cpr_valorpgto" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cpr_valorpgto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="cp_valortotal" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="cp_valortotal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="contasreceber"/>
+	</field>
+	<field name="contasreceber_cr_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="contasreceber_cr_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="parcelareceber"/>
+	</field>
+	<field name="usu_nome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="usu_nome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="usuario"/>
+	</field>
+	<variable name="ValorTotal" class="java.math.BigDecimal" incrementType="Group" incrementGroup="cpr_id" calculation="Sum">
+		<variableExpression><![CDATA[$F{cpr_valor}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+	</variable>
+	<group name="cpr_id">
+		<groupExpression><![CDATA[$F{cpr_id}]]></groupExpression>
+	</group>
+	<group name="cpr_status">
+		<groupExpression><![CDATA[$F{cpr_status}]]></groupExpression>
+	</group>
+	<group name="cpr_abertura">
+		<groupExpression><![CDATA[$F{cpr_abertura}]]></groupExpression>
+	</group>
+	<group name="cpr_vencimento">
+		<groupExpression><![CDATA[$F{cpr_vencimento}]]></groupExpression>
+	</group>
+	<group name="cpr_tipocondicao">
+		<groupExpression><![CDATA[$F{cpr_tipocondicao}]]></groupExpression>
+	</group>
+	<group name="cpr_valor">
+		<groupExpression><![CDATA[$F{cpr_valor}]]></groupExpression>
+	</group>
+	<group name="cpr_valorpgto">
+		<groupExpression><![CDATA[$F{cpr_valorpgto}]]></groupExpression>
+	</group>
+	<group name="cpr_pgto">
+		<groupExpression><![CDATA[$F{cpr_pgto}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="79" height="79" uuid="d44470fe-b761-42a3-bb9e-07651a926296"/>
+				<imageExpression><![CDATA["logoPosto.png"]]></imageExpression>
+			</image>
+			<frame>
+				<reportElement x="80" y="0" width="475" height="78" uuid="7328a121-542a-46ea-af4e-816bced00507"/>
+				<staticText>
+					<reportElement x="0" y="0" width="475" height="78" uuid="9a470016-6f3d-4d69-ab41-970e7f2b9f74"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="24"/>
+					</textElement>
+					<text><![CDATA[Relatório de contas a Receber]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="47" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="44" uuid="b55a9427-6252-4019-bcbc-e664b26733e9">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<staticText>
+					<reportElement positionType="Float" x="0" y="0" width="29" height="43" uuid="05759fbb-664b-4067-9934-704441c3431d"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="30" y="0" width="79" height="43" uuid="db95d615-4064-4972-843b-ae0c3770727d"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Abertura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="109" y="0" width="80" height="43" uuid="48156f97-fe79-4dc1-b556-d83df18b5392"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Vencimento]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="190" y="0" width="80" height="43" uuid="c4715e0d-7382-49d5-9e34-2d4cba4a631c"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Condição]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="270" y="0" width="80" height="43" uuid="78b340e9-34e4-4f32-b64e-0867efde5bcc"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Status]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="350" y="0" width="80" height="43" uuid="f3f2265b-15ef-480c-a80b-05341b6ac342"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Valor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement positionType="Float" x="429" y="0" width="80" height="43" uuid="afee83ad-4c86-4993-977b-69583a279e46"/>
+					<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Usuário]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="36" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<frame>
+				<reportElement x="0" y="-4" width="555" height="39" uuid="52ca8ef4-1ea0-4cdf-9f79-1e1a7701fef0">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textField>
+					<reportElement x="0" y="0" width="29" height="39" uuid="ff1c8594-62d7-4e03-9f9b-c8e225349942">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cpr_id}]]></textFieldExpression>
+				</textField>
+				<textField pattern="d/MMMM/yyyy">
+					<reportElement x="30" y="0" width="79" height="39" uuid="5eacebd4-178f-480b-90cb-bd711d3b568c"/>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cpr_abertura}]]></textFieldExpression>
+				</textField>
+				<textField pattern="d/MMMM/yyyy">
+					<reportElement x="109" y="0" width="80" height="39" uuid="236c4908-1bbd-43d9-8a84-d62776ac5023">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cpr_vencimento}]]></textFieldExpression>
+				</textField>
+				<textField pattern="d/MMMM/yyyy">
+					<reportElement x="190" y="0" width="80" height="39" uuid="27d97118-c164-4414-b99c-ac54cb88ecd1">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cpr_tipocondicao}]]></textFieldExpression>
+				</textField>
+				<textField pattern="d/MMMM/yyyy">
+					<reportElement x="270" y="0" width="80" height="39" uuid="8b79dea3-48ff-4683-96a4-f6c37fda56b8">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cpr_status}]]></textFieldExpression>
+				</textField>
+				<textField pattern="¤#,##0.00;¤-#,##0.00">
+					<reportElement x="350" y="0" width="80" height="39" uuid="d7a0b144-da5c-446b-9c2f-e03cabb7f153">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+						<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{cpr_valor}]]></textFieldExpression>
+				</textField>
+				<textField pattern="d/MMMM/yyyy">
+					<reportElement x="429" y="0" width="80" height="39" uuid="7dffef22-92d3-4b8f-852e-86858880fbb2">
+						<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					</reportElement>
+					<box>
+						<pen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{usu_nome}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="39" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="61" splitType="Stretch">
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="429" y="0" width="80" height="39" uuid="4497600d-b254-4283-ac0b-ecda392c8ce5">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{ValorTotal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="0" width="80" height="39" uuid="4b5d60c4-d6b1-408e-8475-034c6ce1ac4d">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor total:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

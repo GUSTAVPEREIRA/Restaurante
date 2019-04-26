@@ -24,6 +24,7 @@ import estagio.model.Usuario;
 import estagio.ui.notifications.FXNotification;
 import estagio.ui.notifications.FXNotification.NotificationType;
 import estagio.view.util.TextFieldFormatterHelper;
+import estagio.view.util.Validadores;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -292,13 +293,14 @@ public class CaixaController implements Initializable {
 	Usuario fechadoAutorizado;
 	private CaixaDAO caixaDAO;
 	private Caixa caixa;
-	String corErro = "-fx-border-color: red;";
+	String corErro = "-fx-border-color:red;";
 	String corNormal = "-fx-border-color:white";
 	DateTimeFormatter horaFormat = DateTimeFormatter.ofPattern("HH:mm:ss");
 	DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private ObservableList<Caixa> obslCaixa;
 	private List<Caixa> listaCaixa;
 	private Usuario usuarioAutorizou;
+	NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 
 	@FXML
 	void OnActionConfirmar(ActionEvent event) {
@@ -356,12 +358,12 @@ public class CaixaController implements Initializable {
 	public void verificaCaixaAberto() {
 		caixaDAO = new CaixaDAO();
 		if (caixa != null) {
-			txt_cartaoCredito.setText(String.valueOf(caixa.getCredito()));
-			txt_cartaoDebito.setText(String.valueOf(caixa.getDebito()));
-			txt_cheque.setText(String.valueOf(caixa.getCheque()));
-			txt_dinheiro.setText(String.valueOf(caixa.getDinheiro()));
-			txt_valorAtual.setText((String.valueOf(caixa.somaDinheiro())));
-			txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
+			txt_cartaoCredito.setText(nf.format(caixa.getCredito()));
+			txt_cartaoDebito.setText(nf.format(caixa.getDebito()));
+			txt_cheque.setText(nf.format(caixa.getCheque()));
+			txt_dinheiro.setText(nf.format(caixa.getDinheiro()));
+			txt_valorAtual.setText(nf.format(caixa.somaDinheiro()));
+			txt_valorAbertura.setText(nf.format(caixa.getAbertura()));
 			txt_dataAbertura.setValue(caixa.getDataAbertura().toLocalDate());
 			txt_horaAbertura.setText(caixa.getHoraAbertura().toString());
 			if (caixa.getStatus().equals("ABERTO") == true) {
@@ -381,21 +383,33 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	void OnActionAbrir(ActionEvent event) {
+		FXNotification fxn;
 		boolean erro = false;
 		caixa = new Caixa();
-		if (txt_valorAbertura.getText().equals("") == true || Double.parseDouble(txt_valorAbertura.getText()) < 0) {
+		Double valorAbertura = -1.00;
+		if (txt_valorAbertura.getText().equals("") != true) {
+			valorAbertura = Validadores.valorMonetario(txt_valorAbertura.getText());
+		}
+		if (txt_valorAbertura.getText().equals("") == true || valorAbertura < 0) {
 			erro = true;
 			ctm_valorAbertura.show(txt_valorAbertura, Side.RIGHT, 10, 0);
 			txt_valorAbertura.setStyle(corErro);
-		} else {
+		}
+		else
+		{
+			ctm_valorAbertura.hide();
+			txt_valorAbertura.setStyle(corNormal);
+		}
+		if (erro != true) {
+
 			ctm_valorAbertura.hide();
 			erro = false;
-			FXNotification fxn;
+		
 			txt_dataAbertura.setValue(LocalDate.now());
 			txt_horaAbertura.setText(LocalDateTime.now().format(horaFormat));
 			txt_valorAbertura.setStyle(corNormal);
-			caixa.setAbertura(Double.parseDouble(txt_valorAbertura.getText()));
-			caixa.setFechamento(Double.parseDouble(txt_valorAbertura.getText()));
+			caixa.setAbertura(valorAbertura);
+			caixa.setFechamento(valorAbertura);
 			caixa.setCheque(0.00);
 			caixa.setCredito(0.00);
 			caixa.setDebito(0.00);
@@ -406,14 +420,13 @@ public class CaixaController implements Initializable {
 			caixa.setUsuario(LoginController.logado);
 			caixa.setAberturaAutorizado(usuarioAutorizou);
 			btn_abrirCaixa.setDisable(true);
-
 			btn_fecharCaixa.setDisable(false);
-			txt_cartaoCredito.setText(String.valueOf(caixa.getCredito()));
-			txt_cartaoDebito.setText(String.valueOf(caixa.getDebito()));
-			txt_cheque.setText(String.valueOf(caixa.getCheque()));
-			txt_dinheiro.setText(String.valueOf(caixa.getDinheiro()));
-			txt_valorAtual.setText((String.valueOf(caixa.somaDinheiro())));
-			txt_valorAbertura.setText(String.valueOf(caixa.getAbertura()));
+			txt_cartaoCredito.setText(nf.format(caixa.getCredito()));
+			txt_cartaoDebito.setText(nf.format(caixa.getDebito()));
+			txt_cheque.setText(nf.format(caixa.getCheque()));
+			txt_dinheiro.setText(nf.format(caixa.getDinheiro()));
+			txt_valorAtual.setText((nf.format(caixa.somaDinheiro())));
+			txt_valorAbertura.setText(nf.format(caixa.getAbertura()));
 			txt_valorAbertura.setDisable(true);
 
 			fxn = new FXNotification(
@@ -424,9 +437,11 @@ public class CaixaController implements Initializable {
 			caixa.setUsuario(LoginController.logado);
 			caixaDAO.persist(caixa);
 		}
-
-		if (erro == false) {
-
+		else
+		{
+			fxn =  new FXNotification("Informe os dados corretamente",
+					FXNotification.NotificationType.ERROR);
+			fxn.show();
 		}
 	}
 
@@ -441,7 +456,6 @@ public class CaixaController implements Initializable {
 		tc_valor.setCellValueFactory((data) -> {
 			Double temp = data.getValue().getAbertura() + data.getValue().getCheque() + data.getValue().getCredito()
 					+ data.getValue().getDebito() + data.getValue().getDinheiro();
-			NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 			return new SimpleStringProperty(nf.format(temp));
 		});
 		listaCaixa = caixaDAO.listaCaixas();
@@ -494,7 +508,7 @@ public class CaixaController implements Initializable {
 		txt_cheque.setText("");
 		txt_dinheiro.setText("");
 		txt_valorAtual.setText("");
-		txt_valorAbertura.setText("");
+		txt_valorAbertura.setText("R$ 0.00");
 		txt_valorAbertura.setDisable(false);
 		txt_dataAbertura.setValue(null);
 		txt_horaAbertura.setText("");
@@ -511,7 +525,7 @@ public class CaixaController implements Initializable {
 		txt_cheque.setText("");
 		txt_dinheiro.setText("");
 		txt_valorAtual.setText("");
-		txt_valorAbertura.setText("");
+		txt_valorAbertura.setText("R$ 0.00");
 		txt_valorAbertura.setDisable(false);
 		txt_dataAbertura.setValue(null);
 		txt_horaAbertura.setText("");
@@ -520,7 +534,6 @@ public class CaixaController implements Initializable {
 		caixa.setHoraFechamento(Time.valueOf(LocalDateTime.now().format(horaFormat)));
 		caixa.setStatus("FECHADO");
 		caixa.setFechamentoAutorizado(usuarioAutorizou);
-		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
 		fxn = new FXNotification("Caixa fechado no dia "
 				+ String.valueOf(caixa.getDataFechamento().toLocalDate().format(dataFormat)) + "" + " as "
 				+ String.valueOf(
@@ -571,8 +584,6 @@ public class CaixaController implements Initializable {
 		} else {
 			txt_valorAbertura.setDisable(true);
 		}
-		NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-
 		txt_valorAbertura.setStyle(corNormal);
 		txt_cartaoCredito.setText(nf.format(caixa.getCredito()));
 		txt_cartaoDebito.setText(nf.format(caixa.getDebito()));
@@ -598,6 +609,7 @@ public class CaixaController implements Initializable {
 	@FXML
 	void OnActionEditar(ActionEvent event) {
 		btn_Editar.setDisable(true);
+		vb_caixaInicial.setDisable(true);
 		hbox_login.setVisible(true);
 		verificaCaixaAberto();
 

@@ -121,10 +121,38 @@ public class CategoriaController implements Initializable {
 		categoriaDAO = new CategoriaDAO();
 		// \\u00C0-\\u00FF São os caracteres unicodes latinos que podem ser encontrados
 		// http://www.fileformat.info/info/unicode/block/latin_supplement/list.htm
-		txt_nome.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_filtro.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_filtro.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaCategoria = new ArrayList<>();
+		ap_categoria.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (ap_busca.isVisible() == true) {
+					limpaBuscas();
+					txt_nome.setFocusTraversable(true);
+				} else {
+					ap_categoria.setVisible(false);
+				}
 
+			}
+			if (event.getCode().equals(KeyCode.F1) && ap_busca.isVisible() == false) {
+				desativaTela();
+			}
+			if (event.getCode().equals(KeyCode.F2) && ap_busca.isVisible() == false) {
+				grava();
+			}
+			if (event.getCode().equals(KeyCode.F3) && ap_busca.isVisible() == false
+					&& btn_Excluir.isDisable() == false) {
+				excluir();
+			}
+			if (event.getCode().equals(KeyCode.F4) && ap_busca.isVisible() == false
+					&& btn_Cancelar.isDisable() == false) {
+				desativaTela();
+			}
+
+		});
+		txt_nome.setFocusTraversable(true);
 	}
 
 	public void desativaTela() {
@@ -141,8 +169,7 @@ public class CategoriaController implements Initializable {
 		btn_Cancelar.setDisable(false);
 	}
 
-	@FXML
-	private void OnActionGravar(ActionEvent event) {
+	public void grava() {
 		Boolean erro = false;
 
 		if (txt_nome.getText().equals("") == true || txt_nome.getText().length() < 4) {
@@ -180,7 +207,12 @@ public class CategoriaController implements Initializable {
 	}
 
 	@FXML
-	private void OnActionExcluir(ActionEvent event) {
+	private void OnActionGravar(ActionEvent event) {
+		grava();
+	}
+
+	public void excluir() {
+
 		categoriaDAO = new CategoriaDAO();
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
@@ -192,15 +224,31 @@ public class CategoriaController implements Initializable {
 			if (b == btnSim) {
 				if (txt_codigo.getText().equals("") != true && !txt_codigo.getText().isEmpty()) {
 					categoria.setId(Long.parseLong(txt_codigo.getText()));
-					categoriaDAO.Deletar(categoria);
-					FXNotification fxn;
-					fxn = new FXNotification("Categoria de" + categoria.getNome() + "foi excluida.",
-							FXNotification.NotificationType.INFORMATION);
-					fxn.show();
+					Boolean catExcluida = categoriaDAO.Deletar(categoria);
+					if (catExcluida == true) {
+						FXNotification fxn;
+						fxn = new FXNotification("Categoria de " + categoria.getNome() + " foi excluida.",
+								FXNotification.NotificationType.INFORMATION);
+						fxn.show();
+						desativaTela();
+					} else {
+						FXNotification fxn;
+						fxn = new FXNotification(
+								"Não foi possível excluir, pois a categoria pertence a produtos cadastrados.",
+								FXNotification.NotificationType.WARNING);
+						fxn.show();
+					}
+
 				}
-				desativaTela();
+
 			}
 		});
+
+	}
+
+	@FXML
+	private void OnActionExcluir(ActionEvent event) {
+		excluir();
 	}
 
 	@FXML
@@ -224,6 +272,7 @@ public class CategoriaController implements Initializable {
 		txt_codigo.setText("" + categoria.getId());
 		limpaBuscas();
 		ativaTela();
+		txt_nome.setFocusTraversable(true);
 	}
 
 	public Categoria getCategoria() {
@@ -273,12 +322,14 @@ public class CategoriaController implements Initializable {
 	@FXML
 	private void OnActionVoltar(ActionEvent event) {
 		limpaBuscas();
+		txt_nome.setFocusTraversable(true);
 	}
 
 	public void limpaBuscas() {
 		listaCategoria.clear();
 		tb_categoria.getItems().clear();
 		ap_busca.setVisible(false);
+		ap_busca.setFocusTraversable(false);
 		txt_filtro.setText("");
 	}
 }

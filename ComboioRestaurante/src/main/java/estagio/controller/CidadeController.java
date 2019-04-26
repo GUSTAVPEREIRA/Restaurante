@@ -154,6 +154,32 @@ public class CidadeController implements Initializable {
 		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaCidade = new ArrayList();
+		ap_cidade.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (ap_busca.isVisible() == true) {
+					limpaBuscas();
+					txt_nome.setFocusTraversable(true);
+				} else {
+					ap_cidade.setVisible(false);
+				}
+
+			}
+			if (event.getCode().equals(KeyCode.F1) && ap_busca.isVisible() == false) {
+				desativaTela();
+			}
+			if (event.getCode().equals(KeyCode.F2) && ap_busca.isVisible() == false) {
+				gravar();
+			}
+			if (event.getCode().equals(KeyCode.F3) && ap_busca.isVisible() == false
+					&& btn_Excluir.isDisable() == false) {
+				excluir();
+			}
+			if (event.getCode().equals(KeyCode.F4) && ap_busca.isVisible() == false
+					&& btn_Cancelar.isDisable() == false) {
+				desativaTela();
+			}
+
+		});
 	}
 
 	public void ativaTela() {
@@ -182,12 +208,10 @@ public class CidadeController implements Initializable {
 
 	@FXML
 	private void OnActionNovo(ActionEvent event) {
-
 		desativaTela();
 	}
 
-	@FXML
-	private void OnActionGravar(ActionEvent event) {
+	public void gravar() {
 		Boolean erro = false;
 		cidade = new Cidade();
 		cidadeDAO = new CidadeDAO();
@@ -201,9 +225,7 @@ public class CidadeController implements Initializable {
 			cidade.setNome(txt_nome.getText());
 			ctm_nome.hide();
 			txt_nome.setStyle(corNormal);
-
 		}
-
 		if (cbb_estId.getSelectionModel().getSelectedItem() == null) {
 			erro = true;
 			ctm_estado.show(cbb_estId, Side.RIGHT, 10, 0);
@@ -223,19 +245,21 @@ public class CidadeController implements Initializable {
 			if (cidade.getId() == 0) {
 				cidade.setId(null);
 				cidadeDAO.inserir(cidade);
-
 				fxn = new FXNotification("Nova cidade: " + cidade.getNome() + " inserida.",
 						FXNotification.NotificationType.INFORMATION);
-
 			} else {
 				cidadeDAO.alterar(cidade);
 				fxn = new FXNotification("Cidade: " + cidade.getNome() + " alterada.",
 						FXNotification.NotificationType.INFORMATION);
 			}
 			fxn.show();
-
 			desativaTela();
 		}
+	}
+
+	@FXML
+	private void OnActionGravar(ActionEvent event) {
+		gravar();
 	}
 
 	private void InitComboBoxEst() {
@@ -287,8 +311,7 @@ public class CidadeController implements Initializable {
 		});
 	}
 
-	@FXML
-	private void OnActionExcluir(ActionEvent event) {
+	public void excluir() {
 		cidadeDAO = new CidadeDAO();
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
@@ -310,13 +333,18 @@ public class CidadeController implements Initializable {
 						desativaTela();
 					} else {
 						fxn = new FXNotification("Cidade de " + cidade.getNome() + " não pode ser excluida.",
-								FXNotification.NotificationType.INFORMATION);
+								FXNotification.NotificationType.WARNING);
 						fxn.show();
 						desativaTela();
 					}
 				}
 			}
 		});
+	}
+
+	@FXML
+	private void OnActionExcluir(ActionEvent event) {
+		excluir();
 	}
 
 	@FXML
@@ -337,6 +365,7 @@ public class CidadeController implements Initializable {
 		cbb_estId.getSelectionModel().select(cidade.getEstado());
 		limpaBuscas();
 		ativaTela();
+		txt_nome.setFocusTraversable(true);
 	}
 
 	public Cidade getCidade() {
@@ -381,6 +410,7 @@ public class CidadeController implements Initializable {
 	@FXML
 	private void OnActionVoltar(ActionEvent event) {
 		limpaBuscas();
+		txt_nome.setFocusTraversable(true);
 	}
 
 	public void limpaBuscas() {
