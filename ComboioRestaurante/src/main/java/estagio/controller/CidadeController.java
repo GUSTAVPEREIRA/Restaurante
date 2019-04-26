@@ -358,7 +358,7 @@ public class CidadeController implements Initializable {
 	}
 
 	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
+		this.cidade = cidade; 
 		txt_nome.setText(cidade.getNome());
 		txt_codigo.setText("" + cidade.getId());
 		cbb_estId.getSelectionModel().select(1);
