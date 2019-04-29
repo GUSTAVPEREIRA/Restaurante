@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="500.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.LoginController">
+<AnchorPane id="AnchorPane" fx:id="ap_login" prefHeight="400.0" prefWidth="500.0" styleClass="AnchorPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.LoginController">
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -32,7 +32,7 @@
             </Lighting>
          </effect>
       </ImageView>
-      <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" layoutX="118.0" layoutY="200.0" maxWidth="295.0" minWidth="295.0" prefHeight="34.0" prefWidth="295.0" promptText="Login" unFocusColor="BLACK">
+      <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" layoutX="118.0" layoutY="200.0" maxWidth="295.0" minWidth="295.0" onKeyPressed="#OnKeyPressedEnter" prefHeight="34.0" prefWidth="295.0" promptText="Login" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -54,7 +54,7 @@
             <Image url="@resources/cadeado.png" />
          </image>
       </ImageView>
-      <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" layoutX="118.0" layoutY="253.0" maxWidth="295.0" minWidth="295.0" prefHeight="34.0" prefWidth="295.0" promptText="Senha" unFocusColor="BLACK">
+      <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" layoutX="118.0" layoutY="253.0" maxWidth="295.0" minWidth="295.0" onKeyPressed="#OnKeyPressedEnter" prefHeight="34.0" prefWidth="295.0" promptText="Senha" unFocusColor="BLACK">
          <font>
             <Font size="14.0" />
          </font>
@@ -66,7 +66,7 @@
             </ContextMenu>
          </contextMenu>
       </JFXPasswordField>
-      <JFXButton fx:id="btn_login" buttonType="RAISED" contentDisplay="RIGHT" layoutX="190.0" layoutY="311.0" onAction="#ActionLogin" prefHeight="31.0" prefWidth="100.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Entrar">
+      <JFXButton fx:id="btn_login" buttonType="RAISED" contentDisplay="RIGHT" layoutX="160.0" layoutY="311.0" onAction="#ActionLogin" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Entrar">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -78,15 +78,15 @@
             </ContextMenu>
          </contextMenu>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="UNLOCK" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="UNLOCK" size="18" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="300.0" layoutY="311.0" onAction="#ActionSair" prefHeight="31.0" prefWidth="100.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+      <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="290.0" layoutY="311.0" onAction="#ActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
          </graphic>
       </JFXButton>
    </children>

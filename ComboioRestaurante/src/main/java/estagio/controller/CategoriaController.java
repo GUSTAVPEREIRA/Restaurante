@@ -204,6 +204,14 @@ public class CategoriaController implements Initializable {
 			fxn.show();
 			desativaTela();
 		}
+		else
+		{
+			FXNotification fxn;
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
+					FXNotification.NotificationType.ERROR);
+			fxn.show();
+			
+		}
 	}
 
 	@FXML

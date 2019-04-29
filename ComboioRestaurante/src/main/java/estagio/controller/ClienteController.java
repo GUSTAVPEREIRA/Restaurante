@@ -405,8 +405,7 @@ public class ClienteController implements Initializable {
 		desativaTela();
 	}
 
-	@FXML
-	void OnActionExcluir(ActionEvent event) {
+	public void excluir() {
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
 		ButtonType btnNao = new ButtonType("Não");
@@ -430,12 +429,16 @@ public class ClienteController implements Initializable {
 	}
 
 	@FXML
+	void OnActionExcluir(ActionEvent event) {
+		excluir();
+	}
+
+	@FXML
 	void OnActionFiltro(ActionEvent event) {
 		carregaTela(txt_filtro.getText());
 	}
 
-	@FXML
-	void OnActionGravar(ActionEvent event) {
+	public void gravar() {
 		boolean erro = false;
 
 		if (cb_fisica.isSelected() == false && cb_juridica.isSelected() == false) {
@@ -586,21 +589,44 @@ public class ClienteController implements Initializable {
 
 		if (erro != true) {
 			FXNotification fxn;
+			try {
+				if (cliente.getId() == 0) {
+					cliente.setId(null);
+					new ClienteDAO().save(cliente);
+					fxn = new FXNotification("Cliente: " + cliente.getNome() + " foi inserido",
+							FXNotification.NotificationType.INFORMATION);
+				} else {
+					clienteDAO.merge(cliente);
+					fxn = new FXNotification("Cliente: " + cliente.getNome() + " foi alterado",
+							FXNotification.NotificationType.INFORMATION);
+				}
+				fxn.show();
+				desativaTela();
+			} catch (Exception e) {
+				fxn = new FXNotification("CPF ou CNPJ já possuí cadastro.", FXNotification.NotificationType.WARNING);
+				fxn.show();
+				if (cb_fisica.isSelected() == true) {
+					txt_cpf.setStyle(corErro);
+					ctm_cpf.show(txt_cpf, Side.RIGHT, 10, 0);
+				} else {
 
-			if (cliente.getId() == 0) {
-				cliente.setId(null);
-				new ClienteDAO().save(cliente);
-				fxn = new FXNotification("Cliente: " + cliente.getNome() + " foi inserido",
-						FXNotification.NotificationType.INFORMATION);
-			} else {
-				clienteDAO.merge(cliente);
-				fxn = new FXNotification("Cliente: " + cliente.getNome() + " foi alterado",
-						FXNotification.NotificationType.INFORMATION);
+					txt_cnpj.setStyle(corErro);
+					ctm_cnpj.show(txt_cnpj, Side.RIGHT, 10, 0);
+				}
 			}
+
+		}
+		else
+		{
+			FXNotification fxn = new FXNotification("Dados inválidos, corrija os campos contornados em vermelho.", FXNotification.NotificationType.ERROR);
 			fxn.show();
-			desativaTela();
 		}
 
+	}
+
+	@FXML
+	void OnActionGravar(ActionEvent event) {
+		gravar();
 	}
 
 	@FXML
@@ -677,6 +703,7 @@ public class ClienteController implements Initializable {
 			ap_pessoaJuridica.setVisible(true);
 		} else {
 			ap_pessoaJuridica.setVisible(false);
+
 		}
 	}
 
@@ -691,11 +718,14 @@ public class ClienteController implements Initializable {
 		if (cb_fisicaBusca.isSelected() == true) {
 			tb_pessoa.getItems().clear();
 			tc_cpf.setVisible(true);
-			ap_pessoaFisica.setVisible(true);
+			txt_filtro.setDisable(false);
+			btn_filtro.setDisable(false);
 		} else {
+
+			txt_filtro.setDisable(true);
+			btn_filtro.setDisable(true);
 			tb_pessoa.getItems().clear();
 			tc_cpf.setVisible(false);
-			ap_pessoaFisica.setVisible(false);
 		}
 	}
 
@@ -710,11 +740,14 @@ public class ClienteController implements Initializable {
 		if (cb_juridicaBusca.isSelected() == true) {
 			tb_pessoa.getItems().clear();
 			tc_cnpj.setVisible(true);
-			ap_pessoaJuridica.setVisible(true);
+			txt_filtro.setDisable(false);
+			btn_filtro.setDisable(false);
 		} else {
 			tb_pessoa.getItems().clear();
+			tc_cnpj.setVisible(false);
 			cb_juridicaBusca.setSelected(false);
-			ap_pessoaJuridica.setVisible(false);
+			txt_filtro.setDisable(true);
+			btn_filtro.setDisable(true);
 		}
 	}
 
@@ -724,6 +757,14 @@ public class ClienteController implements Initializable {
 	}
 
 	public void desativaTela() {
+		txt_filtro.setDisable(true);
+		btn_filtro.setDisable(true);
+		ap_pessoaFisica.setVisible(false);
+		ap_pessoaJuridica.setVisible(false);
+		cb_fisica.setSelected(false);
+		cb_juridica.setSelected(false);
+		cb_juridicaBusca.setSelected(false);
+		cb_fisicaBusca.setSelected(false);
 		cliente = new Cliente();
 		txt_cpf.setText("");
 		txt_dataNasc.setValue(null);
@@ -739,6 +780,9 @@ public class ClienteController implements Initializable {
 		txt_nomeFantasia.setStyle(corNormal);
 		txt_nome.setStyle(corNormal);
 		txt_cep.setStyle(corNormal);
+		cbb_estadoCivil.setStyle(corNormal);
+		txt_dataNasc.setStyle(corNormal);
+		lbl_tipoP.setStyle(corNormal);
 		txt_telefone.setStyle(corNormal);
 		txt_cnpj.setStyle(corNormal);
 		txt_ie.setStyle(corNormal);
@@ -773,6 +817,7 @@ public class ClienteController implements Initializable {
 		if (tipo.equals("FISICA") != true) {
 			cb_fisica.setSelected(false);
 			ap_pessoaFisica.setVisible(false);
+			ap_pessoaJuridica.setVisible(true);
 			cb_juridica.setSelected(true);
 			txt_cnpj.setText(((ClientePJ) cliente).getCnpj());
 			txt_ie.setText(((ClientePJ) cliente).getIe());
@@ -780,6 +825,7 @@ public class ClienteController implements Initializable {
 		} else {
 			cb_juridica.setSelected(false);
 			ap_pessoaJuridica.setVisible(false);
+			ap_pessoaFisica.setVisible(true);
 			cb_fisica.setSelected(true);
 			txt_cpf.setText(((ClientePF) cliente).getCpf());
 			txt_rg.setText(((ClientePF) cliente).getRg());
@@ -845,9 +891,36 @@ public class ClienteController implements Initializable {
 		txt_cpf.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "###.###.###-##"));
 		txt_rg.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]+", 30));
 		txt_ie.setTextFormatter(tffh.getTextFieldToUpperFormatter("[0-9]+", 30));
+		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		autoCompletePopupCid.hide();
 		autoCompletePopupEst.hide();
 		desativaTela();
+		ap_cliente.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (ap_busca.isVisible() == true) {
+					limpaBuscas();
+					txt_nome.setFocusTraversable(true);
+				} else {
+					ap_cliente.setVisible(false);
+				}
+
+			}
+			if (event.getCode().equals(KeyCode.F1) && ap_busca.isVisible() == false) {
+				desativaTela();
+			}
+			if (event.getCode().equals(KeyCode.F2) && ap_busca.isVisible() == false) {
+				gravar();
+			}
+			if (event.getCode().equals(KeyCode.F3) && ap_busca.isVisible() == false
+					&& btn_Excluir.isDisable() == false) {
+				excluir();
+			}
+			if (event.getCode().equals(KeyCode.F4) && ap_busca.isVisible() == false
+					&& btn_Cancelar.isDisable() == false) {
+				desativaTela();
+			}
+
+		});
 	}
 
 	private void InitComboBoxEst() {
@@ -869,7 +942,7 @@ public class ClienteController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_est.showingProperty().get()
-					|| cbb_est.getEditor().isFocused()==false) {
+					|| cbb_est.getEditor().isFocused() == false) {
 				autoCompletePopupEst.hide();
 			} else {
 				autoCompletePopupEst.show(editor);
@@ -917,7 +990,7 @@ public class ClienteController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupCid.getFilteredSuggestions().isEmpty() || cbb_cidade.showingProperty().get()
-					|| cbb_cidade.getEditor().isFocused()==false) {
+					|| cbb_cidade.getEditor().isFocused() == false) {
 				autoCompletePopupCid.hide();
 			} else {
 				autoCompletePopupCid.show(editor);
@@ -949,6 +1022,10 @@ public class ClienteController implements Initializable {
 		listaCliente.clear();
 		tb_pessoa.getItems().clear();
 		ap_busca.setVisible(false);
+		txt_filtro.setDisable(true);
+		btn_filtro.setDisable(true);
+		cb_juridicaBusca.setSelected(false);
+		cb_fisicaBusca.setSelected(false);
 		txt_filtro.setText("");
 	}
 

@@ -116,6 +116,9 @@
          <tooltip>
             <Tooltip fx:id="ttp_btnCancelar" text="Cancela as operações excluir e alterar." />
          </tooltip>
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
+         </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="550.0" layoutY="541.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
          <font>
@@ -146,28 +149,28 @@
       </Label>
       <AnchorPane fx:id="ap_busca" layoutY="-1.0" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" visible="false">
          <children>
-            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="70.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
+            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="20.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="200.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="607.0" promptText="Busca pelo nome ou pelo estado." unFocusColor="BLACK" />
-            <TableView fx:id="tb_cidade" layoutX="70.0" layoutY="60.0" onMouseClicked="#OnMouseClickedCidade" prefHeight="461.0" prefWidth="736.0">
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="155.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="747.0" promptText="Busca pelo nome ou pelo estado." unFocusColor="BLACK" />
+            <TableView fx:id="tb_cidade" layoutX="20.0" layoutY="60.0" onMouseClicked="#OnMouseClickedCidade" prefHeight="461.0" prefWidth="883.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" styleClass="tab" text="Código" />
-                  <TableColumn fx:id="tc_cidade" editable="false" maxWidth="586.0" minWidth="319.0" prefWidth="466.0" resizable="false" styleClass="tab" text="Cidade" />
-                  <TableColumn fx:id="tc_estado" editable="false" maxWidth="193.0" minWidth="193.0" prefWidth="193.0" resizable="false" styleClass="tab" text="Estado" />
+                  <TableColumn fx:id="tc_cidade" editable="false" maxWidth="551.0" minWidth="551.0" prefWidth="551.0" resizable="false" styleClass="tab" text="Cidade" />
+                  <TableColumn fx:id="tc_estado" editable="false" maxWidth="256.0" minWidth="256.0" prefWidth="256.0" resizable="false" styleClass="tab" text="Estado" />
                </columns>
             </TableView>
-            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="685.0" layoutY="530.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
+            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="784.0" layoutY="530.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
                </graphic>
             </JFXButton>
          </children>

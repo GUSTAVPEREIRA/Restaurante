@@ -187,6 +187,32 @@ public class UsuarioController implements Initializable {
 		InitComboBoxAtiv();
 		InitComboBoxTip();
 		desativaTela();
+		ap_usuario.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (ap_busca.isVisible() == true) {
+					limpaBuscas();
+					txt_nome.setFocusTraversable(true);
+				} else {
+					ap_usuario.setVisible(false);
+				}
+
+			}
+			if (event.getCode().equals(KeyCode.F1) && ap_busca.isVisible() == false) {
+				desativaTela();
+			}
+			if (event.getCode().equals(KeyCode.F2) && ap_busca.isVisible() == false) {
+				gravar();
+			}
+			if (event.getCode().equals(KeyCode.F3) && ap_busca.isVisible() == false
+					&& btn_Excluir.isDisable() == false) {
+				excluir();
+			}
+			if (event.getCode().equals(KeyCode.F4) && ap_busca.isVisible() == false
+					&& btn_Cancelar.isDisable() == false) {
+				desativaTela();
+			}
+
+		});
 	}
 
 	public void carregaTela(String palavra) {
@@ -234,9 +260,7 @@ public class UsuarioController implements Initializable {
 		usuario = new Usuario();
 	}
 
-	@FXML
-	private void OnActionGravar(ActionEvent event) {
-
+	public void gravar() {
 		resetaDAO();
 		usuario = new Usuario();
 		boolean erro = false;
@@ -324,12 +348,13 @@ public class UsuarioController implements Initializable {
 			FXNotification fxn;
 			if (usuario.getId() == 0) {
 				usuario.setId(null);
-				
+
 				usuarioDAO.inserir(usuario);
 				fxn = new FXNotification("Usuário: " + usuario.getNome() + " foi inserida.",
 						FXNotification.NotificationType.INFORMATION);
 				fxn.show();
-				
+				desativaTela();
+
 			} else {
 				qt = usuarioDAO.count_tipo("ADMIN");
 				resetaDAO();
@@ -343,14 +368,32 @@ public class UsuarioController implements Initializable {
 					fxn = new FXNotification("Usuário: " + usuario.getNome() + " foi alterado.",
 							FXNotification.NotificationType.INFORMATION);
 					fxn.show();
+					desativaTela();
+				}
+				else
+				{
+					fxn = new FXNotification("Não foi possível alterar o usuário, pois há somente um ADMIN.",
+							FXNotification.NotificationType.ERROR);
+					fxn.show();
 				}
 			}
-			desativaTela();
-		} 
+			
+		}
+		else
+		{
+			FXNotification fxn;
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
+					FXNotification.NotificationType.ERROR);
+			fxn.show();
+		}
 	}
 
 	@FXML
-	private void OnActionExcluir(ActionEvent event) {
+	private void OnActionGravar(ActionEvent event) {
+		gravar();
+	}
+
+	public void excluir() {
 
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
@@ -369,24 +412,28 @@ public class UsuarioController implements Initializable {
 						if (usuario.getTipo().equals("ADMIN") == true) {
 							Error = true;
 							fxn = new FXNotification("Usuário: " + usuario.getNome() + " não pode ser excluido.",
-									FXNotification.NotificationType.INFORMATION);
+									FXNotification.NotificationType.WARNING);
 							fxn.show();
 						}
 					}
 					if (Error == false) {
-						
+
 						usuario.setId(Long.parseLong(txt_codigo.getText()));
 						usuarioDAO.Deletar(usuario);
 						fxn = new FXNotification("Usuário: " + usuario.getNome() + " foi excluido.",
 								FXNotification.NotificationType.INFORMATION);
 						fxn.show();
 					}
-					
+
 				}
 				desativaTela();
 			}
 		});
+	}
 
+	@FXML
+	private void OnActionExcluir(ActionEvent event) {
+		excluir();
 	}
 
 	@FXML
@@ -477,6 +524,7 @@ public class UsuarioController implements Initializable {
 		btn_Excluir.setDisable(false);
 		btn_Cancelar.setDisable(false);
 	}
+
 	private void InitComboBoxTip() {
 		autoCompletePopupTip.getSuggestions().clear();
 		autoCompletePopupTip.getSuggestions().addAll(cbb_tipo.getItems());
@@ -497,7 +545,7 @@ public class UsuarioController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupTip.getFilteredSuggestions().isEmpty() || cbb_tipo.showingProperty().get()
-					|| cbb_tipo.getEditor().isFocused()==false) {
+					|| cbb_tipo.getEditor().isFocused() == false) {
 				autoCompletePopupTip.hide();
 			} else {
 				autoCompletePopupTip.show(editor);
@@ -524,7 +572,7 @@ public class UsuarioController implements Initializable {
 			}
 		});
 	}
-	
+
 	private void InitComboBoxAtiv() {
 		autoCompletePopupAti.getSuggestions().addAll(cbb_ativo.getItems());
 
@@ -544,7 +592,7 @@ public class UsuarioController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupAti.getFilteredSuggestions().isEmpty() || cbb_ativo.showingProperty().get()
-					|| cbb_ativo.getEditor().isFocused()==false) {
+					|| cbb_ativo.getEditor().isFocused() == false) {
 				autoCompletePopupAti.hide();
 			} else {
 				autoCompletePopupAti.show(editor);
@@ -574,12 +622,12 @@ public class UsuarioController implements Initializable {
 
 	@FXML
 	private void Limitetxt_Login(KeyEvent event) {
-		
+
 	}
 
 	@FXML
 	private void Limitetxt_Senha(KeyEvent event) {
-		
+
 	}
 
 }

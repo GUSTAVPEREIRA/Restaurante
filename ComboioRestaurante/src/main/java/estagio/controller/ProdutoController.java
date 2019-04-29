@@ -169,7 +169,7 @@ public class ProdutoController implements Initializable {
 		fornecedor = new Fornecedor();
 		categoria = new Categoria();
 		resetaDAO();
-		
+
 		listaFornecedor = fornecedorDAO.listar("");
 		obslFornecedor = FXCollections.observableArrayList(listaFornecedor);
 		cbb_forId.setItems(obslFornecedor);
@@ -187,7 +187,32 @@ public class ProdutoController implements Initializable {
 		txt_preco_compra.setTextFormatter(tffh.getTextFieldDoubleFormatter(15, 2));
 
 		desativaTela();
+		ap_produto.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (ap_busca.isVisible() == true) {
+					limpaBuscas();
+					txt_nome.setFocusTraversable(true);
+				} else {
+					ap_produto.setVisible(false);
+				}
 
+			}
+			if (event.getCode().equals(KeyCode.F1) && ap_busca.isVisible() == false) {
+				desativaTela();
+			}
+			if (event.getCode().equals(KeyCode.F2) && ap_busca.isVisible() == false) {
+				gravar();
+			}
+			if (event.getCode().equals(KeyCode.F3) && ap_busca.isVisible() == false
+					&& btn_Excluir.isDisable() == false) {
+				excluir();
+			}
+			if (event.getCode().equals(KeyCode.F4) && ap_busca.isVisible() == false
+					&& btn_Cancelar.isDisable() == false) {
+				desativaTela();
+			}
+
+		});
 	}
 
 	public void desativaTela() {
@@ -234,6 +259,10 @@ public class ProdutoController implements Initializable {
 
 	@FXML
 	private void OnActionGravar(ActionEvent event) {
+		gravar();
+	}
+
+	public void gravar() {
 		Boolean erro = false;
 		resetaDAO();
 		if (txt_nome.getText().equals("") == true) {
@@ -307,7 +336,7 @@ public class ProdutoController implements Initializable {
 				produtoDAO.save(produto);
 				fxn = new FXNotification("Novo produto: " + produto.getNome() + " inserido.",
 						FXNotification.NotificationType.INFORMATION);
-		
+
 			} else {
 				produtoDAO.alterar(produto);
 				fxn = new FXNotification("Novo produto: " + produto.getNome() + " inserido.",
@@ -316,10 +345,21 @@ public class ProdutoController implements Initializable {
 			fxn.show();
 			desativaTela();
 		}
+		else
+		{
+			FXNotification fxn;
+			fxn = new FXNotification("Corrija os erros em vermelho.",
+					FXNotification.NotificationType.ERROR);
+			fxn.show();
+		}
 	}
 
 	@FXML
 	private void OnActionExcluir(ActionEvent event) {
+		excluir();
+	}
+
+	public void excluir() {
 		produtoDAO = new ProdutoDAO();
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		javafx.scene.control.ButtonType btnSim = new javafx.scene.control.ButtonType("Sim");
@@ -330,7 +370,8 @@ public class ProdutoController implements Initializable {
 		dialogoExe.showAndWait().ifPresent(b -> {
 			if (b == btnSim) {
 				if (txt_codigo.getText().equals("0") != true && !txt_codigo.getText().isEmpty()) {
-					produto.setId(Long.parseLong(txt_codigo.getText()));										
+					produto.setId(Long.parseLong(txt_codigo.getText()));
+					produtoDAO.Deletar(produto);
 					Produto deletado = produtoDAO.findById(produto.getId());
 					FXNotification fxn;
 					if (deletado == null) {
@@ -341,7 +382,7 @@ public class ProdutoController implements Initializable {
 						fxn = new FXNotification(
 								"Produto " + produto.getNome()
 										+ " não pode ser excluido, verifique se há vendas com está produto.",
-								FXNotification.NotificationType.INFORMATION);
+								FXNotification.NotificationType.WARNING);
 					}
 					fxn.show();
 				}
@@ -376,7 +417,7 @@ public class ProdutoController implements Initializable {
 			return new SimpleStringProperty(nf.format(temp));
 		});
 		listProduto = produtoDAO.listar(palavra.toUpperCase());
-		
+
 		if (!listProduto.isEmpty()) {
 			obslProduto = FXCollections.observableArrayList(listProduto);
 			tb_produto.setItems(obslProduto);
@@ -439,7 +480,7 @@ public class ProdutoController implements Initializable {
 			}
 		});
 	}
-	
+
 	private void InitComboBoxCat() {
 		autoCompletePopupCat.getSuggestions().clear();
 		autoCompletePopupCat.getSuggestions().addAll(cbb_categoria.getItems());
@@ -460,7 +501,7 @@ public class ProdutoController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupCat.getFilteredSuggestions().isEmpty() || cbb_categoria.showingProperty().get()
-					|| cbb_categoria.getEditor().isFocused()==false) {
+					|| cbb_categoria.getEditor().isFocused() == false) {
 				autoCompletePopupCat.hide();
 			} else {
 				autoCompletePopupCat.show(editor);
@@ -487,7 +528,7 @@ public class ProdutoController implements Initializable {
 			}
 		});
 	}
-	
+
 	private void InitComboBoxFor() {
 		autoCompletePopupFor.getSuggestions().addAll(cbb_forId.getItems());
 
@@ -507,7 +548,7 @@ public class ProdutoController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupFor.getFilteredSuggestions().isEmpty() || cbb_forId.showingProperty().get()
-					|| cbb_forId.getEditor().isFocused()==false) {
+					|| cbb_forId.getEditor().isFocused() == false) {
 				autoCompletePopupFor.hide();
 			} else {
 				autoCompletePopupFor.show(editor);

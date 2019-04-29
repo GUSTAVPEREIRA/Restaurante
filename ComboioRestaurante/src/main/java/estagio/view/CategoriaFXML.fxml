@@ -133,7 +133,7 @@
       <Label layoutX="458.0" layoutY="14.0" text="Campos obrigatórios" />
       <AnchorPane fx:id="ap_busca" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="AnchorPane" visible="false">
          <children>
-            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="89.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
+            <JFXButton fx:id="btn_filtro" buttonType="RAISED" contentDisplay="RIGHT" layoutX="19.0" layoutY="14.0" onAction="#OnActionFiltro" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -141,14 +141,14 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
                </graphic>
             </JFXButton>
-            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="218.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="620.0" promptText="Busca pelo nome da categoria." unFocusColor="BLACK" />
-            <TableView fx:id="tb_categoria" layoutX="88.0" layoutY="56.0" onMouseClicked="#OnMouseClickedCategoria" prefHeight="472.0" prefWidth="751.0">
+            <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="149.0" layoutY="14.0" maxWidth="-Infinity" minWidth="-Infinity" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="750.0" promptText="Busca pelo nome da categoria." unFocusColor="BLACK" />
+            <TableView fx:id="tb_categoria" layoutX="19.0" layoutY="56.0" onMouseClicked="#OnMouseClickedCategoria" prefHeight="472.0" prefWidth="880.0">
                <columns>
                   <TableColumn fx:id="tc_codigo" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" text="Código" />
-                  <TableColumn fx:id="tc_nome" editable="false" maxWidth="674.9999847412109" minWidth="353.0" prefWidth="674.9999847412109" resizable="false" text="Nome" />
+                  <TableColumn fx:id="tc_nome" editable="false" maxWidth="804.0" minWidth="804.0" prefWidth="804.0" resizable="false" text="Nome" />
                </columns>
             </TableView>
-            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="718.0" layoutY="544.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
+            <JFXButton fx:id="btn_voltar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="779.0" layoutY="538.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

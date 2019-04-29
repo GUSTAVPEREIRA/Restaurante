@@ -163,10 +163,37 @@ public class TipoVendaController implements Initializable {
 		desativaTela();
 		tipoVenda = new TipoVenda();
 		tipoVendaDAO = new TipoVendaDAO();
-		txt_filtro.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_nome.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_filtro.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaTipoVenda = new ArrayList<>();
 		tipoVenda = new TipoVenda();
+		ap_tipoVenda.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (ap_busca.isVisible() == true) {
+					limpaBuscas();
+					txt_nome.setFocusTraversable(true);
+				} else {
+					ap_tipoVenda.setVisible(false);
+				}
+			}
+			if (event.getCode().equals(KeyCode.F1) && ap_busca.isVisible() == false) {
+				desativaTela();
+			}
+			if (event.getCode().equals(KeyCode.F2) && ap_busca.isVisible() == false) {
+				gravar();
+			}
+			if (event.getCode().equals(KeyCode.F3) && ap_busca.isVisible() == false
+					&& btn_Excluir.isDisable() == false) {
+				excluir();
+			}
+			if (event.getCode().equals(KeyCode.F4) && ap_busca.isVisible() == false
+					&& btn_Cancelar.isDisable() == false) {
+				desativaTela();
+			}
+
+		});
 
 	}
 
@@ -191,6 +218,10 @@ public class TipoVendaController implements Initializable {
 
 	@FXML
 	void OnActionExcluir(ActionEvent event) {
+		excluir();
+	}
+
+	public void excluir() {
 		resetaDAO();
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
@@ -220,6 +251,10 @@ public class TipoVendaController implements Initializable {
 
 	@FXML
 	void OnActionGravar(ActionEvent event) {
+		gravar();
+	}
+
+	public void gravar() {
 		resetaDAO();
 		Boolean erro = false;
 		tipoVenda = new TipoVenda();
@@ -255,7 +290,13 @@ public class TipoVendaController implements Initializable {
 			fxn.show();
 			desativaTela();
 		}
-
+		else
+		{
+			FXNotification fxn;
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
+					FXNotification.NotificationType.ERROR);
+			fxn.show();
+		}
 	}
 
 	@FXML

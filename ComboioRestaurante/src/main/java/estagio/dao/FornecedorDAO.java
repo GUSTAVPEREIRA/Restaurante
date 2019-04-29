@@ -30,8 +30,9 @@ public class FornecedorDAO {
     }
     
     @Transactional
-    public void inserir(Fornecedor fornecedor) 
+    public Boolean inserir(Fornecedor fornecedor) 
     {
+    	Boolean inserido = true;
         if(!em.isOpen())
         {
             em = new JPAUtil().getEntityManager();
@@ -49,15 +50,18 @@ public class FornecedorDAO {
         {
             em.getTransaction().rollback();
             System.out.println(e.getMessage());
+            inserido = false;
         }
         finally
         {
             em.close();
         }
+        return inserido;
     }
     
-    public void alterar(Fornecedor fornecedor) 
+    public Boolean alterar(Fornecedor fornecedor) 
     {
+    	Boolean inserido = true;
         if(!em.isOpen())
         {
             em = new JPAUtil().getEntityManager();
@@ -82,11 +86,13 @@ public class FornecedorDAO {
         {
             em.getTransaction().rollback();
             System.out.println(e.getMessage());
+            inserido = false;
         }
         finally
         {
             em.close();
         }
+        return inserido;
     }
 
     public boolean Deletar(Fornecedor fornecedor) {

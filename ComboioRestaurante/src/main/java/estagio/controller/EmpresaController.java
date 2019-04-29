@@ -33,6 +33,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -177,7 +178,6 @@ public class EmpresaController implements Initializable {
 	@FXML
 	private Tooltip ttp_btnBuscar;
 
-
 	JFXAutoCompletePopup<Estado> autoCompletePopupEst = new JFXAutoCompletePopup<Estado>();
 	JFXAutoCompletePopup<Cidade> autoCompletePopupCid = new JFXAutoCompletePopup<Cidade>();
 	private List<Estado> listaEstado;
@@ -204,8 +204,7 @@ public class EmpresaController implements Initializable {
 		selecionaFoto();
 	}
 
-	@FXML
-	void OnActionGravar(ActionEvent event) {
+	public void gravar() {
 		boolean erro = false;
 		resetaDAO();
 
@@ -299,6 +298,11 @@ public class EmpresaController implements Initializable {
 		}
 	}
 
+	@FXML
+	void OnActionGravar(ActionEvent event) {
+		gravar();
+	}
+
 	public void resetaDAO() {
 		empresaDAO = new EmpresaDAO();
 		estadoDAO = new EstadoDAO();
@@ -359,9 +363,6 @@ public class EmpresaController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
-		
-		
-		
 		tffh = new TextFieldFormatterHelper();
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter(regex.getDescricao(), 100));
 		txt_telefone.setTextFormatter(tffh.getTextFieldPhoneDDDAndNumberFormatter());
@@ -384,6 +385,14 @@ public class EmpresaController implements Initializable {
 			empresa = new Empresa();
 			empresa.setId(Long.parseLong("0"));
 		}
+		ap_empresa.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				ap_empresa.setVisible(false);
+			}
+			if (event.getCode().equals(KeyCode.F2)) {
+				gravar();
+			}
+		});
 	}
 
 	private void InitComboBoxCid() {
@@ -406,7 +415,7 @@ public class EmpresaController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupCid.getFilteredSuggestions().isEmpty() || cbb_cidade.showingProperty().get()
-					|| cbb_cidade.getEditor().isFocused()==false) {
+					|| cbb_cidade.getEditor().isFocused() == false) {
 				autoCompletePopupCid.hide();
 			} else {
 				autoCompletePopupCid.show(editor);
@@ -433,7 +442,7 @@ public class EmpresaController implements Initializable {
 			}
 		});
 	}
-	
+
 	private void InitComboBoxEst() {
 		autoCompletePopupEst.getSuggestions().addAll(cbb_est.getItems());
 
@@ -453,7 +462,7 @@ public class EmpresaController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_est.showingProperty().get()
-					|| cbb_est.getEditor().isFocused()==false) {
+					|| cbb_est.getEditor().isFocused() == false) {
 				autoCompletePopupEst.hide();
 			} else {
 				autoCompletePopupEst.show(editor);
@@ -480,8 +489,7 @@ public class EmpresaController implements Initializable {
 			}
 		});
 	}
-	
-	
+
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
 		img_empresa.setImage(new Image("file:///" + empresa.getCaminho_imgem()));

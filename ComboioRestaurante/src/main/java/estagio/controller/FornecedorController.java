@@ -209,7 +209,7 @@ public class FornecedorController implements Initializable {
 		obslEstado = FXCollections.observableArrayList(listaEstado);
 		cbb_est.setItems(obslEstado);
 		InitComboBoxEst();
-		
+
 		listaFornecedor = new ArrayList<>();
 		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
@@ -218,6 +218,33 @@ public class FornecedorController implements Initializable {
 		txt_cnpj.setTextFormatter(tffh.getTextFieldMaskFormatter("[0-9]", "##.###.###/####-##"));
 		txt_ie.setTextFormatter(tffh.getTextFieldFormatter("[0-9]+", 30));
 		desativaTela();
+
+		ap_fornecedor.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode().equals(KeyCode.ESCAPE)) {
+				if (ap_busca.isVisible() == true) {
+					limpaBuscas();
+					txt_nome.setFocusTraversable(true);
+				} else {
+					ap_fornecedor.setVisible(false);
+				}
+
+			}
+			if (event.getCode().equals(KeyCode.F1) && ap_busca.isVisible() == false) {
+				desativaTela();
+			}
+			if (event.getCode().equals(KeyCode.F2) && ap_busca.isVisible() == false) {
+				gravar();
+			}
+			if (event.getCode().equals(KeyCode.F3) && ap_busca.isVisible() == false
+					&& btn_Excluir.isDisable() == false) {
+				excluir();
+			}
+			if (event.getCode().equals(KeyCode.F4) && ap_busca.isVisible() == false
+					&& btn_Cancelar.isDisable() == false) {
+				desativaTela();
+			}
+
+		});
 
 	}
 
@@ -282,8 +309,7 @@ public class FornecedorController implements Initializable {
 		desativaTela();
 	}
 
-	@FXML
-	private void OnActionGravar(ActionEvent event) {
+	public void gravar() {
 		Boolean erro = false;
 		fornecedorDAO = new FornecedorDAO();
 		fornecedor = new Fornecedor();
@@ -369,25 +395,48 @@ public class FornecedorController implements Initializable {
 		}
 		if (erro != true) {
 			FXNotification fxn;
+			Boolean inserido = true;
 
 			if (fornecedor.getId() == 0) {
 				fornecedor.setId(null);
-				fornecedorDAO.inserir(fornecedor);
+				inserido = fornecedorDAO.inserir(fornecedor);
 				fxn = new FXNotification("Fornecedor: " + fornecedor.getNome() + " foi inserido",
 						FXNotification.NotificationType.INFORMATION);
 			} else {
-				fornecedorDAO.alterar(fornecedor);
+				inserido = fornecedorDAO.alterar(fornecedor);
 				fxn = new FXNotification("Fornecedor: " + fornecedor.getNome() + " foi alterado",
 						FXNotification.NotificationType.INFORMATION);
 			}
+
+			if (inserido == false) {
+				fxn = new FXNotification("Fornecedores já possuem o mesmo CNPJ.",
+						FXNotification.NotificationType.WARNING);
+				txt_cnpj.setStyle(corErro);
+			}
+			else
+			{
+				desativaTela();
+			}
 			fxn.show();
-			desativaTela();
+			
+		} else {
+			FXNotification fxn;
+			fxn = new FXNotification("Corrija os erros em vermelho.", FXNotification.NotificationType.ERROR);
+			fxn.show();
 		}
 	}
 
 	@FXML
-	private void OnActionExcluir(ActionEvent event) {
+	private void OnActionGravar(ActionEvent event) {
+		gravar();
+	}
 
+	@FXML
+	private void OnActionExcluir(ActionEvent event) {
+		excluir();
+	}
+
+	public void excluir() {
 		Alert dialogoExe = new Alert(Alert.AlertType.CONFIRMATION);
 		ButtonType btnSim = new ButtonType("Sim");
 		ButtonType btnNao = new ButtonType("Não");
@@ -396,19 +445,31 @@ public class FornecedorController implements Initializable {
 		dialogoExe.getButtonTypes().setAll(btnSim, btnNao);
 		dialogoExe.showAndWait().ifPresent(b -> {
 			if (b == btnSim) {
+				Boolean deletado = false;
 				fornecedorDAO = new FornecedorDAO();
 				if (txt_codigo.getText().equals("0") != true && !txt_codigo.getText().isEmpty()) {
-					fornecedor.setId(Long.parseLong(txt_codigo.getText()));
-					fornecedorDAO.Deletar(fornecedor);
-					FXNotification fxn;
-					fxn = new FXNotification("Fornecedor: " + fornecedor.getNome() + " foi Excluido",
-							FXNotification.NotificationType.INFORMATION);
-					fxn.show();
+					try {
+
+						fornecedor.setId(Long.parseLong(txt_codigo.getText()));
+						deletado = fornecedorDAO.Deletar(fornecedor);
+						if (deletado == true) {
+							FXNotification fxn;
+							fxn = new FXNotification("Fornecedor: " + fornecedor.getNome() + " foi Excluido",
+									FXNotification.NotificationType.INFORMATION);
+							fxn.show();
+							desativaTela();
+						} else {
+							FXNotification fxn;
+							fxn = new FXNotification("Fornecedor não pode ser deletado.",
+									FXNotification.NotificationType.WARNING);
+							fxn.show();
+						}
+					} catch (Exception e) {
+
+					}
 				}
-				desativaTela();
 			}
 		});
-
 	}
 
 	@FXML
@@ -482,7 +543,7 @@ public class FornecedorController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupCid.getFilteredSuggestions().isEmpty() || cbb_cidade.showingProperty().get()
-					|| cbb_cidade.getEditor().isFocused()==false) {
+					|| cbb_cidade.getEditor().isFocused() == false) {
 				autoCompletePopupCid.hide();
 			} else {
 				autoCompletePopupCid.show(editor);
@@ -509,7 +570,7 @@ public class FornecedorController implements Initializable {
 			}
 		});
 	}
-	
+
 	private void InitComboBoxEst() {
 		autoCompletePopupEst.getSuggestions().addAll(cbb_est.getItems());
 
@@ -529,7 +590,7 @@ public class FornecedorController implements Initializable {
 			// Hide the autocomplete popup if the filtered suggestions is empty or when the
 			// box's original popup is open
 			if (autoCompletePopupEst.getFilteredSuggestions().isEmpty() || cbb_est.showingProperty().get()
-					|| cbb_est.getEditor().isFocused()==false) {
+					|| cbb_est.getEditor().isFocused() == false) {
 				autoCompletePopupEst.hide();
 			} else {
 				autoCompletePopupEst.show(editor);
@@ -556,8 +617,7 @@ public class FornecedorController implements Initializable {
 			}
 		});
 	}
-	
-	
+
 	@FXML
 	private void OnActionVoltar(ActionEvent event) {
 		limpaBuscas();

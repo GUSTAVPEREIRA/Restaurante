@@ -255,6 +255,13 @@ public class CidadeController implements Initializable {
 			fxn.show();
 			desativaTela();
 		}
+		else
+		{
+			FXNotification fxn;
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
+					FXNotification.NotificationType.ERROR);
+			fxn.show();
+		}
 	}
 
 	@FXML
@@ -358,7 +365,7 @@ public class CidadeController implements Initializable {
 	}
 
 	public void setCidade(Cidade cidade) {
-		this.cidade = cidade; 
+		this.cidade = cidade;
 		txt_nome.setText(cidade.getNome());
 		txt_codigo.setText("" + cidade.getId());
 		cbb_estId.getSelectionModel().select(1);

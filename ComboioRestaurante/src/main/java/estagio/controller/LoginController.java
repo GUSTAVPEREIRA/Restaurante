@@ -27,6 +27,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -35,6 +38,9 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
 
+
+    @FXML
+    private AnchorPane ap_login;
 	@FXML
 	private JFXTextField txt_login;
 	@FXML
@@ -70,10 +76,17 @@ public class LoginController implements Initializable {
 				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		txt_senha.setTextFormatter(
 				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		
 	}
 
 	@FXML
 	private void ActionLogin(ActionEvent event) throws IOException {
+		login();
+		
+	}
+
+	public void login() throws IOException
+	{
 		usuarioDAO = new UsuarioDAO();
 		logado = new Usuario();
 		String login, senha;
@@ -129,6 +142,12 @@ public class LoginController implements Initializable {
 			ctm_btnLogin.show(btn_login, Side.LEFT, 20, 0);
 		}
 	}
+    @FXML
+    void OnKeyPressedEnter(KeyEvent event) throws IOException {
+    	if (event.getCode().equals(KeyCode.ENTER)) {
+			login();
+		}
+    }
 
 	@FXML
 	void ActionSair(ActionEvent event) {
