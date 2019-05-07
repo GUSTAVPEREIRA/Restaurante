@@ -635,6 +635,10 @@ public class CaixaController implements Initializable {
 	@SuppressWarnings({ "static-access", "unchecked" })
 	@FXML
 	void onActionClickViewCaixa(MouseEvent event) throws JRException {
+		
+		FXNotification fxn = new FXNotification("Gerando relatório, aguarde alguns segundos.",
+				FXNotification.NotificationType.INFORMATION);
+		fxn.show();
 		Connection con = Banco.getCon().abre();
 		vboxRelatorio.setVisible(true);
 		@SuppressWarnings("rawtypes")
