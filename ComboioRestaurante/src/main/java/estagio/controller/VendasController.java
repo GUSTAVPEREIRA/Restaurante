@@ -36,9 +36,6 @@ public class VendasController implements Initializable {
     private JFXButton Vendas;
 
     @FXML
-    private JFXButton Promocao;
-
-    @FXML
     private JFXButton Sair;
 
     @FXML
@@ -67,11 +64,6 @@ public class VendasController implements Initializable {
 	void OnActionCaixa(ActionEvent event) throws IOException {
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CaixaFXML.fxml"));
 		ap_vendas.getChildren().setAll(node);
-	}
-
-	@FXML
-	void OnActionPromocao(ActionEvent event) {
-
 	}
 
 	@FXML

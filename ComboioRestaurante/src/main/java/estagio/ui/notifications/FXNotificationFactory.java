@@ -46,7 +46,7 @@ public class FXNotificationFactory {
 	public void showNewNotification(Pane notification) {
 		ensureNotificationStackIsOnTop();
 		notificationStack.getChildren().add(notification);
-		StackPane.setAlignment(notification, Pos.BOTTOM_LEFT);
+		StackPane.setAlignment(notification, Pos.TOP_LEFT);
 		
 	}
 

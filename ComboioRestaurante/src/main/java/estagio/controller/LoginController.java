@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -130,6 +131,7 @@ public class LoginController implements Initializable {
 					stage.setTitle("Menu");
 					stage.setResizable(false);
 					stage.setHeight(650);
+					stage.getIcons().add(new Image(getClass().getResourceAsStream("/estagio/view/resources/iconPosto.png")));
 					stage.setScene(scene);
 					stage.show();
 				} catch (InterruptedException ex) {

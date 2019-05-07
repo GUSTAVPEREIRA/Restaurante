@@ -175,7 +175,7 @@
             </HBox>
             <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="36.0" prefWidth="749.0" spacing="10.0">
                <children>
-                  <JFXButton fx:id="btn_adicionar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionAdicionar" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Adicionar">
+                  <JFXButton fx:id="btn_adicionar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="8.0" onAction="#OnActionAdicionar" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Adicionar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -190,7 +190,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" mnemonicParsing="false" onAction="#OnActionRemover" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Remover">
+                  <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="8.0" mnemonicParsing="false" onAction="#OnActionRemover" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Remover">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -391,9 +391,9 @@
                   <Insets left="10.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="36.0" prefWidth="749.0" spacing="10.0">
+            <HBox alignment="BOTTOM_CENTER" maxWidth="-Infinity" prefHeight="49.0" prefWidth="749.0" spacing="10.0">
                <children>
-                  <JFXButton fx:id="btn_fecharVenda" buttonType="RAISED" contentDisplay="RIGHT" ellipsisString="" onAction="#OnActionFecharVenda" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Fechar Venda">
+                  <JFXButton fx:id="btn_SalvarVenda" buttonType="RAISED" contentDisplay="RIGHT" ellipsisString="" graphicTextGap="8.0" onAction="#OnActionSalvarVenda" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Salvar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -404,8 +404,26 @@
                            </font>
                         </Tooltip>
                      </tooltip>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE" size="18" />
+                     </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Voltar">
+                  <JFXButton fx:id="btn_fecharVenda" buttonType="RAISED" contentDisplay="RIGHT" ellipsisString="" graphicTextGap="8.0" onAction="#OnActionFecharVenda" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Fechar">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <tooltip>
+                        <Tooltip fx:id="ttp_btnFecharVenda1" text="Realiza o pagamento de uma conta, dando baixa.">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Tooltip>
+                     </tooltip>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="8.0" mnemonicParsing="false" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Voltar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

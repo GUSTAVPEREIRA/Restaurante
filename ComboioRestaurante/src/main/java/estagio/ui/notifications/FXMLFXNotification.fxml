@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="rootPane" maxHeight="80.0" maxWidth="880.0" minHeight="80.0" minWidth="880.0" onMouseEntered="#actMouseEntered" onMouseExited="#actMouseExited" prefHeight="80.0" prefWidth="880.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.ui.notifications.FXNotificationController">
+<HBox fx:id="rootPane" maxHeight="80.0" maxWidth="920.0" minHeight="80.0" minWidth="920.0" onMouseEntered="#actMouseEntered" onMouseExited="#actMouseExited" prefHeight="80.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.ui.notifications.FXNotificationController">
    <children>
-      <HBox alignment="TOP_CENTER" maxHeight="80.0" maxWidth="880.0" minHeight="80.0" minWidth="880.0" prefHeight="80.0" prefWidth="880.0" HBox.hgrow="ALWAYS">
+      <HBox alignment="TOP_CENTER" maxHeight="80.0" maxWidth="920.0" minHeight="80.0" minWidth="920.0" prefHeight="80.0" prefWidth="920.0" HBox.hgrow="ALWAYS">
          <children>
-            <VBox maxHeight="80.0" maxWidth="800.0" minHeight="80.0" minWidth="800.0" prefHeight="80.0" prefWidth="800.0" styleClass="FXNotificationBody">
+            <VBox maxHeight="80.0" maxWidth="840.0" minHeight="80.0" minWidth="840.0" prefHeight="80.0" prefWidth="840.0" styleClass="FXNotificationBody">
                <children>
-                  <TextArea fx:id="textAreaNotifications" editable="false" maxHeight="-Infinity" maxWidth="800.0" minHeight="-Infinity" minWidth="800.0" prefHeight="80.0" prefWidth="800.0" wrapText="true" VBox.vgrow="ALWAYS">
+                  <TextArea fx:id="textAreaNotifications" editable="false" maxHeight="-Infinity" maxWidth="830.0" minHeight="-Infinity" minWidth="830.0" prefHeight="80.0" prefWidth="830.0" wrapText="true" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></TextArea>

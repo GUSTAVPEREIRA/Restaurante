@@ -282,6 +282,7 @@ public class ContasPagarController implements Initializable {
 	ParcelaPagarDAO parcelaPagarDAO = new ParcelaPagarDAO();
 
 	List<ParcelaPagar> parcelasPagar = new ArrayList<ParcelaPagar>();
+	List<ParcelaPagar> parcelasPagaraux = new ArrayList<ParcelaPagar>();
 	List<ContasPagar> contassPagar = new ArrayList<ContasPagar>();
 	@FXML
 	private StackPane sp_contasPagar;
@@ -499,11 +500,16 @@ public class ContasPagarController implements Initializable {
 		}
 		parcelasPagar = parcelaPagarDAO.listaParcelaPagar(contasPagar, DataAberturaT, DataVencimentoT,
 				cbb_status.getSelectionModel().getSelectedItem());
+		parcelasPagaraux = parcelaPagarDAO.listaParcelaPagar(contasPagar, null, null,
+				"AMBOS");
 		Double valortotal = 0.00;
 		btn_Remover.setDisable(false);
-		if (!parcelasPagar.isEmpty()) {
-			for (ParcelaPagar pp : parcelasPagar) {
-				valortotal = valortotal + (pp.getValor() - pp.getValorPgto());
+		if (!parcelasPagaraux.isEmpty()) {
+			for (ParcelaPagar pp : parcelasPagaraux) {
+				if (pp.getValorPgto()<=0) {
+					valortotal = valortotal + pp.getValor();
+				}
+				
 				if (pp.getPgto() != null) {
 					btn_Remover.setDisable(true);
 				}
@@ -513,7 +519,7 @@ public class ContasPagarController implements Initializable {
 			}
 			txt_total.setText(nf.format(valortotal));
 		}
-		if (!parcelasPagar.isEmpty()) {
+		if (!parcelasPagaraux.isEmpty()) {
 			obslParcelaPagar = FXCollections.observableArrayList(parcelasPagar);
 			tb_baixarContas.setItems(obslParcelaPagar);
 		}
@@ -553,9 +559,11 @@ public class ContasPagarController implements Initializable {
 	}
 
 	public void desativaTela() {
+		tab_baixar.setDisable(false);
 		if (tab_lancar.isSelected() == true) {
 			// Lançar contas a pagar
 			// Estilos
+			
 			lbl_TipoConta.setStyle(corNormal);
 			lbl_descricao.setStyle(corNormal);
 			lbl_TipoCondicao.setStyle(corNormal);
@@ -603,6 +611,7 @@ public class ContasPagarController implements Initializable {
 			cb_bTotal.setSelected(false);
 			cb_bParcial.setSelected(false);
 			// Table view
+			btn_Filtrar.setDisable(true);
 			tb_baixarContas.getItems().clear();
 			// Combobox
 			cbb_status.getSelectionModel().select(-1);
@@ -615,7 +624,7 @@ public class ContasPagarController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		desativaTela();
 		contasPagar = new ContasPagar();
-
+		btn_Filtrar.setDisable(true);
 		// Lançar contas
 		obsl_parcelas = FXCollections.observableArrayList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 		cbb_parcela.setItems(obsl_parcelas);
@@ -662,6 +671,7 @@ public class ContasPagarController implements Initializable {
 	void OnActionBuscar(ActionEvent event) {
 		carregaTelaBuscar(null, null);
 		hbox_Buscar.setVisible(true);
+		tab_baixar.setDisable(true);
 	}
 
 	@FXML
@@ -698,6 +708,7 @@ public class ContasPagarController implements Initializable {
 							}
 						}
 						desativaTela();
+						btn_Filtrar.setDisable(false);
 						carregaTelaBaixar(contasPagar);
 						FXNotification fxn;
 						fxn = new FXNotification("Parcela Estornada.", FXNotification.NotificationType.WARNING);
@@ -744,10 +755,7 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnActionFiltrar(ActionEvent event) {
-		if (!tb_baixarContas.getItems().isEmpty()) {
-			carregaTelaBaixar(contasPagar);
-		}
-
+		carregaTelaBaixar(contasPagar);
 	}
 
 	@FXML
@@ -930,6 +938,7 @@ public class ContasPagarController implements Initializable {
 
 				}
 				desativaTela();
+				btn_Filtrar.setDisable(false);
 				carregaTelaBaixar(contasPagar);
 				FXNotification fxn;
 				fxn = new FXNotification(
@@ -1022,6 +1031,7 @@ public class ContasPagarController implements Initializable {
 	@FXML
 	void OnActionSairAbrir(ActionEvent event) {
 		hbox_Buscar.setVisible(false);
+		tab_baixar.setDisable(false);
 	}
 
 	@FXML
@@ -1032,6 +1042,7 @@ public class ContasPagarController implements Initializable {
 			dp_aberturaT.setValue(null);
 			dp_vencimentoT.setValue(null);
 			tb_bContas.getItems().clear();
+			btn_Filtrar.setDisable(false);
 		}
 	}
 
@@ -1083,6 +1094,6 @@ public class ContasPagarController implements Initializable {
 
 	@FXML
 	void OnMouseSelectionUf(ActionEvent event) {
-		
+
 	}
 }

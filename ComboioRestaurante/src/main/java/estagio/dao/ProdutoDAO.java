@@ -68,6 +68,7 @@ public class ProdutoDAO extends GenericDAO<Produto>{
 			aux.setCategoria(produto.getCategoria());
 			aux.setPreco(produto.getPreco());
 			aux.setPreco_compra(produto.getPreco_compra());
+			aux.setEstoque(produto.getEstoque());
 			em.merge(aux);
 			em.getTransaction().commit();
 

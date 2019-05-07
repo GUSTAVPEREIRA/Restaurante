@@ -1,6 +1,8 @@
 package estagio.controller;
 
+import java.io.InputStream;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Time;
 import java.text.NumberFormat;
@@ -8,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -17,6 +20,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import estagio.dao.Banco;
 import estagio.dao.CaixaDAO;
 import estagio.dao.UsuarioDAO;
 import estagio.model.Caixa;
@@ -28,6 +32,7 @@ import estagio.view.util.Validadores;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,10 +45,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.swing.JRViewer;
 
 public class CaixaController implements Initializable {
 
@@ -73,7 +84,8 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private Tooltip ttp_btnNovo;
-
+	@FXML
+	private ImageView img_viewImage;
 	@FXML
 	private JFXButton btn_Editar;
 
@@ -250,7 +262,17 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private MenuItem mi_valorAbertura;
+	@FXML
+	private VBox vboxRelatorio;
 
+	@FXML
+	private HBox hboxJasperMaldito;
+
+	@FXML
+	private JFXButton btn_VoltarOnHell;
+
+	@FXML
+	private Tooltip ttp_btnVoltar1;
 	@FXML
 	private JFXButton btn_abrirCaixa;
 
@@ -288,7 +310,7 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	private HBox hbox_login;
-
+	SwingNode sn = new SwingNode();
 	Usuario abertoAutorizado;
 	Usuario fechadoAutorizado;
 	private CaixaDAO caixaDAO;
@@ -394,9 +416,7 @@ public class CaixaController implements Initializable {
 			erro = true;
 			ctm_valorAbertura.show(txt_valorAbertura, Side.RIGHT, 10, 0);
 			txt_valorAbertura.setStyle(corErro);
-		}
-		else
-		{
+		} else {
 			ctm_valorAbertura.hide();
 			txt_valorAbertura.setStyle(corNormal);
 		}
@@ -404,7 +424,7 @@ public class CaixaController implements Initializable {
 
 			ctm_valorAbertura.hide();
 			erro = false;
-		
+
 			txt_dataAbertura.setValue(LocalDate.now());
 			txt_horaAbertura.setText(LocalDateTime.now().format(horaFormat));
 			txt_valorAbertura.setStyle(corNormal);
@@ -436,11 +456,8 @@ public class CaixaController implements Initializable {
 			fxn.show();
 			caixa.setUsuario(LoginController.logado);
 			caixaDAO.persist(caixa);
-		}
-		else
-		{
-			fxn =  new FXNotification("Informe os dados corretamente",
-					FXNotification.NotificationType.ERROR);
+		} else {
+			fxn = new FXNotification("Informe os dados corretamente", FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
 	}
@@ -613,5 +630,26 @@ public class CaixaController implements Initializable {
 		hbox_login.setVisible(true);
 		verificaCaixaAberto();
 
+	}
+
+	@FXML
+	void onActionClickViewCaixa(MouseEvent event) throws JRException {
+		Connection con = Banco.getCon().abre();
+		vboxRelatorio.setVisible(true);
+		HashMap parameters = new HashMap();
+		parameters.put("id", caixa.getId());
+		InputStream jasper1 = getClass().getResourceAsStream("/estagio/relatorios/CaixaReports.jasper");
+		JasperPrint jp = JasperFillManager.fillReport(jasper1, parameters,con);		
+		JRViewer jr = new JRViewer(jp);
+		hboxJasperMaldito.setHgrow(sn, Priority.ALWAYS);
+		sn.setContent(jr);
+		hboxJasperMaldito.getChildren().add(sn);
+
+	}
+
+	@FXML
+	void OnActionVoltarOnHell(ActionEvent event) {
+		vboxRelatorio.setVisible(false);
+		hboxJasperMaldito.getChildren().remove(sn);
 	}
 }

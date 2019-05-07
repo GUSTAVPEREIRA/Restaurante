@@ -489,7 +489,7 @@
                                                 <Tooltip fx:id="ttp_lblStatus" text="Selecione o status da conta." />
                                              </tooltip>
                                           </Label>
-                                          <JFXComboBox fx:id="cbb_status" onAction="#OnMouseSelectionUf" prefHeight="36.0" prefWidth="156.0">
+                                          <JFXComboBox fx:id="cbb_status" focusColor="#009688" onAction="#OnMouseSelectionUf" prefHeight="36.0" prefWidth="156.0">
                                              <tooltip>
                                                 <Tooltip fx:id="ttp_status" text="Lista de status." />
                                              </tooltip>
@@ -501,7 +501,7 @@
                                                 </ContextMenu>
                                              </contextMenu>
                                           </JFXComboBox>
-                                          <JFXButton fx:id="btn_Filtrar" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionFiltrar" prefHeight="31.0" prefWidth="110.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
+                                          <JFXButton fx:id="btn_Filtrar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionFiltrar" prefHeight="31.0" prefWidth="110.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
@@ -513,7 +513,7 @@
                                                 </Tooltip>
                                              </tooltip>
                                              <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+                                                <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
                                              </graphic>
                                           </JFXButton>
                                           <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="110.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
@@ -528,7 +528,7 @@
                                                 </Tooltip>
                                              </tooltip>
                                              <graphic>
-                                                <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+                                                <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
                                              </graphic>
                                           </JFXButton>
                                        </children>

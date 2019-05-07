@@ -60,7 +60,7 @@ public class CaixaDAO extends GenericDAO<Caixa> {
 			retorno = query.getResultList();
 			caixa = retorno.get(0);
 			em.getTransaction().commit();
-			
+
 		} catch (Exception e) {
 			em.getTransaction().rollback();
 			System.out.println(e.getMessage());

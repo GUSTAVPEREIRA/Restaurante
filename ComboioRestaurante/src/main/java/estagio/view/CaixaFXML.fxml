@@ -15,6 +15,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -122,6 +124,14 @@
                               </ContextMenu>
                            </contextMenu>
                         </JFXTextField>
+                        <ImageView fx:id="img_viewImage" fitHeight="38.0" fitWidth="31.0" onMouseClicked="#onActionClickViewCaixa" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="79.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@resources/icons8-eye-48.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </HBox>
                   <HBox spacing="10.0">
@@ -453,6 +463,26 @@
             <DropShadow color="#5fcda3" height="8.0" radius="3.5" spread="1.0" width="8.0" />
          </effect>
       </HBox>
+      <VBox fx:id="vboxRelatorio" prefHeight="500.0" prefWidth="918.0" styleClass="branco" visible="false">
+         <children>
+            <HBox fx:id="hboxJasperMaldito" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="918.0" />
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <JFXButton fx:id="btn_VoltarOnHell" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionVoltarOnHell" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                     </graphic>
+                     <tooltip>
+                        <Tooltip fx:id="ttp_btnVoltar1" text="Exclui uma cidade." />
+                     </tooltip>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
    <stylesheets>
       <URL value="@css/backgroundCadastro.css" />

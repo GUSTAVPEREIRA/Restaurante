@@ -47,6 +47,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class ContasReceberController implements Initializable {
 
@@ -249,6 +250,8 @@ public class ContasReceberController implements Initializable {
 	private JFXDatePicker dp_vencimentoT;
 
 	@FXML
+	private VBox vb_contasReceber;
+	@FXML
 	private JFXButton btn_FiltrarT;
 
 	@FXML
@@ -272,6 +275,7 @@ public class ContasReceberController implements Initializable {
 	@FXML
 	private TableColumn<ContasReceber, String> tc_bValor;
 
+
 	@FXML
 	private JFXButton btn_sairAbrir;
 
@@ -290,6 +294,8 @@ public class ContasReceberController implements Initializable {
 	ParcelaReceberDAO parcelaReceberDAO = new ParcelaReceberDAO();
 	ContasReceberDAO contasReceberDAO = new ContasReceberDAO();
 	List<ParcelaReceber> parcelasReceber = new ArrayList<ParcelaReceber>();
+	List<ParcelaReceber> parcelasReceberaux = new ArrayList<ParcelaReceber>();
+
 	List<ContasReceber> contassReceber = new ArrayList<ContasReceber>();
 	String corErro = "-fx-border-color: red;";
 	String corNormal = "-fx-border-color:white";
@@ -334,6 +340,8 @@ public class ContasReceberController implements Initializable {
 	void OnActionBuscar(ActionEvent event) {
 		carregaTelaBuscar(null, null);
 		hbox_Buscar.setVisible(true);
+		btn_Filtrar.setDisable(false);
+		vb_contasReceber.setDisable(true);
 	}
 
 	public void carregaTelaBuscar(Date dataAbertura, Date dataVencimento) {
@@ -371,7 +379,9 @@ public class ContasReceberController implements Initializable {
 	}
 
 	public void desativaTela() {
-
+		btn_Filtrar.setDisable(true);
+		;
+		vb_contasReceber.setDisable(false);
 		// Baixar contas a pagar
 		// Check box
 		cbb_status.getSelectionModel().select(null);
@@ -411,25 +421,19 @@ public class ContasReceberController implements Initializable {
 						Usuario usuario = LoginController.logado;
 						Caixa caixa = caixaDAO.listaCaixasVenda(usuario);
 						if (parcelaReceber.getCondicao().equals("CREDITO")) {
-							caixa.setCredito(caixa.getCredito()-parcelaReceber.getValorPgto());
-						}
-						else if(parcelaReceber.getCondicao().equals("DEBITO"))
-						{
-							caixa.setDebito(caixa.getDebito()-parcelaReceber.getValorPgto());
-						}
-						else if(parcelaReceber.getCondicao().equals("DINHEIRO"))
-						{
-							caixa.setDinheiro(caixa.getDinheiro()-parcelaReceber.getValorPgto());
-						}
-						else
-						{
-							caixa.setCheque(caixa.getCheque()-parcelaReceber.getValorPgto());
+							caixa.setCredito(caixa.getCredito() - parcelaReceber.getValorPgto());
+						} else if (parcelaReceber.getCondicao().equals("DEBITO")) {
+							caixa.setDebito(caixa.getDebito() - parcelaReceber.getValorPgto());
+						} else if (parcelaReceber.getCondicao().equals("DINHEIRO")) {
+							caixa.setDinheiro(caixa.getDinheiro() - parcelaReceber.getValorPgto());
+						} else {
+							caixa.setCheque(caixa.getCheque() - parcelaReceber.getValorPgto());
 						}
 						caixaDAO.merge(caixa);
 						if (parcelaReceber.getIdRef() != null) {
 							if (parcelaReceber.getStatus().equals("FECHADO") != true || valorRestantePagar() <= 0.01) {
 								aux = parcelaReceberDAO.findById(parcelaReceber.getIdRef());
-							
+
 								aux.setValorPgto(0.00);
 								aux.setPgto(null);
 								aux.setStatus("ABERTO");
@@ -445,6 +449,7 @@ public class ContasReceberController implements Initializable {
 							}
 						}
 						desativaTela();
+						btn_Filtrar.setDisable(false);
 						carregaTelaBaixar(contasReceber);
 						FXNotification fxn;
 						fxn = new FXNotification("Parcela Estornada.", FXNotification.NotificationType.WARNING);
@@ -490,9 +495,7 @@ public class ContasReceberController implements Initializable {
 
 	@FXML
 	void OnActionFiltrar(ActionEvent event) {
-		if (!tb_baixarContas.getItems().isEmpty()) {
-			carregaTelaBaixar(contasReceber);
-		}
+		carregaTelaBaixar(contasReceber);
 	}
 
 	@FXML
@@ -535,19 +538,19 @@ public class ContasReceberController implements Initializable {
 					if (cb_bCredito.isSelected()) {
 						cb_bCredito.setSelected(false);
 						parcelaReceber.setCondicao("CREDITO");
-						caixa.setCredito(caixa.getCredito()+ValorPgto);
+						caixa.setCredito(caixa.getCredito() + ValorPgto);
 					} else if (cb_bDebito.isSelected()) {
 						cb_bDebito.setSelected(false);
-						caixa.setDebito(caixa.getDebito()+ValorPgto);
+						caixa.setDebito(caixa.getDebito() + ValorPgto);
 						parcelaReceber.setCondicao("DEBITO");
 					} else if (cb_bDinheiro.isSelected()) {
 						cb_bDinheiro.setSelected(false);
 						parcelaReceber.setCondicao("DINHEIRO");
-						caixa.setDinheiro(caixa.getDinheiro()+ValorPgto);
+						caixa.setDinheiro(caixa.getDinheiro() + ValorPgto);
 					} else {
 						cb_bCheque.setSelected(false);
 						parcelaReceber.setCondicao("CHEQUE");
-						caixa.setCheque(caixa.getCheque()+ValorPgto);
+						caixa.setCheque(caixa.getCheque() + ValorPgto);
 					}
 					caixaDAO.merge(caixa);
 					parcelaReceber.setValorPgto(parcelaReceber.getValorPgto() + ValorPgto);
@@ -564,6 +567,7 @@ public class ContasReceberController implements Initializable {
 
 					}
 					desativaTela();
+					btn_Filtrar.setDisable(false);
 					carregaTelaBaixar(contasReceber);
 					FXNotification fxn;
 					fxn = new FXNotification(
@@ -609,6 +613,7 @@ public class ContasReceberController implements Initializable {
 	@FXML
 	void OnActionSairAbrir(ActionEvent event) {
 		hbox_Buscar.setVisible(false);
+		vb_contasReceber.setDisable(false);
 	}
 
 	@FXML
@@ -617,6 +622,7 @@ public class ContasReceberController implements Initializable {
 			this.setParcela(tb_baixarContas.getSelectionModel().getSelectedItem());
 		}
 	}
+
 
 	public void setParcela(ParcelaReceber parcelaReceber) {
 		this.parcelaReceber = new ParcelaReceber();
@@ -644,6 +650,7 @@ public class ContasReceberController implements Initializable {
 		parcelasReceber = new ArrayList<ParcelaReceber>();
 		desativaTela();
 		carregaTelaBaixar(contasReceber);
+		btn_Filtrar.setDisable(false);
 
 	}
 
@@ -707,11 +714,15 @@ public class ContasReceberController implements Initializable {
 		}
 		parcelasReceber = parcelaReceberDAO.listaParcelaReceber(contasReceber, DataAberturaT, DataVencimentoT,
 				cbb_status.getSelectionModel().getSelectedItem());
+		parcelasReceberaux = parcelaReceberDAO.listaParcelaReceber(contasReceber, null, null, "AMBOS");
 		Double valortotal = 0.00;
 		btn_Remover.setDisable(false);
-		if (!parcelasReceber.isEmpty()) {
-			for (ParcelaReceber pp : parcelasReceber) {
-				valortotal = valortotal + (pp.getValor() - pp.getValorPgto());
+		if (!parcelasReceberaux.isEmpty()) {
+			for (ParcelaReceber pp : parcelasReceberaux) {
+				if (pp.getValorPgto() <= 0) {
+					valortotal = valortotal + pp.getValor();
+				}
+
 				if (pp.getPgto() != null) {
 					btn_Remover.setDisable(true);
 				}

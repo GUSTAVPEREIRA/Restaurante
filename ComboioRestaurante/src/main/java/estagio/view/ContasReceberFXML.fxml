@@ -21,11 +21,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="sp_contasPagar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ContasReceberController">
+<StackPane fx:id="sp_contasReceber" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ContasReceberController">
    <children>
-      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="branco">
+      <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="573.0" prefWidth="918.0" styleClass="branco">
          <children>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="548.0" prefWidth="920.0" spacing="30.0">
+            <VBox fx:id="vb_contasReceber" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="583.0" prefWidth="920.0" spacing="30.0">
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
                      <children>
@@ -67,7 +67,7 @@
                               </ContextMenu>
                            </contextMenu>
                         </JFXComboBox>
-                        <JFXButton fx:id="btn_Filtrar" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionFiltrar" prefHeight="31.0" prefWidth="110.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
+                        <JFXButton fx:id="btn_Filtrar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionFiltrar" prefHeight="31.0" prefWidth="110.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Filtrar">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -79,7 +79,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="110.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
@@ -94,7 +94,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
                            </graphic>
                         </JFXButton>
                      </children>
@@ -187,28 +187,28 @@
                                     </Label>
                                  </children>
                               </HBox>
-                              <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="10.0">
+                              <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0">
                                  <children>
-                                    <JFXCheckBox fx:id="cb_bTotal" onAction="#OnActionBTotal" text="Total" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bTotal" alignment="CENTER" contentDisplay="CENTER" onAction="#OnActionBTotal" prefHeight="36.0" prefWidth="93.5" text="Total" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXCheckBox>
-                                    <JFXCheckBox fx:id="cb_bParcial" onAction="#OnActionBParcial" text="Parcial" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bParcial" alignment="CENTER" onAction="#OnActionBParcial" prefHeight="36.0" prefWidth="93.5" text="Parcial" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXCheckBox>
-                                    <Label fx:id="lbl_valorParcial" alignment="BOTTOM_LEFT" prefHeight="60.0" prefWidth="77.0" text="Valor">
+                                    <Label fx:id="lbl_valorParcial" alignment="BOTTOM_LEFT" ellipsisString="" prefHeight="35.0" prefWidth="86.0" text="Valor">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
-                                       <padding>
-                                          <Insets left="40.0" />
-                                       </padding>
                                        <tooltip>
                                           <Tooltip text="Valor total ou parcial da parcela a pagar." />
                                        </tooltip>
+                                       <padding>
+                                          <Insets left="25.0" />
+                                       </padding>
                                     </Label>
                                     <JFXTextField fx:id="txt_valorParcial" disable="true" focusColor="#5fcda3" labelFloat="true" maxWidth="397.0" minWidth="131.0" prefHeight="35.0" prefWidth="200.0" unFocusColor="BLACK">
                                        <font>
@@ -222,7 +222,7 @@
                                           </ContextMenu>
                                        </contextMenu>
                                     </JFXTextField>
-                                    <JFXCheckBox fx:id="cb_bCredito" onAction="#OnActionCredito" text="Credito" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bCredito" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#OnActionCredito" prefHeight="36.0" prefWidth="93.5" text="Credito" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -230,17 +230,17 @@
                                           <Insets left="40.0" />
                                        </HBox.margin>
                                     </JFXCheckBox>
-                                    <JFXCheckBox fx:id="cb_bDebito" onAction="#OnActionDebito" text="Debito" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bDebito" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#OnActionDebito" prefHeight="36.0" prefWidth="93.5" text="Debito" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXCheckBox>
-                                    <JFXCheckBox fx:id="cb_bDinheiro" onAction="#OnActionDinheiro" text="Dinheiro" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bDinheiro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#OnActionDinheiro" prefHeight="36.0" prefWidth="93.5" text="Dinheiro" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </JFXCheckBox>
-                                    <JFXCheckBox fx:id="cb_bCheque" onAction="#OnActionCheque" text="Cheque" unCheckedColor="BLACK">
+                                    <JFXCheckBox fx:id="cb_bCheque" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#OnActionCheque" prefHeight="36.0" prefWidth="93.5" text="Cheque" unCheckedColor="BLACK">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -252,9 +252,6 @@
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
-                                 <padding>
-                                    <Insets left="20.0" />
-                                 </padding>
                               </HBox>
                            </children>
                         </VBox>
@@ -267,7 +264,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" />
                            </graphic>
                            <tooltip>
                               <Tooltip fx:id="ttp_btnNovo1" text="Cria uma nova tela, removendo os dados da anterior." />
@@ -285,7 +282,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Estornar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionEstornar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Estornar">
@@ -300,7 +297,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Remover">
@@ -315,7 +312,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
@@ -330,7 +327,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
@@ -345,7 +342,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
                            </graphic>
                         </JFXButton>
                      </children>
