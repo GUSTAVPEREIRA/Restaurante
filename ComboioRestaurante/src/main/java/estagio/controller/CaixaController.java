@@ -632,10 +632,12 @@ public class CaixaController implements Initializable {
 
 	}
 
+	@SuppressWarnings({ "static-access", "unchecked" })
 	@FXML
 	void onActionClickViewCaixa(MouseEvent event) throws JRException {
 		Connection con = Banco.getCon().abre();
 		vboxRelatorio.setVisible(true);
+		@SuppressWarnings("rawtypes")
 		HashMap parameters = new HashMap();
 		parameters.put("id", caixa.getId());
 		InputStream jasper1 = getClass().getResourceAsStream("/estagio/relatorios/CaixaReports.jasper");

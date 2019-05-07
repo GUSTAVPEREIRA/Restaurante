@@ -742,7 +742,7 @@ public class VendaController implements Initializable {
 
 	public void AdicionarVenda(Venda adicionarVenda) {
 		File imageFile = new File(
-				"/home/gustavo/Developer/Projeto_Estagio2/ComboioRestaurante/src/main/java/estagio/view/resources/logoPosto2.png");
+				"./src/main/resources/estagio/view/resources/logoPosto2.png");
 		Image image = new Image(imageFile.toURI().toString());
 		JFXButton buttonVenda = new JFXButton(String.valueOf(adicionarVenda.getComanda()), new ImageView(image));
 		buttonVenda.setOnAction(new EventHandler<ActionEvent>() {
