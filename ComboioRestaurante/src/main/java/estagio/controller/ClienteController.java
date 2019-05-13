@@ -615,10 +615,9 @@ public class ClienteController implements Initializable {
 				}
 			}
 
-		}
-		else
-		{
-			FXNotification fxn = new FXNotification("Dados inválidos, corrija os campos contornados em vermelho.", FXNotification.NotificationType.ERROR);
+		} else {
+			FXNotification fxn = new FXNotification("Dados inválidos, corrija os campos contornados em vermelho.",
+					FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
 

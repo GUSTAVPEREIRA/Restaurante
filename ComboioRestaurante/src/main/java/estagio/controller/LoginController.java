@@ -17,20 +17,21 @@ import com.jfoenix.controls.JFXTextField;
 
 import estagio.dao.UsuarioDAO;
 import estagio.model.Usuario;
+import estagio.ui.notifications.FXNotification;
+import estagio.ui.notifications.FXNotificationFactory;
 import estagio.view.util.TextFieldFormatterHelper;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -39,9 +40,8 @@ import javafx.stage.Stage;
  */
 public class LoginController implements Initializable {
 
-
-    @FXML
-    private AnchorPane ap_login;
+	@FXML
+	private AnchorPane ap_login;
 	@FXML
 	private JFXTextField txt_login;
 	@FXML
@@ -68,6 +68,9 @@ public class LoginController implements Initializable {
 	@FXML
 	private MenuItem mi_btnLogin;
 
+	@FXML
+	private StackPane sp_login;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		txt_login.setText("");
@@ -78,16 +81,23 @@ public class LoginController implements Initializable {
 		txt_senha.setTextFormatter(
 				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				FXNotificationFactory.initialize(sp_login);
+			}
+		});
+
 	}
 
 	@FXML
 	private void ActionLogin(ActionEvent event) throws IOException {
 		login();
-		
+
 	}
 
-	public void login() throws IOException
-	{
+	public void login() throws IOException {
 		usuarioDAO = new UsuarioDAO();
 		logado = new Usuario();
 		String login, senha;
@@ -97,7 +107,6 @@ public class LoginController implements Initializable {
 		if (txt_login.getText().equals("")) {
 			erro = true;
 			txt_login.setStyle(corErro);
-			ctm_login.show(txt_login, Side.RIGHT, 10, 0);
 		} else {
 			login = txt_login.getText();
 			txt_login.setStyle(corNormal);
@@ -106,7 +115,6 @@ public class LoginController implements Initializable {
 		if (txt_senha.getText().equals("")) {
 			erro = true;
 			txt_senha.setStyle(corErro);
-			ctm_senha.show(txt_senha, Side.RIGHT, 10, 0);
 		} else {
 			senha = txt_senha.getText();
 			txt_senha.setStyle(corNormal);
@@ -119,42 +127,52 @@ public class LoginController implements Initializable {
 			if (logado != null && !logado.getTipo().equals("") && logado.getAtivo().equals("ATIVADO") == true) {
 				logado.setLogin(login);
 				logado.setSenha(senha);
-				Stage stage = (Stage) btn_login.getScene().getWindow();
-				stage.close();
 				try {
 
 					Thread.sleep(0, 1 * 1000);
-					Parent root;
-					root = FXMLLoader.load(getClass().getResource("/estagio/view/MenuFXML.fxml"));
-					Scene scene = new Scene(root);
-					stage = new Stage();
-					stage.setTitle("Menu");
-					stage.setResizable(false);
-					stage.setHeight(650);
-					stage.getIcons().add(new Image(getClass().getResourceAsStream("/estagio/view/resources/iconPosto.png")));
-					stage.setScene(scene);
-					stage.show();
+					Node node;
+					node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/MenuFXML.fxml"));
+					ap_login.getChildren().setAll(node);
 				} catch (InterruptedException ex) {
 					Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 				}
 			} else {
-				ctm_btnLogin.show(btn_login, Side.LEFT, 20, 0);
+				 FXNotification fxn = new FXNotification("Login inválido.",
+				 FXNotification.NotificationType.ERROR);
+				 fxn.show();
+				// ctm_btnLogin.show(btn_login, Side.LEFT, 20, 0);
 			}
 		} else {
-			ctm_btnLogin.show(btn_login, Side.LEFT, 20, 0);
+			 FXNotification fxn = new FXNotification("Login inválido.",
+			 FXNotification.NotificationType.ERROR);
+			 fxn.show();
+			// ctm_btnLogin.show(btn_login, Side.LEFT, 20, 0);
 		}
 	}
-    @FXML
-    void OnKeyPressedEnter(KeyEvent event) throws IOException {
-    	if (event.getCode().equals(KeyCode.ENTER)) {
-			login();
-		}
-    }
 
 	@FXML
-	void ActionSair(ActionEvent event) {
+	void OnKeyPressedEnter(KeyEvent event) throws IOException {
+		if (event.getCode().equals(KeyCode.ENTER)) {
+			login();
+		}
+	}
+
+	@FXML
+	void OnKeyPressedSair(KeyEvent event) throws IOException {
+		if (event.getCode().equals(KeyCode.ENTER)) {
+			sair();
+		}
+	}
+
+	
+	public void sair() {
 		Stage stage = (Stage) btn_sair.getScene().getWindow();
 		stage.close();
+	}
+	
+	@FXML
+	void ActionSair(ActionEvent event) {
+		sair();
 	}
 
 }

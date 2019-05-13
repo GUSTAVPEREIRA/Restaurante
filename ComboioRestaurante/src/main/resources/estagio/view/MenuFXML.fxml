@@ -34,7 +34,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="CALCULATOR" size="16" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" contentDisplay="TEXT_ONLY" disable="true" graphicTextGap="2.0" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
+            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" contentDisplay="TEXT_ONLY" disable="true" graphicTextGap="2.0" onAction="#onActionRelatorio" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -42,12 +42,12 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="16" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="6.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+            <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" stroke="#755d5d" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="1.5" />
                </graphic>
             </JFXButton>
             <JFXButton fx:id="btn_texto" alignment="BASELINE_CENTER" buttonType="RAISED" contentDisplay="TEXT_ONLY" disable="true" graphicTextGap="6.0" maxHeight="455.0" maxWidth="109.0" minHeight="64.0" prefHeight="64.0" prefWidth="109.0" styleClass="texto" stylesheets="@css/buttons.css" textFill="#1b9763">

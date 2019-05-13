@@ -5,7 +5,7 @@
  */
 package estagio.controller;
 
-import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.Date;
 import java.text.NumberFormat;
@@ -741,9 +741,8 @@ public class VendaController implements Initializable {
 	}
 
 	public void AdicionarVenda(Venda adicionarVenda) {
-		File imageFile = new File(
-				"./src/main/resources/estagio/view/resources/logoPosto2.png");
-		Image image = new Image(imageFile.toURI().toString());
+		InputStream imageStream = this.getClass().getResourceAsStream("/estagio/view/resources/logoPosto2.png");
+		Image image = new Image(imageStream);
 		JFXButton buttonVenda = new JFXButton(String.valueOf(adicionarVenda.getComanda()), new ImageView(image));
 		buttonVenda.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -754,7 +753,7 @@ public class VendaController implements Initializable {
 		buttonVenda.setContentDisplay(ContentDisplay.TOP);
 		buttonVenda.setPrefWidth(98);
 		buttonVenda.setPrefHeight(51);
-		buttonVenda.setStyle("-fx-background-image: url(/resources/logoPosto.png);");
+		buttonVenda.setStyle("-fx-background-image: black");
 		listbutton.add(buttonVenda);
 		fp_mapaVendas.getChildren().add(buttonVenda);
 	}

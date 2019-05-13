@@ -79,7 +79,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Buscar" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionBuscar" prefHeight="31.0" prefWidth="110.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Buscar">
@@ -94,7 +94,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                         </JFXButton>
                      </children>
@@ -264,7 +264,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                            <tooltip>
                               <Tooltip fx:id="ttp_btnNovo1" text="Cria uma nova tela, removendo os dados da anterior." />
@@ -282,7 +282,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Estornar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionEstornar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Estornar">
@@ -297,7 +297,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Remover">
@@ -312,7 +312,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
@@ -327,7 +327,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                         </JFXButton>
                         <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
@@ -342,7 +342,7 @@
                               </Tooltip>
                            </tooltip>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                         </JFXButton>
                      </children>
@@ -392,7 +392,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                            <tooltip>
                               <Tooltip fx:id="ttp_btnFiltrar" text="Filtra os dados de uma conta a pagar." />
@@ -430,7 +430,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                            <tooltip>
                               <Tooltip fx:id="ttp_btnSairAbrir" text="Volta para a tela anterior." />

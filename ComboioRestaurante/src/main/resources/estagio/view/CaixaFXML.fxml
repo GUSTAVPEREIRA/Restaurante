@@ -49,7 +49,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnNovo" text="Cria uma nova tela, removendo os dados da anterior." />
@@ -60,7 +60,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnNovo1" text="Cria uma nova tela, removendo os dados da anterior." />
@@ -71,7 +71,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="REPEAT" size="18" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="REPEAT" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnExcluir1" text="Exclui uma cidade." />
@@ -82,7 +82,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnSair" text="Exclui uma cidade." />
@@ -339,7 +339,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="15" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="CHECK" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="ttp_btnAbrirCaixa" text="Busca cidades." />
@@ -354,7 +354,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="ttp_btnFecharCaixa" text="Busca cidades." />
@@ -369,7 +369,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                                  <graphic>
-                                    <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="15" />
+                                    <FontAwesomeIconView fill="WHITE" glyphName="REPLY" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                                  </graphic>
                                  <tooltip>
                                     <Tooltip fx:id="ttp_btnSairAbrir" text="Exclui uma cidade." />
@@ -437,7 +437,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                            <tooltip>
                               <Tooltip fx:id="ttp_btnConfirmar" text="Cria uma nova tela, removendo os dados da anterior." />
@@ -448,7 +448,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                            <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                              <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                            </graphic>
                            <tooltip>
                               <Tooltip fx:id="ttp_btnVoltar" text="Exclui uma cidade." />
@@ -473,7 +473,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnVoltar1" text="Exclui uma cidade." />

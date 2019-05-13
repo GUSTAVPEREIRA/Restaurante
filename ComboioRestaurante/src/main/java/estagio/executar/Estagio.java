@@ -18,23 +18,26 @@ import javafx.stage.Stage;
  * @author Pereira
  */
 public class Estagio extends Application {
-    
-    @Override
-    public void start(Stage stage) throws IOException {
-    	Parent parent = FXMLLoader.load(getClass().getResource("/estagio/view/LoginFXML.fxml"));
-    	
-    	Scene scene = new Scene(parent);
-    	stage.setScene(scene);
-    	stage.setTitle("Restaurante Comboio");
-    	stage.getIcons().add(new Image(getClass().getResourceAsStream("/estagio/view/resources/iconPosto.png")));
-    	stage.show();
-    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
-    
+	@Override
+	public void start(Stage stage) throws IOException {
+		
+		stage = new Stage();
+		Parent parent = FXMLLoader.load(getClass().getResource("/estagio/view/LoginFXML.fxml"));
+		Scene scene = new Scene(parent);
+		stage.setScene(scene);
+		stage.setResizable(false);
+
+		stage.setTitle("Restaurante Comboio");
+		stage.getIcons().add(new Image(getClass().getResourceAsStream("/estagio/view/resources/iconPosto.png")));
+		stage.show();
+	}
+
+	/**
+	 * @param args the command line arguments
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+
 }

@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -22,6 +25,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import estagio.dao.Banco;
 import estagio.dao.CaixaDAO;
+import estagio.dao.Conexao;
 import estagio.dao.UsuarioDAO;
 import estagio.model.Caixa;
 import estagio.model.Usuario;
@@ -29,9 +33,11 @@ import estagio.ui.notifications.FXNotification;
 import estagio.ui.notifications.FXNotification.NotificationType;
 import estagio.view.util.TextFieldFormatterHelper;
 import estagio.view.util.Validadores;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -632,24 +638,49 @@ public class CaixaController implements Initializable {
 
 	}
 
-	@SuppressWarnings({ "static-access", "unchecked" })
+
 	@FXML
 	void onActionClickViewCaixa(MouseEvent event) throws JRException {
+
+		new FXNotification("Gerando relatório, aguarde alguns segundos.", FXNotification.NotificationType.INFORMATION)
+				.show();
+
+		Task<JRViewer> task = new Task<JRViewer>() {
+			@Override
+			public JRViewer call() {
+				try {
+					Banco.getCon();
+					Connection con = Conexao.abre();
+					HashMap<String, Object> parameters = new HashMap<String, Object>();
+					parameters.put("id", caixa.getId());
+					InputStream jasper1 = getClass().getResourceAsStream("/estagio/relatorios/CaixaReports.jasper");
+					JasperPrint jp = JasperFillManager.fillReport(jasper1, parameters, con);
+					JRViewer jr = new JRViewer(jp);
+
+					return jr;
+				} catch (Exception e) {
+					Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Warning: an error ocurred when ",
+							e);
+
+				}
+				return null;
+			}
+		};
 		
-		FXNotification fxn = new FXNotification("Gerando relatório, aguarde alguns segundos.",
-				FXNotification.NotificationType.INFORMATION);
-		fxn.show();
-		Connection con = Banco.getCon().abre();
-		vboxRelatorio.setVisible(true);
-		@SuppressWarnings("rawtypes")
-		HashMap parameters = new HashMap();
-		parameters.put("id", caixa.getId());
-		InputStream jasper1 = getClass().getResourceAsStream("/estagio/relatorios/CaixaReports.jasper");
-		JasperPrint jp = JasperFillManager.fillReport(jasper1, parameters,con);		
-		JRViewer jr = new JRViewer(jp);
-		hboxJasperMaldito.setHgrow(sn, Priority.ALWAYS);
-		sn.setContent(jr);
-		hboxJasperMaldito.getChildren().add(sn);
+		task.setOnSucceeded((event1) -> {
+			Platform.runLater(() -> {
+				try {
+					vboxRelatorio.setVisible(true);
+					HBox.setHgrow(sn, Priority.ALWAYS);
+					sn.setContent(task.get());
+					hboxJasperMaldito.getChildren().add(sn);
+				} catch (InterruptedException | ExecutionException e) {
+					Logger.getLogger(this.getClass().getName()).log(Level.WARNING, "Error: failed to load ", e);
+				}
+			});
+		});
+
+		new Thread(task).start();
 
 	}
 

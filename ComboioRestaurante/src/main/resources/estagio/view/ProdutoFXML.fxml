@@ -34,7 +34,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
          </graphic>
       </JFXButton>
       <Label fx:id="lbl_nome" layoutX="57.0" layoutY="150.0" text="Nome">
@@ -134,7 +134,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="FILE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" layoutX="160.0" layoutY="541.0" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#002bff" styleClass="filtrar" stylesheets="@css/buttons.css" text="Gravar" textFill="WHITE">
@@ -142,7 +142,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Excluir" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="290.0" layoutY="541.0" onAction="#OnActionExcluir" prefHeight="31.0" prefWidth="120.0" ripplerFill="#002bff" styleClass="excluir" stylesheets="@css/buttons.css" text="Excluir" textFill="WHITE">
@@ -150,7 +150,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" layoutX="420.0" layoutY="541.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#002bff" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
@@ -158,7 +158,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
          </graphic>
       </JFXButton>
       <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" layoutX="550.0" layoutY="541.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#002bff" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
@@ -166,7 +166,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
          </graphic>
       </JFXButton>
       <Label layoutX="50.0" layoutY="150.0" text="*" textFill="RED">
@@ -207,7 +207,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="SEARCH" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                </graphic>
             </JFXButton>
             <JFXTextField fx:id="txt_filtro" focusColor="#5fcda3" layoutX="146.0" layoutY="20.0" maxWidth="-Infinity" minWidth="-Infinity" onKeyPressed="#OnKeyPressedEnter" prefHeight="31.0" prefWidth="751.0" promptText="Busca pelo fornecedor ou pelo nome." unFocusColor="BLACK" />
@@ -225,7 +225,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
                <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                </graphic>
             </JFXButton>
          </children>

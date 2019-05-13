@@ -12,15 +12,15 @@
    <children>
       <HBox alignment="TOP_CENTER" maxHeight="80.0" maxWidth="920.0" minHeight="80.0" minWidth="920.0" prefHeight="80.0" prefWidth="920.0" HBox.hgrow="ALWAYS">
          <children>
-            <VBox maxHeight="80.0" maxWidth="840.0" minHeight="80.0" minWidth="840.0" prefHeight="80.0" prefWidth="840.0" styleClass="FXNotificationBody">
+            <VBox maxHeight="80.0" maxWidth="820.0" minHeight="80.0" minWidth="820.0" prefHeight="80.0" prefWidth="820.0" styleClass="FXNotificationBody">
                <children>
-                  <TextArea fx:id="textAreaNotifications" editable="false" maxHeight="-Infinity" maxWidth="830.0" minHeight="-Infinity" minWidth="830.0" prefHeight="80.0" prefWidth="830.0" wrapText="true" VBox.vgrow="ALWAYS">
+                  <TextArea fx:id="textAreaNotifications" editable="false" maxHeight="-Infinity" maxWidth="820.0" minHeight="-Infinity" minWidth="820.0" prefHeight="80.0" prefWidth="820.0" wrapText="true" VBox.vgrow="ALWAYS">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font></TextArea>
                </children>
             </VBox>
-            <FontAwesomeIconView fx:id="icon" fill="WHITE" glyphName="" size="80" textAlignment="CENTER" wrappingWidth="80.0" HBox.hgrow="ALWAYS" />
+            <FontAwesomeIconView fx:id="icon" fill="WHITE" size="80" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" textAlignment="CENTER" wrappingWidth="100.0" HBox.hgrow="ALWAYS" />
             <VBox />
          </children>
          <HBox.margin>

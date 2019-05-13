@@ -9,38 +9,38 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="ap_menu" maxHeight="600.0" maxWidth="1044.0" minHeight="600.0" minWidth="1044.0" prefHeight="600.0" prefWidth="1044.0" styleClass="fundo" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.FinancasController">
+<AnchorPane id="AnchorPane" fx:id="ap_menu" maxHeight="650.0" maxWidth="1044.0" minHeight="650.0" minWidth="1044.0" prefHeight="650.0" prefWidth="1044.0" styleClass="fundo" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.FinancasController">
    <children>
-      <JFXDrawer fx:id="draw_menu" defaultDrawerSize="400.0" direction="BOTTOM" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" overLayVisible="false" prefHeight="600.0" prefWidth="117.0">
+      <JFXDrawer fx:id="draw_menu" defaultDrawerSize="400.0" direction="BOTTOM" maxHeight="650.0" maxWidth="109.0" minHeight="650.0" minWidth="109.0" overLayVisible="false" prefHeight="650.0" prefWidth="117.0">
          <children>
-            <VBox fx:id="VB_Menu" maxHeight="600.0" maxWidth="109.0" minHeight="600.0" minWidth="109.0" prefHeight="600.0" prefWidth="109.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css">
+            <VBox fx:id="VB_Menu" maxHeight="650.0" maxWidth="109.0" minHeight="650.0" minWidth="109.0" prefHeight="650.0" prefWidth="109.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css">
                <children>
-                  <JFXButton fx:id="Pagar" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionPagar" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Pagar">
+                  <JFXButton fx:id="Pagar" buttonType="RAISED" maxHeight="34.0" maxWidth="108.0" minHeight="34.0" minWidth="108.0" onAction="#OnActionPagar" prefHeight="34.0" prefWidth="108.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Pagar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Receber" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionReceber" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Receber">
+                  <JFXButton fx:id="Receber" buttonType="RAISED" maxHeight="34.0" maxWidth="108.0" minHeight="34.0" minWidth="108.0" onAction="#OnActionReceber" prefHeight="34.0" prefWidth="108.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Receber">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Comprar" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionComprar" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Comprar">
+                  <JFXButton fx:id="Comprar" buttonType="RAISED" maxHeight="34.0" maxWidth="108.0" minHeight="34.0" minWidth="108.0" onAction="#OnActionComprar" prefHeight="34.0" prefWidth="108.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Comprar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Estoque" buttonType="RAISED" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionEstoque" prefHeight="34.0" prefWidth="115.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Estoque">
+                  <JFXButton fx:id="Estoque" buttonType="RAISED" maxHeight="34.0" maxWidth="108.0" minHeight="34.0" minWidth="108.0" onAction="#OnActionEstoque" prefHeight="34.0" prefWidth="108.0" ripplerFill="#484e5a" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Estoque">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="Sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" maxHeight="34.0" maxWidth="115.0" minHeight="34.0" minWidth="115.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="115.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+                  <JFXButton fx:id="Sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" maxHeight="34.0" maxWidth="108.0" minHeight="34.0" minWidth="108.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="108.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btn_texto" alignment="BASELINE_CENTER" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="6.0" maxHeight="455.0" maxWidth="115.0" minHeight="64.0" prefHeight="64.0" prefWidth="115.0" styleClass="texto" stylesheets="@css/buttons.css" textFill="#1b9763">
@@ -54,7 +54,7 @@
       </JFXDrawer>
       <StackPane fx:id="stack_financeiro" layoutX="110.0">
          <children>
-            <AnchorPane fx:id="ap_financeiro" maxHeight="600.0" maxWidth="1000.0" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" />
+            <AnchorPane fx:id="ap_financeiro" maxHeight="650.0" maxWidth="1000.0" minHeight="650.0" minWidth="1000.0" prefHeight="650.0" prefWidth="1000.0" styleClass="fundo" stylesheets="@css/backgroundCadastro.css" />
          </children>
       </StackPane>
    </children>

@@ -10,6 +10,9 @@
     -fx-border-radius:5.0px;
     -fx-menuC:#2A2E37; -fx-secondary-menuC:#1e1e22;    
 }
+.jfx-button{
+    -jfx-disable-visual-focus: true;
+}
 
 .jfx-button.menuCadastro{
 
@@ -17,16 +20,27 @@
      -fx-text-fill: #fbf6f2;
      -fx-border-color:-fx-secondary-menuC;
 }
-.jfx-button.menuCadastro:hover{
+.jfx-button.menuCadastro:focused,.jfx-button.menuCadastro:hover{
 	     -fx-background-color: #1CA899;
+	     -fx-text-fill:  #000000;
 }
 
+.Unlock{
+-fx-icon-code: UNLOCK;
+-fx-fill: white;
+}
+
+.Unlock:focused,.Unlock:hover{
+	-fx-icon-code: UNLOCK;
+-fx-fill: black;
+}
 .jfx-button.filtrar {
      -jfx-button-type: RAISED;
      -fx-border-color:-fx-secondary-filtro;
      -fx-background-color: -fx-filtro;
      -fx-text-fill: #fbf6f2;
      -fx-border-color:-fx-secondary-filtro;
+    
 
 }
 .jfx-button.texto {
@@ -38,10 +52,11 @@
 }
 
 
-.jfx-button.filtrar:hover {
+.jfx-button.filtrar:focused,.jfx-button.filtrar:hover {
      -fx-border-color:-fx-secondary-filtro;
      -fx-background-color:-fx-secondary-filtro;
-     -fx-text-fill: white;
+     -fx-text-fill: #000000;
+ 
 }
 
 .jfx-button.novo {
@@ -51,10 +66,10 @@
      -fx-text-fill: #fbf6f2;
 }
 
-.jfx-button.novo:hover {
+.jfx-button.novo:focused,.jfx-button.novo:hover  {
      -fx-border-color:-fx-secondary-novo;
      -fx-background-color:-fx-secondary-novo;
-     -fx-text-fill: white;
+     -fx-text-fill: #000000;
 }
 
 .jfx-button.cancelar {
@@ -64,10 +79,10 @@
      -fx-text-fill: #fbf6f2;
 }
 
-.jfx-button.cancelar:hover {
+.jfx-button.cancelar:focused,.jfx-button.cancelar:hover  {
      -fx-border-color:-fx-secondary-cancelar;
      -fx-background-color:-fx-secondary-cancelar;
-     -fx-text-fill: white;
+     -fx-text-fill: #000000;
 }
 
 .jfx-button.excluir {
@@ -77,10 +92,10 @@
      -fx-text-fill: #fbf6f2;
 }
 
-.jfx-button.excluir:hover {
+.jfx-button.excluir:focused,.jfx-button.excluir:hover  {
      -fx-border-color:-fx-secondary-excluir;
      -fx-background-color:-fx-secondary-excluir;
-     -fx-text-fill: white;
+     -fx-text-fill: #000000;
 }
 
 .jfx-button.sair {
@@ -90,10 +105,10 @@
      -fx-text-fill: #fbf6f2;
 }
 
-.jfx-button.sair:hover {
+.jfx-button.sair:focused,.jfx-button.sair:hover  {
      -fx-border-color:-fx-secondary-sair;
      -fx-background-color:-fx-secondary-sair;
-     -fx-text-fill: white;
+     -fx-text-fill: #000000;
 }
 
 .jfx-button.menu{
@@ -104,7 +119,7 @@
      -fx-background-color:-fx-secondary-menu;
      -fx-text-fill: #fbf6f2;
 }
-.jfx-button.menu:hover {
+.jfx-button.menu:focused,.jfx-button.menu:hover  {
 	
      -fx-border-color:-fx-secondary-menu;
      -fx-background-color:-fx-secondary-menu;

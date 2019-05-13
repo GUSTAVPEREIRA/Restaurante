@@ -18,11 +18,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  *
@@ -61,16 +58,9 @@ public class MainController implements Initializable {
 	@FXML
 	void OnActionSair(ActionEvent event) throws IOException {
 
-		Parent root;
-		Stage stage;
-		root = FXMLLoader.load(getClass().getResource("/estagio/view/LoginFXML.fxml"));
-		Scene scene = new Scene(root);
-		stage = new Stage();
-		stage.setResizable(false);
-		stage.setScene(scene);
-		stage.show();
-		stage = (Stage) btn_sair.getScene().getWindow();
-		stage.close();
+		Node node;
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/LoginFXML.fxml"));
+		ap_menu.getChildren().setAll(node);
 	}
 
 	@FXML
@@ -93,7 +83,14 @@ public class MainController implements Initializable {
 			btn_financeiro.setDisable(false);
 			btn_relatorio.setDisable(false);
 		}
-		btn_texto.setText("Olá,\n"+LoginController.logado.getNome());
+		btn_texto.setText("Olá,\n" + LoginController.logado.getNome());
+	}
+
+	@FXML
+	void onActionRelatorio(ActionEvent event) throws IOException {
+		Node node;
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/RelatoriosFXML.fxml"));
+		ap_menu.getChildren().setAll(node);
 	}
 
 }

@@ -45,7 +45,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                      <tooltip>
                         <Tooltip fx:id="ttp_btnAdicionar" text="Cria uma nova tela, removendo os dados da anterior." />
@@ -63,7 +63,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionRemover" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Remover">
@@ -78,7 +78,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ffa340" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar">
@@ -93,7 +93,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btn_Gravar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionGravar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Atualizar">
@@ -108,7 +108,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="SAVE" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Sair">
@@ -123,7 +123,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                </children>
@@ -218,7 +218,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btn_retirar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionRetirar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Retirar">
@@ -233,7 +233,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="MINUS" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="MINUS" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Voltar">
@@ -248,7 +248,7 @@
                         </Tooltip>
                      </tooltip>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="UNDO" size="15" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
                </children>

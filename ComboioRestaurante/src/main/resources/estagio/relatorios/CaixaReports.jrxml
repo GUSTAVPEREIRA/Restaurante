@@ -16,6 +16,7 @@
 	iv.iv_valor,
 	cr.cr_condicaopgto,
 	ve.vend_id,
+	ve.vend_comanda,
 	emp.emp_img
 FROM empresa emp,caixa AS ca
 	INNER JOIN venda AS ve ON 
@@ -56,6 +57,10 @@ ORDER BY ve.vend_id]]>
 		<property name="com.jaspersoft.studio.field.label" value="vend_id"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="venda"/>
 	</field>
+	<field name="vend_comanda" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="vend_comanda"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="venda"/>
+	</field>
 	<field name="emp_img" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.label" value="emp_img"/>
 		<property name="com.jaspersoft.studio.field.tree.path" value="empresa"/>
@@ -63,6 +68,13 @@ ORDER BY ve.vend_id]]>
 	<variable name="TotalVenda" class="java.lang.Double" resetType="Group" resetGroup="Group1" calculation="Sum">
 		<variableExpression><![CDATA[$F{iv_quant}*$F{iv_valor}]]></variableExpression>
 		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+	</variable>
+	<variable name="TotalTodasAsVendas" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{iv_valor}*$F{iv_quant}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+	</variable>
+	<variable name="TotalProdutos" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$F{iv_quant}]]></variableExpression>
 	</variable>
 	<group name="Group1">
 		<groupExpression><![CDATA[$F{vend_id}]]></groupExpression>
@@ -82,7 +94,7 @@ ORDER BY ve.vend_id]]>
 						<textElement>
 							<font isBold="true"/>
 						</textElement>
-						<textFieldExpression><![CDATA[$F{vend_id}]]></textFieldExpression>
+						<textFieldExpression><![CDATA[$F{vend_comanda}]]></textFieldExpression>
 					</textField>
 					<staticText>
 						<reportElement x="0" y="0" width="36" height="24" forecolor="#736343" uuid="b4d58f38-18f0-4fc0-bac6-1322f35cc892">
@@ -151,7 +163,7 @@ ORDER BY ve.vend_id]]>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="38">
+			<band height="43">
 				<property name="com.jaspersoft.studio.unit.height" value="px"/>
 				<staticText>
 					<reportElement style="Column header" x="410" y="23" width="79" height="15" forecolor="#736343" uuid="f3ec55bd-887f-44cc-991c-024722df1da5">
@@ -268,13 +280,54 @@ ORDER BY ve.vend_id]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch">
+		<band height="65" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="fa45a887-615a-4d84-a2d7-8a2219671b3c"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="32" width="555" height="1" uuid="fa45a887-615a-4d84-a2d7-8a2219671b3c"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
+			<textField isStretchWithOverflow="true" pattern="¤#,##0.00;¤-#,##0.00" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="481" y="17" width="74" height="15" uuid="61fafbe0-9e69-46b9-a84f-f2ba9e66772c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b6e434c-9ca7-4b44-bbb4-1f03bc4739ce"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TotalTodasAsVendas}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="Column header" x="402" y="17" width="79" height="15" forecolor="#736343" uuid="73b1d522-c066-46fc-a59f-335bf3347038">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b6e434c-9ca7-4b44-bbb4-1f03bc4739ce"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="207" y="17" width="158" height="15" forecolor="#736343" uuid="09062be6-c75c-46a4-af86-2bb5b888f104">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b6e434c-9ca7-4b44-bbb4-1f03bc4739ce"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Quantidade de produtos:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Detail" stretchType="RelativeToTallestObject" x="365" y="17" width="37" height="15" uuid="87958977-ee63-4731-baa5-d08d9b9977a8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6b6e434c-9ca7-4b44-bbb4-1f03bc4739ce"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TotalProdutos}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnFooter>
 	<pageFooter>
