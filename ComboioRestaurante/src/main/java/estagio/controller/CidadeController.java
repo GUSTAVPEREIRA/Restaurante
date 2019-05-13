@@ -112,7 +112,6 @@ public class CidadeController implements Initializable {
 	private ContextMenu ctm_estado;
 	@FXML
 	private MenuItem mi_estado;
-	private TextFieldFormatterHelper tffh;
 	@FXML
 	private AnchorPane ap_busca;
 	@FXML
@@ -139,7 +138,7 @@ public class CidadeController implements Initializable {
 	 * @param url
 	 * @param rb
 	 */
-	@SuppressWarnings({ "static-access", "unchecked", "rawtypes" })
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		listaEstado = estadoDAO.listar("");
@@ -151,9 +150,9 @@ public class CidadeController implements Initializable {
 		cidade = new Cidade();
 		estado = new Estado();
 		cidadeDAO = new CidadeDAO();
-		txt_filtro.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_nome.setTextFormatter(tffh.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		listaCidade = new ArrayList();
+		txt_filtro.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		listaCidade = new ArrayList<Cidade>();
 		ap_cidade.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode().equals(KeyCode.ESCAPE)) {
 				if (ap_busca.isVisible() == true) {

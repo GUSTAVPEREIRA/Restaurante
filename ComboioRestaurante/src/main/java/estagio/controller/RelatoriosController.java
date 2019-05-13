@@ -59,8 +59,9 @@ public class RelatoriosController implements Initializable {
 	private Node node;
 
 	@FXML
-	void OnActionCaixa(ActionEvent event) {
-
+	void OnActionCaixa(ActionEvent event) throws IOException {
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/RelatorioCaixaFXML.fxml"));
+		ap_relatorios.getChildren().setAll(node);
 	}
 
 	@FXML
@@ -96,7 +97,7 @@ public class RelatoriosController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+		btn_texto.setText("Olá,\n"+LoginController.logado.getNome());
 
 	}
 

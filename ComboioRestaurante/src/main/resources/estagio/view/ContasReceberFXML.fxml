@@ -29,7 +29,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <Label fx:id="lbl_abertura" text="Abertura">
+                        <Label fx:id="lbl_abertura" alignment="BOTTOM_CENTER" prefHeight="36.0" text="Abertura">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -38,7 +38,7 @@
                            </tooltip>
                         </Label>
                         <JFXDatePicker fx:id="dp_abertura" prefHeight="36.0" prefWidth="150.0" />
-                        <Label fx:id="lbl_vencimento" text="Vencimento">
+                        <Label fx:id="lbl_vencimento" alignment="BOTTOM_CENTER" prefHeight="36.0" text="Vencimento">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -47,7 +47,7 @@
                            </tooltip>
                         </Label>
                         <JFXDatePicker fx:id="dp_vencimento" prefHeight="36.0" prefWidth="150.0" />
-                        <Label fx:id="lbl_status" text="Status">
+                        <Label fx:id="lbl_status" alignment="BOTTOM_CENTER" prefHeight="36.0" text="Status">
                            <font>
                               <Font size="14.0" />
                            </font>
