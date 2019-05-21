@@ -18,6 +18,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -47,34 +49,85 @@ public class MainController implements Initializable {
 	@FXML
 	private Label lbl_login;
 
-	@FXML
-	private void OnActionCadastro(ActionEvent event) throws IOException {
-
+	public void carregaCadastro() throws IOException {
 		Node node;
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/CadastroFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
 	}
 
-	@FXML
-	void OnActionSair(ActionEvent event) throws IOException {
-
+	public void carregaSair() throws IOException {
 		Node node;
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/LoginFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
 	}
 
-	@FXML
-	void onActionVendas(ActionEvent event) throws IOException {
+	public void carregaVendas() throws IOException {
 		Node node;
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/VendasFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
 	}
 
-	@FXML
-	void onActionFinanceiro(ActionEvent event) throws IOException {
+	public void carregaFinanceiro() throws IOException {
 		Node node;
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/FinanceiroFXML.fxml"));
 		ap_menu.getChildren().setAll(node);
+	}
+
+	public void carregaRelatorio() throws IOException {
+		Node node;
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/RelatoriosFXML.fxml"));
+		ap_menu.getChildren().setAll(node);
+	}
+
+	@FXML
+	private void OnActionCadastroEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaCadastro();
+		}
+	}
+
+	@FXML
+	void OnActionSairEnter(KeyEvent event) throws IOException {
+
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaSair();
+		}
+	}
+
+	@FXML
+	void onActionVendasEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaVendas();
+		}
+	}
+
+	@FXML
+	void onActionFinanceiroEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaFinanceiro();
+		}
+	}
+
+	@FXML
+	private void OnActionCadastro(ActionEvent event) throws IOException {
+
+		carregaCadastro();
+	}
+
+	@FXML
+	void OnActionSair(ActionEvent event) throws IOException {
+
+		carregaSair();
+	}
+
+	@FXML
+	void onActionVendas(ActionEvent event) throws IOException {
+		carregaVendas();
+	}
+
+	@FXML
+	void onActionFinanceiro(ActionEvent event) throws IOException {
+		carregaFinanceiro();
 	}
 
 	@Override
@@ -87,10 +140,15 @@ public class MainController implements Initializable {
 	}
 
 	@FXML
+	void onActionRelatorioEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaRelatorio();
+		}
+	}
+
+	@FXML
 	void onActionRelatorio(ActionEvent event) throws IOException {
-		Node node;
-		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/RelatoriosFXML.fxml"));
-		ap_menu.getChildren().setAll(node);
+		carregaRelatorio();
 	}
 
 }

@@ -10,7 +10,7 @@
    <children>
       <VBox fx:id="VB_Menu" maxHeight="650.0" maxWidth="109.0" minHeight="650.0" minWidth="109.0" prefHeight="650.0" prefWidth="109.0">
          <children>
-            <JFXButton fx:id="btn_Cadastro" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" onAction="#OnActionCadastro" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Cadastros">
+            <JFXButton fx:id="btn_Cadastro" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="0.0" onAction="#OnActionCadastro" onKeyPressed="#OnActionCadastroEnter" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Cadastros">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -18,7 +18,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="EDIT" size="18" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_vendas" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="6.0" onAction="#onActionVendas" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
+            <JFXButton fx:id="btn_vendas" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="6.0" onAction="#onActionVendas" onKeyPressed="#onActionVendasEnter" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Vendas">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -26,7 +26,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SHOPPING_CART" size="18" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_financeiro" buttonType="RAISED" contentDisplay="TEXT_ONLY" disable="true" graphicTextGap="2.0" onAction="#onActionFinanceiro" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Financeiro">
+            <JFXButton fx:id="btn_financeiro" buttonType="RAISED" contentDisplay="TEXT_ONLY" disable="true" graphicTextGap="2.0" onAction="#onActionFinanceiro" onKeyPressed="#onActionFinanceiroEnter" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Financeiro">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -34,7 +34,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="CALCULATOR" size="16" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" contentDisplay="TEXT_ONLY" disable="true" graphicTextGap="2.0" onAction="#onActionRelatorio" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
+            <JFXButton fx:id="btn_relatorio" buttonType="RAISED" contentDisplay="TEXT_ONLY" disable="true" graphicTextGap="2.0" onAction="#onActionRelatorio" onKeyPressed="#onActionRelatorioEnter" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Relatórios">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -42,7 +42,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="16" />
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" onAction="#OnActionSair" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
+            <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" onAction="#OnActionSair" onKeyPressed="#OnActionSairEnter" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
