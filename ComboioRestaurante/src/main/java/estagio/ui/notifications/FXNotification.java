@@ -85,7 +85,7 @@ public class FXNotification {
 		String icon = "";
 		switch (notificationType) {
 		case INFORMATION:
-			
+
 			url = this.getClass().getResource(INFORMATION_STYLESHEET);
 			icon = "CHECK";
 			break;
@@ -102,7 +102,7 @@ public class FXNotification {
 			break;
 		}
 
-		notificationController.setRootStyleSheet(url,icon);
+		notificationController.setRootStyleSheet(url, icon);
 	}
 
 	private void buildTimeline(Duration duration) {

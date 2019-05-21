@@ -508,6 +508,7 @@ public class CompraController implements Initializable {
 				itensCompraDAO.save(ic);
 			}
 			ContasPagarDAO contasPagarDAO = new ContasPagarDAO();
+			contasPagar.setCompra(compra);
 			contasPagarDAO.save(contasPagar);
 			ParcelaPagarDAO parcelaPagarDAO = new ParcelaPagarDAO();
 			for (ParcelaPagar pp : parcelasPagar) {

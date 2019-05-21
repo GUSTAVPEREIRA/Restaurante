@@ -524,6 +524,8 @@ public class ContasPagarController implements Initializable {
 			tb_baixarContas.setItems(obslParcelaPagar);
 		}
 	}
+	
+	
 
 	public void carregaTelaBuscar(Date dataAbertura, Date dataVencimento) {
 		tb_bContas.getItems().clear();

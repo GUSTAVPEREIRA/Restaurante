@@ -68,6 +68,8 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -311,7 +313,13 @@ public class VendaController implements Initializable {
 	Double valorTotal;
 
 	@FXML
-	void OnActionSalvarVenda(ActionEvent event) {
+	void OnActionSalvarVendaEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			salvarVenda();
+		}
+	}
+
+	public void salvarVenda() {
 		if (venda.getListaItensVenda().size() != 0) {
 			vendaDAO.merge(venda);
 			ItensVenda itensVenda = new ItensVenda();
@@ -343,6 +351,11 @@ public class VendaController implements Initializable {
 			fxn = new FXNotification("Erro, selecione os produtos da venda.", FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
+	}
+
+	@FXML
+	void OnActionSalvarVenda(ActionEvent event) {
+		salvarVenda();
 	}
 
 	@FXML
@@ -393,8 +406,7 @@ public class VendaController implements Initializable {
 		}
 	}
 
-	@FXML
-	void OnActionAdicionar(ActionEvent event) {
+	public void adicionar() {
 		itensVenda = new ItensVenda();
 		Boolean erro = false;
 		if (!txt_adicionarQuantidade.getText().equals("")) {
@@ -423,6 +435,11 @@ public class VendaController implements Initializable {
 			AdicionarCarrega();
 
 		}
+	}
+
+	@FXML
+	void OnActionAdicionar(ActionEvent event) {
+		adicionar();
 	}
 
 	public void AdicionarCarrega() {
@@ -644,6 +661,17 @@ public class VendaController implements Initializable {
 
 	@FXML
 	void OnActionFecharVenda(ActionEvent event) {
+		fecharVenda();
+	}
+
+	@FXML
+	void OnActionFecharVendaEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			fecharVenda();
+		}
+	}
+
+	public void fecharVenda() {
 		dialogoExe.setTitle("Venda");
 		dialogoExe.getButtonTypes().setAll(btnFechar, btnCancelar);
 		dialogoExe.showAndWait().ifPresent(b -> {
@@ -659,10 +687,7 @@ public class VendaController implements Initializable {
 		return Date.valueOf(localData);
 	}
 
-	@FXML
-	void OnActionIniciar(ActionEvent event) {
-		// "/resources/logoPosto.png"
-
+	public void iniciarVenda() {
 		venda = new Venda();
 		if (cbb_tipoVenda.getSelectionModel().getSelectedIndex() != -1 && txt_comanda.getText().equals("") != true) {
 
@@ -702,6 +727,27 @@ public class VendaController implements Initializable {
 			fxn.show();
 			txt_comanda.setStyle(corErro);
 		}
+	}
+
+	@FXML
+	void OnActionIniciar(ActionEvent event) {
+		iniciarVenda();
+	}
+
+	@FXML
+	void OnActionAdicionarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			adicionar();
+		}
+	}
+
+	@FXML
+	void OnActionIniciarEnter(KeyEvent event) {
+
+		if (event.getCode() == KeyCode.ENTER) {
+			iniciarVenda();
+		}
+
 	}
 
 	public void desativaTela() {
@@ -790,16 +836,33 @@ public class VendaController implements Initializable {
 	}
 
 	@FXML
+	void OnActionRemoverEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			removerItem();
+		}
+	}
+
+	@FXML
 	void OnActionRemoverVenda(ActionEvent event) {
 
 	}
 
 	@FXML
 	void OnActionVoltar(ActionEvent event) {
+		voltar();
+	}
+
+	@FXML
+	void OnActionVoltarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			voltar();
+		}
+	}
+
+	public void voltar() {
 		vb_mapaVenda.setVisible(false);
 		CarregaVenda();
 		desativaTelaVenda();
-
 	}
 
 	public void desativaTelaVenda() {
@@ -946,6 +1009,22 @@ public class VendaController implements Initializable {
 		InitComboBoxProduto();
 		CarregaVenda();
 		regex();
+
+		vb_mapaVenda.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+
+			if (event.getCode().equals(KeyCode.F1) && vb_mapaVenda.isVisible() == true) {
+				salvarVenda();
+			}
+			if (event.getCode().equals(KeyCode.F2) && vb_mapaVenda.isVisible() == true) {
+				fecharVenda();
+			}
+			if (event.getCode().equals(KeyCode.F3) && vb_mapaVenda.isVisible() == true) {
+				voltar();
+			}
+			if (event.getCode().equals(KeyCode.ESCAPE) && vb_mapaVenda.isVisible() == true) {
+				voltar();
+			}
+		});
 	}
 
 	private void InitComboBoxCategoria() {

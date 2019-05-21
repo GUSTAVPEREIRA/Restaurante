@@ -7,8 +7,6 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 
-import estagio.ui.notifications.FXNotificationFactory;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -84,13 +82,7 @@ public class CadastroController  implements Initializable {
 			TipoVenda.setDisable(false);
 			Usuario.setDisable(false);
 		}
-		Platform.runLater(new Runnable() {
 
-			@Override
-			public void run() {
-				FXNotificationFactory.initialize(stack_cadastros);
-			}
-		});
 	}
 
 	@FXML

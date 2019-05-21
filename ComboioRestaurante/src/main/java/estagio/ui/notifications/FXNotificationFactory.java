@@ -24,9 +24,9 @@ public class FXNotificationFactory {
 		notificationStack.setPickOnBounds(false);
 		_rootPane.getChildren().add(notificationStack);
 
-		//notificationStack.setOnMouseClicked((mouseEvent) -> {
-			//notificationStack.getChildren().clear();
-	//	});
+		// notificationStack.setOnMouseClicked((mouseEvent) -> {
+		// notificationStack.getChildren().clear();
+		// });
 
 	}
 
@@ -46,8 +46,8 @@ public class FXNotificationFactory {
 	public void showNewNotification(Pane notification) {
 		ensureNotificationStackIsOnTop();
 		notificationStack.getChildren().add(notification);
-		StackPane.setAlignment(notification, Pos.TOP_LEFT);
-		
+		StackPane.setAlignment(notification, Pos.TOP_CENTER);
+
 	}
 
 	public synchronized static FXNotificationFactory getInstance() {

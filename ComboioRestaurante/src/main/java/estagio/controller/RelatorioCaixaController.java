@@ -35,6 +35,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -110,7 +112,10 @@ public class RelatorioCaixaController implements Initializable {
 
 	@FXML
 	void OnActionGerar(ActionEvent event) {
+		gerar();
+	}
 
+	public void gerar() {
 		Boolean erro = false;
 		String dataAbertura = "", dataVencimento = "";
 		Date DataVencimentoT = null, DataAberturaT = null;
@@ -146,7 +151,6 @@ public class RelatorioCaixaController implements Initializable {
 			new FXNotification("Dados inválidos, corrija os campos contornados em vermelho.",
 					FXNotification.NotificationType.ERROR).show();
 		}
-
 	}
 
 	public void exibeRelatorio(Usuario usu, Date ini, Date fim) {
@@ -198,6 +202,20 @@ public class RelatorioCaixaController implements Initializable {
 
 	}
 
+	@FXML
+	void OnKeyEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			gerar();
+		}
+	}
+
+	@FXML
+	void OnKeyEnterBack(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			vboxRelatorio.setVisible(false);
+		}
+	}
+	
 	@FXML
 	void OnActionVoltarOnHell(ActionEvent event) {
 		vboxRelatorio.setVisible(false);

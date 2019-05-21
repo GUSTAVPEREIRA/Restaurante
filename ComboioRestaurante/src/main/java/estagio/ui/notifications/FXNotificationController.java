@@ -20,15 +20,14 @@ public class FXNotificationController implements Initializable {
 	private HBox rootPane;
 	@FXML
 	private TextArea textAreaNotifications;
-    @FXML
-    private FontAwesomeIconView icon;
+	@FXML
+	private FontAwesomeIconView icon;
 	private Timeline timeline;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		textAreaNotifications.setOnMouseExited((event)->
-		{			
-				FXNotificationFactory.getInstance().closeNotification(rootPane);		
+		textAreaNotifications.setOnMouseExited((event) -> {
+			FXNotificationFactory.getInstance().closeNotification(rootPane);
 		});
 	}
 
@@ -67,7 +66,7 @@ public class FXNotificationController implements Initializable {
 		}
 	}
 
-	public void setRootStyleSheet(URL stylesheetURL,String iconType) {
+	public void setRootStyleSheet(URL stylesheetURL, String iconType) {
 		this.rootPane.getStylesheets().add(stylesheetURL.toExternalForm());
 		icon.setGlyphName(iconType);
 	}

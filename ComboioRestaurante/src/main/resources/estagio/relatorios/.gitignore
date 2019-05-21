@@ -1,3 +1,8 @@
 /Caixa.jasper
 /CaixaReports.jasper
 /RelatorioCaixaReports.jasper
+/RelatorioCompraReports.jasper
+/RelatorioEstoqueReports.jasper
+/RelatorioContasPagarReports.jasper
+/RelatorioContasReceberReports.jasper
+/RelatorioVendaReports.jasper

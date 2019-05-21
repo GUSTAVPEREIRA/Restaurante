@@ -34,16 +34,22 @@ public class ContasPagar {
 
 	@Column(name = "cp_descricao", nullable = false, length = 100)
 	private String descricao;
-	
+
 	@ManyToOne(optional = true)
 	private Compra compra;
+
+	public Compra getCompra() {
+		return compra;
+	}
+
+	public void setCompra(Compra compra) {
+		this.compra = compra;
+	}
 
 	public String getDescricao() {
 		return descricao;
 	}
-	
-	
-	
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
@@ -123,7 +129,7 @@ public class ContasPagar {
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.descricao;

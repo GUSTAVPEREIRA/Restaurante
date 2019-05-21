@@ -36,7 +36,7 @@
                               <Insets left="4.0" right="4.0" />
                            </padding>
                         </Label>
-                        <JFXComboBox fx:id="cbb_tipoVenda" editable="true" focusColor="#5fcda3" onAction="#OnMouseselectionTipoVenda" prefHeight="43.0" prefWidth="167.0" unFocusColor="BLACK">
+                        <JFXComboBox fx:id="cbb_tipoVenda" editable="true" focusColor="#5fcda3" onAction="#OnMouseselectionTipoVenda" onKeyPressed="#OnActionIniciarEnter" prefHeight="43.0" prefWidth="167.0" unFocusColor="BLACK">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
@@ -63,7 +63,7 @@
                               <Insets left="4.0" right="4.0" />
                            </padding>
                         </Label>
-                        <JFXTextField fx:id="txt_comanda" focusColor="#5fcda3" maxWidth="177.0" minWidth="50.0" prefHeight="36.0" prefWidth="167.0" unFocusColor="BLACK">
+                        <JFXTextField fx:id="txt_comanda" focusColor="#5fcda3" maxWidth="177.0" minWidth="50.0" onKeyPressed="#OnActionIniciarEnter" prefHeight="36.0" prefWidth="167.0" unFocusColor="BLACK">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -85,7 +85,7 @@
                   </HBox>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="57.0" prefWidth="251.0" spacing="10.0">
                      <children>
-                        <JFXButton fx:id="btn_Iniciar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionIniciar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Iniciar">
+                        <JFXButton fx:id="btn_Iniciar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionIniciar" onKeyPressed="#OnActionIniciarEnter" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Iniciar">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -158,7 +158,7 @@
                         <Insets left="20.0" />
                      </HBox.margin>
                   </Label>
-                  <JFXTextField fx:id="txt_adicionarQuantidade" focusColor="#5fcda3" prefHeight="42.0" prefWidth="71.0" unFocusColor="BLACK" />
+                  <JFXTextField fx:id="txt_adicionarQuantidade" focusColor="#5fcda3" onKeyPressed="#OnActionAdicionarEnter" prefHeight="42.0" prefWidth="71.0" unFocusColor="BLACK" />
                   <Label fx:id="lbl_valorUnitario" alignment="BOTTOM_LEFT" contentDisplay="RIGHT" prefHeight="36.0" prefWidth="97.0" text="Valor unitário">
                      <font>
                         <Font size="14.0" />
@@ -175,7 +175,7 @@
             </HBox>
             <HBox alignment="CENTER" maxWidth="-Infinity" prefHeight="36.0" prefWidth="749.0" spacing="10.0">
                <children>
-                  <JFXButton fx:id="btn_adicionar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="8.0" onAction="#OnActionAdicionar" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Adicionar">
+                  <JFXButton fx:id="btn_adicionar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="8.0" onAction="#OnActionAdicionar" onKeyPressed="#OnActionAdicionarEnter" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Adicionar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -190,7 +190,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="8.0" mnemonicParsing="false" onAction="#OnActionRemover" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Remover">
+                  <JFXButton fx:id="btn_Remover" buttonType="RAISED" contentDisplay="RIGHT" disable="true" graphicTextGap="8.0" mnemonicParsing="false" onAction="#OnActionRemover" onKeyPressed="#OnActionRemoverEnter" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Remover">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -393,7 +393,7 @@
             </HBox>
             <HBox alignment="BOTTOM_CENTER" maxWidth="-Infinity" prefHeight="49.0" prefWidth="749.0" spacing="10.0">
                <children>
-                  <JFXButton fx:id="btn_SalvarVenda" buttonType="RAISED" contentDisplay="RIGHT" ellipsisString="" graphicTextGap="8.0" onAction="#OnActionSalvarVenda" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Salvar">
+                  <JFXButton fx:id="btn_SalvarVenda" buttonType="RAISED" contentDisplay="RIGHT" ellipsisString="" graphicTextGap="8.0" onAction="#OnActionSalvarVenda" onKeyPressed="#OnActionSalvarVendaEnter" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Salvar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -408,7 +408,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="SAVE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btn_fecharVenda" buttonType="RAISED" contentDisplay="RIGHT" ellipsisString="" graphicTextGap="8.0" onAction="#OnActionFecharVenda" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Fechar">
+                  <JFXButton fx:id="btn_fecharVenda" buttonType="RAISED" contentDisplay="RIGHT" ellipsisString="" graphicTextGap="8.0" onAction="#OnActionFecharVenda" onKeyPressed="#OnActionFecharVendaEnter" prefHeight="31.0" prefWidth="132.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Fechar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -423,7 +423,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" size="18" stroke="#755d5d" strokeType="OUTSIDE" strokeWidth="1.5" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="8.0" mnemonicParsing="false" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Voltar">
+                  <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="8.0" mnemonicParsing="false" onAction="#OnActionVoltar" onKeyPressed="#OnActionVoltarEnter" prefHeight="31.0" prefWidth="132.0" ripplerFill="#ee4c48" styleClass="sair" stylesheets="@css/buttons.css" text="Voltar">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
