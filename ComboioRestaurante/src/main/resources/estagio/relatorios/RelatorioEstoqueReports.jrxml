@@ -57,7 +57,7 @@ ORDER BY movest.mov_id DESC LIMIT $P!{qt}]]>
 	<variable name="TotalProdutos" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{mov_quant}]]></variableExpression>
 	</variable>
-	<group name="Group1">
+	<group name="Group1" keepTogether="true">
 		<groupExpression><![CDATA[$F{pro_id}]]></groupExpression>
 		<groupHeader>
 			<band height="60">
@@ -233,10 +233,10 @@ ORDER BY movest.mov_id DESC LIMIT $P!{qt}]]>
 					<textFieldExpression><![CDATA[$F{mov_id}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="111" y="0" width="189" height="15" uuid="a20ace6d-06cd-4d6d-9a56-668f13ecdb64">
+					<reportElement style="Detail" x="111" y="0" width="189" height="15" uuid="a20ace6d-06cd-4d6d-9a56-668f13ecdb64">
 						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="20a43fc5-a044-4870-8f4d-f389e52ea65d"/>
 					</reportElement>
-					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
+					<textElement textAlignment="Center" verticalAlignment="Bottom" markup="none"/>
 					<textFieldExpression><![CDATA[$F{mov_motivo}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">

@@ -112,7 +112,7 @@ ORDER BY cr.cr_id DESC, pr.cpr_numeroparcela ASC]]>
 		<variableExpression><![CDATA[$F{cpr_valorpgto}.intValue()==0?$F{cpr_valor}:0]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<group name="Group1">
+	<group name="Group1" keepTogether="true" preventOrphanFooter="true">
 		<groupExpression><![CDATA[$F{cr_id}]]></groupExpression>
 		<groupHeader>
 			<band height="60">

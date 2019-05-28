@@ -44,7 +44,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionNovo" prefHeight="31.0" prefWidth="120.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo" textFill="WHITE">
+                  <JFXButton fx:id="btn_Novo" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionNovo" onKeyPressed="#OnActionNovoEnter" prefHeight="31.0" prefWidth="120.0" ripplerFill="#002bff" styleClass="novo" stylesheets="@css/buttons.css" text="Novo" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -55,7 +55,7 @@
                         <Tooltip fx:id="ttp_btnNovo" text="Cria uma nova tela, removendo os dados da anterior." />
                      </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Editar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionEditar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Ver" textFill="WHITE">
+                  <JFXButton fx:id="btn_Editar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionEditar" onKeyPressed="#OnActionEditarEnter" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Ver" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -66,7 +66,7 @@
                         <Tooltip fx:id="ttp_btnNovo1" text="Cria uma nova tela, removendo os dados da anterior." />
                      </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionCancelar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#feff00" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
+                  <JFXButton fx:id="btn_Cancelar" buttonType="RAISED" contentDisplay="RIGHT" disable="true" lineSpacing="40.0" onAction="#OnActionCancelar" onKeyPressed="#OnActionCancelarEnter" prefHeight="31.0" prefWidth="120.0" ripplerFill="#feff00" styleClass="cancelar" stylesheets="@css/buttons.css" text="Cancelar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -77,7 +77,7 @@
                         <Tooltip fx:id="ttp_btnExcluir1" text="Exclui uma cidade." />
                      </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionSair" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
+                  <JFXButton fx:id="btn_Sair" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionSair" onKeyPressed="#OnActionSairEnter" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -316,7 +316,7 @@
                               <Tooltip fx:id="ttp_lblValorAbertura" text="Preço do produto." />
                            </tooltip>
                         </Label>
-                        <JFXTextField fx:id="txt_valorAbertura" focusColor="#5fcda3" maxWidth="397.0" minWidth="131.0" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
+                        <JFXTextField fx:id="txt_valorAbertura" focusColor="#5fcda3" maxWidth="397.0" minWidth="131.0" onKeyPressed="#OnActionAbrirEnter" prefHeight="36.0" prefWidth="200.0" unFocusColor="BLACK">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -334,7 +334,7 @@
                      <children>
                         <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT">
                            <children>
-                              <JFXButton fx:id="btn_abrirCaixa" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionAbrir" prefHeight="31.0" prefWidth="140.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Abrir Caixa" textFill="WHITE" VBox.vgrow="NEVER">
+                              <JFXButton fx:id="btn_abrirCaixa" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionAbrir" onKeyPressed="#OnActionAbrirEnter" prefHeight="31.0" prefWidth="140.0" ripplerFill="#0cb388" styleClass="filtrar" stylesheets="@css/buttons.css" text="Abrir Caixa" textFill="WHITE" VBox.vgrow="NEVER">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -349,7 +349,7 @@
                         </VBox>
                         <VBox>
                            <children>
-                              <JFXButton fx:id="btn_fecharCaixa" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionFechar" prefHeight="31.0" prefWidth="140.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Fechar Caixa" textFill="WHITE">
+                              <JFXButton fx:id="btn_fecharCaixa" buttonType="RAISED" contentDisplay="RIGHT" disable="true" onAction="#OnActionFechar" onKeyPressed="#OnActionFecharEnter" prefHeight="31.0" prefWidth="140.0" ripplerFill="#0cb388" styleClass="excluir" stylesheets="@css/buttons.css" text="Fechar Caixa" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -364,7 +364,7 @@
                         </VBox>
                         <VBox>
                            <children>
-                              <JFXButton fx:id="btn_sairAbrir" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionSairAbrir" prefHeight="31.0" prefWidth="140.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar" textFill="WHITE">
+                              <JFXButton fx:id="btn_sairAbrir" buttonType="RAISED" contentDisplay="RIGHT" onAction="#OnActionSairAbrir" onKeyPressed="#OnActionSairAbrirEnter" prefHeight="31.0" prefWidth="140.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -411,7 +411,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" prefWidth="200.0" promptText="Login" />
+                        <JFXTextField fx:id="txt_login" focusColor="#5fcda3" labelFloat="true" onKeyPressed="#OnActionConfirmarEnter" prefWidth="200.0" promptText="Login" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -424,7 +424,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" prefWidth="200.0" promptText="Senha" />
+                        <JFXPasswordField fx:id="txt_senha" focusColor="#5fcda3" labelFloat="true" onKeyPressed="#OnActionConfirmarEnter" prefWidth="200.0" promptText="Senha" />
                      </children>
                      <padding>
                         <Insets left="20.0" />
@@ -432,7 +432,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <JFXButton fx:id="btn_Confirmar" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionConfirmar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Confirmar" textFill="WHITE">
+                        <JFXButton fx:id="btn_Confirmar" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionConfirmar" onKeyPressed="#OnActionConfirmarEnter" prefHeight="31.0" prefWidth="120.0" ripplerFill="#0aa179" styleClass="filtrar" stylesheets="@css/buttons.css" text="Confirmar" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -443,7 +443,7 @@
                               <Tooltip fx:id="ttp_btnConfirmar" text="Cria uma nova tela, removendo os dados da anterior." />
                            </tooltip>
                         </JFXButton>
-                        <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionVoltar" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar" textFill="WHITE">
+                        <JFXButton fx:id="btn_Voltar" buttonType="RAISED" contentDisplay="RIGHT" lineSpacing="40.0" onAction="#OnActionVoltar" onKeyPressed="#OnActionVoltarEnter" prefHeight="31.0" prefWidth="120.0" ripplerFill="#ee4c48" styleClass="excluir" stylesheets="@css/buttons.css" text="Voltar" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>

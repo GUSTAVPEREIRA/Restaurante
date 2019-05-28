@@ -94,7 +94,7 @@ ORDER BY ve.vend_id]]>
 	<variable name="TotalProdutos" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{iv_quant}]]></variableExpression>
 	</variable>
-	<group name="Group1">
+	<group name="Group1" keepTogether="true">
 		<groupExpression><![CDATA[$F{vend_id}]]></groupExpression>
 		<groupHeader>
 			<band height="60">

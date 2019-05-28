@@ -401,8 +401,22 @@ public class ClienteController implements Initializable {
 	}
 
 	@FXML
+	void OnActionBuscarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_busca.setVisible(true);
+		}
+	}
+
+	@FXML
 	void OnActionCancelar(ActionEvent event) {
 		desativaTela();
+	}
+
+	@FXML
+	void OnActionCancelarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
 	}
 
 	public void excluir() {
@@ -434,8 +448,22 @@ public class ClienteController implements Initializable {
 	}
 
 	@FXML
+	void OnActionExcluirEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			excluir();
+		}
+	}
+
+	@FXML
 	void OnActionFiltro(ActionEvent event) {
 		carregaTela(txt_filtro.getText());
+	}
+
+	@FXML
+	void OnActionFiltroEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaTela(txt_filtro.getText());
+		}
 	}
 
 	public void gravar() {
@@ -629,8 +657,23 @@ public class ClienteController implements Initializable {
 	}
 
 	@FXML
+	void OnActionGravarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			gravar();
+		}
+
+	}
+
+	@FXML
 	void OnActionNovo(ActionEvent event) {
 		desativaTela();
+	}
+
+	@FXML
+	void OnActionNovoEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
 	}
 
 	@FXML
@@ -639,9 +682,24 @@ public class ClienteController implements Initializable {
 	}
 
 	@FXML
+	void OnActionSairEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_cliente.setVisible(false);
+		}
+	}
+
+	@FXML
 	void OnActionVoltar(ActionEvent event) {
 		ap_busca.setVisible(false);
 		limpaBuscas();
+	}
+
+	@FXML
+	void OnActionVoltarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_busca.setVisible(false);
+			limpaBuscas();
+		}
 	}
 
 	@FXML

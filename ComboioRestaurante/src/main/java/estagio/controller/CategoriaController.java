@@ -203,20 +203,24 @@ public class CategoriaController implements Initializable {
 			}
 			fxn.show();
 			desativaTela();
-		}
-		else
-		{
+		} else {
 			FXNotification fxn;
-			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
-					FXNotification.NotificationType.ERROR);
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.", FXNotification.NotificationType.ERROR);
 			fxn.show();
-			
+
 		}
 	}
 
 	@FXML
 	private void OnActionGravar(ActionEvent event) {
 		grava();
+	}
+
+	@FXML
+	private void OnActionGravarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			grava();
+		}
 	}
 
 	public void excluir() {
@@ -260,8 +264,22 @@ public class CategoriaController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionExcluirEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			excluir();
+		}
+	}
+
+	@FXML
 	private void OnActionCancelar(ActionEvent event) {
 		desativaTela();
+	}
+
+	@FXML
+	private void OnActionCancelarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
 	}
 
 	@FXML
@@ -270,8 +288,22 @@ public class CategoriaController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionSairEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_categoria.setVisible(false);
+		}
+	}
+
+	@FXML
 	private void OnActionNovo(ActionEvent event) {
 		desativaTela();
+	}
+
+	@FXML
+	private void OnActionNovoEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
 	}
 
 	public void setCategoria(Categoria categoria) {
@@ -294,8 +326,23 @@ public class CategoriaController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionBuscarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_busca.setVisible(true);
+			carregaTela(txt_filtro.getText());
+		}
+	}
+
+	@FXML
 	private void OnActionFiltro(ActionEvent event) {
 		carregaTela(txt_filtro.getText());
+	}
+
+	@FXML
+	private void OnActionFiltroEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaTela(txt_filtro.getText());
+		}
 	}
 
 	@FXML
@@ -331,6 +378,14 @@ public class CategoriaController implements Initializable {
 	private void OnActionVoltar(ActionEvent event) {
 		limpaBuscas();
 		txt_nome.setFocusTraversable(true);
+	}
+
+	@FXML
+	private void OnActionVoltarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			limpaBuscas();
+			txt_nome.setFocusTraversable(true);
+		}
 	}
 
 	public void limpaBuscas() {

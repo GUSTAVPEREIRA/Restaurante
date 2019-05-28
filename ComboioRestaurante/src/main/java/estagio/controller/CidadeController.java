@@ -138,7 +138,7 @@ public class CidadeController implements Initializable {
 	 * @param url
 	 * @param rb
 	 */
-	
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		listaEstado = estadoDAO.listar("");
@@ -150,8 +150,10 @@ public class CidadeController implements Initializable {
 		cidade = new Cidade();
 		estado = new Estado();
 		cidadeDAO = new CidadeDAO();
-		txt_filtro.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
-		txt_nome.setTextFormatter(TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_filtro.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
+		txt_nome.setTextFormatter(
+				TextFieldFormatterHelper.getTextFieldToUpperFormatter("[a-zA-Z 0-9\\u00C0-\\u00FF]+", 100));
 		listaCidade = new ArrayList<Cidade>();
 		ap_cidade.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode().equals(KeyCode.ESCAPE)) {
@@ -206,8 +208,23 @@ public class CidadeController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionBuscarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_busca.setVisible(true);
+			carregaTela(txt_filtro.getText());
+		}
+	}
+
+	@FXML
 	private void OnActionNovo(ActionEvent event) {
 		desativaTela();
+	}
+
+	@FXML
+	private void OnActionNovoEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
 	}
 
 	public void gravar() {
@@ -253,12 +270,9 @@ public class CidadeController implements Initializable {
 			}
 			fxn.show();
 			desativaTela();
-		}
-		else
-		{
+		} else {
 			FXNotification fxn;
-			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
-					FXNotification.NotificationType.ERROR);
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.", FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
 	}
@@ -266,6 +280,13 @@ public class CidadeController implements Initializable {
 	@FXML
 	private void OnActionGravar(ActionEvent event) {
 		gravar();
+	}
+
+	@FXML
+	private void OnActionGravarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			gravar();
+		}
 	}
 
 	private void InitComboBoxEst() {
@@ -354,8 +375,29 @@ public class CidadeController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionExcluirEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			excluir();
+		}
+	}
+
+	@FXML
+	private void OnActionCancelarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
+	}
+
+	@FXML
 	private void OnActionCancelar(ActionEvent event) {
 		desativaTela();
+	}
+
+	@FXML
+	private void OnActionSairEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_cidade.setVisible(false);
+		}
 	}
 
 	@FXML
@@ -376,6 +418,13 @@ public class CidadeController implements Initializable {
 
 	public Cidade getCidade() {
 		return cidade;
+	}
+
+	@FXML
+	private void OnActionFiltroEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaTela(txt_filtro.getText());
+		}
 	}
 
 	@FXML
@@ -411,6 +460,14 @@ public class CidadeController implements Initializable {
 			tb_cidade.setItems(obslCidade);
 		}
 
+	}
+
+	@FXML
+	private void OnActionVoltarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			limpaBuscas();
+			txt_nome.setFocusTraversable(true);
+		}
 	}
 
 	@FXML

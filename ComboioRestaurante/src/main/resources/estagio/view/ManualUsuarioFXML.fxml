@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
+
+<StackPane fx:id="sp_manual" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="estagio.controller.ManualController">
+   <children>
+      <VBox fx:id="vb_manual" prefHeight="583.0" prefWidth="918.0">
+         <children>
+            <WebView fx:id="webViewContainer" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>

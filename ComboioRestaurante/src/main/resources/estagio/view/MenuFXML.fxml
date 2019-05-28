@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -42,6 +43,14 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="16" />
                </graphic>
             </JFXButton>
+            <JFXButton fx:id="btn_manual" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="2.0" onAction="#onActionManual" onKeyPressed="#onActionManualEnter" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Ajuda">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="16" />
+               </graphic>
+            </JFXButton>
             <JFXButton fx:id="btn_sair" buttonType="RAISED" contentDisplay="RIGHT" graphicTextGap="6.0" onAction="#OnActionSair" onKeyPressed="#OnActionSairEnter" prefHeight="34.0" prefWidth="109.0" styleClass="excluir" stylesheets="@css/buttons.css" text="Sair">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -57,5 +66,10 @@
             </JFXButton>
          </children>
       </VBox>
+      <StackPane fx:id="sp_sub" layoutX="110.0" prefHeight="583.0" prefWidth="918.0">
+         <children>
+            <AnchorPane fx:id="ap_cadastros" maxHeight="583.0" maxWidth="918.0" minHeight="583.0" minWidth="918.0" prefHeight="583.0" prefWidth="918.0" styleClass="branco" stylesheets="@css/backgroundCadastro.css" />
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

@@ -52,6 +52,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -332,6 +334,17 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	void OnActionConfirmar(ActionEvent event) {
+		confirmar();
+	}
+
+	@FXML
+	void OnActionConfirmarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			confirmar();
+		}
+	}
+
+	public void confirmar() {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		usuarioAutorizou = usuarioDAO.login(txt_login.getText(), txt_senha.getText());
 		if (usuarioAutorizou != null && usuarioAutorizou.getTipo().equals("ADMIN") == true) {
@@ -350,6 +363,17 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	void OnActionVoltar(ActionEvent event) {
+		voltar();
+	}
+
+	@FXML
+	void OnActionVoltarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			voltar();
+		}
+	}
+
+	public void voltar() {
 		hbox_login.setVisible(false);
 		ativaTela();
 		txt_senha.setText("");
@@ -359,7 +383,6 @@ public class CaixaController implements Initializable {
 		btn_Sair.setDisable(false);
 		btn_Novo.setDisable(false);
 		carregaTela();
-
 	}
 
 	@Override
@@ -409,8 +432,7 @@ public class CaixaController implements Initializable {
 		}
 	}
 
-	@FXML
-	void OnActionAbrir(ActionEvent event) {
+	public void abrir() {
 		FXNotification fxn;
 		boolean erro = false;
 		caixa = new Caixa();
@@ -466,6 +488,18 @@ public class CaixaController implements Initializable {
 			fxn = new FXNotification("Informe os dados corretamente", FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
+	}
+
+	@FXML
+	void OnActionAbrirEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			abrir();
+		}
+	}
+
+	@FXML
+	void OnActionAbrir(ActionEvent event) {
+		abrir();
 	}
 
 	public void carregaTela() {
@@ -541,8 +575,7 @@ public class CaixaController implements Initializable {
 		btn_Editar.setDisable(true);
 	}
 
-	@FXML
-	void OnActionFechar(ActionEvent event) {
+	public void enter() {
 		txt_cartaoCredito.setText("");
 		txt_cartaoDebito.setText("");
 		txt_cheque.setText("");
@@ -566,11 +599,21 @@ public class CaixaController implements Initializable {
 		caixaDAO.merge(caixa);
 		btn_fecharCaixa.setDisable(true);
 		btn_abrirCaixa.setDisable(false);
-
 	}
 
 	@FXML
-	void OnActionNovo(ActionEvent event) {
+	void OnActionFechar(ActionEvent event) {
+		enter();
+	}
+
+	@FXML
+	void OnActionFecharEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			enter();
+		}
+	}
+
+	public void carregaNovo() {
 		// hb_gerenciamentoCaixa.setVisible(true);
 		hbox_login.setVisible(true);
 		vb_caixaInicial.setDisable(true);
@@ -581,7 +624,30 @@ public class CaixaController implements Initializable {
 	}
 
 	@FXML
+	void OnActionNovo(ActionEvent event) {
+		carregaNovo();
+	}
+
+	@FXML
+	void OnActionNovoEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaNovo();
+		}
+	}
+
+	@FXML
 	void OnActionSairAbrir(ActionEvent event) {
+		carregaSairAbrir();
+	}
+
+	@FXML
+	void OnActionSairAbrirEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaSairAbrir();
+		}
+	}
+
+	public void carregaSairAbrir() {
 		hb_gerenciamentoCaixa.setVisible(false);
 		vb_caixaInicial.setDisable(false);
 		carregaTela();
@@ -620,24 +686,55 @@ public class CaixaController implements Initializable {
 
 	@FXML
 	void OnActionSair(ActionEvent event) {
+		sair();
+	}
+
+	@FXML
+	void OnActionSairEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			sair();
+		}
+	}
+
+	public void sair() {
 		sp_caixa.setVisible(false);
 	}
 
 	@FXML
 	void OnActionCancelar(ActionEvent event) {
+		carregaCancelar();
+	}
+
+	@FXML
+	void OnActionCancelarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaCancelar();
+		}
+	}
+
+	public void carregaCancelar() {
 		btn_Cancelar.setDisable(true);
 		btn_Editar.setDisable(true);
 	}
 
-	@FXML
-	void OnActionEditar(ActionEvent event) {
+	public void carregaEditar() {
 		btn_Editar.setDisable(true);
 		vb_caixaInicial.setDisable(true);
 		hbox_login.setVisible(true);
 		verificaCaixaAberto();
-
 	}
 
+	@FXML
+	void OnActionEditar(ActionEvent event) {
+		carregaEditar();
+	}
+
+	@FXML
+	void OnActionEditarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaEditar();
+		}
+	}
 
 	@FXML
 	void onActionClickViewCaixa(MouseEvent event) throws JRException {
@@ -666,7 +763,7 @@ public class CaixaController implements Initializable {
 				return null;
 			}
 		};
-		
+
 		task.setOnSucceeded((event1) -> {
 			Platform.runLater(() -> {
 				try {

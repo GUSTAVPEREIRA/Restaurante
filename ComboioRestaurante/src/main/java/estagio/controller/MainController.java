@@ -21,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
@@ -47,7 +48,14 @@ public class MainController implements Initializable {
 	@FXML
 	private AnchorPane ap_menu;
 	@FXML
+	private JFXButton btn_manual;
+	@FXML
 	private Label lbl_login;
+	@FXML
+	private StackPane sp_sub;
+
+	@FXML
+	private AnchorPane ap_cadastros;
 
 	public void carregaCadastro() throws IOException {
 		Node node;
@@ -149,6 +157,24 @@ public class MainController implements Initializable {
 	@FXML
 	void onActionRelatorio(ActionEvent event) throws IOException {
 		carregaRelatorio();
+	}
+
+	@FXML
+	void onActionManual(ActionEvent event) throws IOException {
+		carregaManual();
+	}
+
+	public void carregaManual() throws IOException {
+		Node node;
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/ManualUsuarioFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+
+	@FXML
+	void onActionManualEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaManual();
+		}
 	}
 
 }

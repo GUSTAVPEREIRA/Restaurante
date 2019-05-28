@@ -103,7 +103,7 @@ ORDER BY cp.cp_id DESC,pp.cpp_numeroparcela ASC]]>
 		<variableExpression><![CDATA[$F{cpp_valorpgto}.intValue()==0?$F{cpp_valor}:0]]></variableExpression>
 		<initialValueExpression><![CDATA[0]]></initialValueExpression>
 	</variable>
-	<group name="Group1">
+	<group name="Group1" keepTogether="true">
 		<groupExpression><![CDATA[$F{cp_id}]]></groupExpression>
 		<groupHeader>
 			<band height="60">
