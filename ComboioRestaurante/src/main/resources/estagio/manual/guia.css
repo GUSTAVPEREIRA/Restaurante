@@ -49,13 +49,6 @@ aside li {
 	display: block;
 }
 
-footer {
-	padding: 16px;
-	background-color: #0cb388;
-	color: #F2FFFC;
-	background-color: #0cb388;
-}
-
 nav a {
 	color: #F2FFFC;
 }
@@ -71,7 +64,7 @@ ul li a {
 	color: inherit;
 }
 
-blockquote, footer {
+blockquote {
 	padding: 20px 40px;
 }
 
@@ -132,6 +125,7 @@ aside h1 {
 main {
 	float: left;
 	width: 80%;
+	padding-bottom: 80px;
 }
 
 main div {
@@ -156,6 +150,14 @@ main div {
 }
 
 footer {
-	border-top: 10px solid black;
-	clear: both;
+	border-top: 5px solid black;
+	box-sizing: border-box;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	left: 0px;
+	padding: 8px;
+	background-color: #0cb388;
+	color: #F2FFFC;
+	background-color: #0cb388;
 }
