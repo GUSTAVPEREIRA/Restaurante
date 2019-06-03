@@ -684,6 +684,9 @@ public class CaixaController implements Initializable {
 		btn_Cancelar.setDisable(false);
 	}
 
+
+	
+	
 	@FXML
 	void OnActionSair(ActionEvent event) {
 		sair();

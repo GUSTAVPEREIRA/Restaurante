@@ -64,6 +64,14 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
+            <JFXButton fx:id="btn_backup" buttonType="RAISED" contentDisplay="TEXT_ONLY" graphicTextGap="2.0" onAction="#onActionBackup" onKeyPressed="#onActionManualEnter" prefHeight="34.0" prefWidth="109.0" styleClass="menuCadastro" stylesheets="@css/buttons.css" text="Backup">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LINE_CHART" size="16" />
+               </graphic>
+            </JFXButton>
          </children>
       </VBox>
       <StackPane fx:id="sp_sub" layoutX="110.0" prefHeight="583.0" prefWidth="918.0">

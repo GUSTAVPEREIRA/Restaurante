@@ -42,6 +42,8 @@ public class MainController implements Initializable {
 	@FXML
 	private JFXButton btn_sair;
 	@FXML
+	private JFXButton btn_backup;
+	@FXML
 	private JFXButton btn_texto;
 	@FXML
 	private VBox VB_Menu;
@@ -94,6 +96,13 @@ public class MainController implements Initializable {
 		}
 	}
 
+	@FXML
+	private void OnActionBackupEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaCadastro();
+		}
+	}
+	
 	@FXML
 	void OnActionSairEnter(KeyEvent event) throws IOException {
 
@@ -164,6 +173,17 @@ public class MainController implements Initializable {
 		carregaManual();
 	}
 
+	@FXML
+	void onActionBackup(ActionEvent event) throws IOException {
+		carregaBackup();
+	}
+	
+	public void carregaBackup() throws IOException {
+		Node node;
+		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/BackupFXML.fxml"));
+		ap_cadastros.getChildren().setAll(node);
+	}
+	
 	public void carregaManual() throws IOException {
 		Node node;
 		node = (Node) FXMLLoader.load(getClass().getResource("/estagio/view/ManualUsuarioFXML.fxml"));

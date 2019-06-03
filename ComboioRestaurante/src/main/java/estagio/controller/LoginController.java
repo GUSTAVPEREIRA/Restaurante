@@ -88,6 +88,13 @@ public class LoginController implements Initializable {
 				FXNotificationFactory.initialize(sp_login);
 			}
 		});
+		usuarioDAO = new UsuarioDAO();
+		
+		if (usuarioDAO.count_tipo("ADMIN") == 0) {
+			Usuario usuario = new Usuario(null,  "ADMIN", "ADMIN","ADMIN","ATIVADO","ADMIN");
+			usuarioDAO = new UsuarioDAO();
+			usuarioDAO.inserir(usuario);
+		}
 
 	}
 
