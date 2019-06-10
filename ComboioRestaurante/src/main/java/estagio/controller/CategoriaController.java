@@ -162,6 +162,8 @@ public class CategoriaController implements Initializable {
 		btn_Cancelar.setDisable(true);
 		categoria = new Categoria();
 		categoriaDAO = new CategoriaDAO();
+		txt_nome.setStyle(corNormal);
+		ctm_nome.hide();
 	}
 
 	public void ativaTela() {
@@ -218,7 +220,7 @@ public class CategoriaController implements Initializable {
 
 	@FXML
 	private void OnActionGravarEnter(KeyEvent event) {
-		if (event.getCode() == KeyCode.ENTER) {
+		if (event.getCode() == KeyCode.ENTER && event.getCode() == KeyCode.F2) {
 			grava();
 		}
 	}

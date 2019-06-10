@@ -287,6 +287,13 @@ public class FornecedorController implements Initializable {
 		txt_telefone.setStyle(corNormal);
 		txt_cnpj.setStyle(corNormal);
 		txt_ie.setStyle(corNormal);
+		ctm_cep.hide();
+		ctm_cidade.hide();
+		ctm_cnpj.hide();
+		ctm_ie.hide();
+		ctm_nome.hide();
+		ctm_telefone.hide();
+		ctm_uf.hide();
 		cbb_est.setStyle(corNormal);
 		cbb_cidade.setStyle(corNormal);
 		txt_codigo.setText("0");
@@ -305,8 +312,23 @@ public class FornecedorController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionBuscarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_busca.setVisible(true);
+			carregaTela(txt_filtro.getText());
+		}
+	}
+
+	@FXML
 	private void OnActionNovo(ActionEvent event) {
 		desativaTela();
+	}
+
+	@FXML
+	private void OnActionNovoEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
 	}
 
 	public void gravar() {
@@ -412,13 +434,11 @@ public class FornecedorController implements Initializable {
 				fxn = new FXNotification("Fornecedores já possuem o mesmo CNPJ.",
 						FXNotification.NotificationType.WARNING);
 				txt_cnpj.setStyle(corErro);
-			}
-			else
-			{
+			} else {
 				desativaTela();
 			}
 			fxn.show();
-			
+
 		} else {
 			FXNotification fxn;
 			fxn = new FXNotification("Corrija os erros em vermelho.", FXNotification.NotificationType.ERROR);
@@ -429,6 +449,20 @@ public class FornecedorController implements Initializable {
 	@FXML
 	private void OnActionGravar(ActionEvent event) {
 		gravar();
+	}
+
+	@FXML
+	void OnActionGravarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			gravar();
+		}
+	}
+
+	@FXML
+	private void OnActionExcluirEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			excluir();
+		}
 	}
 
 	@FXML
@@ -476,10 +510,24 @@ public class FornecedorController implements Initializable {
 	private void OnActionCancelar(ActionEvent event) {
 		desativaTela();
 	}
+	
+	@FXML
+	private void OnActionCancelarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			desativaTela();
+		}
+	}
 
 	@FXML
 	private void OnActionSair(ActionEvent event) {
 		ap_fornecedor.setVisible(false);
+	}
+
+	@FXML
+	private void OnActionSairEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_fornecedor.setVisible(false);
+		}
 	}
 
 	@FXML

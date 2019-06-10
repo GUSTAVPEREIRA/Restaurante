@@ -211,6 +211,15 @@ public class EstadoController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionBuscarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_busca.setVisible(true);
+			carregaTela(txt_filtro.getText());
+		}
+
+	}
+
+	@FXML
 	private void OnActionCancelar(ActionEvent event) {
 		estado = new Estado();
 		estadoDAO = new EstadoDAO();
@@ -218,8 +227,24 @@ public class EstadoController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionCancelarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			estado = new Estado();
+			estadoDAO = new EstadoDAO();
+			desativaTela();
+		}
+	}
+
+	@FXML
 	private void OnActionExcluir(ActionEvent event) {
 		excluir();
+	}
+
+	@FXML
+	private void OnActionExcluirEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			excluir();
+		}
 	}
 
 	public void excluir() {
@@ -303,20 +328,23 @@ public class EstadoController implements Initializable {
 			desativaTela();
 			resetaDAO();
 
-		}
-		else
-		{
+		} else {
 			FXNotification fxn;
-			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
-					FXNotification.NotificationType.INFORMATION);
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.", FXNotification.NotificationType.ERROR);
 			fxn.show();
-			
 		}
 	}
 
 	@FXML
 	private void OnActionGravar(ActionEvent event) {
 		gravar();
+	}
+
+	@FXML
+	private void OnActionGravarEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			gravar();
+		}
 	}
 
 	@FXML
@@ -327,13 +355,36 @@ public class EstadoController implements Initializable {
 	}
 
 	@FXML
+	private void OnActionNovoEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			estado = new Estado();
+			resetaDAO();
+			desativaTela();
+		}
+	}
+
+	@FXML
 	private void OnActionSair(ActionEvent event) {
 		ap_estado.setVisible(false);
 	}
 
 	@FXML
+	private void OnActionSairEnter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			ap_estado.setVisible(false);
+		}
+	}
+
+	@FXML
 	private void OnActionVoltar(ActionEvent event) {
 		limpaBuscas();
+	}
+
+	@FXML
+	private void OnActionVoltarenter(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			limpaBuscas();
+		}
 	}
 
 	@FXML

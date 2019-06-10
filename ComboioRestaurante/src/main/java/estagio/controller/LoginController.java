@@ -5,7 +5,10 @@
  */
 package estagio.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -15,7 +18,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import estagio.dao.CidadeDAO;
+import estagio.dao.EmpresaDAO;
 import estagio.dao.UsuarioDAO;
+import estagio.model.Cidade;
+import estagio.model.Empresa;
 import estagio.model.Usuario;
 import estagio.ui.notifications.FXNotification;
 import estagio.ui.notifications.FXNotificationFactory;
@@ -73,6 +80,25 @@ public class LoginController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		try {
+			ProcessBuilder pb2 = new ProcessBuilder("psql", "--host=localhost", "--port=5432", "--username=postgres",
+					"--command=CREATE DATABASE restaurante");
+			pb2.environment().put("PGPASSWORD", "postgres123");
+			final Process process2 = pb2.start();
+
+			final BufferedReader r2 = new BufferedReader(new InputStreamReader(process2.getErrorStream()));
+			String line = r2.readLine();
+			while (line != null) {
+				System.err.println(line);
+				line = r2.readLine();
+			}
+			r2.close();
+
+			process2.waitFor();
+			process2.destroy();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		txt_login.setText("");
 		txt_senha.setText("");
 		new Usuario();
@@ -88,12 +114,31 @@ public class LoginController implements Initializable {
 				FXNotificationFactory.initialize(sp_login);
 			}
 		});
+		
+		
+		
 		usuarioDAO = new UsuarioDAO();
 		
 		if (usuarioDAO.count_tipo("ADMIN") == 0) {
 			Usuario usuario = new Usuario(null,  "ADMIN", "ADMIN","ADMIN","ATIVADO","ADMIN");
 			usuarioDAO = new UsuarioDAO();
 			usuarioDAO.inserir(usuario);
+			EmpresaDAO empresaDAO = new EmpresaDAO(); 
+			Empresa empresa = new Empresa();
+			empresa.setCep("19210-000");
+			empresa.setIe("488094250362");
+			empresa.setCnpj("44.860.740/0001-73");
+			empresa.setNome("RESTAURANTE COMBOIO");
+			empresa.setTelefone("(18) 32891501");
+			InputStream imageStream = this.getClass().getResourceAsStream("/estagio/view/resources/logoPosto2.png");
+			empresa.setCaminho_imgem(imageStream.toString());
+			CidadeDAO cidadeDAO = new CidadeDAO();
+			Cidade cidade = new Cidade();
+			cidade.setId((long) 3553906);
+			cidade = cidadeDAO.listar(cidade.getId());
+			empresa.setCidade(cidade);
+			empresa.setId(null);
+			empresaDAO.inserir(empresa);
 		}
 
 	}

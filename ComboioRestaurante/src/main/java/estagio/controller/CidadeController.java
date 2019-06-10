@@ -199,6 +199,13 @@ public class CidadeController implements Initializable {
 		estado = new Estado();
 		cidade = new Cidade();
 		autoCompletePopupEst.hide();
+		ctm_nome.hide();
+		txt_nome.setStyle(corNormal);
+		ctm_estado.hide();
+		cbb_estId.setStyle(corNormal);
+		
+		
+		
 	}
 
 	@FXML

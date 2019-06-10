@@ -113,7 +113,7 @@ public class CidadeDAO {
 		return cidade;
 	}
 
-	public Cidade listar(int busca) {
+	public Cidade listar(Long busca) {
 		String jpql = "";
 		Cidade cidade = null;
 		List<Cidade> retorno = new ArrayList<Cidade>();

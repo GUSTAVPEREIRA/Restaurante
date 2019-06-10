@@ -69,6 +69,9 @@ public class BackupController {
 	void OnActionBackup(ActionEvent event) throws IOException, InterruptedException {
 
 		if (fileBackup != null) {
+			FXNotification fxn;
+			fxn = new FXNotification("Aguarde alguns segundos.", FXNotification.NotificationType.INFORMATION);
+			fxn.show();
 			fazBackup(fileBackup.getAbsolutePath());
 		} else {
 			FXNotification fxn;
@@ -94,12 +97,12 @@ public class BackupController {
 	@FXML
 	void OnActionRestore(ActionEvent event) throws IOException, InterruptedException {
 		if (fileRestore != null) {
+			new FXNotification("Aguarde alguns segundos.", FXNotification.NotificationType.INFORMATION).show();
 			restaura(fileRestore.getAbsolutePath());
 		} else {
-			FXNotification fxn;
-			fxn = new FXNotification("Selecione o caminho para realizar o restaurar",
-					FXNotification.NotificationType.WARNING);
-			fxn.show();
+
+			new FXNotification("Selecione o caminho para realizar o restaurar", FXNotification.NotificationType.WARNING)
+					.show();
 		}
 	}
 
@@ -278,16 +281,14 @@ public class BackupController {
 			process.waitFor();
 			process.destroy();
 			FXNotification fxn;
-			fxn = new FXNotification("Backup concluído.",
-					FXNotification.NotificationType.INFORMATION);
+			fxn = new FXNotification("Backup concluído.", FXNotification.NotificationType.INFORMATION);
 			fxn.show();
 
 		} catch (IOException e) {
 			FXNotification fxn;
-			fxn = new FXNotification(e.getMessage()+"",
-					FXNotification.NotificationType.ERROR);
+			fxn = new FXNotification(e.getMessage() + "", FXNotification.NotificationType.ERROR);
 			fxn.show();
-			
+
 		} catch (InterruptedException ie) {
 			ie.printStackTrace();
 		}

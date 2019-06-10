@@ -661,7 +661,6 @@ public class ClienteController implements Initializable {
 		if (event.getCode() == KeyCode.ENTER) {
 			gravar();
 		}
-
 	}
 
 	@FXML
@@ -845,6 +844,19 @@ public class ClienteController implements Initializable {
 		txt_ie.setStyle(corNormal);
 		cbb_est.setStyle(corNormal);
 		cbb_cidade.setStyle(corNormal);
+		ctm_cep.hide();
+		ctm_cidade.hide();
+		ctm_cnpj.hide();
+		ctm_cpf.hide();
+		ctm_dataNasc.hide();
+		ctm_estadoCivil.hide();
+		ctm_ie.hide();
+		ctm_nome.hide();
+		ctm_nomeFantasia.hide();
+		ctm_rg.hide();
+		ctm_telefone.hide();
+		ctm_tipoP.hide();
+		ctm_uf.hide();
 		txt_codigo.setText("0");
 		btn_Excluir.setDisable(true);
 		btn_Cancelar.setDisable(true);

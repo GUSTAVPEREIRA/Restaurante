@@ -152,6 +152,7 @@ public class MainController implements Initializable {
 		if (LoginController.logado.getTipo().equals("ADMIN") == true) {
 			btn_financeiro.setDisable(false);
 			btn_relatorio.setDisable(false);
+			btn_backup.setDisable(false);
 		}
 		btn_texto.setText("Olá,\n" + LoginController.logado.getNome());
 	}
@@ -190,6 +191,13 @@ public class MainController implements Initializable {
 		ap_cadastros.getChildren().setAll(node);
 	}
 
+	@FXML
+	void onActionBackupEnter(KeyEvent event) throws IOException {
+		if (event.getCode() == KeyCode.ENTER) {
+			carregaBackup();
+		}
+	}
+	
 	@FXML
 	void onActionManualEnter(KeyEvent event) throws IOException {
 		if (event.getCode() == KeyCode.ENTER) {

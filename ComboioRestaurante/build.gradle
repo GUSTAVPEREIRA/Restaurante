@@ -1,6 +1,7 @@
 plugins {
 	id 'application'
 	id 'eclipse'
+	id 'edu.sc.seis.launch4j' version '2.4.6'
 }
 
 application {
@@ -21,6 +22,18 @@ repositories {
     maven { url "https://dl.bintray.com/jerady/maven" }
     jcenter()
 }
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+
+launch4j {
+	mainClassName = 'estagio.executar.Estagio'
+	icon = "${projectDir}/src/main/resources/estagio/manual/iconPosto.ico"
+	outputDir = "launch4j/RestauranteComboio"
+}
+
 
 dependencies {
 
@@ -47,7 +60,7 @@ dependencies {
 	
 	//jasperreports
 	implementation 'net.sf.jasperreports:jasperreports:6.8.0'
-	
+		
 	//hsqldb lib for testing purposes
 	//compile 'org.hsqldb:hsqldb:2.4.1'
 	implementation 'org.hsqldb:hsqldb:2.4.1'

@@ -160,6 +160,7 @@ public class UsuarioController implements Initializable {
 	private TextFieldFormatterHelper tffh;
 	private Long qt;
 	private String antTipo;
+	private String antAtivado;
 	@FXML
 	private AnchorPane ap_usuario;
 
@@ -358,7 +359,9 @@ public class UsuarioController implements Initializable {
 			} else {
 				qt = usuarioDAO.count_tipo("ADMIN");
 				resetaDAO();
-				if (antTipo.equals(usuario.getTipo()) == false && antTipo.equals("ADMIN")) {
+				if (antTipo.equals(usuario.getTipo()) == false && antTipo.equals("ADMIN")
+						|| antAtivado.equals(usuario.getAtivo()) == false && antAtivado.equals("ATIVADO")
+								&& antTipo.equals("ADMIN")) {
 					if (qt < 2) {
 						erro = true;
 					}
@@ -369,21 +372,16 @@ public class UsuarioController implements Initializable {
 							FXNotification.NotificationType.INFORMATION);
 					fxn.show();
 					desativaTela();
-				}
-				else
-				{
+				} else {
 					fxn = new FXNotification("Não foi possível alterar o usuário, pois há somente um ADMIN.",
 							FXNotification.NotificationType.ERROR);
 					fxn.show();
 				}
 			}
-			
-		}
-		else
-		{
+
+		} else {
 			FXNotification fxn;
-			fxn = new FXNotification("Corrija os erros destacados em vermelho.",
-					FXNotification.NotificationType.ERROR);
+			fxn = new FXNotification("Corrija os erros destacados em vermelho.", FXNotification.NotificationType.ERROR);
 			fxn.show();
 		}
 	}
@@ -499,6 +497,7 @@ public class UsuarioController implements Initializable {
 		cbb_ativo.getSelectionModel().select(usuario.getAtivo());
 		cbb_tipo.getSelectionModel().select(usuario.getTipo());
 		antTipo = usuario.getTipo();
+		antAtivado = usuario.getAtivo();
 		limpaBuscas();
 		ativaTela();
 	}
